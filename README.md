@@ -116,7 +116,7 @@ If you don't remember the unit abbreviation just simply type the name for exampl
 <img src="./assets/unit.gif">
 </p>
 
-Finally if you still don't remember the unit abbreviation or it's name simply type **convert units** to view the list of available units, you can filter the units for example **convert units sec** and you'll see seconds, milisecond, microsecond, nanosecond, etc. along with the unit abbreviations
+Finally if you still don't remember the unit abbreviation or it's name simply type **calculate list** and select **List Available Units** you can type to filter, etc.
 
 Here is a list of all available units and their names just to make this Readme long.
 
@@ -388,7 +388,7 @@ If the user the types:
 There is no limit in the keywords that you can add.
 
 ## **Stop Words**
-Stop words are words that can be used in the query when using natural languge for example **100km to cm** - here the stop word is **"to"**
+Stop words are words that can be used in the query when using natural language for example **100km to cm** - here the stop word is **"to"**
 
 Stop words are useful for two things
 1. Allows the user to write more naturally and in their own language (e.g 100 dolares a mxn) "a" is the stop word
@@ -396,7 +396,7 @@ Stop words are useful for two things
 
 **100km equals meters**
 
-if the word **"equals"** is not registered in the stop_words array then it won't be processd. At the end this stop words are removed so 100km to cm becomes 100km cm.
+if the word **"equals"** is not registered in the stop_words array then it won't be processed. At the end this stop words are removed so 100km to cm becomes 100km cm.
 
 You can modify stop words in the same keys file for example /lang/en_EN-keys.php.
 
