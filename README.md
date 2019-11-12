@@ -15,6 +15,10 @@ There are several workflows out there but i just needed a workflow that worked n
 - **Translations** You can create your own translations to display results in your language
 - **Keywords** Extend the natural language in the queries so you can type 100 dolares a pesos and the code will see 100usd to mxn
 
+
+## Download
+Download directly from the releases page, make sure to download the latest release. [Download here](https://github.com/biati-digital/alfred-calculate-anything/releases/)
+
 ## Base Configuration
 There's only one global configuration and is the language, this configuration will be used to display the messages in your own language. View the Translations secction for the available languaes.
 
