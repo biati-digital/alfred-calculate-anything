@@ -1,0 +1,5 @@
+{
+    "require": {
+        "jenssegers/date": "^3.5"
+    }
+}
