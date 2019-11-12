@@ -3,14 +3,14 @@
 Calculate Anything is a workflow for Alfred 4, that uses **natural language** and is able to calculate multiple things like currency, time, vat, percentage, etc.
 
 ## Why?
-There are several workflows out there but i just needed a workflow that worked naturally for example you can open alfred and type 100 + 9 and alfred will give you a result no need for keywords or hotkeys it just works, i wanted to be able to jus type 100 + 16% or 100 euros to usd or 100km to cm or 100 years to hours and a large etc. and so this workflow was created.
+There are several workflows out there but i just needed a workflow that worked naturally for example you can open alfred and type 100 + 9 and alfred will give you a result no need for keywords or hotkeys it just works, i wanted to be able to just type 100 + 16% or 100 euros to usd or 100km to cm or 100 years to hours and a large etc. and so this workflow was created.
 
 ## Features
-- **Natural language** - type 100 euros to dollars or 100€ to $ or 100eur usd .It does not matter, the same result will be displayed.
+- **Natural language** - type 100 euros to dollars or 100€ to $ or 100eur usd or 100 euros a dolares. It does not matter, the same result will be displayed.
 - **Currency** - No need to enter API keys
-- **Units** - 100km to cm? or maybe 100hr s
+- **Units** - 100 kilometers to meters or 100 km to m or simply 100km m
 - **Percentages** - 100 + 16% | 100 - 16% etc.
-- **Time** - time +15 years? or need to convert a timestamp?
+- **Time** - time +15 years? now plus 6 hours? or need to convert a timestamp?
 - **VAT** - value added tax calculations, we all need this
 - **Translations** You can create your own translations to display results in your language
 - **Keywords** Extend the natural language in the queries so you can type 100 dolares a pesos and the code will see 100usd to mxn
