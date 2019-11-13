@@ -75,7 +75,7 @@ return [
         'ounces' => 'oz',
         'ounce' => 'oz',
 
-        'stop_words' => ['to', '=']
+        'stop_words' => ['to', '=', 'in']
     ],
     'time' => [
         'ahora' => 'now',
@@ -89,7 +89,7 @@ return [
         'start of' => ['start of'],
         'end of' => ['end of'],
 
-        'stop_words' => ['to', '=']
+        'stop_words' => ['to', '=', 'in']
     ],
     'currency' => [
         '€' => 'EUR',
@@ -137,11 +137,11 @@ return [
         'dollar' => 'USD',
         'dollars' => 'USD',
 
-        'stop_words' => ['to', '='],
+        'stop_words' => ['to', '=', 'in'],
     ],
     'percentage' => [
         'plus' => '+',
         'minus' => '-',
-        'stop_words' => ['of']
+        'stop_words' => ['of', 'in']
     ]
 ];
