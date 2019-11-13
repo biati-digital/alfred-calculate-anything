@@ -7,7 +7,7 @@ There are several workflows out there but i just needed a workflow that worked n
 
 ## Features
 - **Natural language** - type 100 euros to dollars or 100 euros in usd or 100€ to $ or 100eur usd or 100 euros a dolares. It does not matter, the same result will be displayed.
-- **Currency** - No need to enter API keys
+- **Currency** - Up to 168 currencies
 - **Units** - 100 kilometers to meters or 100 km to m or simply 100km m
 - **Percentages** - 100 + 16% | 100 - 16% etc.
 - **Time** - time +15 years? now plus 6 hours? or need to convert a timestamp?
@@ -24,7 +24,9 @@ There's only one global configuration and is the language, this configuration wi
 
 Configure it with.
 
-- **calculate set language es_ES** es_ES is for spanish, en_EN english, or simply use your country language code. **Default is en_EN**
+- **calculate set language es_ES**
+
+es_ES is for spanish, en_EN english, or simply use your country language code. Please check the translations section to see if a translation to your language is available. **Default is en_EN**
 
 ## Currency
 You can use natural language or type a few characters and that's all, for example:
@@ -45,10 +47,21 @@ All this examples will simply work, you can add spaces between the value and the
 
 
 ### Currency Configuration
+By default the workflow will use exchangerates api to make the conversion, exchangerates has only support for 32 currencies, if you need support for all the currencies that this worflow includes you need to get a FREE API Key from https://fixer.io it takes less than a minute.
+
 You can configure the currency with the options below.
 
-- **calculate set currency MXN** This will become your base currency, if you type 100eur it will automatically be converted to mxn
-- **calculate set currency locale en_US** used to give format to the converted amount
+- **calculate set currency MXN**
+
+This will become your base currency, if you type 100eur it will automatically be converted to mxn
+
+- **calculate set currency locale en_US**
+
+Used to give format to the converted amount
+
+- **calculate set fixerapi {yourapihere}**
+
+Set your fixer API Key for support more currencies
 
 ### Currency Symbols
 You can use currency symbols in your query for example **100¥ to €** will be converted to 100JPY to EUR, here is a list of available symbols.
@@ -310,14 +323,21 @@ Time is triggered by a keyword because is not often used so you can simply open 
 </p>
 
 ### Time Configuration
-You can configure the currency with the options below.
 
-- **calculate set base timezone America/Los_Angeles** Configure your base time zone.
-- **calculate add timezone F jS, Y, g:i:s a** Add multiple time zones formats so you can get your date the way you want.
-- **calculate delete timezone** List stored formats and select the one you want to delete
+- **calculate set base timezone America/Los_Angeles**
 
-### Time Date Formats
-You can add all the date formats you want
+Configure your base time zone.
+
+- **calculate add timezone F jS, Y, g:i:s a**
+
+Add multiple time zones formats so you can get your date the way you want.
+
+- **calculate delete timezone**
+
+List stored formats and select the one you want to delete and simply press enter.
+
+### Example adding time daate formats
+You can add all the date formats you want simply launch alfred and type:
 
 - **calculate add timezone F jS, Y, g:i:s a**
 - **calculate add timezone j F, Y, g:i:s a**
@@ -417,8 +437,12 @@ For Currency, Percentages and Units this workflow will only process the query if
 
 ## Changelog
 
+### 1.0.2
+- Added support for fixer.io
+- Some cleanup
+
 ### 1.0.1
-- FIXED Decimal points to display values correcly from currencies
+- FIXED Decimal pints to display values correcly from currencies
 - FIXED currency conversions to base currency always displayed the $ symbol
 - FIXED currency conversions from base currency eur to EUR triggered error
 
