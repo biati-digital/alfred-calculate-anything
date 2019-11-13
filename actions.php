@@ -10,7 +10,7 @@ require __DIR__ . '/functions.php';
 $settings = get_settings();
 
 $type = get_var($argv, 1);
-$value = get_var($argv, 2);
+$value = get_var($argv, 2, '');
 
 if (empty($type)) {
     die();
