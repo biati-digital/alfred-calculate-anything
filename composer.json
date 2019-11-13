@@ -1,0 +1,8 @@
+{
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "jenssegers/date": "^3.5"
+    }
+}
