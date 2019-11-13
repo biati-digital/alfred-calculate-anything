@@ -437,6 +437,9 @@ For Currency, Percentages and Units this workflow will only process the query if
 
 ## Changelog
 
+### 1.0.3
+- Changed currency cache expiration to 2 hours for fixer.io and 12 hours for exchangerates
+
 ### 1.0.2
 - Added support for fixer.io
 - Some cleanup
