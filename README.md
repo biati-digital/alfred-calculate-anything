@@ -418,7 +418,7 @@ For Currency, Percentages and Units this workflow will only process the query if
 ## Changelog
 
 ### 1.0.1
-- FIXED Decimal pints to display values correcly from currencies
+- FIXED Decimal points to display values correcly from currencies
 - FIXED currency conversions to base currency always displayed the $ symbol
 - FIXED currency conversions from base currency eur to EUR triggered error
 
