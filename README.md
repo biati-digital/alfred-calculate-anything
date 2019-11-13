@@ -6,7 +6,7 @@ Calculate Anything is a workflow for Alfred 4, that uses **natural language** an
 There are several workflows out there but i just needed a workflow that worked naturally for example you can open alfred and type 100 + 9 and alfred will give you a result no need for keywords or hotkeys it just works, i wanted to be able to just type 100 + 16% or 100 euros to usd or 100km to cm or 100 years to hours and a large etc. and so this workflow was created.
 
 ## Features
-- **Natural language** - type 100 euros to dollars or 100€ to $ or 100eur usd or 100 euros a dolares. It does not matter, the same result will be displayed.
+- **Natural language** - type 100 euros to dollars or 100 euros in usd or 100€ to $ or 100eur usd or 100 euros a dolares. It does not matter, the same result will be displayed.
 - **Currency** - No need to enter API keys
 - **Units** - 100 kilometers to meters or 100 km to m or simply 100km m
 - **Percentages** - 100 + 16% | 100 - 16% etc.
@@ -32,6 +32,7 @@ You can use natural language or type a few characters and that's all, for exampl
 ```
 - 100 usd to mxn
 - 100€ to $
+- 100 usd in mxn
 - 100 euros to dollars
 - 100 euros a dolares (you can also write it in your own language)
 - 100eur (If no target the currency will be converted to the base currency that you configured)
@@ -415,6 +416,11 @@ You can modify stop words in the same keys file for example /lang/en_EN-keys.php
 For Currency, Percentages and Units this workflow will only process the query if it begins with a digit and it has at least 3 characters, it's really fast. Time and VAT have a keyword because those are not often used.
 
 ## Changelog
+
+### 1.0.1
+- FIXED Decimal pints to display values correcly from currencies
+- FIXED currency conversions to base currency always displayed the $ symbol
+- FIXED currency conversions from base currency eur to EUR triggered error
 
 ### 1.0.0
 - Initial release
