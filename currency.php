@@ -304,6 +304,7 @@ function currency_stopwords($sep = false)
 function process_currency_conversion($query)
 {
     $settigs = get_settings();
+    $fixer_api = get_setting('fixer_apikey', '', $settigs);
     $regex = available_currencies_regex();
     $stopwords = currency_stopwords(' %s ?');
     $query = preg_replace('!\s+!', ' ', $query);
@@ -360,7 +361,13 @@ function process_currency_conversion($query)
 
     // Convert between currencies
     if ($from_currency !== $to_currency) {
-        $converted = convert_currency($from_amount, $from_currency, $to_currency);
+        // $converted = convert_currency($from_amount, $from_currency, $to_currency);
+        $converted = convert_currency([
+            'amount' => $from_amount,
+            'currency' => $from_currency,
+            'to' => $to_currency,
+            'fixer_api' => $fixer_api,
+        ]);
     }
 
     if ($converted['error']) {
@@ -393,13 +400,49 @@ function process_currency_conversion($query)
  * @param string $to
  * @return array
  */
-function convert_currency($amount, $from, $to)
+function convert_currency($data)
 {
-    include_required_files();
-
-    $cache_seconds = 21600; // 6 hours in seconds
+    $amount = $data['amount'];
+    $from = $data['currency'];
+    $to = $data['to'];
+    $fixer_apikey = $data['fixer_api'];
+    $cache_seconds = 86400; // 24 hours in seconds
     $cache_dir = get_data_path('cache');
-    $cache_exists = create_dir($cache_dir);
+
+    create_dir($cache_dir);
+
+    // Use Fixer io
+    if (!empty($fixer_apikey)) {
+        $cached = get_cache_fixer($from, $to, $cache_seconds);
+        if ($cached) {
+            $cached = (float) $cached;
+            $value = $cached;
+        }
+
+        if (!$cached) {
+            $exchange = get_fixer_rates($fixer_apikey, $cache_seconds);
+
+            if (is_string($exchange)) {
+                return ['total' => '', 'single' => '', 'error' => $exchange];
+            }
+
+            $base = $exchange['base'];
+            $rates = $exchange['rates'];
+            $default_base_currency = $rates[$base];
+
+            $new_base_currency = $rates[$from]; //from currency
+            $base_exchange = $default_base_currency / $new_base_currency;
+            $value = ($rates[$to] * $base_exchange);
+
+            cache_fixer($from, $to, $value);
+        }
+
+        return ['total' => $amount * $value, 'single' => $value, 'error' => false];
+    }
+
+
+    // Default convertions with to exchangeratesapi.io
+    include_required_files();
 
     $converter = new CurrencyConverter\CurrencyConverter;
     $cache_adapter = new CurrencyConverter\Cache\Adapter\FileSystem($cache_dir);
@@ -427,6 +470,106 @@ function convert_currency($amount, $from, $to)
 
     return ['total' => $amount * $value, 'single' => $value, 'error' => false];
 }
+
+
+/**
+ * Cached fixer
+ *
+ * @param string $from
+ * @param string $to
+ * @param string $value
+ * @return void
+ */
+function cache_fixer($from, $to, $value)
+{
+    $dir = get_data_path('cache/fixer');
+    $exists = create_dir($dir);
+    $file = $dir . '/'. $from .'-'.$to.'.txt';
+
+    file_put_contents($file, $value);
+}
+
+/**
+ * Get fixer cache
+ * return the cached rate
+ *
+ * @param string $from
+ * @param string $to
+ * @param int $cache_seconds
+ * @return mixed
+ */
+function get_cache_fixer($from, $to, $cache_seconds)
+{
+    $dir = get_data_path('cache/fixer');
+    $file = $dir . '/' . $from . '-' . $to . '.txt';
+
+    create_dir($dir);
+
+    if (!file_exists($file)) {
+        return false;
+    }
+
+    $updated = filemtime($file);
+    $time = time() - $updated;
+
+    if ($time > $cache_seconds) { // cache already expired
+        return false;
+    }
+
+    $val = file_get_contents($file);
+    if (empty($val)) {
+        return false;
+    }
+
+    return $val;
+}
+
+
+/**
+ * Get rates from fixer
+ * if already cached and cache
+ * has not expired returns
+ * the cached rates otherwise
+ * it fetches the rates again
+ *
+ * @param string $key fixer api key
+ * @param int $cache_seconds number of seconds before the cache expires
+ * @return mixed array if sucess or string with error message
+ */
+function get_fixer_rates($key, $cache_seconds)
+{
+    $dir = get_data_path('cache/fixer');
+    create_dir($dir);
+
+    $file = $dir . '/rates.json';
+    if (file_exists($file)) {
+        $c = file_get_contents($file);
+
+        if (!empty($c)) {
+            $c = json_decode($c, true);
+            $updated = $c['timestamp'];
+            $time = time() - $updated;
+
+            // Only return cached rates if cache
+            // has not expired otherwise continue
+            // to fetch the new rates
+            if ($time < $cache_seconds) {
+                return $c;
+            }
+        }
+    }
+
+    $c = file_get_contents("http://data.fixer.io/api/latest?access_key={$key}&format=1");
+    if (empty($c)) {
+        $strings = get_translation('currency');
+        return $strings['fetch_error'];
+    }
+
+    file_put_contents($file, $c);
+
+    return json_decode($c, true);
+}
+
 
 
 /**
