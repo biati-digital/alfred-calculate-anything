@@ -13,7 +13,7 @@
  * calculate set language en
  */
 
-require __DIR__.'/time/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 require __DIR__.'/functions.php';
 
 use Jenssegers\Date\Date;
