@@ -406,13 +406,14 @@ function convert_currency($data)
     $from = $data['currency'];
     $to = $data['to'];
     $fixer_apikey = $data['fixer_api'];
-    $cache_seconds = 86400; // 24 hours in seconds
+    $cache_seconds = 43200; // 12 hours in seconds
     $cache_dir = get_data_path('cache');
 
     create_dir($cache_dir);
 
     // Use Fixer io
     if (!empty($fixer_apikey)) {
+        $cache_seconds = 7200;
         $cached = get_cache_fixer($from, $to, $cache_seconds);
         if ($cached) {
             $cached = (float) $cached;
