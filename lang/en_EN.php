@@ -311,6 +311,8 @@ return [
         'YER' => "Yemeni rial",
         'ZAR' => "South African rand",
         'ZMW' => "Zambian kwacha",
-        'ZWL' => "Zimbabwean dollar"
+        'ZWL' => "Zimbabwean dollar",
+
+        "fetch_error" => "Unable to get currencies data"
     ]
 ];

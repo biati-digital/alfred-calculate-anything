@@ -311,6 +311,8 @@ return [
         'YER' => "Rial Yemeni",
         'ZAR' => "Rand Surafricano",
         'ZMW' => "Kwacha Zambiano",
-        'ZWL' => "Dólar Zimbawense"
+        'ZWL' => "Dólar Zimbawense",
+
+        "fetch_error" => "Error al importar la información de cambio"
     ]
 ];
