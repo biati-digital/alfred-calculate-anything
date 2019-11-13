@@ -316,6 +316,8 @@ function process_currency_conversion($query)
     if (count($data) == 1) {
         $from = trim($data[0]);
         $to = get_setting('base_currency', 'USD', $settigs);
+        $to = strtoupper($to);
+        $to = trim($to);
     }
 
     if (count($data) == 2) {
@@ -346,21 +348,32 @@ function process_currency_conversion($query)
         return $from_amount . $to_currency;
     }
 
-    $from_amount = floatval($from_amount);
+    $from_amount = cleanup_number($from_amount);
 
     $locale = get_setting('locale_currency', 'en_US', $settigs);
     setlocale(LC_MONETARY, $locale);
 
-    $converted = convert_currency($from_amount, $from_currency, $to_currency);
+    // Skip same currency conversions
+    if ($from_currency == $to_currency) {
+        $converted = ['total' => $from_amount, 'single' => '1.00', 'error' => false];
+    }
+
+    // Convert between currencies
+    if ($from_currency !== $to_currency) {
+        $converted = convert_currency($from_amount, $from_currency, $to_currency);
+    }
 
     if ($converted['error']) {
         return $converted['error'];
     }
 
-    $total = money_format('%.2n', $converted['total']);
+    $total = money_format('%i', $converted['total']);
+    $total = preg_replace("/[^0-9.,]/", '', $total);
     $single = $converted['single'];
+    $single = format_number($converted['single']);
+
     $processed = [];
-    $processed[$total] = $total;
+    $processed[$total] = "{$total}{$to_currency}";
     $processed[$single] = "1{$from_currency} = {$single}{$to_currency}";
 
     return [
@@ -384,14 +397,20 @@ function convert_currency($amount, $from, $to)
 {
     include_required_files();
 
+    $cache_seconds = 21600; // 6 hours in seconds
+    $cache_dir = get_data_path('cache');
+    $cache_exists = create_dir($cache_dir);
+
     $converter = new CurrencyConverter\CurrencyConverter;
+    $cache_adapter = new CurrencyConverter\Cache\Adapter\FileSystem($cache_dir);
+    $cache_adapter->setCacheTimeout(DateInterval::createFromDateString($cache_seconds . ' second'));
+    $converter->setCacheAdapter($cache_adapter);
+
     $value = '';
     $error = false;
 
     try {
         $value = $converter->convert($from, $to);
-        $value = $value;
-        $value = (fmod($value, 1) !== 0.00 ? bcdiv($value, 1, 2) : $value);
     } catch (\Throwable $th) {
         $error = true;
         $message = $th->getMessage();

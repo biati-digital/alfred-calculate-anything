@@ -51,7 +51,30 @@ function save_settings($settings)
 
 function format_number($number)
 {
-    return (fmod($number, 1) !== 0.00 ? bcdiv($number, 1, 2) : number_format($number));
+    if (fmod($number, 1) !== 0.00) {
+        $decimals = 2;
+        $string = sprintf("%.10f", $number);
+        $string = explode('.', $string);
+        $string = str_split(end($string));
+
+        $count = 1;
+        foreach ($string as $order => $value) {
+            $prev = (isset($string[$order - 1]) ? $string[$order - 1] : '0');
+            if ($value == '0') {
+                $count += 1;
+                continue;
+            }
+            if ($value !== '0' && $prev !== '0') {
+                $count += 1;
+                break;
+            }
+        }
+
+        $decimals = $count;
+        return bcdiv($number, 1, $decimals);
+    } else {
+        return number_format($number);
+    }
 }
 
 function cleanup_number($number)
@@ -61,9 +84,28 @@ function cleanup_number($number)
 
 function get_settings_path()
 {
-    return getenv('alfred_workflow_data') .'/settings.json';
+    return get_data_path('settings.json');
 }
 
+function get_data_path($ipath = '')
+{
+    $path = getenv('alfred_workflow_data');
+    create_dir($path);
+
+    if (!empty($ipath)) {
+        return $path .'/'. $ipath;
+    }
+    return $path;
+}
+
+function create_dir($path)
+{
+    if (!file_exists($path)) {
+        mkdir($path);
+    }
+
+    return true;
+}
 
 function get_var($array, $key, $default = null)
 {
@@ -139,7 +181,6 @@ function default_lang()
 {
     return 'en_EN';
 }
-
 
 function get_extra_keywords($key = '', $lang = '')
 {
