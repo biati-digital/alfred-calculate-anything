@@ -8,6 +8,7 @@
  * 100year s
  */
 
+require_once(__DIR__ . '/units/Exceptions/ConvertorInvalidUnitException.php');
 require_once(__DIR__ . '/units/Convertor.php');
 
 use Olifolkerd\Convertor\Convertor;
@@ -295,12 +296,21 @@ function process_unit_conversion($query)
         return sprintf($units_str['error'], $from_unit, $to);
     }
 
-    $from_amount = floatval($from_amount);
+    $from_amount = cleanup_number($from_amount);
 
     if ($from_unit == 'year' && $to == 'month') {
         $converted = $from_amount * 12;
     }
-    else {
+    // elseif ($from_unit == 'kph' && $to == 'mph') {
+    elseif (in_array($from_unit, ['kph', 'mph', 'mps']) && in_array($to, ['kph', 'mph', 'mps'])) {
+        $vals = [
+            'kph' => ['mps' => 0.277778, 'mph' => 0.621371],
+            'mph' => ['mps' => 0.44704, 'kph' => 1.60934],
+            'mps' => ['mps' => 2.23694, 'kph' => 3.6],
+        ];
+        $speed = $vals[$from_unit][$to];
+        $converted = $from_amount * $speed;
+    } else {
         $convert = new Convertor($from_amount, $from_unit);
         $converted = $convert->to($to);
     }
