@@ -138,6 +138,21 @@
 				<false/>
 			</dict>
 		</array>
+		<key>42330AA6-64D5-48A7-BCD2-0E63E0229052</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>57BD54E7-97AF-489A-8547-245CA6A107DF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>57BD54E7-97AF-489A-8547-245CA6A107DF</key>
+		<array/>
 		<key>6268071B-C2B2-4AFE-B4E8-4D86F8A3C5B9</key>
 		<array>
 			<dict>
@@ -169,6 +184,45 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>7FE64D1B-CD91-40BC-903C-3F1BC17CEE02</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>73DD0CD0-28B0-4225-B29F-F7F44A44FAD0</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>43E60A8A-8C74-4731-8D10-6AD9A732C859</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>76C017BB-A0CA-4FB9-91A3-C82B9594EE26</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>ECB1E08B-D4DF-4BCF-A681-7632C59A9883</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>7FE64D1B-CD91-40BC-903C-3F1BC17CEE02</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>52DC31C6-04E3-4D3D-934E-D3B2C2B89D59</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -281,6 +335,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>ABA18E77-71E3-494A-8735-A60799F419B9</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>57BD54E7-97AF-489A-8547-245CA6A107DF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>B65B1C3D-76A7-477B-ADFC-E73225C358A9</key>
 		<array>
 			<dict>
@@ -299,6 +366,19 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>7FE64D1B-CD91-40BC-903C-3F1BC17CEE02</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>BD00B379-DBA0-4329-B670-AF2641BE84E0</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>76C017BB-A0CA-4FB9-91A3-C82B9594EE26</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -359,6 +439,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>ECB1E08B-D4DF-4BCF-A681-7632C59A9883</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>57BD54E7-97AF-489A-8547-245CA6A107DF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>clock</key>
 		<array>
 			<dict>
@@ -376,11 +469,11 @@
 	<key>createdby</key>
 	<string>Biati Digital</string>
 	<key>description</key>
-	<string>Calculate anything</string>
+	<string>Calculate Anything</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Calculate</string>
+	<string>Calculate Anything</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -644,6 +737,97 @@
 			<string>7FE64D1B-CD91-40BC-903C-3F1BC17CEE02</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string># THESE VARIABLES MUST BE SET. SEE THE ONEUPDATER README FOR AN EXPLANATION OF EACH.
+readonly remote_info_plist="https://raw.githubusercontent.com/biati-digital/alfred-calculate-anything/master/info.plist"
+readonly workflow_url="https://github.com/biati-digital/alfred-calculate-anything/releases/latest/download/Calculate.Anything.alfredworkflow"
+readonly download_type='direct'
+readonly frequency_check='0'
+
+# FROM HERE ON, CODE SHOULD BE LEFT UNTOUCHED!
+function abort {
+  echo "${1}" &gt;&amp;2
+  exit 1
+}
+
+function url_exists {
+  curl --silent --location --output /dev/null --fail --range 0-0 "${1}"
+}
+
+function notification {
+  local -r notificator="$(find . -type d -name 'Notificator.app')"
+  if [[ -n "${notificator}" ]]; then
+    "${notificator}/Contents/Resources/Scripts/notificator" --message "${1}" --title "${alfred_workflow_name}" --subtitle 'A new version is available'
+    return
+  fi
+
+  local -r terminal_notifier="$(find . -type f -name 'terminal-notifier')"
+  if [[ -n "${terminal_notifier}" ]]; then
+    "${terminal_notifier}" -title "${alfred_workflow_name}" -subtitle 'A new version is available' -message "${1}"
+    return
+  fi
+
+  osascript -e "display notification \"${1}\" with title \"${alfred_workflow_name}\" subtitle \"A new version is available\""
+}
+
+# Local sanity checks
+readonly local_info_plist='info.plist'
+readonly local_version="$(/usr/libexec/PlistBuddy -c 'print version' "${local_info_plist}")"
+
+[[ -n "${local_version}" ]] || abort 'You need to set a workflow version in the configuration sheet.'
+[[ "${download_type}" =~ ^(direct|page|github_release)$ ]] || abort "'download_type' (${download_type}) needs to be one of 'direct', 'page', or 'github_release'."
+[[ "${frequency_check}" =~ ^[0-9]+$ ]] || abort "'frequency_check' (${frequency_check}) needs to be a number."
+
+# Check for updates
+if [[ $(find "${local_info_plist}" -mtime +"${frequency_check}"d) ]]; then
+  if ! url_exists "${remote_info_plist}"; then abort "'remote_info_plist' (${remote_info_plist}) appears to not be reachable."; fi # Remote sanity check
+
+  readonly tmp_file="$(mktemp)"
+  curl --silent --location --output "${tmp_file}" "${remote_info_plist}"
+  readonly remote_version="$(/usr/libexec/PlistBuddy -c 'print version' "${tmp_file}")"
+
+  if [[ "${local_version}" == "${remote_version}" ]]; then
+    touch "${local_info_plist}" # Reset timer by touching local file
+    exit 0
+  fi
+
+  if [[ "${download_type}" == 'page' ]]; then
+    notification 'Opening download page…'
+    open "${workflow_url}"
+    exit 0
+  fi
+
+  download_url="$([[ "${download_type}" == 'github_release' ]] &amp;&amp; curl --silent "https://api.github.com/repos/${workflow_url}/releases/latest" | grep 'browser_download_url' | head -1 | sed -E 's/.*browser_download_url": "(.*)"/\1/' || echo "${workflow_url}")"
+
+  if url_exists "${download_url}"; then
+    notification 'Downloading and installing…'
+    curl --silent --location --output "${HOME}/Downloads/${alfred_workflow_name}.alfredworkflow" "${download_url}"
+    open "${HOME}/Downloads/${alfred_workflow_name}.alfredworkflow"
+  else
+    abort "'workflow_url' (${download_url}) appears to not be reachable."
+  fi
+fi</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>52DC31C6-04E3-4D3D-934E-D3B2C2B89D59</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -932,6 +1116,50 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>calculate set fixerapi</string>
+				<key>subtext</key>
+				<string>Set your Fixer API Key</string>
+				<key>text</key>
+				<string>Set fixer.io API Key</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>BD00B379-DBA0-4329-B670-AF2641BE84E0</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>php -f actions.php "fixer_apikey" "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>76C017BB-A0CA-4FB9-91A3-C82B9594EE26</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -989,7 +1217,7 @@
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>keyword</key>
-				<string>vat</string>
+				<string>iva</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -1021,6 +1249,97 @@
 			<string>01F84077-BA5D-47E6-B9BD-5E6993AB2F98</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string># THESE VARIABLES MUST BE SET. SEE THE ONEUPDATER README FOR AN EXPLANATION OF EACH.
+readonly remote_info_plist="https://raw.githubusercontent.com/biati-digital/alfred-calculate-anything/master/info.plist"
+readonly workflow_url="https://github.com/biati-digital/alfred-calculate-anything/releases/latest/download/Calculate.Anything.alfredworkflow"
+readonly download_type='direct'
+readonly frequency_check='0'
+
+# FROM HERE ON, CODE SHOULD BE LEFT UNTOUCHED!
+function abort {
+  echo "${1}" &gt;&amp;2
+  exit 1
+}
+
+function url_exists {
+  curl --silent --location --output /dev/null --fail --range 0-0 "${1}"
+}
+
+function notification {
+  local -r notificator="$(find . -type d -name 'Notificator.app')"
+  if [[ -n "${notificator}" ]]; then
+    "${notificator}/Contents/Resources/Scripts/notificator" --message "${1}" --title "${alfred_workflow_name}" --subtitle 'A new version is available'
+    return
+  fi
+
+  local -r terminal_notifier="$(find . -type f -name 'terminal-notifier')"
+  if [[ -n "${terminal_notifier}" ]]; then
+    "${terminal_notifier}" -title "${alfred_workflow_name}" -subtitle 'A new version is available' -message "${1}"
+    return
+  fi
+
+  osascript -e "display notification \"${1}\" with title \"${alfred_workflow_name}\" subtitle \"A new version is available\""
+}
+
+# Local sanity checks
+readonly local_info_plist='info.plist'
+readonly local_version="$(/usr/libexec/PlistBuddy -c 'print version' "${local_info_plist}")"
+
+[[ -n "${local_version}" ]] || abort 'You need to set a workflow version in the configuration sheet.'
+[[ "${download_type}" =~ ^(direct|page|github_release)$ ]] || abort "'download_type' (${download_type}) needs to be one of 'direct', 'page', or 'github_release'."
+[[ "${frequency_check}" =~ ^[0-9]+$ ]] || abort "'frequency_check' (${frequency_check}) needs to be a number."
+
+# Check for updates
+if [[ $(find "${local_info_plist}" -mtime +"${frequency_check}"d) ]]; then
+  if ! url_exists "${remote_info_plist}"; then abort "'remote_info_plist' (${remote_info_plist}) appears to not be reachable."; fi # Remote sanity check
+
+  readonly tmp_file="$(mktemp)"
+  curl --silent --location --output "${tmp_file}" "${remote_info_plist}"
+  readonly remote_version="$(/usr/libexec/PlistBuddy -c 'print version' "${tmp_file}")"
+
+  if [[ "${local_version}" == "${remote_version}" ]]; then
+    touch "${local_info_plist}" # Reset timer by touching local file
+    exit 0
+  fi
+
+  if [[ "${download_type}" == 'page' ]]; then
+    notification 'Opening download page…'
+    open "${workflow_url}"
+    exit 0
+  fi
+
+  download_url="$([[ "${download_type}" == 'github_release' ]] &amp;&amp; curl --silent "https://api.github.com/repos/${workflow_url}/releases/latest" | grep 'browser_download_url' | head -1 | sed -E 's/.*browser_download_url": "(.*)"/\1/' || echo "${workflow_url}")"
+
+  if url_exists "${download_url}"; then
+    notification 'Downloading and installing…'
+    curl --silent --location --output "${HOME}/Downloads/${alfred_workflow_name}.alfredworkflow" "${download_url}"
+    open "${HOME}/Downloads/${alfred_workflow_name}.alfredworkflow"
+  else
+    abort "'workflow_url' (${download_url}) appears to not be reachable."
+  fi
+fi</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>57BD54E7-97AF-489A-8547-245CA6A107DF</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1450,6 +1769,97 @@ php ./list.php "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string># THESE VARIABLES MUST BE SET. SEE THE ONEUPDATER README FOR AN EXPLANATION OF EACH.
+readonly remote_info_plist="https://raw.githubusercontent.com/biati-digital/alfred-calculate-anything/master/info.plist"
+readonly workflow_url="https://github.com/biati-digital/alfred-calculate-anything/releases/latest/download/Calculate.Anything.alfredworkflow"
+readonly download_type='direct'
+readonly frequency_check='0'
+
+# FROM HERE ON, CODE SHOULD BE LEFT UNTOUCHED!
+function abort {
+  echo "${1}" &gt;&amp;2
+  exit 1
+}
+
+function url_exists {
+  curl --silent --location --output /dev/null --fail --range 0-0 "${1}"
+}
+
+function notification {
+  local -r notificator="$(find . -type d -name 'Notificator.app')"
+  if [[ -n "${notificator}" ]]; then
+    "${notificator}/Contents/Resources/Scripts/notificator" --message "${1}" --title "${alfred_workflow_name}" --subtitle 'A new version is available'
+    return
+  fi
+
+  local -r terminal_notifier="$(find . -type f -name 'terminal-notifier')"
+  if [[ -n "${terminal_notifier}" ]]; then
+    "${terminal_notifier}" -title "${alfred_workflow_name}" -subtitle 'A new version is available' -message "${1}"
+    return
+  fi
+
+  osascript -e "display notification \"${1}\" with title \"${alfred_workflow_name}\" subtitle \"A new version is available\""
+}
+
+# Local sanity checks
+readonly local_info_plist='info.plist'
+readonly local_version="$(/usr/libexec/PlistBuddy -c 'print version' "${local_info_plist}")"
+
+[[ -n "${local_version}" ]] || abort 'You need to set a workflow version in the configuration sheet.'
+[[ "${download_type}" =~ ^(direct|page|github_release)$ ]] || abort "'download_type' (${download_type}) needs to be one of 'direct', 'page', or 'github_release'."
+[[ "${frequency_check}" =~ ^[0-9]+$ ]] || abort "'frequency_check' (${frequency_check}) needs to be a number."
+
+# Check for updates
+if [[ $(find "${local_info_plist}" -mtime +"${frequency_check}"d) ]]; then
+  if ! url_exists "${remote_info_plist}"; then abort "'remote_info_plist' (${remote_info_plist}) appears to not be reachable."; fi # Remote sanity check
+
+  readonly tmp_file="$(mktemp)"
+  curl --silent --location --output "${tmp_file}" "${remote_info_plist}"
+  readonly remote_version="$(/usr/libexec/PlistBuddy -c 'print version' "${tmp_file}")"
+
+  if [[ "${local_version}" == "${remote_version}" ]]; then
+    touch "${local_info_plist}" # Reset timer by touching local file
+    exit 0
+  fi
+
+  if [[ "${download_type}" == 'page' ]]; then
+    notification 'Opening download page…'
+    open "${workflow_url}"
+    exit 0
+  fi
+
+  download_url="$([[ "${download_type}" == 'github_release' ]] &amp;&amp; curl --silent "https://api.github.com/repos/${workflow_url}/releases/latest" | grep 'browser_download_url' | head -1 | sed -E 's/.*browser_download_url": "(.*)"/\1/' || echo "${workflow_url}")"
+
+  if url_exists "${download_url}"; then
+    notification 'Downloading and installing…'
+    curl --silent --location --output "${HOME}/Downloads/${alfred_workflow_name}.alfredworkflow" "${download_url}"
+    open "${HOME}/Downloads/${alfred_workflow_name}.alfredworkflow"
+  else
+    abort "'workflow_url' (${download_url}) appears to not be reachable."
+  fi
+fi</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>43E60A8A-8C74-4731-8D10-6AD9A732C859</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>argument</key>
 				<string></string>
 				<key>variables</key>
@@ -1467,11 +1877,10 @@ php ./list.php "{query}"</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>See also:
-http://www.packal.org
-http://www.github.com/shawnrice
+	<string>Calcualte Anything
 
-Look for support on the Alfred Forums</string>
+https://github.com/biati-digital/alfred-calculate-anything
+Made with love by https://www.biati.digital</string>
 	<key>uidata</key>
 	<dict>
 		<key>01F84077-BA5D-47E6-B9BD-5E6993AB2F98</key>
@@ -1479,7 +1888,7 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>155</integer>
 			<key>ypos</key>
-			<integer>1525</integer>
+			<integer>1635</integer>
 		</dict>
 		<key>054BC1FC-4E97-406B-BA6F-2601CB0D546D</key>
 		<dict>
@@ -1493,14 +1902,14 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>155</integer>
 			<key>ypos</key>
-			<integer>2025</integer>
+			<integer>2135</integer>
 		</dict>
 		<key>1461D147-6652-4B3D-A7A7-E61D064634DA</key>
 		<dict>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>1895</integer>
+			<integer>2005</integer>
 		</dict>
 		<key>152E2349-1A11-4205-9ACA-7AE635100426</key>
 		<dict>
@@ -1514,14 +1923,14 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>150</integer>
 			<key>ypos</key>
-			<integer>2145</integer>
+			<integer>2255</integer>
 		</dict>
 		<key>1B1F877A-453C-47A1-A189-E8B37EBE2950</key>
 		<dict>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>2025</integer>
+			<integer>2135</integer>
 		</dict>
 		<key>2679D5D4-9D36-4AD4-A1EE-59EACA36C6E9</key>
 		<dict>
@@ -1549,14 +1958,47 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>1525</integer>
+			<integer>1635</integer>
+		</dict>
+		<key>43E60A8A-8C74-4731-8D10-6AD9A732C859</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>8</integer>
+			<key>note</key>
+			<string>OneUpdater</string>
+			<key>xpos</key>
+			<integer>795</integer>
+			<key>ypos</key>
+			<integer>2420</integer>
+		</dict>
+		<key>52DC31C6-04E3-4D3D-934E-D3B2C2B89D59</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>8</integer>
+			<key>note</key>
+			<string>OneUpdater</string>
+			<key>xpos</key>
+			<integer>765</integer>
+			<key>ypos</key>
+			<integer>615</integer>
+		</dict>
+		<key>57BD54E7-97AF-489A-8547-245CA6A107DF</key>
+		<dict>
+			<key>colorindex</key>
+			<integer>8</integer>
+			<key>note</key>
+			<string>OneUpdater</string>
+			<key>xpos</key>
+			<integer>975</integer>
+			<key>ypos</key>
+			<integer>1635</integer>
 		</dict>
 		<key>6268071B-C2B2-4AFE-B4E8-4D86F8A3C5B9</key>
 		<dict>
 			<key>xpos</key>
 			<integer>155</integer>
 			<key>ypos</key>
-			<integer>1645</integer>
+			<integer>1755</integer>
 		</dict>
 		<key>6B5446AC-124D-4626-92C3-D0CA1D94D27F</key>
 		<dict>
@@ -1577,7 +2019,14 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>605</integer>
 			<key>ypos</key>
-			<integer>2310</integer>
+			<integer>2420</integer>
+		</dict>
+		<key>76C017BB-A0CA-4FB9-91A3-C82B9594EE26</key>
+		<dict>
+			<key>xpos</key>
+			<integer>425</integer>
+			<key>ypos</key>
+			<integer>1375</integer>
 		</dict>
 		<key>7FE64D1B-CD91-40BC-903C-3F1BC17CEE02</key>
 		<dict>
@@ -1598,14 +2047,14 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>1400</integer>
+			<integer>1510</integer>
 		</dict>
 		<key>92259804-7D0F-4A95-BE6E-D9673B43E432</key>
 		<dict>
 			<key>xpos</key>
 			<integer>420</integer>
 			<key>ypos</key>
-			<integer>2310</integer>
+			<integer>2420</integer>
 		</dict>
 		<key>92A43CD2-2690-4939-8B4C-7ACD21A03287</key>
 		<dict>
@@ -1619,14 +2068,14 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>325</integer>
 			<key>ypos</key>
-			<integer>2340</integer>
+			<integer>2450</integer>
 		</dict>
 		<key>94994359-78CB-480F-8C90-83C583A32CDF</key>
 		<dict>
 			<key>xpos</key>
 			<integer>155</integer>
 			<key>ypos</key>
-			<integer>2310</integer>
+			<integer>2420</integer>
 		</dict>
 		<key>9B97B9DE-FB12-4F5A-AAF8-4608DF0C7B14</key>
 		<dict>
@@ -1640,21 +2089,21 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>155</integer>
 			<key>ypos</key>
-			<integer>1400</integer>
+			<integer>1510</integer>
 		</dict>
 		<key>ABA18E77-71E3-494A-8735-A60799F419B9</key>
 		<dict>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>1770</integer>
+			<integer>1880</integer>
 		</dict>
 		<key>B65B1C3D-76A7-477B-ADFC-E73225C358A9</key>
 		<dict>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>1645</integer>
+			<integer>1755</integer>
 		</dict>
 		<key>BB2A4C00-3D9B-43BD-957F-AFF92B5A1DCB</key>
 		<dict>
@@ -1662,6 +2111,13 @@ Look for support on the Alfred Forums</string>
 			<integer>150</integer>
 			<key>ypos</key>
 			<integer>525</integer>
+		</dict>
+		<key>BD00B379-DBA0-4329-B670-AF2641BE84E0</key>
+		<dict>
+			<key>xpos</key>
+			<integer>155</integer>
+			<key>ypos</key>
+			<integer>1375</integer>
 		</dict>
 		<key>C68CCD8D-62D4-4A77-BC33-729FCCE236B1</key>
 		<dict>
@@ -1682,38 +2138,35 @@ Look for support on the Alfred Forums</string>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>2145</integer>
+			<integer>2255</integer>
 		</dict>
 		<key>DEEA362A-4FDA-454E-9BC6-57B0F3C9FC10</key>
 		<dict>
 			<key>xpos</key>
 			<integer>155</integer>
 			<key>ypos</key>
-			<integer>1770</integer>
+			<integer>1880</integer>
 		</dict>
 		<key>ECB1E08B-D4DF-4BCF-A681-7632C59A9883</key>
 		<dict>
 			<key>xpos</key>
 			<integer>795</integer>
 			<key>ypos</key>
-			<integer>1715</integer>
+			<integer>1825</integer>
 		</dict>
 		<key>clock</key>
 		<dict>
 			<key>xpos</key>
 			<integer>155</integer>
 			<key>ypos</key>
-			<integer>1895</integer>
+			<integer>2005</integer>
 		</dict>
 	</dict>
-	<key>variables</key>
-	<dict>
-		<key>base_currency</key>
-		<string>MXN</string>
-	</dict>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>1.0.0</string>
+	<string>1.0.4</string>
 	<key>webaddress</key>
-	<string>https://www.biati.digital</string>
+	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
 </plist>
