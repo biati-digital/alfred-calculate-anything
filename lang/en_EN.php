@@ -2,7 +2,28 @@
 
 return [
     'general' => [
-        'action_copy' => 'Action this item to copy this number to the clipboard'
+        'action_copy' => 'Action this item to copy this number to the clipboard',
+    ],
+    'config' => [
+        'lang_title' => 'Set base language',
+        'lang_subtitle' => 'Configure the base language',
+        'currency_title' => 'Set base currency',
+        'currency_subtitle' => 'Set your base currency',
+        'currency_locale_title' => 'Set currency locale',
+        'currency_locale_subtitle' => 'Used to give format to the value using your country format',
+        'fixer_title' => 'Set Fixer API',
+        'fixer_subtitle' => 'Configure your fixer API Key',
+        'vat_title' => 'Set VAT percentage',
+        'vat_subtitle' => 'Configure your default VAT percentage',
+        'base_timezone_title' => 'Set base timezone',
+        'base_timezone_subtitle' => 'Base time zone to calculate dates in your time',
+        'add_date_title' => 'Add date format',
+        'add_date_subtitle' => 'Add date format',
+        'delete_date_title' => 'Delete date format',
+        'delete_date_subtitle' => 'Delete configured date format',
+        'empty_date_formats' => 'There are no stored date zones',
+        'enter_delete_date' => 'Press enter to delete date format',
+        'enter_save' => 'Press enter to save configuration',
     ],
     'time' => [
         'day' => 'day',

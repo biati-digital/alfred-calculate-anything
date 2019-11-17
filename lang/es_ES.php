@@ -4,6 +4,27 @@ return [
     'general' => [
         'action_copy' => 'Presiona enter para copiar el valor al clipboard'
     ],
+    'config' => [
+        'lang_title' => 'Definir idioma principal',
+        'lang_subtitle' => 'Configura el idioma principal',
+        'currency_title' => 'Definir típo de moneda',
+        'currency_subtitle' => 'Define tu típo de moneda por default',
+        'currency_locale_title' => 'Configuración regional de moneda',
+        'currency_locale_subtitle' => 'Usada para dar formato a la cantidad usando el formato de tu país',
+        'fixer_title' => 'Definir la API de Fixer',
+        'fixer_subtitle' => 'Ingresa la API Key de Fixer',
+        'vat_title' => 'Define el porcentage del Valor agregado IVA',
+        'vat_subtitle' => 'Configure el porcentage por default del IVA',
+        'base_timezone_title' => 'Definir zona horaria base',
+        'base_timezone_subtitle' => 'Define tu zona horaria para mostrar los horarios correctos',
+        'add_date_title' => 'Añadir formato de fecha',
+        'add_date_subtitle' => 'Añadir formato de fecha',
+        'delete_date_title' => 'Eliminar formato de fecha',
+        'delete_date_subtitle' => 'Eliminar formato de fecha configurado',
+        'empty_date_formats' => 'No hay formatos de fechas configurados',
+        'enter_delete_date' => 'Presiona enter para eliminar formato de fecha',
+        'enter_save' => 'Presiona enter para guardar la configuración',
+    ],
     'time' => [
         'day' => 'día',
         'days' => 'días',
