@@ -47,6 +47,14 @@ if (empty($param)) {
 		'arg' => 'fixer_apikey',
 	];
 	$response[] = [
+		'title' => $strings['measurement_title'],
+		'subtitle' => $strings['measurement_subtitle'],
+		'match' => $strings['measurement_title'],
+		'autocomplete' => $strings['measurement_title'],
+		'valid' => true,
+		'arg' => 'measurement_system',
+	];
+	$response[] = [
 		'title' => $strings['vat_title'],
 		'subtitle' => $strings['vat_subtitle'],
 		'match' => $strings['vat_title'],
