@@ -19,7 +19,8 @@ $strings = get_translation('vat');
 $query = preg_replace('/[^\\d.]+/', '', $query);
 if (!empty($query) && $percent) {
 	$percent = (int) $percent;
-	$amount = floatval($query);
+	$amount = cleanup_number($query);
+
 	$result = ($percent / 100) * $amount;
 	$result = (fmod($result, 1) !== 0.00 ? bcdiv($result, 1, 2) : $result);
 
@@ -30,8 +31,8 @@ if (!empty($query) && $percent) {
 
 		$amount = format_number($amount);
 		$result = format_number($result);
-		$plustaxt = format_number($plustaxt);
-		$minustax = format_number($minustax);
+		$plustaxt = format_number($plustaxt, true);
+		$minustax = format_number($minustax, true);
 	}
 }
 
