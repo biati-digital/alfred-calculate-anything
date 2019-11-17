@@ -52,26 +52,34 @@ function save_settings($settings)
 function format_number($number)
 {
     if (fmod($number, 1) !== 0.00) {
-        $decimals = 2;
-        $string = sprintf("%.10f", $number);
+        $decimals = 1;
+        $string = ''. $number;
         $string = explode('.', $string);
         $string = str_split(end($string));
-
         $count = 1;
-        foreach ($string as $order => $value) {
-            $prev = (isset($string[$order - 1]) ? $string[$order - 1] : '0');
-            if ($value == '0') {
-                $count += 1;
-                continue;
+
+        // If string has 2 or more decimals make some cleanup
+        if (count($string) >= 2) {
+            $decimals = 2;
+
+            foreach ($string as $order => $value) {
+                $prev = (isset($string[$order - 1]) ? $string[$order - 1] : '');
+                if ($value == '0') {
+                    $count += 1;
+                    continue;
+                }
+                if ($value !== '0' && $prev !== '0') {
+                    $count += 1;
+                    $end_digit = $value;
+                    break;
+                }
             }
-            if ($value !== '0' && $prev !== '0') {
-                $count += 1;
-                break;
-            }
+            $decimals = $count;
         }
 
-        $decimals = $count;
-        return bcdiv($number, 1, $decimals);
+        // return bcdiv($number, 1, $decimals);
+        $number = bcdiv($number, 1, $decimals);
+        return number_format($number, $decimals);
     } else {
         return number_format($number);
     }
