@@ -131,7 +131,7 @@ Finally if you still don't remember the unit abbreviation or it's name simply ty
 
 
 ### Units Options
-The following options are available for the currency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+The following options are available.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
 
 - **Set System of Measurement**
 Here you can define your System of Measurement, this option is still in development but as the workflow grows this might be necessary for US users, by default the metric system will be used but you can define **imperial or metric**
@@ -342,7 +342,7 @@ The following options are available.  Simply launch Alfred and type **calculate 
 ### Example adding time date formats
 You can add all the date formats you want simply launch alfred and type **calculate configure** and select the option Add date format then simply enter the format you want and press enter: [View the configuration section for more info](#configuration)
 
-Time will use the language that you configure with **calculate set language**
+Time will use the language that you configure with **Set base language**
 
 ## VAT (value added tax)
 With this you can calculate the vat of a given amount. Like time, vat is also triggered with the keyword "vat" you can change the keyword in the workflow.
