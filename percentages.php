@@ -32,35 +32,26 @@ function process_percentages($query)
 
     // Calculate Percentage of value
     // 30% de 100 = 30
-    // if (preg_match('/^\d+% ?'. $stop_words .'? ?(\d+)?/', $query, $matches)) {
     if (preg_match('/^\d*\.?\d*% ?'. $stop_words .'? ?(\d+)?/', $query, $matches)) {
-        // $value = percentage_of($query);
-        // $process = true;
         return ['value' => percentage_of($query), 'process' => true];
     }
 
     // Total plus percentage
     // 100 + 16% = 116
-    elseif (preg_match('/\d+ +?\+.+?\d+%$/', $query, $matches)) {
-        // $value = total_plus_percentage($query);
-        // $process = true;
+    elseif (preg_match('/^\d*\.?\d+ ?\+ ?\d*\.?\d*%$/', $query, $matches)) {
         return ['value' => total_plus_percentage($query), 'process' => true];
     }
 
     // Total minus percentage
     // 116 - 16% = 100
-    elseif (preg_match('/\d+ +?\- +?\d+%$/', $query, $matches)) {
-        // $value = total_minus_percentage($query);
-        // $process = true;
+    elseif (preg_match('/^\d*\.?\d+ ?- ?\d*\.?\d*%$/', $query, $matches)) {
         return ['value' => total_minus_percentage($query), 'process' => true];
     }
 
     // Calculates `a` percent of `b` is what percent?
     // 30 % 40 = 75%
     // So 30 is 75% of 40.
-    elseif (preg_match('/\d+ +?\%.+?\d+/', $query, $matches)) {
-        // $value = percent_of_two_numbers($query);
-        // $process = true;
+    elseif (preg_match('/^\d+ +?\%.+?\d+/', $query, $matches)) {
         return ['value' => percent_of_two_numbers($query), 'process' => true];
     }
 
@@ -86,8 +77,9 @@ function percentage_of($query)
 
 function total_plus_percentage($query)
 {
+    $query = preg_replace('/\s+/', '', $query);
     $query = preg_replace("/ +?\+ +?/", ' ', $query);
-    $data = explode(' ', $query);
+    $data = explode('+', $query);
 
     if (count($data) < 2) {
         return false;
@@ -102,8 +94,8 @@ function total_plus_percentage($query)
 
 function total_minus_percentage($query)
 {
-    $query = preg_replace("/ +?\- +?/", ' ', $query);
-    $data = explode(' ', $query);
+    $query = preg_replace('/\s+/', '', $query);
+    $data = explode('-', $query);
 
     if (count($data) < 2) {
         return false;
@@ -111,8 +103,9 @@ function total_minus_percentage($query)
 
     $amount = cleanup_number($data[0]);
     $percent = cleanup_number($data[1]);
+    $percent_min = ($percent / 100) * $amount;
 
-    $result = $percent == 100 ? '0.00' : format_number($amount - $amount * ((float) "0.$percent"));
+    $result = $percent == 100 ? '0.00' : format_number($amount - $percent_min);
     $saved = $amount - cleanup_number($result);
     $famount = format_number($amount);
     $saved = format_number($saved);
