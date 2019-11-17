@@ -13,6 +13,8 @@ return [
         'currency_locale_subtitle' => 'Usada para dar formato a la cantidad usando el formato de tu país',
         'fixer_title' => 'Definir la API de Fixer',
         'fixer_subtitle' => 'Ingresa la API Key de Fixer',
+        'measurement_title' => 'Definir Sistema de unidades',
+        'measurement_subtitle' => 'Define el sistema de unidades que usa tu país, por default sistema métrico',
         'vat_title' => 'Define el porcentage del Valor agregado IVA',
         'vat_subtitle' => 'Configure el porcentage por default del IVA',
         'base_timezone_title' => 'Definir zona horaria base',

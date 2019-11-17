@@ -13,6 +13,8 @@ return [
         'currency_locale_subtitle' => 'Used to give format to the value using your country format',
         'fixer_title' => 'Set Fixer API',
         'fixer_subtitle' => 'Configure your fixer API Key',
+        'measurement_title' => 'Set System of Measurement',
+        'measurement_subtitle' => 'Define your system of measurement default to metric system',
         'vat_title' => 'Set VAT percentage',
         'vat_subtitle' => 'Configure your default VAT percentage',
         'base_timezone_title' => 'Set base timezone',
