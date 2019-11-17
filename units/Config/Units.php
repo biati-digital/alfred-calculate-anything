@@ -124,4 +124,12 @@ return array(
     "lb m**-2" => array("base" => "kg m**-2", "conversion" => 0.453592), //pound
     "oz m**-2" => array("base" => "kg m**-2", "conversion" => 0.0283495), //ounce
     //todo: add your density conversions here if you need them.
+
+    /* "kph" => array("base" => "kph", "conversion" => 1),
+    "mph" => array("base" => "kph", "conversion" => 1.60934),
+    "mps" => array("base" => "kph", "conversion" => 3.6), */
+    "kph" => array("base" => "mps", "conversion" => 0.27777778),
+    "mph" => array("base" => "mps", "conversion" => 0.44704),
+    "mps" => array("base" => "mps", "conversion" => 1),
+    "fps" => array("base" => "mps", "conversion" => 0.3048),
 );
