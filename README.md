@@ -24,9 +24,11 @@ There's only one global configuration and is the language, this configuration wi
 
 Configure it with.
 
-- **calculate set language es_ES**
+- **calculate configure** and select **Set base language** and enter the language for example es_ES
 
-es_ES is for spanish, en_EN english, or simply use your country language code. Please check the translations section to see if a translation to your language is available. **Default is en_EN**
+[View the configuration section for more info](#configuration)
+
+Please check the translations section to see if a translation to your language is available. **Default is en_EN**
 
 ## Currency
 You can use natural language or type a few characters and that's all, for example:
@@ -46,21 +48,16 @@ All this examples will simply work, you can add spaces between the value and the
 </p>
 
 
-### Currency Configuration
+### Currency Options
 By default the workflow will use exchangerates api to make the conversion, exchangerates has only support for 32 currencies, if you need support for all the currencies that this worflow includes you need to get a FREE API Key from https://fixer.io it takes less than a minute.
 
-You can configure the currency with the options below.
+The following options are available for the currency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
 
-- **calculate set currency MXN**
-
-This will become your base currency, if you type 100eur it will automatically be converted to mxn
-
-- **calculate set currency locale en_US**
-
-Used to give format to the converted amount
-
-- **calculate set fixerapi {yourapihere}**
-
+- **Set base currency**
+This will become your base currency, if you type 100eur it will automatically be converted to mxn, examples of currency (USD, EUR, MXN, CAD, etc)
+- **Set currency locale**
+Used to give format to the converted amount using the money format of your contry
+- **Set Fixer API**
 Set your fixer API Key for support more currencies
 
 ### Currency Symbols
@@ -132,6 +129,14 @@ If you don't remember the unit abbreviation just simply type the name for exampl
 
 Finally if you still don't remember the unit abbreviation or it's name simply type **calculate list** and select **List Available Units** you can type to filter, etc.
 
+
+### Units Options
+The following options are available for the currency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+
+- **Set System of Measurement**
+Here you can define your System of Measurement, this option is still in development but as the workflow grows this might be necessary for US users, by default the metric system will be used but you can define **imperial or metric**
+
+
 Here is a list of all available units and their names just to make this Readme long.
 
 #### Available Length units
@@ -199,6 +204,7 @@ Unit    | Unit Name
 mps     | Meters per Second
 kph     | Kilometers Per Hour
 mph     | Miles Per Hour
+fps     | Feet per second
 
 #### Available Rotation units
 
@@ -322,26 +328,19 @@ Time is triggered by a keyword because is not often used so you can simply open 
 <img src="./assets/time.gif">
 </p>
 
-### Time Configuration
+### Time Options
 
-- **calculate set base timezone America/Los_Angeles**
+The following options are available.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
 
-Configure your base time zone.
+- **Set base timezone** Base time zone to calculate dates in your time for example (America/Los_Angeles, Mexico/General, etc.)
 
-- **calculate add timezone F jS, Y, g:i:s a**
+- **Add date format** Configure a new date format so the date is displayed the way you want for example (j F, Y, g:i:s a) [More information about available values for date](https://www.php.net/manual/en/function.date.php)
 
-Add multiple time zones formats so you can get your date the way you want.
+- **Delete date format** It will show you a list of configured date formats, simply select the one you want to delete and press enter to remove it
 
-- **calculate delete timezone**
 
-List stored formats and select the one you want to delete and simply press enter.
-
-### Example adding time daate formats
-You can add all the date formats you want simply launch alfred and type:
-
-- **calculate add timezone F jS, Y, g:i:s a**
-- **calculate add timezone j F, Y, g:i:s a**
-- ..etc
+### Example adding time date formats
+You can add all the date formats you want simply launch alfred and type **calculate configure** and select the option Add date format then simply enter the format you want and press enter: [View the configuration section for more info](#configuration)
 
 Time will use the language that you configure with **calculate set language**
 
@@ -362,9 +361,11 @@ You will get
 - 400 plus VAT = 464 // Amount plus vat
 - 400 minus VAT = 344.82 // Amount minus vat
 
-### VAT Configuration
+### VAT Options
 
-- **calculate set vat 21%**
+The following options are available.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+
+- **Set VAT percentage** for example (16%)
 
 
 ## Translations
@@ -432,10 +433,35 @@ You can modify stop words in the same keys file for example /lang/en_EN-keys.php
 
 ```
 
+## Configuration
+You can easily configure the workflow simply by opening Alfred and typing **calculate configure** you will see a list of all the available options to configure the workflow, select the option you want and press enter then simply enter your value and again press enter to save it. Check the following gif if you have doubts.
+
+<p align="center">
+<img src="./assets/config.gif">
+</p>
+
+
+## Updates
+Starting from version 1.0.5 automatic updates were implemente, you will be notified if a new update is available or if you prefer you can launch Alfred and type **calculate update** to check for updates.
+
+
 ## Performance
 For Currency, Percentages and Units this workflow will only process the query if it begins with a digit and it has at least 3 characters, it's really fast. Time and VAT have a keyword because those are not often used.
 
+## Acknowledge
+This workflow could not be possible without:
+- [Convertor](https://github.com/olifolkerd/convertor) with some modifications
+- [currency-converter-php](https://github.com/ojhaujjwal/currency-converter-php) for ExchangeRatesIo
+- [OneUpdater](https://www.alfredforum.com/topic/9224-oneupdater-—-update-workflows-with-a-single-node/) Automatic updates for Alfred Workflows
+
 ## Changelog
+
+### 1.0.5
+- New: Added new way to configure the workflow
+- New: Added OneUpdated for automatic updates
+- Fixed percentage calculation error
+- Improved decimal places to ignore last 0 for example 17.50 becomes 17.5
+- Improved the workflow, cleaning and removing nodes and code
 
 ### 1.0.4
 - Fixed speed calculations not working
