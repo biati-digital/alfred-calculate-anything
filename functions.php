@@ -49,7 +49,7 @@ function save_settings($settings)
     file_put_contents($file, json_encode($settings));
 }
 
-function format_number($number)
+function format_number($number, $round = false)
 {
     if (fmod($number, 1) !== 0.00) {
         $decimals = 1;
@@ -77,7 +77,9 @@ function format_number($number)
             $decimals = $count;
         }
 
-        // return bcdiv($number, 1, $decimals);
+        if ($round) {
+            return number_format($number, $decimals);
+        }
         $number = bcdiv($number, 1, $decimals);
         return number_format($number, $decimals);
     } else {
