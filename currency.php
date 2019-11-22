@@ -239,11 +239,18 @@ function available_currencies_regex()
     $params = implode('|', array_keys($currencies));
     $translated_currencies = translated_currencies();
     $params .= '|'. implode('|', array_keys($translated_currencies));
-    $params = str_replace('$', '\$', $params);
-    $params = str_replace('/', '\/', $params);
-    $params = str_replace('.', '\.', $params);
+    $params = escape_currency_keywords($params);
 
     return '(' . $params . ')';
+}
+
+
+function escape_currency_keywords($key)
+{
+    $key = str_replace('$', '\$', $key);
+    $key = str_replace('/', '\/', $key);
+    $key = str_replace('.', '\.', $key);
+    return $key;
 }
 
 /**
@@ -273,7 +280,8 @@ function is_currency($query)
 {
     $currencies = available_currencies_regex();
     $stopwords = currency_stopwords();
-    return preg_match('/^\d+ ?' . $currencies . ' ?'. $stopwords .'?/i', $query, $matches);
+    $query = str_replace(',', '', $query);
+    return preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?'. $stopwords .'?/i', $query, $matches);
 }
 
 /**
@@ -303,69 +311,92 @@ function currency_stopwords($sep = false)
  */
 function process_currency_conversion($query)
 {
+    $amount = '';
+    $from = '';
+    $to = '';
     $settigs = get_settings();
     $fixer_api = get_setting('fixer_apikey', '', $settigs);
-    $regex = available_currencies_regex();
-    $stopwords = currency_stopwords(' %s ?');
-    $query = preg_replace('!\s+!', ' ', $query);
-    $query = preg_replace("/" . $stopwords . " ?/i", ' ', $query);
-    $query = preg_replace('/(\d) ' . $regex . '/i', '$1$2', $query); //remove spaces between 100 USD = 100USD
+    $stopwords = currency_stopwords(' %s ');
+    $query = str_replace(',', '', $query);
 
-    $data = explode(' ', $query);
-    $data = array_filter($data);
+    preg_match('/^(\d*\.?\d+)[^\d]/i', $query, $amount_match);
+    if (empty($amount_match)) {
+        return false;
+    }
 
-    if (count($data) == 1) {
-        $from = trim($data[0]);
-        $to = get_setting('base_currency', 'USD', $settigs);
+    $amount = get_var($amount_match, 1);
+    $amount = trim($amount);
+    $string = str_replace($amount, '', $query);
+    $string = trim($string);
+
+    preg_match('/(.*).*' . $stopwords . '(.*)/i', $string, $matches);
+
+    // Matches strings like 100 usd to mxn
+    if (!empty($matches)) {
+        $matches = array_values(array_filter($matches));
+        $from = get_var($matches, 1);
+        $to = get_var($matches, 3);
+
+        // Default to stored currency
+        if (empty($to)) {
+            $to = get_setting('base_currency', 'USD', $settigs);
+        }
+
+        $from = translated_currencies($from);
+        $to = translated_currencies($to);
+    }
+
+    // String is like 100 usd or 100 usd mxn
+    elseif (empty($matches)) {
+        $keywords = get_extra_keywords('currency');
+
+        foreach ($keywords as $key => $value) {
+            if (is_array($value)) {
+                continue;
+            }
+            $key = escape_currency_keywords($key);
+            $string = preg_replace('/(^|\W)' . $key . '(\W|$)/i', ' '. $value . ' ', $string);
+        }
+
+        $string = preg_replace('!\s+!', ' ', $string);
+        $string = trim($string);
+
+        $data = explode(' ', $string);
+        $from = get_var($data, 0);
+        $to = get_var($data, 1);
+
+        // Default to stored currency
+        if (empty($to)) {
+            $to = get_setting('base_currency', 'USD', $settigs);
+        }
+
+        $from = strtoupper($from);
         $to = strtoupper($to);
-        $to = trim($to);
     }
 
-    if (count($data) == 2) {
-        $from = trim($data[0]);
-        $to = trim($data[1]);
-    }
-
-    if (count($data) == 3) {
-        $from = trim($data[0]) . trim($data[1]);
-        $to = trim($data[2]);
-    }
-
-    if (empty($from) || empty($to)) {
+    if (!is_valid_currency($from) || !is_valid_currency($to)) {
         return false;
     }
 
-    $to_currency = translated_currencies($to);
-    $from_amount = preg_replace('/[^0-9.]/', '', $from);
-    $from_currency = translated_currencies(preg_replace('/[0-9]+/', '', $from));
-    $from_currency = trim(strtoupper($from_currency));
-    $to_currency = trim(strtoupper($to_currency));
-
-    if (!is_valid_currency($from_currency) || !is_valid_currency($to_currency)) {
-        return false;
+    $amount = cleanup_number($amount);
+    if ($amount <= 0) {
+        return $amount . $to;
     }
 
-    if ($from_amount <= 0) {
-        return $from_amount . $to_currency;
+    // Skip same currency conversions
+    if ($from == $to) {
+        $converted = ['total' => $amount, 'single' => '1.00', 'error' => false];
     }
-
-    $from_amount = cleanup_number($from_amount);
 
     $locale = get_setting('locale_currency', 'en_US', $settigs);
     setlocale(LC_MONETARY, $locale);
 
-    // Skip same currency conversions
-    if ($from_currency == $to_currency) {
-        $converted = ['total' => $from_amount, 'single' => '1.00', 'error' => false];
-    }
-
     // Convert between currencies
-    if ($from_currency !== $to_currency) {
-        // $converted = convert_currency($from_amount, $from_currency, $to_currency);
+    if ($from !== $to) {
         $converted = convert_currency([
-            'amount' => $from_amount,
-            'currency' => $from_currency,
-            'to' => $to_currency,
+            'amount' => $amount,
+            'currency' => $from,
+            'to' => $to,
             'fixer_api' => $fixer_api,
         ]);
     }
@@ -380,12 +411,12 @@ function process_currency_conversion($query)
     $single = format_number($converted['single']);
 
     $processed = [];
-    $processed[$total] = "{$total}{$to_currency}";
-    $processed[$single] = "1{$from_currency} = {$single}{$to_currency}";
+    $processed[$total] = "{$total}{$to}";
+    $processed[$single] = "1{$from} = {$single}{$to}";
 
     return [
         'data' => $processed,
-        'currency' => $to_currency,
+        'currency' => $to,
     ];
 }
 
@@ -671,19 +702,28 @@ function include_required_files()
  */
 function translated_currencies($val = false)
 {
-    $tc = [];
-    $keys = get_extra_keywords('currency');
-    if (!empty($keys)) {
-        $tc = array_merge($tc, $keys);
-    }
+    $val = mb_strtolower($val, 'UTF-8');;
+    $keywords = get_extra_keywords('currency');
 
     if (!$val) {
-        return $tc;
+        return $keywords;
     }
 
-    if (isset($tc[$val])) {
-        return $tc[$val];
+    if (is_valid_currency($val)) {
+        return strtoupper($val);
     }
+
+    foreach ($keywords as $key => $value) {
+        if (is_array($value)) {
+            continue;
+        }
+        $key = escape_currency_keywords($key);
+        $val = preg_replace('/(^|\W)' . $key . '(\W|$)/i', ' '. $value . ' ', $val);
+    }
+
+    $val = strtoupper($val);
+    $val = trim($val);
+    $val = preg_replace('!\s+!', ' ', $val);
 
     return $val;
 }
