@@ -15,7 +15,6 @@ $percent = get_setting('vat_percentage', '16%');
 $response = [];
 $processed = false;
 $strings = get_translation('vat');
-
 $query = preg_replace('/[^\\d.]+/', '', $query);
 if (!empty($query) && $percent) {
 	$percent = (int) $percent;
@@ -31,8 +30,8 @@ if (!empty($query) && $percent) {
 
 		$amount = format_number($amount);
 		$result = format_number($result);
-		$plustaxt = format_number($plustaxt, true);
-		$minustax = format_number($minustax, true);
+		$plustaxt = format_number($plustaxt, -1, true);
+		$minustax = format_number($minustax, -1, true);
 	}
 }
 
