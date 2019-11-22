@@ -309,7 +309,6 @@ class Convertor
      */
     public function getUnits($unit)
     {
-        //check that unit exists
         if (array_key_exists($unit, $this->units)) {
             //find base unit
             $baseUnit = $this->units[$unit]["base"];

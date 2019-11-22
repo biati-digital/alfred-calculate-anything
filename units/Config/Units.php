@@ -11,6 +11,7 @@ return array(
     "dm" => array("base" => "m", "conversion" => 0.1), //decimeter
     "cm" => array("base" => "m", "conversion" => 0.01), //centimeter
     "mm" => array("base" => "m", "conversion" => 0.001), //milimeter
+    "μm" => array("base" => "m", "conversion" => 0.000001), //micrometer
     "µm" => array("base" => "m", "conversion" => 0.000001), //micrometer
     "nm" => array("base" => "m", "conversion" => 0.000000001), //nanometer
     "pm" => array("base" => "m", "conversion" => 0.000000000001), //picometer
