@@ -56,6 +56,7 @@ return [
         'kilometer' => 'km',
         'milimeters' => 'mm',
         'milimeter' => 'mm',
+        'micrometers' => 'μm',
         'yards' => 'yd',
         'yard' => 'yd',
         'foots' => 'ft',
@@ -78,11 +79,12 @@ return [
         'stop_words' => ['to', '=', 'in']
     ],
     'time' => [
-        'ahora' => 'now',
         'plus' => '+',
         'minus' => '-',
         'tomorrow' => '+1 day',
         'yesterday' => '-1 day',
+        'workdays' => 'weekdays',
+        'workday' => 'weekdays',
 
         'until' => ['until'],
         'between' => ['between'],

@@ -25,6 +25,8 @@ return [
         'delete_date_subtitle' => 'Delete configured date format',
         'empty_date_formats' => 'There are no stored date zones',
         'enter_delete_date' => 'Press enter to delete date format',
+        'base_pixels_title' => 'Set base pixels',
+        'base_pixels_subtitle' => 'Configure the base pixels for font calculations',
         'enter_save' => 'Press enter to save configuration',
     ],
     'time' => [
