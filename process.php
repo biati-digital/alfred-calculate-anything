@@ -13,11 +13,12 @@
 require_once(__DIR__ . '/units.php');
 require_once(__DIR__ . '/currency.php');
 require_once(__DIR__ . '/percentages.php');
+require_once(__DIR__ . '/px-em-rem.php');
 require_once(__DIR__ . '/functions.php');
 
 $query = clean_query(get_var($argv, 1));
 
-if (strlen($query) <= 3) {
+if (strlen($query) < 3) {
 	echo '{"items": []}';
 	exit(0);
 }
@@ -34,8 +35,9 @@ $matches = [];
 $process = false;
 $value = false;
 $response = [];
+$should_check = strlen($query) >= 3;
 
-if (strpos($query, '%') !== false) {
+if ($should_check && strpos($query, '%') !== false) {
 	$data = process_percentages($query);
 	if ($data) {
 		$value = $data['value'];
@@ -43,12 +45,17 @@ if (strpos($query, '%') !== false) {
 	}
 }
 
-elseif (is_unit($query)) {
+elseif ($should_check && is_unit($query)) {
 	$value = process_unit_conversion($query);
 	$process = true;
 }
 
-elseif (strlen($query) > 3 && is_currency($query)) {
+elseif (is_pxemrem($query)) {
+	$value = process_pxemrem($query);
+	$process = true;
+}
+
+elseif (strlen($query) >= 3 && is_currency($query)) {
 	$value = process_currency_conversion($query);
 	$process = true;
 
