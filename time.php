@@ -131,6 +131,7 @@ function translate_date($query)
         return $query;
     }
 
+    $query = mb_strtolower($query, 'UTF-8');
     $keys = get_extra_keywords('time');
     foreach ($keys as $k => $value) {
         if (is_array($value)) {
