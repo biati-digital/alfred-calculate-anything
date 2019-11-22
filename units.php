@@ -52,11 +52,18 @@ function available_units()
             'ha',
         ],
         'volume' => [
+            'dm3',
             'l',
             'ml',
+            'cm3',
+            'hl',
+            'kl',
             'm3',
             'pt',
             'gal',
+            'qt',
+            'ft3',
+            'in3',
         ],
         'weight' => [
             'kg',
@@ -201,11 +208,29 @@ function available_units_regex()
 function is_unit($query)
 {
     $units = available_units_regex();
-    // $query = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $query);
-    // $units = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $units);
-    // $units = str_replace('~', '', $units);
     $stopwords = unit_stopwords();
+    $query = str_replace(',', '', $query);
     return preg_match('/^\d*\.?\d+ ?' . $units . ' ?' . $stopwords . '?/i', $query, $matches);
+}
+
+
+/**
+ * Check if unit is valid
+ *
+ * @param string $unit
+ * @return boolean
+ */
+function is_valid_unit($unit)
+{
+    $units = available_units();
+    $found = false;
+    foreach ($units as $key => $value) {
+        if (in_array($unit, $value)) {
+            $found = true;
+            break;
+        }
+    }
+    return $found;
 }
 
 
@@ -237,6 +262,7 @@ function unit_stopwords($sep = false)
  */
 function get_unit_type($unit)
 {
+    $unit = str_replace('**', '', $unit);
     $units = available_units();
     $found = false;
     foreach ($units as $key => $value) {
@@ -260,79 +286,127 @@ function get_unit_type($unit)
 function process_unit_conversion($query)
 {
     $stopwords = unit_stopwords(' %s ');
-    $query = preg_replace('!\s+!', ' ', $query);
-    $query = preg_replace("/ ?" . $stopwords . " ?/i", ' ', $query);
-    $data = explode(' ', $query);
+    // $regex = available_units_regex();
+    $query = str_replace(',', '', $query);
 
-    if (count($data) < 2) {
+    preg_match('/^(\d*\.?\d+)[^\d]/i', $query, $amount_match);
+    if (empty($amount_match)) {
         return false;
     }
 
-    if (count($data) == 2) {
-        $from = trim($data[0]);
-        $to = trim($data[1]);
+    $amount = get_var($amount_match, 1);
+    $amount = trim($amount);
+    $string = str_replace($amount, '', $query);
+    $string = trim($string);
+
+    preg_match('/(.*).*' . $stopwords . '(.*)/i', $string, $matches);
+
+    // Matches strings like 100 kilograms to ounces
+    if (!empty($matches)) {
+        $matches = array_values(array_filter($matches));
+        $from = get_var($matches, 1);
+        $to = get_var($matches, 3);
     }
 
-    if (count($data) == 3) {
-        $from = trim($data[0]) . trim($data[1]);
-        $to = trim($data[2]);
+    elseif (empty($matches)) {
+        $keywords = get_extra_keywords('units');
+
+        foreach ($keywords as $key => $value) {
+            if (is_array($value)) {
+                continue;
+            }
+            $key = escape_units_keywords($key);
+            $string = preg_replace('/(^|\W)' . $key . '(\W|$)/i', ' ' . $value . ' ', $string);
+        }
+
+        $string = preg_replace('!\s+!', ' ', $string);
+        $string = trim($string);
+        $data = explode(' ', $string);
+        $from = get_var($data, 0);
+        $to = get_var($data, 1);
     }
+
     if (empty($from) || empty($to)) {
         return false;
     }
 
-    $from_amount = preg_replace('/[^0-9.]/', '', $from);
-    $from_unit = cleanup_unit(preg_replace('/[0-9.]+/', '', $from));
-    $from_unit_type = get_unit_type($from_unit);
+    if (empty($from) || empty($to)) {
+        return false;
+    }
 
-    $to = cleanup_unit($to);
+    return make_unit_conversion([
+        'from_amount' => cleanup_number($amount),
+        'from_unit' => cleanup_unit($from),
+        'to' => cleanup_unit($to),
+    ]);
+}
+
+
+/**
+ * Make actual conversion
+ *
+ * @param array $data
+ * @return mixed
+ */
+function make_unit_conversion($data)
+{
+    $from_amount = $data['from_amount'];
+    $from_unit = $data['from_unit'];
+    $to = $data['to'];
+    $from_unit_type = get_unit_type($from_unit);
     $to_unit_type = get_unit_type($to);
 
-    if (!$from_unit_type || !$to_unit_type) {
+    if (empty($from_unit_type) || empty($to_unit_type)) {
         return false;
     }
 
     if ($to_unit_type !== $from_unit_type) {
         $units_str = get_translation('units');
-        return sprintf($units_str['error'], $from_unit, $to);
+        return sprintf($units_str['error'], standard_unit($from_unit), standard_unit($to));
     }
-
-    $from_amount = cleanup_number($from_amount);
 
     if ($from_unit == 'year' && $to == 'month') {
         $converted = $from_amount * 12;
-    }
-    else {
-        $convert = new Convertor($from_amount, $from_unit);
-        $converted = $convert->to($to);
+    } else {
+        $conversion_error = false;
+        try {
+            $convert = new Convertor($from_amount, $from_unit);
+            $converted = $convert->to($to);
+        } catch (\Throwable $th) {
+            $conversion_error = $th->getMessage();
+        }
+
+        if ($conversion_error) {
+            return $conversion_error;
+        }
     }
 
-    $decimals = 2;
+    $decimals = -1;
     if ($from_unit_type == 'temperature') {
         $decimals = 1;
     }
+
+    // Before displaying the result
+    // Convert some units to readable human form
     if ($from_unit_type == 'time') {
+        $time_human_units = ['seconds', 'years', 'months', 'weeks', 'days', 'hours', 'minutes', 'milliseconds'];
         if ($converted > 1) {
             $to  = str_replace(
                 ['s', 'year', 'month', 'week', 'day', 'hr', 'min', 'ms'],
-                ['seconds', 'years', 'months', 'weeks', 'days', 'hours', 'minutes', 'milliseconds'],
+                $time_human_units,
                 $to
             );
         }
-
         $strings = get_translation('time');
-
-        $to  = str_replace(
-            array_keys($strings),
-            array_values($strings),
-            $to
-        );
-
+        if (is_array($strings) && isset($strings[$to])) {
+            $to = $strings[$to];
+        }
         $to = ' ' . $to;
     }
 
-    return (fmod($converted, 1) !== 0.00 ? bcdiv($converted, 1, $decimals) : number_format($converted)) . $to;
+    return format_number($converted, $decimals) . standard_unit($to);
 }
+
 
 
 /**
@@ -344,8 +418,7 @@ function process_unit_conversion($query)
  */
 function cleanup_unit($val)
 {
-    $unit = mb_strtolower($val, 'UTF-8');
-    $unit = trim($unit);
+    $unit = trim($val);
     $unit = translated_units($unit);
 
     return $unit;
@@ -374,21 +447,41 @@ function cleanup_unit($val)
  */
 function translated_units($unit = false)
 {
-    $unit = ($unit ? iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $unit) : $unit);
-    $units = [];
-    $keys = get_extra_keywords('units');
-
-    if (!empty($keys)) {
-        $units = array_merge($units, $keys);
-    }
-
+    $keywords = get_extra_keywords('units');
     if (!$unit) {
-        return $units;
+        return $keywords;
     }
 
-    if (isset($units[$unit])) {
-        return $units[$unit];
+    if (!is_valid_unit($unit)) {
+        foreach ($keywords as $key => $value) {
+            if (is_array($value)) {
+                continue;
+            }
+            $key = escape_currency_keywords($key);
+            $unit = preg_replace('/(^|\W)' . $key . '(\W|$)/i', ' ' . $value . ' ', $unit);
+        }
+    }
+
+    $unit = trim($unit);
+    $unit = preg_replace('!\s+!', ' ', $unit);
+    if (ends_with($unit, '2')) {
+        $unit = str_replace('2', '**2', $unit);
     }
 
     return $unit;
+}
+
+
+function standard_unit($unit)
+{
+    return str_replace('**', '', $unit);
+}
+
+
+function escape_units_keywords($key)
+{
+    $key = str_replace('$', '\$', $key);
+    $key = str_replace('/', '\/', $key);
+    $key = str_replace('.', '\.', $key);
+    return $key;
 }
