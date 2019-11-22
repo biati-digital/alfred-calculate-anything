@@ -296,11 +296,19 @@ Just open alfred and type 12px you'll see the value converted to em, rem and pt 
 ```
 - 12px
 - 12px to em
-- 12px in em
 - 2 rem
 - 2rem
 - 2rem to pt
+
+#use a custom px base or configure it in the workflow
+- 12px in em base 17px
 ```
+
+### PX,Em,Rem,Pt Options
+
+The following options are available. Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+
+- **Set base pixels** Base pixels for calculations your value must be in px for example **16px**
 
 ## Time
 
