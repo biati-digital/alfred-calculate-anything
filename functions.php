@@ -49,9 +49,17 @@ function save_settings($settings)
     file_put_contents($file, json_encode($settings));
 }
 
-function format_number($number, $round = false)
+function format_number($number, $decimals = -1, $round = false)
 {
     if (fmod($number, 1) !== 0.00) {
+        if ($decimals >= 0) {
+            if ($round) {
+                return number_format($number, $decimals);
+            }
+            $number = bcdiv($number, 1, $decimals);
+            return number_format($number, $decimals);
+        }
+
         $decimals = 1;
         $string = ''. $number;
         $string = explode('.', $string);
@@ -294,7 +302,6 @@ function clean_query($query)
         return $query;
     }
     // $clean = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $tsts);
-
     // Fucking letter ñ this was the only
     // way i found to remove it without removing
     // the rest of the special characters in the string
@@ -302,8 +309,32 @@ function clean_query($query)
     $clean = urlencode($clean);
     $clean = str_replace('n%CC%83', 'n', $clean);
     $clean = str_replace('N%CC%83', 'n', $clean);
+    $clean = str_replace('%C3%B3', 'o', $clean); // accented o
+    $clean = str_replace('%CC%81', '', $clean); // accented i
+
     $clean = urldecode($clean);
     $clean = preg_replace('!\s+!', ' ', $clean);
+    $clean = mb_strtolower($clean, 'UTF-8');
 
     return $clean;
+}
+
+
+function starts_with($haystack, $needle, $case = true)
+{
+    if ($case) {
+        return strpos($haystack, $needle, 0) === 0;
+    }
+
+    return stripos($haystack, $needle, 0) === 0;
+}
+
+function ends_with($haystack, $needle, $case = true)
+{
+    $expectedPosition = strlen($haystack) - strlen($needle);
+    if ($case) {
+        return strrpos($haystack, $needle, 0) === $expectedPosition;
+    }
+
+    return strripos($haystack, $needle, 0) === $expectedPosition;
 }
