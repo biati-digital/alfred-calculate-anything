@@ -86,6 +86,14 @@ if (empty($param)) {
 		'valid' => true,
 		'arg' => 'delete_time_zone',
 	];
+	$response[] = [
+		'title' => $strings['base_pixels_title'],
+		'subtitle' => $strings['base_pixels_subtitle'],
+		'match' => $strings['base_pixels_title'],
+		'autocomplete' => $strings['base_pixels_title'],
+		'valid' => true,
+		'arg' => 'base_pixels',
+	];
 	echo '{"items": ' . json_encode($response) . ' }';
 	exit(0);
 }
