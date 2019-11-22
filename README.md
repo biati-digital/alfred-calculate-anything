@@ -1,6 +1,6 @@
 # Calculate Anything
 
-Calculate Anything is a workflow for Alfred 4, that uses **natural language** and is able to calculate multiple things like currency, time, vat, percentage, etc.
+Calculate Anything is a workflow for Alfred 4, that uses **natural language** and is able to calculate multiple things like currency, time, vat, px, em, rem, percentage, etc.
 
 ## Why
 
@@ -12,6 +12,7 @@ There are several workflows out there but i just needed a workflow that worked n
 - **Currency** - Up to 168 currencies
 - **Units** - 100 kilometers to meters or 100 km to m or simply 100km m
 - **Percentages** - 100 + 16% | 100 - 16% etc.
+- **PX,Em,Rem,Pt** - 12px or 12px to em or 12px pt
 - **Time** - time +15 years? now plus 6 hours? or need to convert a timestamp?
 - **VAT** - value added tax calculations, we all need this
 - **Translations** You can create your own translations to display results in your language
@@ -287,6 +288,19 @@ Translations and natural language can also be used
 <p align="center">
 <img src="./assets/percent.gif">
 </p>
+
+## PX,Em,Rem,Pt
+
+Just open alfred and type 12px you'll see the value converted to em, rem and pt that simple, check the examples below.
+
+```
+- 12px
+- 12px to em
+- 12px in em
+- 2 rem
+- 2rem
+- 2rem to pt
+```
 
 ## Time
 
