@@ -2,10 +2,12 @@
 
 Calculate Anything is a workflow for Alfred 4, that uses **natural language** and is able to calculate multiple things like currency, time, vat, percentage, etc.
 
-## Why?
+## Why
+
 There are several workflows out there but i just needed a workflow that worked naturally for example you can open alfred and type 100 + 9 and alfred will give you a result no need for keywords or hotkeys it just works, i wanted to be able to just type 100 + 16% or 100 euros to usd or 100km to cm or 100 years to hours and a large etc. and so this workflow was created.
 
 ## Features
+
 - **Natural language** - type 100 euros to dollars or 100 euros in usd or 100€ to $ or 100eur usd or 100 euros a dolares. It does not matter, the same result will be displayed.
 - **Currency** - Up to 168 currencies
 - **Units** - 100 kilometers to meters or 100 km to m or simply 100km m
@@ -15,11 +17,12 @@ There are several workflows out there but i just needed a workflow that worked n
 - **Translations** You can create your own translations to display results in your language
 - **Keywords** Extend the natural language in the queries so you can type 100 dolares a pesos and the code will see 100usd to mxn
 
-
 ## Download
+
 Download directly from the releases page, make sure to download the latest release. [Download here](https://github.com/biati-digital/alfred-calculate-anything/releases/)
 
 ## Base Configuration
+
 There's only one global configuration and is the language, this configuration will be used to display the messages in your own language. View the Translations secction for the available languaes.
 
 Configure it with.
@@ -31,14 +34,18 @@ Configure it with.
 Please check the translations section to see if a translation to your language is available. **Default is en_EN**
 
 ## Currency
+
 You can use natural language or type a few characters and that's all, for example:
 
 ```
+- 100 euros to dollars
+- 100 euros in dollars
+- 100 euros a dolares (you can also write it in your own language)
 - 100 usd to mxn
 - 100€ to $
 - 100 usd in mxn
-- 100 euros to dollars
-- 100 euros a dolares (you can also write it in your own language)
+- 100 usd yen
+- 100usd eur
 - 100eur (If no target the currency will be converted to the base currency that you configured)
 ```
 
@@ -47,9 +54,9 @@ All this examples will simply work, you can add spaces between the value and the
 <img src="./assets/currency.gif">
 </p>
 
-
 ### Currency Options
-By default the workflow will use exchangerates api to make the conversion, exchangerates has only support for 32 currencies, if you need support for all the currencies that this worflow includes you need to get a FREE API Key from https://fixer.io it takes less than a minute.
+
+By default the workflow will use exchangerates api to make the conversion, exchangerates has only support for 32 currencies, if you need support for all the currencies that this worflow includes you need to get a FREE API Key from [https://fixer.io](https://fixer.io) it takes less than a minute.
 
 The following options are available for the currency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
 
@@ -61,6 +68,7 @@ Used to give format to the converted amount using the money format of your contr
 Set your fixer API Key for support more currencies
 
 ### Currency Symbols
+
 You can use currency symbols in your query for example **100¥ to €** will be converted to 100JPY to EUR, here is a list of available symbols.
 
 **If by any chance you don't remember the currency symbol or abbreviation simply type calculate list and select "List Available Currencies" (view the gift above)**
@@ -103,7 +111,6 @@ TT$        | TTD            | Trinidad and Tobago dollar
 TT$        | TTD            | Trinidad and Tobago dollar
 ₴          | UAH            | Ukrainian hryvnia
 
-
 ## Units
 
 You can write your query using natural language or just a few characters, either way this workflow will give you the result you need.
@@ -129,13 +136,12 @@ If you don't remember the unit abbreviation just simply type the name for exampl
 
 Finally if you still don't remember the unit abbreviation or it's name simply type **calculate list** and select **List Available Units** you can type to filter, etc.
 
-
 ### Units Options
+
 The following options are available.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
 
 - **Set System of Measurement**
 Here you can define your System of Measurement, this option is still in development but as the workflow grows this might be necessary for US users, by default the metric system will be used but you can define **imperial or metric**
-
 
 Here is a list of all available units and their names just to make this Readme long.
 
@@ -283,6 +289,7 @@ Translations and natural language can also be used
 </p>
 
 ## Time
+
 Time is triggered by a keyword because is not often used so you can simply open alfred and type time
 
 ```
@@ -292,6 +299,11 @@ Time is triggered by a keyword because is not often used so you can simply open 
 #gives you the time from now plus 15 days
 - time +15 days
 - time now plus 3 days
+
+#gives you the time from now plus 3 working days
+- time today + 3 workdays
+- time now + 3 workdays
+- time + 3 workdays
 
 #number of days until specified date
 - time days until 31 december
@@ -338,13 +350,14 @@ The following options are available.  Simply launch Alfred and type **calculate 
 
 - **Delete date format** It will show you a list of configured date formats, simply select the one you want to delete and press enter to remove it
 
-
 ### Example adding time date formats
+
 You can add all the date formats you want simply launch alfred and type **calculate configure** and select the option Add date format then simply enter the format you want and press enter: [View the configuration section for more info](#configuration)
 
 Time will use the language that you configure with **Set base language**
 
 ## VAT (value added tax)
+
 With this you can calculate the vat of a given amount. Like time, vat is also triggered with the keyword "vat" you can change the keyword in the workflow.
 
 <p align="center">
@@ -367,7 +380,6 @@ The following options are available.  Simply launch Alfred and type **calculate 
 
 - **Set VAT percentage** for example (16%)
 
-
 ## Translations
 
 This is a list of available languages:
@@ -376,7 +388,6 @@ Language   | Code
 ------     | -----------
 English    | en_EN
 Spanish    | es_ES
-
 
 You can create your own translation, just follow this steps.
 
@@ -410,9 +421,11 @@ If the user the types:
 There is no limit in the keywords that you can add.
 
 ## **Stop Words**
+
 Stop words are words that can be used in the query when using natural language for example **100km to cm** - here the stop word is **"to"**
 
 Stop words are useful for two things
+
 1. Allows the user to write more naturally and in their own language (e.g 100 dolares a mxn) "a" is the stop word
 2. Are used to check if the query has to be processed for example:
 
@@ -434,29 +447,41 @@ You can modify stop words in the same keys file for example /lang/en_EN-keys.php
 ```
 
 ## Configuration
+
 You can easily configure the workflow simply by opening Alfred and typing **calculate configure** you will see a list of all the available options to configure the workflow, select the option you want and press enter then simply enter your value and again press enter to save it. Check the following gif if you have doubts.
 
 <p align="center">
 <img src="./assets/config.gif">
 </p>
 
-
 ## Updates
+
 Starting from version 1.0.5 automatic updates were implemente, you will be notified if a new update is available or if you prefer you can launch Alfred and type **calculate update** to check for updates.
 
-
 ## Performance
+
 For Currency, Percentages and Units this workflow will only process the query if it begins with a digit and it has at least 3 characters, it's really fast. Time and VAT have a keyword because those are not often used.
 
 ## Acknowledge
+
 This workflow could not be possible without:
+
 - [Convertor](https://github.com/olifolkerd/convertor) with some modifications
 - [currency-converter-php](https://github.com/ojhaujjwal/currency-converter-php) for ExchangeRatesIo
 - [OneUpdater](https://www.alfredforum.com/topic/9224-oneupdater-—-update-workflows-with-a-single-node/) Automatic updates for Alfred Workflows
 
 ## Changelog
 
+### 1.0.6
+
+- New: pixels, em, rem, pt calculations example: 12px or 12px to em or 12px to rem or 12px to pt
+- New: Added today + X workdays
+- Updated translations
+- Fixed currency now works correctly with decimals and commas
+- Fixed some units conversion not working
+
 ### 1.0.5
+
 - New: Added new way to configure the workflow
 - New: Added OneUpdated for automatic updates
 - Fixed percentage calculation error
@@ -464,21 +489,26 @@ This workflow could not be possible without:
 - Improved the workflow, cleaning and removing nodes and code
 
 ### 1.0.4
+
 - Fixed speed calculations not working
 
 ### 1.0.3
+
 - Changed currency cache expiration to 2 hours for fixer.io and 12 hours for exchangerates
 
 ### 1.0.2
+
 - Added support for fixer.io
 - Some cleanup
 
 ### 1.0.1
+
 - FIXED Decimal pints to display values correcly from currencies
 - FIXED currency conversions to base currency always displayed the $ symbol
 - FIXED currency conversions from base currency eur to EUR triggered error
 
 ### 1.0.0
+
 - Initial release
 
 ## License
