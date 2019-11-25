@@ -130,7 +130,7 @@ if ($param == 'delete_time_zone') {
 
 
 $value = get_var($argv, 2, '');
-$query = clean_query(get_var($argv, 1));
+$query = trim(get_var($argv, 1));
 $param_name = ucfirst(str_replace('_', ' ', $param));
 $config_value = $query;
 
