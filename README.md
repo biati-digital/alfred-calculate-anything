@@ -494,6 +494,10 @@ This workflow could not be possible without:
 
 ## Changelog
 
+### 1.0.7
+
+- Fixed a bug where some configuration was saves in lowercase causing some problems with dates and currency formatting
+
 ### 1.0.6
 
 - New: pixels, em, rem, pt calculations example: 12px or 12px to em or 12px to rem or 12px to pt
