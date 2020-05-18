@@ -10,12 +10,6 @@ use \Workflow\Tools\Units;
 use \Workflow\Tools\Vat;
 use \Workflow\Tools\Time;
 
-interface Calculator
-{
-    public function shouldProcess();
-    public function processQuery();
-}
-
 class CalculateAnything
 {
     protected static $translations;
