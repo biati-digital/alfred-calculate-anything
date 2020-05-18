@@ -198,18 +198,18 @@ class Units extends CalculateAnything implements CalculatorInterface
     public function output($result)
     {
         $items = [
-            'title' => $result,
-            'arg' => $result,
+            'title' => $result['formatted'],
+            'arg' => $result['value'],
             'subtitle' => $this->getText('action_copy'),
             'mods' => [
                 'cmd' => [
                     'valid' => true,
-                    'arg' => $result,
+                    'arg' => $this->cleanupNumber($result['value']),
                     'subtitle' => $this->lang['cmd'],
                 ],
                 'alt' => [
                     'valid' => true,
-                    'arg' => $this->cleanupNumber($result),
+                    'arg' => $result['formatted'],
                     'subtitle' => $this->lang['alt'],
                 ],
             ]
@@ -279,7 +279,9 @@ class Units extends CalculateAnything implements CalculatorInterface
             $to = ' ' . $to;
         }
 
-        return $this->formatNumber($converted, $decimals) . $this->standardUnit($to);
+        $resultValue = $this->formatNumber($converted, $decimals);
+        $resultUnit = $this->standardUnit($to);
+        return ['formatted' => $resultValue . $resultUnit, 'value' => $resultValue];
     }
 
 

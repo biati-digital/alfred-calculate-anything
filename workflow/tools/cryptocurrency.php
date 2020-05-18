@@ -251,12 +251,12 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
                 'mods' => [
                     'cmd' => [
                         'valid' => true,
-                        'arg' => $total['value'],
+                        'arg' => $this->cleanupNumber($total['value']),
                         'subtitle' => $this->lang['cmd'],
                     ],
                     'alt' => [
                         'valid' => true,
-                        'arg' => $this->cleanupNumber($total['value']),
+                        'arg' => $this->cleanupNumber($single['value']),
                         'subtitle' => $this->lang['alt'],
                     ],
                 ]

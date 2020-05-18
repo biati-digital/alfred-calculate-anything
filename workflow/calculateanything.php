@@ -45,7 +45,7 @@ class CalculateAnything
         $lenght = strlen($query);
 
         // For all calculators that do not require a keyword
-        // the passed keyword must have at leats 3 characters
+        // the passed query must have at leats 3 characters
         // being the first one a number
         if ($lenght < 3 || !is_numeric($query[0])) {
             return false;
@@ -69,8 +69,8 @@ class CalculateAnything
 
     /**
      * Process the query
-     * checking before if it's type
-     * is supported
+     * checking before if query type
+     * it's supported
      *
      * @return mixed
      */

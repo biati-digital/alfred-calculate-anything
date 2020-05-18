@@ -56,6 +56,17 @@ All this examples will simply work, you can add spaces between the value and the
 <img src="./assets/currency.gif">
 </p>
 
+### Currency Modifiers
+
+When a result is displayed you can use action modifiers to copy the value in different formats:
+
+- **Enter**
+Press enter to copy the value with format for exaple: 2,376.54
+- **Command**
+Press command + enter to copy the value without format for exaple: 2376.54
+- **option + enter**
+Press option + enter to copy the value of 1 for example: 23.76
+
 ### Currency Options
 
 By default the workflow will use exchangerates api to make the conversion, exchangerates has only support for 32 currencies, if you need support for all the currencies that this worflow includes you need to get a FREE API Key from [https://fixer.io](https://fixer.io) it takes less than a minute.
@@ -130,6 +141,17 @@ You can use this in conjunction with currency to convert 100 cryptocurrencies to
 - 1btc (If no target the currency will be converted to the base currency that you configured)
 ```
 
+### Cryptocurrency Modifiers
+
+When a result is displayed you can use action modifiers to copy the value in different formats:
+
+- **Enter**
+Press enter to copy the value with format for exaple: 2,376.54
+- **Command**
+Press command + enter to copy the value without format for exaple: 2376.54
+- **option + enter**
+Press option + enter to copy the value of 1 for example: 23.76
+
 ### Cryptocurrency Options
 
 You need to get a FREE API Key from [https://coinmarketcap.com/api/pricing/](https://coinmarketcap.com/api/pricing/) it takes less than a minute.
@@ -164,6 +186,17 @@ If you don't remember the unit abbreviation just simply type the name for exampl
 </p>
 
 Finally if you still don't remember the unit abbreviation or it's name simply type **calculate list** and select **List Available Units** you can type to filter, etc.
+
+### Units Modifiers
+
+When a result is displayed you can use action modifiers to copy the value in different formats:
+
+- **Enter**
+Press enter to copy the value with format for exaple: 2,834.95
+- **Command**
+Press command + enter to copy the value without format for exaple: 2834.95
+- **option + enter**
+Press option + enter to copy the value with complete format for example: 2,834.95kg
 
 ### Units Options
 
@@ -524,6 +557,7 @@ This workflow could not be possible without:
 ## Changelog
 
 ### 2.0.1
+- New: Improved actions modifiers, more info in the docs.
 - Fixed: Error when saving base currencies
 
 ### 2.0.0
