@@ -523,10 +523,14 @@ This workflow could not be possible without:
 
 ## Changelog
 
+### 2.0.1
+- Fixed: Error when saving base currencies
+
 ### 2.0.0
 
 - New: Complete rewrite to be more maintainable and extendable
 - New: Added cryptocurrencies support
+- New: Actions mofidiers, you can press CMD or option to copy the value in different formats
 - New: Display exchange rate conversions in multiple currencies at once
 - New: Added new workflow updater
 
