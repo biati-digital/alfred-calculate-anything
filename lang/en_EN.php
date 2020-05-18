@@ -186,8 +186,8 @@ return [
 
         'belongs_to' => '%s is a %s unit',
         'error' => 'Error, you can not convert from %s to %s',
-        'cmd' => 'Action this item to copy this number to the clipboard',
-        'alt' => 'Action this item to copy the amount with no format',
+        'cmd' => 'Action this item to copy the amount with no format',
+        'alt' => 'Action this item to copy this value with unit to the clipboard',
     ],
     'currency' => [
         'AED' => "United Arab Emirates dirham",
@@ -352,13 +352,13 @@ return [
         'ZMW' => "Zambian kwacha",
         'ZWL' => "Zimbabwean dollar",
 
-        'cmd' => 'Action this item to copy this number to the clipboard',
-        'alt' => 'Action this item to copy the amount with no format',
+        'cmd' => 'Action this item to copy the amount with no format',
+        'alt' => 'Action this item to copy the value of 1 to the clipboard',
         'fetch_error' => 'Unable to get currencies data'
     ],
     'crypto_currency' => [
-        'cmd' => 'Action this item to copy this number to the clipboard',
-        'alt' => 'Action this item to copy the amount with no format',
+        'cmd' => 'Action this item to copy the amount with no format',
+        'alt' => 'Action this item to copy the value of 1 to the clipboard',
         'fetch_error' => 'Unable to get currencies data',
         'noapikey_title' => 'You need to confugure the API key for cryptocurrencies',
         'noapikey_subtitle' => 'Please read the documentation for more information',

@@ -184,8 +184,8 @@ return [
 
         'belongs_to' => '%s pertenece a %s',
         'error' => 'Error, no puedes convertir de %s a %s',
-        'cmd' => 'Presiona enter para copiar el valor al clipboard',
-        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'cmd' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'alt' => 'Presiona enter para copiar el valor al clipboard con formato completo',
     ],
     'currency' => [
         'AED' => "Dirham Emiratos Arabes Unidos",
@@ -350,13 +350,13 @@ return [
         'ZMW' => "Kwacha Zambiano",
         'ZWL' => "Dólar Zimbawense",
 
-        'cmd' => 'Presiona enter para copiar el valor al clipboard',
-        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'cmd' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'alt' => 'Presiona enter para copiar el valor de 1 al clipboard',
         'fetch_error' => 'Error al importar la información de cambio'
     ],
     'crypto_currency' => [
-        'cmd' => 'Presiona enter para copiar el valor al clipboard',
-        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'cmd' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'alt' => 'Presiona enter para copiar el valor de 1 al clipboard',
         'fetch_error' => 'Error al importar la información de cambio',
         'noapikey_title' => 'Debes de configurar la API key para cryptomonedas',
         'noapikey_subtitle' => 'Por favor lee la documentación para más información',
