@@ -8,7 +8,7 @@
  * https://opensource.org/licenses/MIT
  *
  * @author biati digital <https://www.biati.digital>
- * @version 2.0.0
+ * @version 2.0.1
  * @create date 12-11-2019
  * @modify date 13-05-2020
  */
