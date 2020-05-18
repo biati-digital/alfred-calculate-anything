@@ -7,10 +7,16 @@ return [
     'config' => [
         'lang_title' => 'Definir idioma principal',
         'lang_subtitle' => 'Configura el idioma principal',
-        'currency_title' => 'Definir típo de moneda',
+        'currency_title' => 'Añadir típo de moneda',
         'currency_subtitle' => 'Define tu típo de moneda por default',
+        'delete_currency_title' => 'Eliminar típo de moneda',
+        'delete_currency_subtitle' => 'Elimina típo de moneda configurado',
+        'enter_delete_base_currency' => 'Presiona enter para eliminar el típo de moneda',
+        'empty_currency_formats' => 'No hay típos de moneda configurados',
         'currency_locale_title' => 'Configuración regional de moneda',
         'currency_locale_subtitle' => 'Usada para dar formato a la cantidad usando el formato de tu país',
+        'crypto_title' => 'Definir la API de Coinmarketcap',
+        'crypto_subtitle' => 'Ingresa la API Key de Coinmarketcap',
         'fixer_title' => 'Definir la API de Fixer',
         'fixer_subtitle' => 'Ingresa la API Key de Fixer',
         'measurement_title' => 'Definir Sistema de unidades',
@@ -63,6 +69,8 @@ return [
         'until_subtitle' => '%s faltantes hasta el %s',
         'notvalid_subtitle' => 'Ingresa una fecha válida',
         'format_subtitle' => 'Formato %s',
+        'cmd' => 'Presiona enter para copiar el valor al clipboard',
+        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
     ],
     'vat' => [
         'result' => 'IVA de %s = %s',
@@ -71,11 +79,15 @@ return [
         'plus_subtitle' => '%s más %s de IVA',
         'minus' => '%s menos IVA = %s',
         'minus_subtitle' => '%s menos %s de IVA',
+        'cmd' => 'Presiona enter para copiar el valor al clipboard',
+        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
     ],
     'percentage' => [
         'result' => '%s es %s de %s',
         'increase' => 'El incremento en porcentaje de %s a %s es de %s',
         'decrease' => 'El decremento en porcentaje de %s a %s es de %s',
+        'cmd' => 'Presiona enter para copiar el valor al clipboard',
+        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
     ],
     'units' => [
         'length' => 'Length',
@@ -171,7 +183,9 @@ return [
         'mev' => 'Mega Electron Volt',
 
         'belongs_to' => '%s pertenece a %s',
-        'error' => 'Error, no puedes convertir de %s a %s'
+        'error' => 'Error, no puedes convertir de %s a %s',
+        'cmd' => 'Presiona enter para copiar el valor al clipboard',
+        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
     ],
     'currency' => [
         'AED' => "Dirham Emiratos Arabes Unidos",
@@ -336,6 +350,15 @@ return [
         'ZMW' => "Kwacha Zambiano",
         'ZWL' => "Dólar Zimbawense",
 
-        "fetch_error" => "Error al importar la información de cambio"
+        'cmd' => 'Presiona enter para copiar el valor al clipboard',
+        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'fetch_error' => 'Error al importar la información de cambio'
+    ],
+    'crypto_currency' => [
+        'cmd' => 'Presiona enter para copiar el valor al clipboard',
+        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'fetch_error' => 'Error al importar la información de cambio',
+        'noapikey_title' => 'Debes de configurar la API key para cryptomonedas',
+        'noapikey_subtitle' => 'Por favor lee la documentación para más información',
     ]
 ];

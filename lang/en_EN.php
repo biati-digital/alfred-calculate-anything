@@ -7,10 +7,16 @@ return [
     'config' => [
         'lang_title' => 'Set base language',
         'lang_subtitle' => 'Configure the base language',
-        'currency_title' => 'Set base currency',
-        'currency_subtitle' => 'Set your base currency',
+        'currency_title' => 'Add base currency',
+        'currency_subtitle' => 'Set a base currency',
+        'delete_currency_title' => 'Delete base currency',
+        'delete_currency_subtitle' => 'Delete configured base currency',
+        'enter_delete_base_currency' => 'Press enter to delete this currency',
+        'empty_currency_formats' => 'There are no stored base currency',
         'currency_locale_title' => 'Set currency locale',
         'currency_locale_subtitle' => 'Used to give format to the value using your country format',
+        'crypto_title' => 'Set Coinmarketcap API',
+        'crypto_subtitle' => 'Configure your coinmarketcap API Key',
         'fixer_title' => 'Set Fixer API',
         'fixer_subtitle' => 'Configure your fixer API Key',
         'measurement_title' => 'Set System of Measurement',
@@ -65,6 +71,8 @@ return [
         'until_subtitle' => '%s until %s',
         'notvalid_subtitle' => 'Enter a valid date',
         'format_subtitle' => 'Format %s',
+        'cmd' => 'Action this item to copy this number to the clipboard',
+        'alt' => 'Action this item to copy the amount with no format',
     ],
     'vat' => [
         'result' => 'VAT of %s = %s',
@@ -73,11 +81,15 @@ return [
         'plus_subtitle' => '%s plus %s of VAT',
         'minus' => '%s minus VAT = %s',
         'minus_subtitle' => '%s minus %s of VAT',
+        'cmd' => 'Action this item to copy this number to the clipboard',
+        'alt' => 'Action this item to copy the amount with no format',
     ],
     'percentage' => [
         'result' => '%s is %s of %s',
         'increase' => 'The percentage increase from %s to %s is %s',
         'decrease' => 'The percentage decrease from %s to %s is %s',
+        'cmd' => 'Action this item to copy this number to the clipboard',
+        'alt' => 'Action this item to copy the amount with no format',
     ],
     'units' => [
         'length' => 'Length',
@@ -173,7 +185,9 @@ return [
         'mev' => 'Mega Electron Volt',
 
         'belongs_to' => '%s is a %s unit',
-        'error' => 'Error, you can not convert from %s to %s'
+        'error' => 'Error, you can not convert from %s to %s',
+        'cmd' => 'Action this item to copy this number to the clipboard',
+        'alt' => 'Action this item to copy the amount with no format',
     ],
     'currency' => [
         'AED' => "United Arab Emirates dirham",
@@ -338,6 +352,15 @@ return [
         'ZMW' => "Zambian kwacha",
         'ZWL' => "Zimbabwean dollar",
 
-        "fetch_error" => "Unable to get currencies data"
+        'cmd' => 'Action this item to copy this number to the clipboard',
+        'alt' => 'Action this item to copy the amount with no format',
+        'fetch_error' => 'Unable to get currencies data'
+    ],
+    'crypto_currency' => [
+        'cmd' => 'Action this item to copy this number to the clipboard',
+        'alt' => 'Action this item to copy the amount with no format',
+        'fetch_error' => 'Unable to get currencies data',
+        'noapikey_title' => 'You need to confugure the API key for cryptocurrencies',
+        'noapikey_subtitle' => 'Please read the documentation for more information',
     ]
 ];

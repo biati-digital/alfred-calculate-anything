@@ -61,12 +61,24 @@ return [
     ],
     'time' => [
         'ahora' => 'now',
+        'más ' => '+',
+        'mas ' => '+',
         'más' => '+',
         'mas' => '+',
+        'menos ' => '-',
         'menos' => '-',
         'mañana' => '+1 day',
         'ayer' => '-1 day',
-
+        'días' => 'days',
+        'dias' => 'days',
+        'día' => 'days',
+        'dia' => 'days',
+        'horas' => 'hours',
+        'hora' => 'hour',
+        'semanas' => 'weeks',
+        'semana' => 'week',
+        'años' => 'years',
+        'año' => 'year',
 
         'until' => ['hasta'],
         'between' => ['entre'],
@@ -79,6 +91,7 @@ return [
         'pesos mexicanos' => 'MXN',
         'pesos argentinos' => 'ARS',
         'pesos cubanos' => 'CUP',
+        'pesos' => 'MXN',
         'dolares canadienses' => 'CAD',
         '$m' => 'MXN',
         'mxm' => 'MXN',
@@ -87,6 +100,13 @@ return [
         'dolar' => 'USD',
         'dolares' => 'USD',
         'yenes' => 'JPY',
+
+        'stop_words' => ['a', '='],
+    ],
+    'crypto_currency' => [
+        'bitcoins' => 'BTC',
+        'ether' => 'ETH',
+        'etherium' => 'ETH', //mispelled
 
         'stop_words' => ['a', '='],
     ],

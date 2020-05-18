@@ -8,8 +8,8 @@
  * name, etc.
  */
 
-require_once(__DIR__ . '/units.php');
-require_once(__DIR__ . '/currency.php');
+require_once __DIR__ . '/workflow/lib/functions.php';
+require_once __DIR__ . '/workflow/calculateanything.php';
 
 $list = getenv('list');
 $response = [];
@@ -22,6 +22,12 @@ if (empty($list)) {
 		'arg' => 'currency',
 	];
 	$response[] = [
+		'title' => 'List Available Cryptocurrencies',
+		'subtitle' => 'Display the list of cryptocurrencies',
+		'valid' => true,
+		'arg' => 'cryptocurrency',
+	];
+	$response[] = [
 		'title' => 'List Available Units',
 		'subtitle' => 'Display the list of units',
 		'valid' => true,
@@ -31,8 +37,10 @@ if (empty($list)) {
 	exit(0);
 }
 
-$items = ($list == 'units' ? get_units_list() : []);
-$items = ($list == 'currency' ? get_currencies_list() : $items);
+$calculate = new Workflow\CalculateAnything();
+$items = ($list == 'units' ? $calculate->getCalculator('units')->listAvailable() : []);
+$items = ($list == 'currency' ? $calculate->getCalculator('currency')->listAvailable() : $items);
+$items = ($list == 'cryptocurrency' ? $calculate->getCalculator('cryptocurrency')->listAvailable() : $items);
 
 foreach ($items as $item) {
 	$response[] = $item;

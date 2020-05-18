@@ -10,6 +10,7 @@ There are several workflows out there but i just needed a workflow that worked n
 
 - **Natural language** - type 100 euros to dollars or 100 euros in usd or 100€ to $ or 100eur usd or 100 euros a dolares. It does not matter, the same result will be displayed.
 - **Currency** - Up to 168 currencies
+- **Cryptocurrency** - Support for 100 cryptocurrencies
 - **Units** - 100 kilometers to meters or 100 km to m or simply 100km m
 - **Percentages** - 100 + 16% | 100 - 16% etc.
 - **PX,Em,Rem,Pt** - 12px or 12px to em or 12px pt
@@ -47,7 +48,7 @@ You can use natural language or type a few characters and that's all, for exampl
 - 100 usd in mxn
 - 100 usd yen
 - 100usd eur
-- 100eur (If no target the currency will be converted to the base currency that you configured)
+- 100eur (If no target the currency will be converted to the base currencies that you configured)
 ```
 
 All this examples will simply work, you can add spaces between the value and the currency or don't.
@@ -61,8 +62,10 @@ By default the workflow will use exchangerates api to make the conversion, excha
 
 The following options are available for the currency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
 
-- **Set base currency**
-This will become your base currency, if you type 100eur it will automatically be converted to mxn, examples of currency (USD, EUR, MXN, CAD, etc)
+- **Add base currency**
+This will become your base currency, if you type 100eur it will automatically be converted to the currencies you define here. You can enter multiple currencies at once separated by comma for example: USD, EUR, MXN
+- **Delete base currency**
+If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply presing enter
 - **Set currency locale**
 Used to give format to the converted amount using the money format of your contry
 - **Set Fixer API**
@@ -111,6 +114,31 @@ S/.        | PEN            | Peruvian Sol
 TT$        | TTD            | Trinidad and Tobago dollar
 TT$        | TTD            | Trinidad and Tobago dollar
 ₴          | UAH            | Ukrainian hryvnia
+
+
+## Cryptocurrency
+
+You can use this in conjunction with currency to convert 100 cryptocurrencies to up to 168 currencies, again you can use natural language or simply pass the currency simbol and that's all.
+
+```
+- 2 bitcoin to dollars
+- 0.1 bitcoin in dollars
+- 5 bitcoins in ethereum
+- 1 ethereum to ¥
+- 10 ethereum in mxn
+- 1eth btc
+- 1btc (If no target the currency will be converted to the base currency that you configured)
+```
+
+### Cryptocurrency Options
+
+You need to get a FREE API Key from [https://coinmarketcap.com/api/pricing/](https://coinmarketcap.com/api/pricing/) it takes less than a minute.
+
+The following options are available for cryptocurrency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+
+- **Set Coinmarketcap API**
+Select this option and paste your API key and press enter to save it.
+
 
 ## Units
 
@@ -478,7 +506,9 @@ You can easily configure the workflow simply by opening Alfred and typing **calc
 
 ## Updates
 
-Starting from version 1.0.5 automatic updates were implemente, you will be notified if a new update is available or if you prefer you can launch Alfred and type **calculate update** to check for updates.
+~~Starting from version 1.0.5 automatic updates were implemente, you will be notified if a new update is available or if you prefer you can launch Alfred and type **calculate update** to check for updates.~~
+
+Starting from version 1.0.8 there's a new way to search and install automatic updates, before it was necessary to press enter when you used "Calculate Anything" and it will trigger the updater but the "Enter" key is not regularly used as this workflow does not depends on this key for the queries so you'll probably ended up with an outdated version. If you want you can still use **calculate update** to check for updates but it's not necessary anymore, the workflow will do it automatically for you.
 
 ## Performance
 
@@ -490,9 +520,15 @@ This workflow could not be possible without:
 
 - [Convertor](https://github.com/olifolkerd/convertor) with some modifications
 - [currency-converter-php](https://github.com/ojhaujjwal/currency-converter-php) for ExchangeRatesIo
-- [OneUpdater](https://www.alfredforum.com/topic/9224-oneupdater-—-update-workflows-with-a-single-node/) Automatic updates for Alfred Workflows
 
 ## Changelog
+
+### 2.0.0
+
+- New: Complete rewrite to be more maintainable and extendable
+- New: Added cryptocurrencies support
+- New: Display exchange rate conversions in multiple currencies at once
+- New: Added new workflow updater
 
 ### 1.0.7
 

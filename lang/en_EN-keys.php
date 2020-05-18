@@ -85,7 +85,7 @@ return [
         'yesterday' => '-1 day',
         'workdays' => 'weekdays',
         'workday' => 'weekdays',
-
+        'wd' => 'weekdays',
         'until' => ['until'],
         'between' => ['between'],
         'start of' => ['start of'],
@@ -138,6 +138,13 @@ return [
         'Z$' => 'ZWD',
         'dollar' => 'USD',
         'dollars' => 'USD',
+
+        'stop_words' => ['to', '=', 'in'],
+    ],
+    'crypto_currency' => [
+        'bitcoins' => 'BTC',
+        'ether' => 'ETH',
+        'etherium' => 'ETH', //mispelled
 
         'stop_words' => ['to', '=', 'in'],
     ],
