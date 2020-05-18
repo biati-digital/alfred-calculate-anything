@@ -30,7 +30,7 @@ if ($param == 'add_base_currency' || $param == 'delete_base_currency') {
         $value = strtoupper($value);
         $value = trim($value);
         $value = explode(',', $value);
-        $newcurrencies = array_mege($settings['base_currency'], $value);
+        $newcurrencies = array_merge($settings['base_currency'], $value);
         $settings['base_currency'] = array_unique($newcurrencies);
     }
     if ($param == 'delete_base_currency') {
