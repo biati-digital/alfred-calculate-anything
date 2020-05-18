@@ -508,7 +508,7 @@ You can easily configure the workflow simply by opening Alfred and typing **calc
 
 ~~Starting from version 1.0.5 automatic updates were implemente, you will be notified if a new update is available or if you prefer you can launch Alfred and type **calculate update** to check for updates.~~
 
-Starting from version 1.0.8 there's a new way to search and install automatic updates, before it was necessary to press enter when you used "Calculate Anything" and it will trigger the updater but the "Enter" key is not regularly used as this workflow does not depends on this key for the queries so you'll probably ended up with an outdated version. If you want you can still use **calculate update** to check for updates but it's not necessary anymore, the workflow will do it automatically for you.
+Starting from version 2.0.0 there's a new way to search and install automatic updates, before it was necessary to press enter when you used "Calculate Anything" and it will trigger the updater but the "Enter" key is not regularly used as this workflow does not depends on this key for the queries so you'll probably ended up with an outdated version. If you want you can still use **calculate update** to check for updates but it's not necessary anymore, the workflow will do it automatically for you.
 
 ## Performance
 
