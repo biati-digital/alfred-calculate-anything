@@ -56,8 +56,10 @@ return [
         'miligramo' => 'mg',
         'onzas' => 'oz',
         'onza' => 'oz',
+        'libras' => 'lb',
+        'libra' => 'lb',
 
-        'stop_words' => ['a']
+        'stop_words' => ['a', 'en', 'convertir a']
     ],
     'time' => [
         'ahora' => 'now',

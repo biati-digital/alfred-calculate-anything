@@ -75,6 +75,8 @@ return [
         'miligram' => 'mg',
         'ounces' => 'oz',
         'ounce' => 'oz',
+        'pounds' => 'lb',
+        'pound' => 'lb',
 
         'stop_words' => ['to', '=', 'in']
     ],
@@ -151,6 +153,7 @@ return [
     'percentage' => [
         'plus' => '+',
         'minus' => '-',
+
         'stop_words' => ['of', 'in']
     ]
 ];

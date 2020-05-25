@@ -26,7 +26,7 @@ class CalculateAnything
     /**
      * Construct
      */
-    public function __construct(string $query = '')
+    public function __construct($query = '')
     {
         self::$translations = getTranslation();
         self::$langKeywords = getExtraKeywords();
@@ -85,24 +85,24 @@ class CalculateAnything
         $units = self::$unitsCalculator;
         $processed = [];
 
+        if ($units->shouldProcess($lenght)) {
+            return $units->processQuery();
+        }
+
         if ($percentages->shouldProcess($lenght)) {
-            $processed = $percentages->processQuery();
+            return $percentages->processQuery();
         }
 
         if ($pxemrem->shouldProcess($lenght)) {
-            $processed = $pxemrem->processQuery();
-        }
-
-        if ($units->shouldProcess($lenght)) {
-            $processed = [$units->processQuery()];
+            return $pxemrem->processQuery();
         }
 
         if ($cryptocurrency->shouldProcess($lenght)) {
-            $processed = $cryptocurrency->processQuery();
+            return $cryptocurrency->processQuery();
         }
 
         if ($currency->shouldProcess($lenght)) {
-            $processed = $currency->processQuery();
+            return $currency->processQuery();
         }
 
         return $processed;
@@ -180,7 +180,7 @@ class CalculateAnything
      * @param string $key
      * @return array
      */
-    public function getTranslation(string $key = ''): array
+    public function getTranslation($key = '')
     {
         return self::$translations[$key];
     }
@@ -192,7 +192,7 @@ class CalculateAnything
      * @param string $key
      * @return string
      */
-    public function getText(string $key)
+    public function getText($key)
     {
         $strings = $this->getTranslation('general');
         if (!is_array($strings) || !isset($strings[$key])) {
@@ -218,7 +218,7 @@ class CalculateAnything
      * @param string $key
      * @return array
      */
-    protected function getKeywords(string $key = ''): array
+    protected function getKeywords($key = '')
     {
         return self::$langKeywords[$key];
     }
@@ -236,7 +236,7 @@ class CalculateAnything
      * @param string $key
      * @return array
      */
-    protected function getStopWords(string $key = ''): array
+    protected function getStopWords($key = '')
     {
         return self::$langKeywords[$key]['stop_words'];
     }
@@ -250,7 +250,7 @@ class CalculateAnything
      * @param string|boolean $spaced
      * @return string
      */
-    protected function getStopWordsString($words, $spaced = false): string
+    protected function getStopWordsString($words, $spaced = false)
     {
         if (is_string($words)) {
             $words = $this->getStopWords($words);
@@ -276,7 +276,7 @@ class CalculateAnything
      *
      * @return string
      */
-    protected function getQuery(): string
+    protected function getQuery()
     {
         return self::$_query;
     }
@@ -314,6 +314,7 @@ class CalculateAnything
      */
     public function escapeKeywords($key)
     {
+        $key = str_replace('+', '\+', $key);
         $key = str_replace('$', '\$', $key);
         $key = str_replace('/', '\/', $key);
         $key = str_replace('.', '\.', $key);
@@ -447,6 +448,17 @@ class CalculateAnything
      */
     public function formatNumber($number, $decimals = -1, $round = false)
     {
+        if (!is_numeric($number)) {
+            return $number;
+        }
+
+        // Check if number is exponent and simply return it as is
+        preg_match('/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)/s', $number, $matches);
+        if (!empty($matches) && isset($matches[1])) {
+            return sprintf('%f', $number);
+            // return $number;
+        }
+
         if (fmod($number, 1) !== 0.00) {
             if ($decimals >= 0) {
                 if ($round) {
@@ -472,6 +484,7 @@ class CalculateAnything
                         $count += 1;
                         continue;
                     }
+                    // if ($value !== '0' && $prev !== '0') {
                     if ($value !== '0' && $prev !== '0') {
                         $count += 1;
                         $end_digit = $value;
@@ -484,6 +497,7 @@ class CalculateAnything
             if ($round) {
                 return number_format($number, $decimals);
             }
+
             $number = bcdiv($number, 1, $decimals);
             return number_format($number, $decimals);
         } else {

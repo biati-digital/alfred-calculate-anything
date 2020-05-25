@@ -84,15 +84,19 @@ class Vat extends CalculateAnything implements CalculatorInterface
      */
     public function output($processed)
     {
+        $items = [];
+
         if (!$processed) {
-            return [
+            $items[] = [
                 'title' => '...',
-                'subtitle' => $this->getText('action_copy'),
+                'subtitle' => $this->lang['empty'],
+                'arg' => '',
                 'valid' => false,
             ];
+
+            return $items;
         }
 
-        $items = [];
         $amount = $processed['amount'];
         $result = $processed['result'];
         $plustaxt = $processed['plustaxt'];

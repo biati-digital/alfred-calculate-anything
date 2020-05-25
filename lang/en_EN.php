@@ -83,11 +83,13 @@ return [
         'minus_subtitle' => '%s minus %s of VAT',
         'cmd' => 'Action this item to copy this number to the clipboard',
         'alt' => 'Action this item to copy the amount with no format',
+        'empty' => 'Enter a value to process',
     ],
     'percentage' => [
         'result' => '%s is %s of %s',
         'increase' => 'The percentage increase from %s to %s is %s',
         'decrease' => 'The percentage decrease from %s to %s is %s',
+        'percentage_of' => '%s of %s is %s', // 10% of 100 is 10
         'cmd' => 'Action this item to copy this number to the clipboard',
         'alt' => 'Action this item to copy the amount with no format',
     ],

@@ -81,11 +81,13 @@ return [
         'minus_subtitle' => '%s menos %s de IVA',
         'cmd' => 'Presiona enter para copiar el valor al clipboard',
         'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'empty' => 'Ingresa un valor para procesar',
     ],
     'percentage' => [
         'result' => '%s es %s de %s',
         'increase' => 'El incremento en porcentaje de %s a %s es de %s',
         'decrease' => 'El decremento en porcentaje de %s a %s es de %s',
+        'percentage_of' => '%s de %s es %s',
         'cmd' => 'Presiona enter para copiar el valor al clipboard',
         'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
     ],

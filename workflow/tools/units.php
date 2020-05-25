@@ -26,6 +26,7 @@ class Units extends CalculateAnything implements CalculatorInterface
     private $keywords;
     private $unitsList;
     private $lang;
+    private $match_units;
 
     /**
      * Construct
@@ -169,8 +170,9 @@ class Units extends CalculateAnything implements CalculatorInterface
         $query = $this->query;
         $units = $this->matchRegex();
         $stopwords = $this->getStopWordsString($this->stop_words);
+        $this->match_units = $units;
 
-        return preg_match('/^\d*\.?\d+ ?' . $units . ' ?' . $stopwords . '?/i', $query, $matches);
+        return preg_match('/^\d*\.?\d+ ?' . $units . ' ?' . $stopwords . '? ' . $units . '$/i', $query, $matches);
     }
 
 
@@ -183,8 +185,9 @@ class Units extends CalculateAnything implements CalculatorInterface
     {
         $query = $this->query;
         $data = $this->extractQueryData($query);
+        $conversion = $this->convert($data);
 
-        return $this->output($this->convert($data));
+        return $this->output($conversion);
     }
 
     /**
@@ -197,14 +200,30 @@ class Units extends CalculateAnything implements CalculatorInterface
      */
     public function output($result)
     {
-        $items = [
+        if (empty($result)) {
+            return false;
+        }
+
+        $items = [];
+        if (is_string($result) && !empty($result)) {
+            $items[] = [
+                'title' => $result,
+                'arg' => false,
+                'subtitle' => $this->getText('action_copy'),
+                'valid' => false,
+            ];
+            return $items;
+        }
+
+        $items[] = [
             'title' => $result['formatted'],
             'arg' => $result['value'],
             'subtitle' => $this->getText('action_copy'),
+            'valid' => true,
             'mods' => [
                 'cmd' => [
                     'valid' => true,
-                    'arg' => $this->cleanupNumber($result['value']),
+                    'arg' => $result['value'],
                     'subtitle' => $this->lang['cmd'],
                 ],
                 'alt' => [
@@ -214,8 +233,10 @@ class Units extends CalculateAnything implements CalculatorInterface
                 ],
             ]
         ];
+
         return $items;
     }
+
 
     /**
      * Make actual conversion
@@ -236,8 +257,7 @@ class Units extends CalculateAnything implements CalculatorInterface
         }
 
         if ($to_type !== $from_type) {
-            $units_str = $this->getTranslation('units');
-            return sprintf($units_str['error'], $this->standardUnit($from), $this->standardUnit($to));
+            return sprintf($this->lang['error'], $this->standardUnit($from), $this->standardUnit($to));
         }
 
         if ($from == 'year' && $to == 'month') {
@@ -281,7 +301,11 @@ class Units extends CalculateAnything implements CalculatorInterface
 
         $resultValue = $this->formatNumber($converted, $decimals);
         $resultUnit = $this->standardUnit($to);
-        return ['formatted' => $resultValue . $resultUnit, 'value' => $resultValue];
+
+        return [
+            'formatted' => $resultValue . $resultUnit,
+            'value' => $resultValue
+        ];
     }
 
 
@@ -294,41 +318,19 @@ class Units extends CalculateAnything implements CalculatorInterface
      */
     private function extractQueryData($query)
     {
-        preg_match('/^(\d*\.?\d+)[^\d]/i', $query, $amount_match);
-        if (empty($amount_match)) {
+        $query = str_replace(',', '', $query);
+        $stopwords = $this->getStopWordsString($this->stop_words);
+
+        preg_match('/^(\d*\.?\d+) ?' . $this->match_units . ' ?' . $stopwords . '? ' . $this->match_units . '$/i', $query, $matches);
+
+        if (empty($matches)) {
             return false;
         }
 
-        $stopwords = $this->getStopWordsString($this->stop_words, ' %s ');
-        $amount = getVar($amount_match, 1);
-        $amount = trim($amount);
-        $string = str_replace($amount, '', $query);
-        $string = trim($string);
-
-        preg_match('/(.*).*' . $stopwords . '(.*)/i', $string, $matches);
-
-        // Matches strings like 100 kilograms to ounces
-        if (!empty($matches)) {
-            $matches = array_values(array_filter($matches));
-            $from = getVar($matches, 1);
-            $to = getVar($matches, 3);
-        } elseif (empty($matches)) {
-            $keywords = $this->keywords;
-
-            foreach ($keywords as $key => $value) {
-                if (is_array($value)) {
-                    continue;
-                }
-                $key = $this->escapeKeywords($key);
-                $string = preg_replace('/(^|\W)' . $key . '(\W|$)/i', ' ' . $value . ' ', $string);
-            }
-
-            $string = preg_replace('!\s+!', ' ', $string);
-            $string = trim($string);
-            $data = explode(' ', $string);
-            $from = getVar($data, 0);
-            $to = getVar($data, 1);
-        }
+        $total_match = count($matches);
+        $amount = getVar($matches, 1, '');
+        $from = $this->getCorrectunit(getVar($matches, 2));
+        $to = $this->getCorrectunit(getVar($matches, $total_match - 1));
 
         if (empty($from) || empty($to)) {
             return false;
@@ -336,8 +338,8 @@ class Units extends CalculateAnything implements CalculatorInterface
 
         return [
             'amount' => $this->cleanupNumber($amount),
-            'from' => $this->cleanupUnit($from),
-            'to' => $this->cleanupUnit($to),
+            'from' => $from,
+            'to' => $to,
         ];
     }
 
@@ -396,20 +398,22 @@ class Units extends CalculateAnything implements CalculatorInterface
     private function matchRegex()
     {
         $units = $this->unitsList;
-        $params = [];
+        $params_start = [];
         foreach ($units as $value) {
-            $params[] = implode(' |', $value);
+            // $params_start[] = implode(' |', $value);
+            $params_start[] = implode('|', $value);
         }
 
         $translation_keywords = $this->keywords;
         if (!empty($translation_keywords)) {
-            $params[] = implode(' |', array_keys($translation_keywords));
+            // $params_start[] = implode(' |', array_keys($translation_keywords));
+            $params_start[] = implode('|', array_keys($translation_keywords));
         }
 
-        $params = implode('|', $params);
-        $params = $this->escapeKeywords($params);
+        $params_start = implode('|', $params_start);
+        $params_start = $this->escapeKeywords($params_start);
 
-        return '(' . $params . ')';
+        return '(' . $params_start . ')';
     }
 
     /**
@@ -422,9 +426,6 @@ class Units extends CalculateAnything implements CalculatorInterface
     private function cleanupUnit($val)
     {
         $unit = trim($val);
-        $unit = $this->keywordTranslation($unit, $this->keywords);
-
-        $unit = trim($unit);
         $unit = preg_replace('!\s+!', ' ', $unit);
         if (endsWith($unit, '2')) {
             $unit = str_replace('2', '**2', $unit);
@@ -432,6 +433,33 @@ class Units extends CalculateAnything implements CalculatorInterface
 
         return $unit;
     }
+
+    /**
+     * Get correct unit
+     * the user can enter for example liter
+     * and this function should return l
+     * so it will search if the key exists in the
+     * units list and translation keywords
+     *
+     * @param string $val
+     * @return string|bool
+     */
+    private function getCorrectunit($val)
+    {
+        if (empty($val)) {
+            return false;
+        }
+
+        $val = mb_strtolower($val);
+        $val = $this->keywordTranslation($val, $this->keywords);
+
+        if (!$this->isValidUnit($val)) {
+            return false;
+        }
+
+        return $this->cleanupUnit($val);
+    }
+
 
     private function standardUnit($unit)
     {

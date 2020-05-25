@@ -10,6 +10,7 @@ class Percentage extends CalculateAnything implements CalculatorInterface
     private $stop_words;
     private $keywords;
     private $lang;
+    private $parsed;
 
     /**
      * Construct
@@ -32,10 +33,32 @@ class Percentage extends CalculateAnything implements CalculatorInterface
      */
     public function shouldProcess(int $strlenght = 0)
     {
-        if ($strlenght >= 3 && strpos($this->query, ' ') !== false && strpos($this->query, '%') !== false) {
-            return true;
+        $query = trim($this->query);
+        $query = str_replace(',', '', $query);
+
+        if ($strlenght < 3 || (strpos($query, ' ') == false && strpos($query, '%') == false)) {
+            return false;
         }
-        return false;
+
+        $stopwords = ['+', '-', '%'];
+        $stopwords = array_merge($stopwords, $this->stop_words);
+        $stopwords = implode('|', $stopwords);
+        $stopwords = $this->escapeKeywords($stopwords);
+        $stopwords = '(' . $stopwords . ')';
+
+        preg_match('/^(\d*\.?\d*%?) ?' . $stopwords . ' ?(\d*\.?\d*%?)/i', $query, $matches);
+
+        if (empty($matches)) {
+            return false;
+        }
+
+        $matches = array_filter($matches);
+
+        if (count($matches) < 4) {
+            return false;
+        }
+        $this->parsed = $matches;
+        return true;
     }
 
 
@@ -46,49 +69,32 @@ class Percentage extends CalculateAnything implements CalculatorInterface
      */
     public function processQuery()
     {
-        $query = $this->query;
-        $keys = $this->keywords;
-        $stop_words = $this->getStopWordsString($this->stop_words);
-        $from = array_keys($keys);
-        $to = array_values($keys);
-
-        $from[] = 'plus';
-        $to[] = '+';
-        $from[] = 'minus';
-        $to[] = '-';
-
-        $query = str_replace(
-            $from,
-            $to,
-            $query
-        );
-
-        $this->query = $query;
+        $action = trim($this->parsed[2]);
         $processed = '';
-
-        // Calculate Percentage of value
-        // 30% de 100 = 30
-        if (preg_match('/^\d*\.?\d*% ?' . $stop_words . '? ?(\d+)?/', $query, $matches)) {
-            $processed = $this->percentageOf();
-        }
 
         // Total plus percentage
         // 100 + 16% = 116
-        elseif (preg_match('/^\d*\.?\d+ ?\+ ?\d*\.?\d*%$/', $query, $matches)) {
+        if ($action == '+') {
             $processed = $this->totalPlusPercentage();
         }
 
         // Total minus percentage
         // 116 - 16% = 100
-        elseif (preg_match('/^\d*\.?\d+ ?- ?\d*\.?\d*%$/', $query, $matches)) {
+        elseif ($action == '-') {
             $processed = $this->totalMinusPercentage();
         }
 
         // Calculates `a` percent of `b` is what percent?
         // 30 % 40 = 75%
         // So 30 is 75% of 40.
-        elseif (preg_match('/^\d+ +?\%.+?\d+/', $query, $matches)) {
+        elseif ($action == '%') {
             $processed = $this->percentOfTwoNumbers();
+        }
+
+        // Calculate Percentage of value
+        // 30% de 100 = 30
+        elseif (in_array($action, $this->stop_words)) {
+            $processed = $this->percentageOf();
         }
 
         return $this->output($processed);
@@ -158,19 +164,30 @@ class Percentage extends CalculateAnything implements CalculatorInterface
      */
     private function totalPlusPercentage()
     {
-        $query = $this->query;
-        $query = preg_replace('/\s+/', '', $query);
-        $query = preg_replace("/ +?\+ +?/", ' ', $query);
-        $data = explode('+', $query);
+        $total = $this->parsed[1];
+        $percentage = $this->parsed[3];
 
-        if (count($data) < 2) {
-            return false;
-        }
+        $amount = $this->cleanupNumber($total);
+        $percent = $this->cleanupNumber($percentage);
+        $result = $this->formatNumber($amount + (($percent / 100) * $amount));
 
-        $amount = $this->cleanupNumber($data[0]);
-        $percent = $this->cleanupNumber($data[1]);
+        return $result;
 
-        return $this->formatNumber($amount + (($percent / 100) * $amount));
+        /*
+        // This is a more advanced output with more information
+        // not sure if necessary but i'll keep it for now
+        // in case i add a setting to configure the output
+
+        $saved = $amount - $this->cleanupNumber($result);
+        $famount = $this->formatNumber($amount);
+        $saved = $this->formatNumber($saved);
+        $saved = abs($saved);
+
+        $values = [];
+        $values[$result] = $famount . ' + ' . $percentage . ' = ' . $result;
+        $values[$saved] = sprintf($this->lang['percentage_of'], $percentage, $famount, $saved);
+
+        return $values; */
     }
 
     /**
@@ -181,27 +198,29 @@ class Percentage extends CalculateAnything implements CalculatorInterface
      */
     private function totalMinusPercentage()
     {
-        $query = $this->query;
-        $query = preg_replace('/\s+/', '', $query);
-        $data = explode('-', $query);
+        $total = $this->parsed[1];
+        $percentage = $this->parsed[3];
 
-        if (count($data) < 2) {
-            return false;
-        }
-
-        $amount = $this->cleanupNumber($data[0]);
-        $percent = $this->cleanupNumber($data[1]);
+        $amount = $this->cleanupNumber($total);
+        $percent = $this->cleanupNumber($percentage);
         $percent_min = ($percent / 100) * $amount;
 
         $result = $percent == 100 ? '0.00' : $this->formatNumber($amount - $percent_min);
+        return $result;
+
+        /*
+        // This is a more advanced output with more information
+        // not sure if necessary but i'll keep it for now
+        // in case i add a setting to configure the output
+
         $saved = $amount - $this->cleanupNumber($result);
         $famount = $this->formatNumber($amount);
         $saved = $this->formatNumber($saved);
 
         $values = [];
-        $values[$result] = $famount . ' - ' . $data[1] . ' = ' . $result;
-        $values[$saved] = $famount . ' - ' . $result . ' = ' . $saved;
-        return $values;
+        $values[$result] = $famount . ' - ' . $percentage . ' = ' . $result;
+        $values[$saved] = sprintf($this->lang['percentage_of'], $percentage, $famount, $saved);
+        return $values; */
     }
 
 
@@ -214,17 +233,8 @@ class Percentage extends CalculateAnything implements CalculatorInterface
      */
     private function percentOfTwoNumbers()
     {
-        $query = $this->query;
-        $query = preg_replace("/ +?\% +?/", ' ', $query);
-        $query = preg_replace('!\s+!', ' ', $query);
-        $data = explode(' ', $query);
-
-        if (count($data) < 2) {
-            return false;
-        }
-
-        $val1 = $this->cleanupNumber($data[0]);
-        $val2 = $this->cleanupNumber($data[1]);
+        $val1 = $this->cleanupNumber($this->parsed[1]);
+        $val2 = $this->cleanupNumber($this->parsed[3]);
         $percentage = ($val1 / $val2) * 100;
         $percentage = $this->formatNumber($percentage);
 
