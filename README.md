@@ -556,7 +556,18 @@ This workflow could not be possible without:
 
 ## Changelog
 
+### 2.0.2
+
+- Changed: standard output for percentage calculations
+- Fixed: Error that prevented the conversion of some units
+- Fixed: unit conversion displaying null in Alfred
+- Fixed: vat calculations not able to use natural language
+- Improved: Detection of units
+- Improved: Detection of percentages
+- Improved: Language translations
+
 ### 2.0.1
+
 - New: Improved actions modifiers, more info in the docs.
 - Fixed: Error when saving base currencies
 
