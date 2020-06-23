@@ -29,6 +29,7 @@ Please enable debug (see image) open Alfred and type the conversion that it's no
 **System information:**
  - OS: [e.g. Mac OS 10.15.15]
  - Alfred Version [e.g. 4]
+- PHP Version - To find out the version open the Terminal.app and type: **php -v**
 
 **Additional context**
 Add any other context about the problem here.
