@@ -111,7 +111,9 @@ class Updater
         file_put_contents($tmp_download, time());
 
         if (file_put_contents($this->remotePlistPath(), file_get_contents($this->remote_plist_url))) {
-            unlink($tmp_download);
+            if (file_exists($tmp_download)) {
+                unlink($tmp_download);
+            }
             file_put_contents($this->updatesFile(), time());
             return $this->shouldUpdate();
         }
@@ -180,7 +182,9 @@ class Updater
      */
     private function deleteRemotePlist()
     {
-        unlink($this->remotePlistPath());
+        if (file_exists($this->remotePlistPath())) {
+            unlink($this->remotePlistPath());
+        }
     }
 
 
@@ -224,6 +228,12 @@ class Updater
     private function filePath($file)
     {
         $data_path = getenv('alfred_workflow_data');
+
+        // Make sure workflow data folder exists
+        if (!file_exists($data_path)) {
+            mkdir($data_path, 0777, true);
+        }
+
         $file_path = "{$data_path}/{$file}";
 
         return $file_path;
