@@ -259,6 +259,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>C2E28DAD-6C82-434D-8EAC-139C823CDA27</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>F65E9433-21F2-4310-B86F-47836FEC8529</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>CAF3C560-8129-4EED-9555-4A3D5F56DE79</key>
 		<array/>
 		<key>D037BED7-D145-4DEB-8419-84840F408A48</key>
@@ -279,6 +292,19 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>ABA18E77-71E3-494A-8735-A60799F419B9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F65E9433-21F2-4310-B86F-47836FEC8529</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>93EB2FBA-0C95-4C9E-A897-3591F833F072</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -550,6 +576,8 @@
 				<false/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
 				<key>transient</key>
 				<false/>
 			</dict>
@@ -821,7 +849,7 @@
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>vat</string>
+				<string>iva</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -861,6 +889,8 @@
 				<false/>
 				<key>clipboardtext</key>
 				<string>{query}</string>
+				<key>ignoredynamicplaceholders</key>
+				<false/>
 				<key>transient</key>
 				<false/>
 			</dict>
@@ -1030,6 +1060,8 @@ php ./list.php "{query}"</string>
 			<dict>
 				<key>argument</key>
 				<string></string>
+				<key>passthroughargument</key>
+				<false/>
 				<key>variables</key>
 				<dict>
 					<key>list</key>
@@ -1190,6 +1222,8 @@ php ./list.php "{query}"</string>
 			<dict>
 				<key>argument</key>
 				<string></string>
+				<key>passthroughargument</key>
+				<false/>
 				<key>variables</key>
 				<dict>
 					<key>param</key>
@@ -1265,6 +1299,79 @@ php ./list.php "{query}"</string>
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>7DA07E01-89C1-4B84-B76F-E8916DACF72F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>php -f ./workflow/lib/clear.php $1</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>F65E9433-21F2-4310-B86F-47836FEC8529</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>fixedorder</key>
+				<false/>
+				<key>items</key>
+				<string>[{"title":"Clear Cache","arg":"cache","subtitle":"Clears workflow cache in case of errors"},{"title":"Clear Settings","arg":"settings","subtitle":"Removes all your configurations so you can start with a clean install"},{"title":"Clear All","arg":"all","subtitle":"Clears the Cache and your Configuration"}]</string>
+				<key>keyword</key>
+				<string>calculate clear</string>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Clears the workflow cache in case of data corruption</string>
+				<key>title</key>
+				<string>Calculate Clear Cache</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.listfilter</string>
+			<key>uid</key>
+			<string>C2E28DAD-6C82-434D-8EAC-139C823CDA27</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>Action completed</string>
+				<key>title</key>
+				<string>Calculate Anything</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>93EB2FBA-0C95-4C9E-A897-3591F833F072</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1388,6 +1495,13 @@ Made with love by https://www.biati.digital</string>
 			<key>ypos</key>
 			<integer>1590</integer>
 		</dict>
+		<key>93EB2FBA-0C95-4C9E-A897-3591F833F072</key>
+		<dict>
+			<key>xpos</key>
+			<integer>610</integer>
+			<key>ypos</key>
+			<integer>1950</integer>
+		</dict>
 		<key>943AFE06-EF5F-4A34-ADBC-C65674A46EF5</key>
 		<dict>
 			<key>xpos</key>
@@ -1430,6 +1544,13 @@ Made with love by https://www.biati.digital</string>
 			<key>ypos</key>
 			<integer>1815</integer>
 		</dict>
+		<key>C2E28DAD-6C82-434D-8EAC-139C823CDA27</key>
+		<dict>
+			<key>xpos</key>
+			<integer>160</integer>
+			<key>ypos</key>
+			<integer>1950</integer>
+		</dict>
 		<key>CAF3C560-8129-4EED-9555-4A3D5F56DE79</key>
 		<dict>
 			<key>xpos</key>
@@ -1451,9 +1572,18 @@ Made with love by https://www.biati.digital</string>
 			<key>ypos</key>
 			<integer>1405</integer>
 		</dict>
+		<key>F65E9433-21F2-4310-B86F-47836FEC8529</key>
+		<dict>
+			<key>xpos</key>
+			<integer>425</integer>
+			<key>ypos</key>
+			<integer>1950</integer>
+		</dict>
 	</dict>
+	<key>variablesdontexport</key>
+	<array/>
 	<key>version</key>
-	<string>2.0.2</string>
+	<string>2.0.3</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
