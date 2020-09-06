@@ -262,6 +262,8 @@ class Units extends CalculateAnything implements CalculatorInterface
 
         if ($from == 'year' && $to == 'month') {
             $converted = $amount * 12;
+        } elseif ($from == 'month' && $to == 'year') {
+            $converted = $amount / 12;
         } else {
             $conversion_error = false;
             try {

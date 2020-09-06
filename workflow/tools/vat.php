@@ -8,14 +8,21 @@ class Vat extends CalculateAnything implements CalculatorInterface
 {
     private $query;
     private $lang;
+    private $keywords;
+    private $stop_words;
+    private $parsed;
+    private $percent;
 
     /**
      * Construct
      */
     public function __construct($query)
     {
-        $this->query = preg_replace('/[^\\d.]+/', '', $query);
+        $this->query = $query;
         $this->lang = $this->getTranslation('vat');
+        $this->keywords = $this->getKeywords('vat');
+        $this->stop_words = $this->getStopWords('vat');
+        $this->percent = $this->getSetting('vat_percentage', '16%');
     }
 
 
@@ -28,10 +35,35 @@ class Vat extends CalculateAnything implements CalculatorInterface
      */
     public function shouldProcess(int $strlenght = 0)
     {
-        if ($strlenght >= 1) {
-            return true;
+        $query = trim($this->query);
+        $query = str_replace(',', '', $query);
+
+        if ($strlenght < 4) {
+            return false;
         }
-        return false;
+
+
+        $stopwords = ['+', '-'];
+        $stopwords = array_merge($stopwords, array_keys($this->keywords));
+        $stopwords = implode('|', $stopwords);
+        $stopwords = $this->escapeKeywords($stopwords);
+        $stopwords = '(' . $stopwords . ')';
+        $word = strtolower($this->lang['vat']);
+
+        preg_match('/^(\d*\.?\d*) ?' . $stopwords . ' ?' . $word . '$/i', $query, $matches);
+
+        if (empty($matches)) {
+            return false;
+        }
+
+        $matches = array_filter($matches);
+
+        if (count($matches) < 3) {
+            return false;
+        }
+
+        $this->parsed = $matches;
+        return true;
     }
 
 
@@ -42,8 +74,45 @@ class Vat extends CalculateAnything implements CalculatorInterface
      */
     public function processQuery()
     {
-        $query = $this->query;
-        $percent = $this->getSetting('vat_percentage', '16%');
+        $value = '';
+        $action = $this->parsed[2];
+
+        if ($action !== '+' || $action !== '-') {
+            $action = $this->keywordTranslation($action, $this->keywords);
+        }
+
+        if (empty($action)) {
+            return false;
+        }
+
+        $processed = $this->getVatOf($this->parsed[1]);
+        if (empty($processed)) {
+            return false;
+        }
+
+        if ($action == '+' && $processed && isset($processed['plusvat'])) {
+            $value = $processed['plusvat'];
+            $value['title'] = $value['value'];
+        } else if ($action == '-' && $processed && isset($processed['minusvat'])) {
+            $value = $processed['minusvat'];
+            $value['title'] = $value['value'];
+        } else {
+            return false;
+        }
+
+        return (!empty($value) ? $this->output([$value]) : false);
+    }
+
+
+    /**
+     * Process vat
+     *
+     * @return bool|array
+     */
+    public function getVatOf($amount)
+    {
+        $query = $amount;
+        $percent = $this->percent;
         $processed = false;
 
         if (empty($query)) {
@@ -58,19 +127,35 @@ class Vat extends CalculateAnything implements CalculatorInterface
 
         if ($result && $result > 0) {
             $processed = true;
-            $plustaxt = $amount + $result;
-            $minustax = $amount / ((float) "1.$percent");
+            $plusvat = $amount + $result;
+            $minusvat = $amount / ((float) "1.$percent");
+            $lang = $this->lang;
+
+            $result = $this->formatNumber($result);
+            $plusvat = $this->formatNumber($plusvat, -1, true);
+            $minusvat = $this->formatNumber($minusvat, -1, true);
+            $amount = $this->formatNumber($amount);
 
             $processed = [
-                'amount' => $this->formatNumber($amount),
-                'result' => $this->formatNumber($result),
-                'plustaxt' => $this->formatNumber($plustaxt, -1, true),
-                'minustax' => $this->formatNumber($minustax, -1, true),
-                'defined_percentage' => $percent
+                'result' => [
+                    'title' => sprintf($lang['result'], $amount, $result),
+                    'subtitle' => sprintf($lang['subtitle'], "{$percent}%"),
+                    'value' => $plusvat
+                ],
+                'plusvat' => [
+                    'title' => sprintf($lang['plus'], $amount, $plusvat),
+                    'subtitle' => sprintf($lang['subtitle'], "{$percent}%"),
+                    'value' => $plusvat
+                ],
+                'minusvat' => [
+                    'title' => sprintf($lang['minus'], $amount, $minusvat),
+                    'subtitle' => sprintf($lang['minus_subtitle'], $amount, "{$percent}%"),
+                    'value' => $minusvat
+                ],
             ];
         }
 
-        return $this->output($processed);
+        return $processed;
     }
 
 
@@ -97,66 +182,20 @@ class Vat extends CalculateAnything implements CalculatorInterface
             return $items;
         }
 
-        $amount = $processed['amount'];
-        $result = $processed['result'];
-        $plustaxt = $processed['plustaxt'];
-        $minustax = $processed['minustax'];
-        $percent = $processed['defined_percentage'];
-        $lang = $this->lang;
-
-        $items[] = [
-            'title' => sprintf($lang['result'], $amount, $result),
-            'subtitle' => sprintf($lang['subtitle'], "{$percent}%"),
-            'arg' => $result,
-            'mods' => [
-                'cmd' => [
-                    'valid' => true,
-                    'arg' => $amount,
-                    'subtitle' => $this->lang['cmd'],
-                ],
-                'alt' => [
-                    'valid' => true,
-                    'arg' => $this->cleanupNumber($amount),
-                    'subtitle' => $this->lang['alt'],
-                ],
-            ]
-        ];
-
-        $items[] = [
-            'title' => sprintf($lang['plus'], $amount, $plustaxt),
-            'subtitle' => sprintf($lang['plus_subtitle'], $amount, "{$percent}%"),
-            'arg' => $plustaxt,
-            'mods' => [
-                'cmd' => [
-                    'valid' => true,
-                    'arg' => $plustaxt,
-                    'subtitle' => $this->lang['cmd'],
-                ],
-                'alt' => [
-                    'valid' => true,
-                    'arg' => $this->cleanupNumber($plustaxt),
-                    'subtitle' => $this->lang['alt'],
-                ],
-            ]
-        ];
-
-        $items[] = [
-            'title' => sprintf($lang['minus'], $amount, $minustax),
-            'subtitle' => sprintf($lang['minus_subtitle'], $amount, "{$percent}%"),
-            'arg' => $minustax,
-            'mods' => [
-                'cmd' => [
-                    'valid' => true,
-                    'arg' => $minustax,
-                    'subtitle' => $this->lang['cmd'],
-                ],
-                'alt' => [
-                    'valid' => true,
-                    'arg' => $this->cleanupNumber($minustax),
-                    'subtitle' => $this->lang['alt'],
-                ],
-            ]
-        ];
+        foreach ($processed as $value) {
+            $items[] = [
+                'title' => $value['title'],
+                'subtitle' => (isset($value['subtitle']) ? $value['subtitle'] : ''),
+                'arg' => $value['value'],
+                'mods' => [
+                    'cmd' => [
+                        'valid' => true,
+                        'arg' => $this->cleanupNumber($value['value']),
+                        'subtitle' => $this->lang['cmd'],
+                    ]
+                ]
+            ];
+        }
 
         return $items;
     }

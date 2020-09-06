@@ -36,7 +36,7 @@ class Percentage extends CalculateAnything implements CalculatorInterface
         $query = trim($this->query);
         $query = str_replace(',', '', $query);
 
-        if ($strlenght < 3 || (strpos($query, ' ') == false && strpos($query, '%') == false)) {
+        if ($strlenght < 3 || !strpos($query, ' ') || !strpos($query, '%')) {
             return false;
         }
 

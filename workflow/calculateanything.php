@@ -56,6 +56,7 @@ class CalculateAnything
         self::$cryptocurrencyCalculator = new Cryptocurrency($query);
         self::$pxemremCalculator = new PXEmRem($query);
         self::$unitsCalculator = new Units($query);
+        self::$vatCalculator = new Vat($query);
 
         // Process query
         $processed = $this->processByType();
@@ -83,6 +84,7 @@ class CalculateAnything
         $currency = self::$currencyCalculator;
         $pxemrem = self::$pxemremCalculator;
         $units = self::$unitsCalculator;
+        $vat = self::$vatCalculator;
         $processed = [];
 
         if ($units->shouldProcess($lenght)) {
@@ -95,6 +97,10 @@ class CalculateAnything
 
         if ($pxemrem->shouldProcess($lenght)) {
             return $pxemrem->processQuery();
+        }
+
+        if ($vat->shouldProcess($lenght)) {
+            return $vat->processQuery();
         }
 
         if ($cryptocurrency->shouldProcess($lenght)) {
@@ -110,17 +116,17 @@ class CalculateAnything
 
 
     /**
-     * Process VAt
+     * Process Vat
      * handle vat calculations
      *
      * @return array|bool
      */
     public function processVat()
     {
-        $vatCalculator = new Vat(self::$_query);
-        $data = $vatCalculator->processQuery();
-
-        return $data;
+        $query = preg_replace('/[^\\d.]+/', '', self::$_query);
+        $vatCalculator = new Vat($query);
+        $data = $vatCalculator->getVatOf($query);
+        return $vatCalculator->output($data);
     }
 
     /**
@@ -203,7 +209,7 @@ class CalculateAnything
 
     /**
      * Keywords
-     * returns an array of jeywords
+     * returns an array of keywords
      * that are used for natual language queries
      * this keywords is an array of key value pairs
      * the key is the keyword and the value is
@@ -380,8 +386,11 @@ class CalculateAnything
         createDir($dir);
 
         $file = $dir . '/' . $from . '-' . $to . '.txt';
+        $file = str_replace(' ', '\ ', $file);
+        $command = "echo \"{$value}\" >> {$file}";
+        shell_exec("{$command}");
 
-        file_put_contents($file, $value);
+        return true;
     }
 
 

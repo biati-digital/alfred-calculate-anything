@@ -524,10 +524,21 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     private function getRates($cache_seconds)
     {
+        $apikey = $this->getSetting('fixer_apikey');
+
+        if (empty($apikey)) {
+            throw new Exception('No Fixer API Key provided');
+        }
+
+        $ratesURL = "http://data.fixer.io/api/latest?access_key={$apikey}&format=1";
         $dir = getDataPath('cache/fixer');
         createDir($dir);
 
         $file = $dir . '/rates.json';
+        $ratesURL = str_replace('?', '\?', $ratesURL);
+        $ratesURL = str_replace('=', '\=', $ratesURL);
+        $ratesURL = str_replace('&', '\&', $ratesURL);
+
         if (file_exists($file)) {
             $c = file_get_contents($file);
 
@@ -542,20 +553,28 @@ class Currency extends CalculateAnything implements CalculatorInterface
                 if ($time < $cache_seconds) {
                     return $c;
                 }
+
+                // Update the currency rates in the background
+                // and return the stored value for now
+                // so the user does not have to wait
+                $file = str_replace(' ', '\ ', $file);
+                $command = "curl -s {$ratesURL} -o {$file}";
+                shell_exec("{$command} &> /dev/null &");
+
+                return $c;
             }
         }
 
-        $apikey = $this->getSetting('fixer_apikey');
-        if (empty($apikey)) {
-            throw new Exception('No API Key provided');
-        }
 
-        $c = file_get_contents("http://data.fixer.io/api/latest?access_key={$apikey}&format=1");
+        $file = str_replace(' ', '\ ', $file);
+        $command = "curl -s {$ratesURL} -o {$file}";
+        shell_exec("{$command}");
+        $c = shell_exec("cat {$file}");
+        // $c = file_get_contents($file);;
+
         if (empty($c)) {
             return $this->lang['fetch_error'];
         }
-
-        file_put_contents($file, $c);
 
         return json_decode($c, true);
     }

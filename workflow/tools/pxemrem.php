@@ -48,7 +48,7 @@ class PXEmRem extends CalculateAnything implements CalculatorInterface
      */
     public function shouldProcess(int $strlenght = 0)
     {
-        if ($strlenght <= 3) {
+        if ($strlenght < 3) {
             return false;
         }
 
