@@ -75,14 +75,14 @@ return [
         'alt' => 'Action this item to copy the amount with no format',
     ],
     'vat' => [
+        'vat' => 'VAT',
         'result' => 'VAT of %s = %s',
         'subtitle' => 'VAT of %s',
         'plus' => '%s plus VAT = %s',
         'plus_subtitle' => '%s plus %s of VAT',
         'minus' => '%s minus VAT = %s',
         'minus_subtitle' => '%s minus %s of VAT',
-        'cmd' => 'Action this item to copy this number to the clipboard',
-        'alt' => 'Action this item to copy the amount with no format',
+        'cmd' => 'Action this item to copy the amount with no format',
         'empty' => 'Enter a value to process',
     ],
     'percentage' => [

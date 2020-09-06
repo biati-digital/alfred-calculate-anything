@@ -116,6 +116,15 @@ return [
         'más' => '+',
         'mas' => '+',
         'menos' => '-',
+
         'stop_words' => ['de', 'es']
+    ],
+    'vat' => [
+        'mas' => '+',
+        'menos' => '-',
+        'iva' => 'VAT',
+        'impuesto' => 'VAT',
+
+        'stop_words' => ['de']
     ]
 ];

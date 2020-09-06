@@ -77,6 +77,7 @@ return [
         'ounce' => 'oz',
         'pounds' => 'lb',
         'pound' => 'lb',
+        'lbs' => 'lb',
 
         'stop_words' => ['to', '=', 'in']
     ],
@@ -155,5 +156,12 @@ return [
         'minus' => '-',
 
         'stop_words' => ['of', 'in']
+    ],
+    'vat' => [
+        'plus' => '+',
+        'minus' => '-',
+        'tax' => 'VAT',
+
+        'stop_words' => ['of']
     ]
 ];

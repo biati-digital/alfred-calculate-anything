@@ -73,14 +73,14 @@ return [
         'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
     ],
     'vat' => [
+        'vat' => 'IVA',
         'result' => 'IVA de %s = %s',
         'subtitle' => 'IVA del %s',
         'plus' => '%s más IVA = %s',
         'plus_subtitle' => '%s más %s de IVA',
         'minus' => '%s menos IVA = %s',
         'minus_subtitle' => '%s menos %s de IVA',
-        'cmd' => 'Presiona enter para copiar el valor al clipboard',
-        'alt' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'cmd' => 'Presiona enter para copiar el valor al clipboard sin formato',
         'empty' => 'Ingresa un valor para procesar',
     ],
     'percentage' => [
