@@ -51,9 +51,11 @@ You can use natural language or type a few characters and that's all, for exampl
 - 100eur (If no target the currency will be converted to the base currencies that you configured)
 ```
 
+You can set a base currencies so if you type for example **120 euros** it will be automatically converted to the currencies that you configured.
+
 All this examples will simply work, you can add spaces between the value and the currency or don't.
 <p align="center">
-<img src="./assets/currency.gif">
+<img src="https://i.ibb.co/W5thssY/currency.gif">
 </p>
 
 ### Currency Modifiers
@@ -182,7 +184,7 @@ You can write your query using natural language or just a few characters, either
 If you don't remember the unit abbreviation just simply type the name for example instead of "oz" you can type "ounce" or "ounces" or even use words in your own language for exaple "onza" or "onzas" in spanish.
 
 <p align="center">
-<img src="./assets/unit.gif">
+<img src="https://i.ibb.co/WPKvDLL/unit.gif">
 </p>
 
 Finally if you still don't remember the unit abbreviation or it's name simply type **calculate list** and select **List Available Units** you can type to filter, etc.
@@ -347,7 +349,7 @@ Translations and natural language can also be used
 ```
 
 <p align="center">
-<img src="./assets/percent.gif">
+<img src="https://i.ibb.co/SrwMTJR/percent.gif">
 </p>
 
 ## PX,Em,Rem,Pt
@@ -420,7 +422,7 @@ Time is triggered by a keyword because is not often used so you can simply open 
 ```
 
 <p align="center">
-<img src="./assets/time.gif">
+<img src="https://i.ibb.co/syHQtKg/time.gif">
 </p>
 
 ### Time Options
@@ -444,7 +446,7 @@ Time will use the language that you configure with **Set base language**
 With this you can calculate the vat of a given amount. Like time, vat is also triggered with the keyword "vat" you can change the keyword in the workflow.
 
 <p align="center">
-<img src="./assets/vat.gif">
+<img src="https://i.ibb.co/HVWx7wq/vat.gif">
 </p>
 
 Given the following query
@@ -533,8 +535,12 @@ You can modify stop words in the same keys file for example /lang/en_EN-keys.php
 
 You can easily configure the workflow simply by opening Alfred and typing **calculate configure** you will see a list of all the available options to configure the workflow, select the option you want and press enter then simply enter your value and again press enter to save it. Check the following gif if you have doubts.
 
+### Cache
+
+The workflow stores some data about currency and other values in cache, you can delete the cache by opening Alfred and typing **calculate clear** you can decide between deleting the cache, delete stored settings or both
+
 <p align="center">
-<img src="./assets/config.gif">
+<img src="https://i.ibb.co/Y0qQJhf/config.gif">
 </p>
 
 ## Updates
@@ -555,6 +561,15 @@ This workflow could not be possible without:
 - [currency-converter-php](https://github.com/ojhaujjwal/currency-converter-php) for ExchangeRatesIo
 
 ## Changelog
+
+### 2.0.3
+
+- New: Improved currency conversion speed.
+- New: You can use quick calculations for VAT.
+- New: Added calculate clear to easily clear the workflow cache, settings or both.
+- Changed: Vat action modifiers to be the same as currency, etc.
+- Fixed: months to year calculation
+- Fixed: updater error causing the workflow to not work
 
 ### 2.0.2
 
