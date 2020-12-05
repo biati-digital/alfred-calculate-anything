@@ -116,6 +116,7 @@ return [
         'más' => '+',
         'mas' => '+',
         'menos' => '-',
+        'como % de' => '%',
 
         'stop_words' => ['de', 'es']
     ],

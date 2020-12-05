@@ -154,6 +154,8 @@ return [
     'percentage' => [
         'plus' => '+',
         'minus' => '-',
+        'as a % of' => '%',
+        'is what % of' => '%',
 
         'stop_words' => ['of', 'in']
     ],
