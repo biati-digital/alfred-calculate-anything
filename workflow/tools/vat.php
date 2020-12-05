@@ -93,7 +93,7 @@ class Vat extends CalculateAnything implements CalculatorInterface
         if ($action == '+' && $processed && isset($processed['plusvat'])) {
             $value = $processed['plusvat'];
             $value['title'] = $value['value'];
-        } else if ($action == '-' && $processed && isset($processed['minusvat'])) {
+        } elseif ($action == '-' && $processed && isset($processed['minusvat'])) {
             $value = $processed['minusvat'];
             $value['title'] = $value['value'];
         } else {
@@ -140,7 +140,7 @@ class Vat extends CalculateAnything implements CalculatorInterface
                 'result' => [
                     'title' => sprintf($lang['result'], $amount, $result),
                     'subtitle' => sprintf($lang['subtitle'], "{$percent}%"),
-                    'value' => $plusvat
+                    'value' => $result
                 ],
                 'plusvat' => [
                     'title' => sprintf($lang['plus'], $amount, $plusvat),
