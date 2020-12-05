@@ -36,7 +36,7 @@ class Percentage extends CalculateAnything implements CalculatorInterface
         $query = trim($this->query);
         $query = str_replace(',', '', $query);
 
-        if ($strlenght < 3 || !strpos($query, ' ') || !strpos($query, '%')) {
+        if ($strlenght < 3 || !strpos($query, '%')) {
             return false;
         }
 
@@ -46,14 +46,21 @@ class Percentage extends CalculateAnything implements CalculatorInterface
         $stopwords = $this->escapeKeywords($stopwords);
         $stopwords = '(' . $stopwords . ')';
 
-        preg_match('/^(\d*\.?\d*%?) ?' . $stopwords . ' ?(\d*\.?\d*%?)/i', $query, $matches);
+        $keys = $this->keywords;
+        foreach ($keys as $k => $value) {
+            if (is_array($value)) {
+                continue;
+            }
+            $query = str_replace($k, $value, trim($query));
+        }
+
+        preg_match('/^(\d*\.?\d*%?)\s?' . $stopwords . '\s?(\d*\.?\d*%?)/i', $query, $matches);
 
         if (empty($matches)) {
             return false;
         }
 
         $matches = array_filter($matches);
-
         if (count($matches) < 4) {
             return false;
         }
@@ -120,7 +127,7 @@ class Percentage extends CalculateAnything implements CalculatorInterface
                 'arg' => $val,
                 'subtitle' => $this->getText('action_copy'),
                 'mods' => [
-                    'alt' => [
+                    'cmd' => [
                         'valid' => true,
                         'arg' => $this->cleanupNumber($val),
                         'subtitle' => $this->lang['alt'],
@@ -142,7 +149,7 @@ class Percentage extends CalculateAnything implements CalculatorInterface
     private function percentageOf()
     {
         $query = $this->query;
-        $query = preg_replace("/[^0-9.%]/", ' ', $query);
+        $query = preg_replace('/[^0-9.%]/', ' ', $query);
         $query = preg_replace('!\s+!', ' ', $query);
         $data = explode(' ', $query);
 
