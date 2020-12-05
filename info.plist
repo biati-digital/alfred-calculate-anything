@@ -849,7 +849,7 @@
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>iva</string>
+				<string>vat</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -1150,55 +1150,6 @@ php ./list.php "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
-				<true/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>keyword</key>
-				<string>calculate configure</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Calculate Configure</string>
-				<key>script</key>
-				<string>php ./configure.php</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Calculate Configure</string>
-				<key>title</key>
-				<string>Calculate Configure</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>943AFE06-EF5F-4A34-ADBC-C65674A46EF5</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -1375,6 +1326,55 @@ php ./list.php "{query}"</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>keyword</key>
+				<string>calculate configure</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Calculate Configure</string>
+				<key>script</key>
+				<string>php ./configure.php</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Calculate Configure</string>
+				<key>title</key>
+				<string>Calculate Configure</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>943AFE06-EF5F-4A34-ADBC-C65674A46EF5</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>Calcualte Anything
@@ -1505,9 +1505,9 @@ Made with love by https://www.biati.digital</string>
 		<key>943AFE06-EF5F-4A34-ADBC-C65674A46EF5</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>10</integer>
 			<key>ypos</key>
-			<integer>1685</integer>
+			<integer>3050</integer>
 		</dict>
 		<key>94994359-78CB-480F-8C90-83C583A32CDF</key>
 		<dict>
@@ -1583,7 +1583,7 @@ Made with love by https://www.biati.digital</string>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>2.0.3</string>
+	<string>2.0.4</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
