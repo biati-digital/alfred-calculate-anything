@@ -223,7 +223,7 @@ class Units extends CalculateAnything implements CalculatorInterface
             'mods' => [
                 'cmd' => [
                     'valid' => true,
-                    'arg' => $result['value'],
+                    'arg' => $this->cleanupNumber($result['value']),
                     'subtitle' => $this->lang['cmd'],
                 ],
                 'alt' => [
@@ -288,7 +288,7 @@ class Units extends CalculateAnything implements CalculatorInterface
         if ($from_type == 'time') {
             $time_human_units = ['seconds', 'years', 'months', 'weeks', 'days', 'hours', 'minutes', 'milliseconds'];
             if ($converted > 1) {
-                $to  = str_replace(
+                $to = str_replace(
                     ['s', 'year', 'month', 'week', 'day', 'hr', 'min', 'ms'],
                     $time_human_units,
                     $to
