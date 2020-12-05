@@ -261,7 +261,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
             $data['converted'][$key] = [];
 
             $total = money_format('%i', $value['total']);
-            $total = preg_replace("/[^0-9.,]/", '', $total);
+            $total = preg_replace('/[^0-9.,]/', '', $total);
             $single = $value['single'];
             $single = $this->formatNumber($value['single']);
 
@@ -672,7 +672,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
      *
      * @return array
      */
-    function listAvailable()
+    public function listAvailable()
     {
         $translation = $this->getTranslation('currency');
         $units = $this->currencyList;
@@ -713,7 +713,6 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     private function required()
     {
-
         // $dir = __DIR__ . DIRECTORY_SEPARATOR . 'currency' . DIRECTORY_SEPARATOR;
         $dir = dirname(__DIR__, 1) . '/lib/currency';
 
