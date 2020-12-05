@@ -4,7 +4,7 @@ Calculate Anything is a workflow for Alfred 4, that uses **natural language** an
 
 ## Why
 
-There are several workflows out there but I just needed a workflow that worked naturally for example you can open alfred and type 100 + 9 and alfred will give you a result no need for keywords or hotkeys it just works, I wanted to be able to just type 100 + 16% or 100 euros to usd or 100km to cm or 100 years to hours and a large etc. and so this workflow was created.
+There are several workflows out there but i just needed a workflow that worked naturally for example you can open alfred and type 100 + 9 and alfred will give you a result no need for keywords or hotkeys it just works, i wanted to be able to just type 100 + 16% or 100 euros to usd or 100km to cm or 100 years to hours and a large etc. and so this workflow was created.
 
 ## Features
 
@@ -12,7 +12,7 @@ There are several workflows out there but I just needed a workflow that worked n
 - **Currency** - Up to 168 currencies
 - **Cryptocurrency** - Support for 100 cryptocurrencies
 - **Units** - 100 kilometers to meters or 100 km to m or simply 100km m
-- **Percentages** - 100 + 16% | 100 - 16% etc.
+- **Percentages** - 100 + 16% | 100 - 16%  | 40 as a % of 50 | 20 is what % of 50 etc.
 - **PX,Em,Rem,Pt** - 12px or 12px to em or 12px pt
 - **Time** - time +15 years? now plus 6 hours? or need to convert a timestamp?
 - **VAT** - value added tax calculations, we all need this
@@ -25,7 +25,7 @@ Download directly from the releases page, make sure to download the latest relea
 
 ## Base Configuration
 
-There's only one global configuration and is the language, this configuration will be used to display the messages in your own language. View the Translations section for the available languages.
+There's only one global configuration and is the language, this configuration will be used to display the messages in your own language. View the Translations secction for the available languaes.
 
 Configure it with.
 
@@ -53,8 +53,7 @@ You can use natural language or type a few characters and that's all, for exampl
 
 You can set a base currencies so if you type for example **120 euros** it will be automatically converted to the currencies that you configured.
 
-All this examples will simply work, you can add spaces between the value and the currency or not.
-
+All this examples will simply work, you can add spaces between the value and the currency or don't.
 <p align="center">
 <img src="https://i.ibb.co/W5thssY/currency.gif">
 </p>
@@ -64,24 +63,24 @@ All this examples will simply work, you can add spaces between the value and the
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
 - **Enter**
-Press enter to copy the value with format for example: 2,376.54
+Press enter to copy the value with format for exaple: 2,376.54
 - **Command**
-Press command + enter to copy the value without format for example: 2376.54
+Press command + enter to copy the value without format for exaple: 2376.54
 - **option + enter**
 Press option + enter to copy the value of 1 for example: 23.76
 
 ### Currency Options
 
-By default the workflow will use exchangerates api to make the conversion, exchangerates has only support for 32 currencies, if you need support for all the currencies that this workflow includes you need to get a FREE API Key from [https://fixer.io](https://fixer.io) it takes less than a minute.
+By default the workflow will use exchangerates api to make the conversion, exchangerates has only support for 32 currencies, if you need support for all the currencies that this worflow includes you need to get a FREE API Key from [https://fixer.io](https://fixer.io) it takes less than a minute.
 
 The following options are available for the currency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
 
 - **Add base currency**
 This will become your base currency, if you type 100eur it will automatically be converted to the currencies you define here. You can enter multiple currencies at once separated by comma for example: USD, EUR, MXN
 - **Delete base currency**
-If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply pressing enter
+If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply presing enter
 - **Set currency locale**
-Used to give format to the converted amount using the money format of your country
+Used to give format to the converted amount using the money format of your contry
 - **Set Fixer API**
 Set your fixer API Key for support more currencies
 
@@ -149,9 +148,9 @@ You can use this in conjunction with currency to convert 100 cryptocurrencies to
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
 - **Enter**
-Press enter to copy the value with format for example: 2,376.54
+Press enter to copy the value with format for exaple: 2,376.54
 - **Command**
-Press command + enter to copy the value without format for example: 2376.54
+Press command + enter to copy the value without format for exaple: 2376.54
 - **option + enter**
 Press option + enter to copy the value of 1 for example: 23.76
 
@@ -182,7 +181,7 @@ You can write your query using natural language or just a few characters, either
 - 10 días a horas (use your own language)
 ```
 
-If you don't remember the unit abbreviation just simply type the name for example instead of "oz" you can type "ounce" or "ounces" or even use words in your own language for example "onza" or "onzas" in spanish.
+If you don't remember the unit abbreviation just simply type the name for example instead of "oz" you can type "ounce" or "ounces" or even use words in your own language for exaple "onza" or "onzas" in spanish.
 
 <p align="center">
 <img src="https://i.ibb.co/WPKvDLL/unit.gif">
@@ -195,9 +194,9 @@ Finally if you still don't remember the unit abbreviation or it's name simply ty
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
 - **Enter**
-Press enter to copy the value with format for example: 2,834.95
+Press enter to copy the value with format for exaple: 2,834.95
 - **Command**
-Press command + enter to copy the value without format for example: 2834.95
+Press command + enter to copy the value without format for exaple: 2834.95
 - **option + enter**
 Press option + enter to copy the value with complete format for example: 2,834.95kg
 
@@ -251,7 +250,7 @@ l       | Litre
 ml      | Mililitre
 m3      | Cubic Meter
 pt      | Pint
-gal     | Gallon
+gal     | Galon
 
 #### Available Weight units
 
@@ -314,7 +313,7 @@ week    | Week
 day     | Day
 hr      | Hour
 min     | Minute
-ms      | Millisecond
+ms      | Milisecond
 μs      | Microsecond
 ns      | Nanosecond
 
@@ -338,6 +337,8 @@ mev     | Mega Electron Volt
 You can easily calculate percentages for example:
 
 ```
+- 40 as a % of 50  // 40 is 80% of 50
+- 20 is what % of 50 // 20 is 40% of 50
 - 15% of 50 = 7.50  //7.5 equals to 15% of 50
 - 120 + 30% = 156  //120 plus the 30% of 120
 - 120 plus 30% = 156  //120 plus the 30% of 120
@@ -347,6 +348,8 @@ You can easily calculate percentages for example:
 
 Translations and natural language can also be used
 - 120 más 30% = 156
+- 120 menos 10% = 108
+- 40 como % de 50 = // 40 es 80% de 50
 ```
 
 <p align="center">
@@ -481,7 +484,7 @@ You can create your own translation, just follow this steps.
 2. Change the name of the pasted files to your country lang code for example ru_RU.php and ru_RU-keys.php
 3. open and translate ru_RU.php
 4. open and modify ru_RU-keys.php. **Read more about this file in the section Keywords**
-5. Set your new language with: calculate set language ru_RU
+5. Set your new languge with: calculate set language ru_RU
 6. Share it with the world, just send a pull request or simply publish it to pastebin.com (or any other service) and send me a link to include your translation
 
 ## Keywords
@@ -546,7 +549,7 @@ The workflow stores some data about currency and other values in cache, you can 
 
 ## Updates
 
-~~Starting from version 1.0.5 automatic updates were implemented, you will be notified if a new update is available or if you prefer you can launch Alfred and type **calculate update** to check for updates.~~
+~~Starting from version 1.0.5 automatic updates were implemente, you will be notified if a new update is available or if you prefer you can launch Alfred and type **calculate update** to check for updates.~~
 
 Starting from version 2.0.0 there's a new way to search and install automatic updates, before it was necessary to press enter when you used "Calculate Anything" and it will trigger the updater but the "Enter" key is not regularly used as this workflow does not depends on this key for the queries so you'll probably ended up with an outdated version. If you want you can still use **calculate update** to check for updates but it's not necessary anymore, the workflow will do it automatically for you.
 
@@ -562,6 +565,14 @@ This workflow could not be possible without:
 - [currency-converter-php](https://github.com/ojhaujjwal/currency-converter-php) for ExchangeRatesIo
 
 ## Changelog
+
+### 2.0.4
+
+- New: Improved natural language for percentages 40 as a % of 50 = 80%, 20 is what % of 50 = 40%
+- Fixed: Modifier keys for units (command key to copy value without format)
+- Fixed: Modifier keys for percentages (command key to copy value without format)
+- Fixed: Percentages now working even if there are no spaces in the query (6000-10%)
+- Fixed: An error in vat calculation that when pressing enter the wrong value was copied to clipboard
 
 ### 2.0.3
 
@@ -591,7 +602,7 @@ This workflow could not be possible without:
 
 - New: Complete rewrite to be more maintainable and extendable
 - New: Added cryptocurrencies support
-- New: Actions modifiers, you can press CMD or option to copy the value in different formats
+- New: Actions mofidiers, you can press CMD or option to copy the value in different formats
 - New: Display exchange rate conversions in multiple currencies at once
 - New: Added new workflow updater
 
@@ -630,7 +641,7 @@ This workflow could not be possible without:
 
 ### 1.0.1
 
-- FIXED Decimal pints to display values correctly from currencies
+- FIXED Decimal pints to display values correcly from currencies
 - FIXED currency conversions to base currency always displayed the $ symbol
 - FIXED currency conversions from base currency eur to EUR triggered error
 
