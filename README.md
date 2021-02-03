@@ -29,7 +29,7 @@ There's only one global setting and that's the language. This setting will be us
 
 Configure it with:
 
-- **calculate configure** and select **Set base language** and enter the language for example `es_ES`
+- type `calculate configure`, select **Set base language** and enter the language, for example `es_ES`
 
 [View the configuration section for more info](#configuration).
 
@@ -78,7 +78,7 @@ The following options are available for each currency. Simply launch Alfred, typ
 - **Add base currency**
 This will become your base currency, if you type `100eur` it will automatically be converted to the currencies you define here. You can enter multiple currencies at once separated by comma for example: USD, EUR, MXN
 - **Delete base currency**
-If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply presing Return
+If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply pressing Return
 - **Set currency locale**
 Used to format the converted amount using the appropriate currency format for your country
 - **Set Fixer API**
@@ -486,7 +486,7 @@ To create your own translation, just follow these steps:
 2. Change the name of the pasted files to your country lang code, for example `ru_RU.php` and `ru_RU-keys.php`
 3. Open and translate `ru_RU.php`
 4. Open and modify `ru_RU-keys.php`. **Read more about this file in the section Keywords**.
-5. Set your new languge with `calculate set language ru_RU`
+5. Set your new language with `calculate set language ru_RU`
 6. Share it with the world -- and me! (I welcome pull requests or links to services like pastebin.com)
 
 ## Keywords
@@ -555,7 +555,7 @@ The workflow stores some data about currency and other values in a cache. You ca
 
 ~~Starting from version 1.0.5 automatic updates were implemented and you will be notified if a new update is available or if you prefer you can launch Alfred and type `calculate update` to check for updates.~~
 
-Starting from version 2.0.0, there's a new way to search and install automatic updates. It was previously necessary to press Return when triggerung the updater but since Return is not regularly used it was easy to end up with an outdated version. If you want you can still type `calculate update` to check for updates but it's not necessary any more. The workflow will do it for you automatically.
+Starting from version 2.0.0, there's a new way to search and install automatic updates. It was previously necessary to press Return when triggering the updater but since Return is not regularly used it was easy to end up with an outdated version. If you want you can still type `calculate update` to check for updates but it's not necessary any more. The workflow will do it for you automatically.
 
 ## Performance
 
