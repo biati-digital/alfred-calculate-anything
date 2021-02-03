@@ -1377,7 +1377,7 @@ php ./list.php "{query}"</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Calcualte Anything
+	<string>Calculate Anything
 
 https://github.com/biati-digital/alfred-calculate-anything
 Made with love by https://www.biati.digital</string>
