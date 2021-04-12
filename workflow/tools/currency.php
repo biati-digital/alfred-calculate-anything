@@ -341,7 +341,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
                 $cache_seconds = ($use_cache ? 7200 : 0);
                 $conversion = $this->fixerConversion($amount, $from, $currency, $cache_seconds);
             } else {
-                $conversion = $this->exchangeRatesConversion($amount, $from, $currency, $cache_seconds);
+                //$conversion = $this->exchangeRatesConversion($amount, $from, $currency, $cache_seconds);
+                $conversion = $this->exchangeRateHostConversion($amount, $from, $currency, $cache_seconds);
             }
 
             if (isset($conversion['error']) && !empty($conversion['error'])) {
@@ -415,13 +416,60 @@ class Currency extends CalculateAnything implements CalculatorInterface
         if (!$cached) {
             $this->required();
 
-            $converter = new \CurrencyConverter\CurrencyConverter;
+            $converter = new \CurrencyConverter\CurrencyConverter();
             $value = '';
             $error = false;
 
             try {
                 $value = $converter->convert($from, $to);
                 $this->cacheConversion('exchangerates', $from, $to, $value);
+            } catch (\Throwable $th) {
+                $error = true;
+                $message = $th->getMessage();
+                preg_match('/{(.*)}/', $message, $matches);
+
+                if ($matches && !empty($matches)) {
+                    $value = $matches[1];
+                }
+            }
+
+            if ($error) {
+                return ['error' => $value];
+            }
+        }
+
+        return ['total' => $amount * $value, 'single' => $value, 'error' => false];
+    }
+
+
+    /**
+     * exchangerate.host
+     *
+     * @param int $amount
+     * @param string $from
+     * @param string $to
+     * @param int $cache_seconds
+     * @return array
+     */
+    public function exchangeRateHostConversion($amount, $from, $to, $cache_seconds)
+    {
+        $cached = $this->getCachedConversion('exchangeratehost', $from, $to, $cache_seconds);
+        if ($cached) {
+            $cached = (float) $cached;
+            $value = $cached;
+        }
+
+        if (!$cached) {
+            $this->required();
+
+            $converter = new \CurrencyConverter\CurrencyConverter();
+            $converter->setRateProvider(new \CurrencyConverter\Provider\ExchangeRateHost());
+            $value = '';
+            $error = false;
+
+            try {
+                $value = $converter->convert($from, $to);
+                $this->cacheConversion('exchangeratehost', $from, $to, $value);
             } catch (\Throwable $th) {
                 $error = true;
                 $message = $th->getMessage();
@@ -722,6 +770,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         include $dir . '/Cache/Adapter/ZendAdapter.php';
 
         include $dir . '/Provider/ProviderInterface.php';
+        include $dir . '/Provider/ExchangeRateHost.php';
         include $dir . '/Provider/ExchangeRatesIo.php';
         include $dir . '/Provider/FixerApi.php';
 
