@@ -19,15 +19,17 @@ if (is_string($currencies)) { // convert old setting to array
 }
 
 if (empty($param)) {
+    // Language
     $response[] = [
         'title' => $strings['lang_title'],
         'subtitle' => $strings['lang_subtitle'] . ': ' . getSetting('language', 'en_EN', $settings),
         'valid' => true,
-        'arg' => 'language',
         'match' => $strings['lang_title'],
         'autocomplete' => $strings['lang_title'],
-        'autocomplete' => $curr_name,
+        'arg' => 'language',
     ];
+
+    // Add currency
     $response[] = [
         'title' => $strings['currency_title'],
         'subtitle' => $strings['currency_subtitle'] . ': ' . implode(', ', $currencies),
@@ -36,6 +38,8 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'add_base_currency',
     ];
+
+    // Delete currency
     $response[] = [
         'title' => $strings['delete_currency_title'],
         'subtitle' => $strings['delete_currency_subtitle'],
@@ -52,6 +56,8 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'locale_currency',
     ];
+
+    // Coin Market API Key
     $response[] = [
         'title' => $strings['crypto_title'],
         'subtitle' => $strings['crypto_subtitle'] . ': ' . getSetting('coinmarket_apikey', '', $settings),
@@ -60,6 +66,8 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'coinmarket_apikey',
     ];
+
+    // Currency Fixer API Key
     $response[] = [
         'title' => $strings['fixer_title'],
         'subtitle' => $strings['fixer_subtitle'] . ': ' . getSetting('fixer_apikey', '', $settings),
@@ -68,6 +76,8 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'fixer_apikey',
     ];
+
+    // Measurement system
     $response[] = [
         'title' => $strings['measurement_title'],
         'subtitle' => $strings['measurement_subtitle'] . ': ' . getSetting('measurement_system', 'metric', $settings),
@@ -76,6 +86,8 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'measurement_system',
     ];
+
+    // Vat percentage
     $response[] = [
         'title' => $strings['vat_title'],
         'subtitle' => $strings['vat_subtitle'] . ': ' . getSetting('vat_percentage', '16%', $settings),
@@ -84,14 +96,22 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'vat_percentage',
     ];
+
+    // Time zone
     $response[] = [
         'title' => $strings['base_timezone_title'],
         'subtitle' => $strings['base_timezone_subtitle'] . ': ' . getSetting('time_zone', 'America/Los_Angeles', $settings),
         'match' => $strings['base_timezone_title'],
         'autocomplete' => $strings['base_timezone_title'],
         'valid' => true,
+        'variables' => [
+            'searchable_results' => 'enable'
+        ],
+        //'arg' => '_filtrable_time_zone',
         'arg' => 'time_zone',
     ];
+
+    // Add Time format
     $response[] = [
         'title' => $strings['add_date_title'],
         'subtitle' => $strings['add_date_subtitle'],
@@ -100,6 +120,8 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'add_time_zone',
     ];
+
+    // Delete Time format
     $response[] = [
         'title' => $strings['delete_date_title'],
         'subtitle' => $strings['delete_date_subtitle'],
@@ -108,6 +130,8 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'delete_time_zone',
     ];
+
+    // Base Pixels
     $response[] = [
         'title' => $strings['base_pixels_title'],
         'subtitle' => $strings['base_pixels_subtitle'] . ': ' . getSetting('base_pixels', '16px', $settings),
@@ -116,6 +140,28 @@ if (empty($param)) {
         'valid' => true,
         'arg' => 'base_pixels',
     ];
+    echo '{"items": ' . json_encode($response) . ' }';
+    exit(0);
+}
+
+
+if ($param == 'time_zone') {
+    $response = [];
+    $zones = timezone_identifiers_list();
+
+    foreach ($zones as $key => $value) {
+        $response[] = [
+            'variables' => [
+                'configure_key' => $param,
+                'configure_val' => $value
+            ],
+            'title' => str_replace(['_'], ' ', $value),
+            'subtitle' => $strings['enter_delete_base_currency'],
+            'match' => str_replace(['/', '_'], ' ', $value),
+            'arg' => $value,
+        ];
+    }
+
     echo '{"items": ' . json_encode($response) . ' }';
     exit(0);
 }
@@ -150,7 +196,6 @@ if ($param == 'delete_time_zone') {
     exit(0);
 }
 
-
 // Handle delete currency
 if ($param == 'delete_base_currency') {
     $response = [];
@@ -177,6 +222,8 @@ if ($param == 'delete_base_currency') {
             'arg' => $value,
         ];
     }
+
+    //print_r($response);
     echo '{"items": ' . json_encode($response) . ' }';
     exit(0);
 }
