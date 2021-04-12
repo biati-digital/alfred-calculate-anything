@@ -14,7 +14,7 @@ class ExchangeRatesIo implements ProviderInterface
      *
      * @var string
      */
-    const EXCHANGERATESIO_API_BASEPATH = 'https://api.exchangeratesapi.io/latest';
+    const EXCHANGERATESIO_API_BASEPATH = 'https://api.exchangerate.host/latest';
 
     /**
      * @var Client
