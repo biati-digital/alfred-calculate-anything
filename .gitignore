@@ -1,3 +1,4 @@
+@@ -1,78 +1,4 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 
 # Created by https://www.gitignore.io/api/visualstudiocode,macos,windows
@@ -76,3 +77,5 @@ calculate-anything.zip
 vendor
 flags/.DS_Store
 .nova
+.vscode
+tests
