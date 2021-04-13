@@ -25,7 +25,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>7E3DC6C1-8CA9-4451-B5F6-0BAE71AF187C</string>
+				<string>ED4172A9-07E3-43F0-B1A0-0333412701EE</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -145,6 +145,19 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>7FE64D1B-CD91-40BC-903C-3F1BC17CEE02</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>81F79F86-8F77-4095-8981-362469B2776D</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>7E1D03F2-8A6E-4727-ACFB-0C5C77AA7BEE</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -292,6 +305,31 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>ABA18E77-71E3-494A-8735-A60799F419B9</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>ED4172A9-07E3-43F0-B1A0-0333412701EE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>81F79F86-8F77-4095-8981-362469B2776D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>sourceoutputuid</key>
+				<string>61049157-B5E3-45CE-BD81-CC1F48846B99</string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>7E3DC6C1-8CA9-4451-B5F6-0BAE71AF187C</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -1079,9 +1117,9 @@ php ./list.php "{query}"</string>
 			<key>config</key>
 			<dict>
 				<key>alfredfiltersresults</key>
-				<false/>
+				<true/>
 				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
+				<integer>2</integer>
 				<key>argumenttreatemptyqueryasnil</key>
 				<false/>
 				<key>argumenttrimmode</key>
@@ -1120,9 +1158,110 @@ php ./list.php "{query}"</string>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>7E3DC6C1-8CA9-4451-B5F6-0BAE71AF187C</string>
+			<string>81F79F86-8F77-4095-8981-362469B2776D</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<true/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>keyword</key>
+				<string>calculate configure</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Calculate Configure</string>
+				<key>script</key>
+				<string>php ./configure.php</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Calculate Configure</string>
+				<key>title</key>
+				<string>Calculate Configure</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>943AFE06-EF5F-4A34-ADBC-C65674A46EF5</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>conditions</key>
+				<array>
+					<dict>
+						<key>inputstring</key>
+						<string>{var:searchable}</string>
+						<key>matchcasesensitive</key>
+						<true/>
+						<key>matchmode</key>
+						<integer>0</integer>
+						<key>matchstring</key>
+						<string>enable</string>
+						<key>outputlabel</key>
+						<string>Enable filtrable</string>
+						<key>uid</key>
+						<string>61049157-B5E3-45CE-BD81-CC1F48846B99</string>
+					</dict>
+				</array>
+				<key>elselabel</key>
+				<string>else</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.conditional</string>
+			<key>uid</key>
+			<string>ED4172A9-07E3-43F0-B1A0-0333412701EE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argument</key>
+				<string></string>
+				<key>passthroughargument</key>
+				<false/>
+				<key>variables</key>
+				<dict>
+					<key>param</key>
+					<string>{query}</string>
+					<key>searchable</key>
+					<string>{var:searchable_results}</string>
+				</dict>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.utility.argument</string>
+			<key>uid</key>
+			<string>0BF2F4BA-F685-4BF1-B8E5-D570EE840103</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1171,22 +1310,51 @@ php ./list.php "{query}"</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argument</key>
-				<string></string>
-				<key>passthroughargument</key>
+				<key>alfredfiltersresults</key>
 				<false/>
-				<key>variables</key>
-				<dict>
-					<key>param</key>
-					<string>{query}</string>
-				</dict>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>2</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>keyword</key>
+				<string>calculate configure</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>php ./configure.php "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.utility.argument</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>0BF2F4BA-F685-4BF1-B8E5-D570EE840103</string>
+			<string>7E3DC6C1-8CA9-4451-B5F6-0BAE71AF187C</string>
 			<key>version</key>
-			<integer>1</integer>
+			<integer>3</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1326,55 +1494,6 @@ php ./list.php "{query}"</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<true/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>keyword</key>
-				<string>calculate configure</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Calculate Configure</string>
-				<key>script</key>
-				<string>php ./configure.php</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Calculate Configure</string>
-				<key>title</key>
-				<string>Calculate Configure</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>943AFE06-EF5F-4A34-ADBC-C65674A46EF5</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string>Calcualte Anything
@@ -1416,7 +1535,7 @@ Made with love by https://www.biati.digital</string>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>1815</integer>
+			<integer>1915</integer>
 		</dict>
 		<key>65F736EC-3B8C-4B6D-BE2C-837A63AC34A3</key>
 		<dict>
@@ -1444,21 +1563,21 @@ Made with love by https://www.biati.digital</string>
 			<key>xpos</key>
 			<integer>610</integer>
 			<key>ypos</key>
-			<integer>1815</integer>
+			<integer>1915</integer>
 		</dict>
 		<key>7E1D03F2-8A6E-4727-ACFB-0C5C77AA7BEE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>610</integer>
+			<integer>800</integer>
 			<key>ypos</key>
-			<integer>1685</integer>
+			<integer>1720</integer>
 		</dict>
 		<key>7E3DC6C1-8CA9-4451-B5F6-0BAE71AF187C</key>
 		<dict>
 			<key>xpos</key>
-			<integer>425</integer>
+			<integer>610</integer>
 			<key>ypos</key>
-			<integer>1685</integer>
+			<integer>1790</integer>
 		</dict>
 		<key>7FE64D1B-CD91-40BC-903C-3F1BC17CEE02</key>
 		<dict>
@@ -1473,6 +1592,13 @@ Made with love by https://www.biati.digital</string>
 			<integer>160</integer>
 			<key>ypos</key>
 			<integer>1000</integer>
+		</dict>
+		<key>81F79F86-8F77-4095-8981-362469B2776D</key>
+		<dict>
+			<key>xpos</key>
+			<integer>610</integer>
+			<key>ypos</key>
+			<integer>1670</integer>
 		</dict>
 		<key>92259804-7D0F-4A95-BE6E-D9673B43E432</key>
 		<dict>
@@ -1500,14 +1626,14 @@ Made with love by https://www.biati.digital</string>
 			<key>xpos</key>
 			<integer>610</integer>
 			<key>ypos</key>
-			<integer>1950</integer>
+			<integer>2050</integer>
 		</dict>
 		<key>943AFE06-EF5F-4A34-ADBC-C65674A46EF5</key>
 		<dict>
 			<key>xpos</key>
-			<integer>10</integer>
+			<integer>160</integer>
 			<key>ypos</key>
-			<integer>3050</integer>
+			<integer>1685</integer>
 		</dict>
 		<key>94994359-78CB-480F-8C90-83C583A32CDF</key>
 		<dict>
@@ -1542,21 +1668,21 @@ Made with love by https://www.biati.digital</string>
 			<key>xpos</key>
 			<integer>160</integer>
 			<key>ypos</key>
-			<integer>1815</integer>
+			<integer>1915</integer>
 		</dict>
 		<key>C2E28DAD-6C82-434D-8EAC-139C823CDA27</key>
 		<dict>
 			<key>xpos</key>
 			<integer>160</integer>
 			<key>ypos</key>
-			<integer>1950</integer>
+			<integer>2050</integer>
 		</dict>
 		<key>CAF3C560-8129-4EED-9555-4A3D5F56DE79</key>
 		<dict>
 			<key>xpos</key>
-			<integer>800</integer>
+			<integer>990</integer>
 			<key>ypos</key>
-			<integer>1685</integer>
+			<integer>1720</integer>
 		</dict>
 		<key>D037BED7-D145-4DEB-8419-84840F408A48</key>
 		<dict>
@@ -1572,18 +1698,25 @@ Made with love by https://www.biati.digital</string>
 			<key>ypos</key>
 			<integer>1405</integer>
 		</dict>
+		<key>ED4172A9-07E3-43F0-B1A0-0333412701EE</key>
+		<dict>
+			<key>xpos</key>
+			<integer>425</integer>
+			<key>ypos</key>
+			<integer>1705</integer>
+		</dict>
 		<key>F65E9433-21F2-4310-B86F-47836FEC8529</key>
 		<dict>
 			<key>xpos</key>
 			<integer>425</integer>
 			<key>ypos</key>
-			<integer>1950</integer>
+			<integer>2050</integer>
 		</dict>
 	</dict>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>2.0.4</string>
+	<string>2.1.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
