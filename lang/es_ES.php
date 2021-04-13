@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'code' => 'es_ES',
+    'name' => 'Español',
     'general' => [
         'action_copy' => 'Presiona enter para copiar el valor al clipboard'
     ],

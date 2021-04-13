@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'code' => 'en_EN',
+    'name' => 'English',
     'general' => [
         'action_copy' => 'Action this item to copy this number to the clipboard',
     ],
