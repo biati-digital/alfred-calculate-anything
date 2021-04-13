@@ -76,7 +76,7 @@ By default the workflow will use exchangerates api to make the conversion. excha
 The following options are available for each currency. Simply launch Alfred, type `calculate configure` and select any of the options below. [View the configuration section for more info](#configuration).
 
 - **Add base currency**
-This will become your base currency, if you type `100eur` it will automatically be converted to the currencies you define here. You can enter multiple currencies at once separated by comma for example: USD, EUR, MXN
+This will become your base currency, if you type `100eur` it will automatically be converted to the currencies you define here. You can define multiple currencies by repeting the process.
 - **Delete base currency**
 If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply pressing Return
 - **Set currency locale**
@@ -433,7 +433,7 @@ Given its less frequently used, time conversions require the use of the keyword 
 
 The following options are available.  Simply launch Alfred, type `calculate configure` and select any of the options below. [View the configuration section for more info](#configuration).
 
-- **Set base timezone** Base time zone used to calculate dates in your time zone, for example **America/Los_Angeles**, **Mexico/General**, etc.
+- **Set base timezone** Base time zone used to calculate dates in your time zone, search and select your zone from the list and press Return to save it.
 
 - **Add date format** Configure a new date format so the date is displayed the way you want, for example **j F, Y, g:i:s a** ([more information about available values for date](https://www.php.net/manual/en/function.date.php))
 
@@ -576,6 +576,7 @@ This workflow would not be possible without:
 - New: Added exchangerate.host
 - New: Improved configuration. Now displays a list of time zones to choose from
 - New: Improved configuration. Now displays a list of currencies to choose from
+- New: Improved configuration. Now displays a list of languages to choose from
 - Fixed: Unable to run/save configuration on certain cases
 
 ### 2.0.4
