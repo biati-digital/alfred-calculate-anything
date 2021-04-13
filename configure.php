@@ -36,6 +36,9 @@ if (empty($param)) {
         'match' => $strings['currency_title'],
         'autocomplete' => $strings['currency_title'],
         'valid' => true,
+        'variables' => [
+            'searchable_results' => 'enable'
+        ],
         'arg' => 'add_base_currency',
     ];
 
@@ -107,7 +110,6 @@ if (empty($param)) {
         'variables' => [
             'searchable_results' => 'enable'
         ],
-        //'arg' => '_filtrable_time_zone',
         'arg' => 'time_zone',
     ];
 
@@ -143,6 +145,47 @@ if (empty($param)) {
     echo '{"items": ' . json_encode($response) . ' }';
     exit(0);
 }
+
+
+
+if ($param == 'language') {
+    $response = [];
+    $langs = getRegisteredTranslations();
+
+    foreach ($langs as $key => $lang) {
+        $response[] = [
+            'variables' => [
+                'configure_key' => $param,
+                'configure_val' => $key
+            ],
+            'title' => $lang,
+            'match' => $key,
+            'arg' => $value,
+        ];
+    }
+
+    echo '{"items": ' . json_encode($response) . ' }';
+    exit(0);
+}
+
+
+if ($param == 'add_base_currency') {
+    $response = [];
+    $calculate = new Workflow\CalculateAnything();
+    $items = $calculate->getCalculator('currency')->listAvailable();
+
+    foreach ($items as $item) {
+        $item['variables'] = [
+            'configure_key' => $param,
+            'configure_val' => $item['arg']
+        ];
+        $response[] = $item;
+    }
+
+    echo '{"items": ' . json_encode($response) . ' }';
+    exit(0);
+}
+
 
 
 if ($param == 'time_zone') {
