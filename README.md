@@ -4,40 +4,40 @@ Calculate Anything is a workflow for Alfred 4, that uses **natural language** an
 
 ## Why
 
-There are several workflows out there but i just needed a workflow that worked naturally for example you can open alfred and type 100 + 9 and alfred will give you a result no need for keywords or hotkeys it just works, i wanted to be able to just type 100 + 16% or 100 euros to usd or 100km to cm or 100 years to hours and a large etc. and so this workflow was created.
+There are several conversion workflows out there but I wanted a workflow that worked naturally. For example, with Calculate Anything, you can open Alfred, type `100 + 9` and get a result. No need for keywords or hotkeys -- it just works. Type `100 + 16%`, `100 euros to usd`, `100km to cm` or `100 years to hours` and many more.
 
 ## Features
 
-- **Natural language** - type 100 euros to dollars or 100 euros in usd or 100€ to $ or 100eur usd or 100 euros a dolares. It does not matter, the same result will be displayed.
+- **Natural language** - type `100 euros to dollars`, `100 euros in usd`, `100€ to $`, `100eur usd`, `100 euros a dolares` -- it does not matter, the same result will be displayed
 - **Currency** - Up to 168 currencies
 - **Cryptocurrency** - Support for 100 cryptocurrencies
-- **Units** - 100 kilometers to meters or 100 km to m or simply 100km m
-- **Percentages** - 100 + 16% | 100 - 16%  | 40 as a % of 50 | 20 is what % of 50 etc.
-- **PX,Em,Rem,Pt** - 12px or 12px to em or 12px pt
-- **Time** - time +15 years? now plus 6 hours? or need to convert a timestamp?
+- **Units** - `100 kilometers to meters` or `100 km to m` or simply `100km m`
+- **Percentages** - `100 + 16%`, `100 - 16%`, `40 as a % of 50`, `20 is what % of 50` etc.
+- **px,em,rem,pt** - `12px` or `12px to em` or `12px pt`
+- **Time** - `time +15 years`, `time now plus 6 hours` or convert a timestamp
 - **VAT** - value added tax calculations, we all need this
 - **Translations** You can create your own translations to display results in your language
-- **Keywords** Extend the natural language in the queries so you can type 100 dolares a pesos and the code will see 100usd to mxn
+- **Keywords** Extend the natural language support so you can type `100 dolares a pesos` and see the result of `100usd to mxn`
 
 ## Download
 
-Download directly from the releases page, make sure to download the latest release. [Download here](https://github.com/biati-digital/alfred-calculate-anything/releases/)
+Make sure to download the latest released directly from the releases page. [Download here](https://github.com/biati-digital/alfred-calculate-anything/releases/).
 
 ## Base Configuration
 
-There's only one global configuration and is the language, this configuration will be used to display the messages in your own language. View the Translations secction for the available languaes.
+There's only one global setting and that's the language. This setting will be used to display the messages in your own language. View the Translations section for the available languages.
 
-Configure it with.
+Configure it with:
 
-- **calculate configure** and select **Set base language** and enter the language for example es_ES
+- type `calculate configure`, select **Set base language** and enter the language, for example `es_ES`
 
-[View the configuration section for more info](#configuration)
+[View the configuration section for more info](#configuration).
 
-Please check the translations section to see if a translation to your language is available. **Default is en_EN**
+Please check the translations section to see if a translation to your language is available. **Default is en_EN**.
 
 ## Currency
 
-You can use natural language or type a few characters and that's all, for example:
+You can use natural language or a few characters -- that's all! For example:
 
 ```
 - 100 euros to dollars
@@ -48,12 +48,12 @@ You can use natural language or type a few characters and that's all, for exampl
 - 100 usd in mxn
 - 100 usd yen
 - 100usd eur
-- 100eur (If no target the currency will be converted to the base currencies that you configured)
+- 100eur (if no target the currency will be converted to the base currencies that you configured)
 ```
 
 You can set a base currencies so if you type for example **120 euros** it will be automatically converted to the currencies that you configured.
 
-All this examples will simply work, you can add spaces between the value and the currency or don't.
+All these examples just work. You can add spaces between the value and the currency or not.
 <p align="center">
 <img src="https://i.ibb.co/W5thssY/currency.gif">
 </p>
@@ -62,33 +62,33 @@ All this examples will simply work, you can add spaces between the value and the
 
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
-- **Enter**
-Press enter to copy the value with format for exaple: 2,376.54
-- **Command**
-Press command + enter to copy the value without format for exaple: 2376.54
-- **option + enter**
-Press option + enter to copy the value of 1 for example: 23.76
+- **Return**
+Press Return to copy the value with format, for example 2,376.54
+- **Command + Return**
+Press Command + Return to copy the value without formatting, for example 2376.54
+- **Option + Return**
+Press Option + Return to copy the value of a single unit, for example 23.76
 
 ### Currency Options
 
-By default the workflow will use exchangerates api to make the conversion, exchangerates has only support for 32 currencies, if you need support for all the currencies that this worflow includes you need to get a FREE API Key from [https://fixer.io](https://fixer.io) it takes less than a minute.
+By default the workflow will use exchangerates api to make the conversion. exchangerates only support 32 currencies; if you need support for additional currencies supported by Calculate Anything, you need to get a _free_ API key from [https://fixer.io](https://fixer.io) -- it takes less than a minute!
 
-The following options are available for the currency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+The following options are available for each currency. Simply launch Alfred, type `calculate configure` and select any of the options below. [View the configuration section for more info](#configuration).
 
 - **Add base currency**
-This will become your base currency, if you type 100eur it will automatically be converted to the currencies you define here. You can enter multiple currencies at once separated by comma for example: USD, EUR, MXN
+This will become your base currency, if you type `100eur` it will automatically be converted to the currencies you define here. You can enter multiple currencies at once separated by comma for example: USD, EUR, MXN
 - **Delete base currency**
-If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply presing enter
+If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply pressing Return
 - **Set currency locale**
-Used to give format to the converted amount using the money format of your contry
+Used to format the converted amount using the appropriate currency format for your country
 - **Set Fixer API**
 Set your fixer API Key for support more currencies
 
 ### Currency Symbols
 
-You can use currency symbols in your query for example **100¥ to €** will be converted to 100JPY to EUR, here is a list of available symbols.
+You can use currency symbols in your query. For example `100¥ to €` will be converted from 100 Japanese yen to the equivalent in Euros. Here is a list of available symbols:
 
-**If by any chance you don't remember the currency symbol or abbreviation simply type calculate list and select "List Available Currencies" (view the gift above)**
+**If by any chance you don't remember the currency symbol or abbreviation simply type `calculate list` and select "List Available Currencies" (view the gift above)**
 
 Symbol     | Currency       | Value
 ------     | -----------    | -----------
@@ -131,7 +131,7 @@ TT$        | TTD            | Trinidad and Tobago dollar
 
 ## Cryptocurrency
 
-You can use this in conjunction with currency to convert 100 cryptocurrencies to up to 168 currencies, again you can use natural language or simply pass the currency simbol and that's all.
+Calculate Anything can convert between 100 cryptocurrencies and 168 currencies. Again, you can use natural language or simply pass the currency symbol.
 
 ```
 - 2 bitcoin to dollars
@@ -140,33 +140,33 @@ You can use this in conjunction with currency to convert 100 cryptocurrencies to
 - 1 ethereum to ¥
 - 10 ethereum in mxn
 - 1eth btc
-- 1btc (If no target the currency will be converted to the base currency that you configured)
+- 1btc (if no target currency is provided, the configured base currency will be used)
 ```
 
 ### Cryptocurrency Modifiers
 
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
-- **Enter**
-Press enter to copy the value with format for exaple: 2,376.54
-- **Command**
-Press command + enter to copy the value without format for exaple: 2376.54
-- **option + enter**
-Press option + enter to copy the value of 1 for example: 23.76
+- **Return**
+Press Return to copy the value with format, for example 2,376.54
+- **Command + Return**
+Press Command + Return to copy the value without formatting, for example 2376.54
+- **Option + Return**
+Press Option + Return to copy the value of a single unit, for example 23.76
 
 ### Cryptocurrency Options
 
-You need to get a FREE API Key from [https://coinmarketcap.com/api/pricing/](https://coinmarketcap.com/api/pricing/) it takes less than a minute.
+You need to get a free API key from [https://coinmarketcap.com/api/pricing/](https://coinmarketcap.com/api/pricing/). This takes less than a minute.
 
-The following options are available for cryptocurrency.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+The following options are available for cryptocurrency conversions. Simply launch Alfred, type `calculate configure` and select any of the options below. [View the configuration section for more info](#configuration).
 
 - **Set Coinmarketcap API**
-Select this option and paste your API key and press enter to save it.
+Select this option, paste your API key and press Return to save it.
 
 
 ## Units
 
-You can write your query using natural language or just a few characters, either way this workflow will give you the result you need.
+You can write your query using natural language or just a few characters. Either way works!
 
 ```
 - 100 ounces to kilograms
@@ -181,35 +181,35 @@ You can write your query using natural language or just a few characters, either
 - 10 días a horas (use your own language)
 ```
 
-If you don't remember the unit abbreviation just simply type the name for example instead of "oz" you can type "ounce" or "ounces" or even use words in your own language for exaple "onza" or "onzas" in spanish.
+If you don't remember the unit abbreviation, simply type the name of the unit. For example, instead of "oz" you can type "ounce" or "ounces" or even use words in your own language like "onza" or "onzas" in Spanish.
 
 <p align="center">
 <img src="https://i.ibb.co/WPKvDLL/unit.gif">
 </p>
 
-Finally if you still don't remember the unit abbreviation or it's name simply type **calculate list** and select **List Available Units** you can type to filter, etc.
+Finally, if you still don't remember the unit's abbreviation or name simply type `calculate list` and select **List Available Units**. From there you can type to filter, etc.
 
-### Units Modifiers
+### Unit Modifiers
 
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
-- **Enter**
-Press enter to copy the value with format for exaple: 2,834.95
-- **Command**
-Press command + enter to copy the value without format for exaple: 2834.95
-- **option + enter**
-Press option + enter to copy the value with complete format for example: 2,834.95kg
+- **Return**
+Press Return to copy the value with format, for example 2,376.54
+- **Command + Return**
+Press Command + Return to copy the value without formatting, for example 2376.54
+- **Option + Return**
+Press Option + Return to copy the value of a single unit, for example 23.76
 
-### Units Options
+### Unit Options
 
-The following options are available.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+The following options are available. Simply launch Alfred, type `calculate configure` and select any of the options below. [View the configuration section for more info](#configuration).
 
 - **Set System of Measurement**
-Here you can define your System of Measurement, this option is still in development but as the workflow grows this might be necessary for US users, by default the metric system will be used but you can define **imperial or metric**
+Here you can define your system of measurement. This option is still in development but as the workflow grows this might be necessary for U.S. users who prefer Imperial units. You can define **imperial or metric**.
 
-Here is a list of all available units and their names just to make this Readme long.
+Here is a list of all available units and their names just to make this README even longer.
 
-#### Available Length units
+#### Available Length Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -226,11 +226,11 @@ ft      | Foot
 yd      | Yard
 mi      | Mile
 h       | Hand
-ly      | LightYear
+ly      | Lightyear
 au      | Astronomical Unit
 pc      | Parsec
 
-#### Available Area units
+#### Available Area Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -240,9 +240,9 @@ cm2     | Square Centimeter
 mm2     | Square Milimeter
 ft2     | Square Foot
 mi2     | Square Mile
-ha      | hectare
+ha      | Hectare
 
-#### Available Volume units
+#### Available Volume Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -252,7 +252,7 @@ m3      | Cubic Meter
 pt      | Pint
 gal     | Galon
 
-#### Available Weight units
+#### Available Weight Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -265,25 +265,25 @@ lb      | Pound
 oz      | Ounce
 t       | Metric Tonne
 ukt     | UK Long Ton
-ust     | US short Ton
+ust     | US Short Ton
 
-#### Available Speed units
+#### Available Speed Units
 
 Unit    | Unit Name
 ------  | -----------
-mps     | Meters per Second
+mps     | Meters Per Second
 kph     | Kilometers Per Hour
 mph     | Miles Per Hour
-fps     | Feet per second
+fps     | Feet Per Second
 
-#### Available Rotation units
+#### Available Rotation Units
 
 Unit    | Unit Name
 ------  | -----------
 deg     | Degrees
 rad     | Radian
 
-#### Available Temperature units
+#### Available Temperature Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -291,18 +291,18 @@ k       | Kelvin
 c       | Centigrade
 f       | Fahrenheit
 
-#### Available Pressure units
+#### Available Pressure Units
 
 Unit    | Unit Name
 ------  | -----------
 pa      | Pascal
-kpa     | kilopascal
-mpa     | MegaPascal
+kpa     | Kilopascal
+mpa     | Megapascal
 bar     | Bar
 mbar    | Milibar
-psi     | Pound-force per square inch
+psi     | Pound-force Per Square Inch
 
-#### Available Time units
+#### Available Time Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -317,7 +317,7 @@ ms      | Milisecond
 μs      | Microsecond
 ns      | Nanosecond
 
-#### Available Energy/Power units
+#### Available Energy/Power Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -334,17 +334,17 @@ mev     | Mega Electron Volt
 
 ## Percentages
 
-You can easily calculate percentages for example:
+You can easily calculate percentages. For example:
 
 ```
 - 40 as a % of 50  // 40 is 80% of 50
 - 20 is what % of 50 // 20 is 40% of 50
-- 15% of 50 = 7.50  //7.5 equals to 15% of 50
-- 120 + 30% = 156  //120 plus the 30% of 120
-- 120 plus 30% = 156  //120 plus the 30% of 120
-- 120 - 30% = 84  //120 minus the 30% of 120
-- 120 minus 30% = 84  //120 minus the 30% of 120
-- 30 % 40 = 75%  // 30 is 75% of 40.
+- 15% of 50 = 7.50  // 7.5 equals to 15% of 50
+- 120 + 30% = 156  // 120 plus the 30% of 120
+- 120 plus 30% = 156  // 120 plus the 30% of 120
+- 120 - 30% = 84  // 120 minus the 30% of 120
+- 120 minus 30% = 84  // 120 minus the 30% of 120
+- 30 % 40 = 75%  // 30 is 75% of 40
 
 Translations and natural language can also be used
 - 120 más 30% = 156
@@ -356,9 +356,9 @@ Translations and natural language can also be used
 <img src="https://i.ibb.co/SrwMTJR/percent.gif">
 </p>
 
-## PX,Em,Rem,Pt
+## px,em,rem,pt
 
-Just open alfred and type 12px you'll see the value converted to em, rem and pt that simple, check the examples below.
+Open Alfred, type `12px` and you'll see the value converted to em, rem and pt. It's that simple. Check the examples below.
 
 ```
 - 12px
@@ -367,59 +367,59 @@ Just open alfred and type 12px you'll see the value converted to em, rem and pt 
 - 2rem
 - 2rem to pt
 
-#use a custom px base or configure it in the workflow
+# use a custom px base or configure it in the workflow
 - 12px in em base 17px
 ```
 
-### PX,Em,Rem,Pt Options
+### px,em,rem,pt Options
 
-The following options are available. Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+The following options are available. Simply launch Alfred, type `calculate configure` and select any of the options below. [View the configuration section for more info](#configuration).
 
-- **Set base pixels** Base pixels for calculations your value must be in px for example **16px**
+- **Set base pixels** The base pixels for calculations (the value must be in px), for example **16px**
 
 ## Time
 
-Time is triggered by a keyword because is not often used so you can simply open alfred and type time
+Given its less frequently used, time conversions require the use of the keyword **time**.
 
 ```
-#converts the timestamp to a regular date
+# converts the timestamp to a regular date
 - time 1577836800
 
-#gives you the time from now plus 15 days
+# gives you the time from now plus 15 days
 - time +15 days
 - time now plus 3 days
 
-#gives you the time from now plus 3 working days
+# gives you the time from now plus 3 working days
 - time today + 3 workdays
 - time now + 3 workdays
 - time + 3 workdays
 
-#number of days until specified date
+# number of days until specified date
 - time days until 31 december
 
-#the start date of current year
+# the start date of current year
 - time start of year
 
-#the start date of specified year
+# the start date of specified year
 - time start of 2021
 
-#the end date of current year
+# the end date of current year
 - time end of year
 
-#the end date of specified year
+# the end date of specified year
 - time end of 2021
 
-#it also works in your language
+# it also works in your language
 - time inicio de 2020
 - time fin de 2020
 - time dias hasta 31 diciembre
 
-#Get information about date
+# get information about date
 - time 31 December, 2021 18:00:00
 - time 31/12/2021 18:00:00
 - time 12/31/2021 18:00:00
 
-#Calculate the difference between two dates
+# calculate the difference between two dates
 - time 25 December, 2021 - 31 December, 2021
 - time 31-11-2019 - 21-11-2019
 - time 11/31/2019 - 11/21/2019
@@ -431,23 +431,23 @@ Time is triggered by a keyword because is not often used so you can simply open 
 
 ### Time Options
 
-The following options are available.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+The following options are available.  Simply launch Alfred, type `calculate configure` and select any of the options below. [View the configuration section for more info](#configuration).
 
-- **Set base timezone** Base time zone to calculate dates in your time.
+- **Set base timezone** Base time zone used to calculate dates in your time zone, for example **America/Los_Angeles**, **Mexico/General**, etc.
 
-- **Add date format** Configure a new date format so the date is displayed the way you want for example (j F, Y, g:i:s a) [More information about available values for date](https://www.php.net/manual/en/function.date.php)
+- **Add date format** Configure a new date format so the date is displayed the way you want, for example **j F, Y, g:i:s a** ([more information about available values for date](https://www.php.net/manual/en/function.date.php))
 
-- **Delete date format** It will show you a list of configured date formats, simply select the one you want to delete and press enter to remove it
+- **Delete date format** It will show you a list of configured date formats, simply select the one you want to delete and press Return to remove it
 
-### Example adding time date formats
+### Example: Adding Date and Time Formats
 
-You can add all the date formats you want simply launch alfred and type **calculate configure** and select the option Add date format then simply enter the format you want and press enter: [View the configuration section for more info](#configuration)
+You can add formats for your dates and times. Simply launch Alfred, type `calculate configure` and select the option **Add date format**. Enter the format you want and press Return. [View the configuration section for more info](#configuration).
 
-Time will use the language that you configure with **Set base language**
+Time will use the language that you configure with **Set base language**.
 
-## VAT (value added tax)
+## VAT (Value Added Tax)
 
-With this you can calculate the vat of a given amount. Like time, vat is also triggered with the keyword "vat" you can change the keyword in the workflow.
+With this you can calculate the VAT for a given amount. Like time, VAT is also triggered with a keyword. By default, the keyword is "vat" but you can change the keyword in the workflow.
 
 <p align="center">
 <img src="https://i.ibb.co/HVWx7wq/vat.gif">
@@ -455,19 +455,21 @@ With this you can calculate the vat of a given amount. Like time, vat is also tr
 
 Given the following query
 
-vat of 400 (with 16% vat configured, you can configure your own percentage)
+```
+vat of 400 (with a 16% VAT configured, a percentage you can configure)
+```
 
-You will get
+Calculate Anything will provide the following conversions:
 
-- VAT of 400 = 64 // VAT Amount
-- 400 plus VAT = 464 // Amount plus vat
-- 400 minus VAT = 344.82 // Amount minus vat
+- VAT of 400 = 64 (the VAT amount)
+- 400 plus VAT = 464 (the Amount plus VAT)
+- 400 minus VAT = 344.82 (the Amount minus VAT)
 
 ### VAT Options
 
-The following options are available.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
+The following options are available. Simply launch Alfred, type `calculate configure` and select any of the options below. [View the configuration section for more info](#configuration).
 
-- **Set VAT percentage** for example (16%)
+- **Set VAT percentage** the VAT percentage to apply,for example 16%
 
 ## Translations
 
@@ -478,18 +480,18 @@ Language   | Code
 English    | en_EN
 Spanish    | es_ES
 
-You can create your own translation, just follow this steps.
+To create your own translation, just follow these steps:
 
-1. Copy and paste /lang/en_EN.php and /lang/en_EN-keys.php in the same folder
-2. Change the name of the pasted files to your country lang code for example ru_RU.php and ru_RU-keys.php
-3. open and translate ru_RU.php
-4. open and modify ru_RU-keys.php. **Read more about this file in the section Keywords**
-5. Set your new languge with: calculate set language ru_RU
-6. Share it with the world, just send a pull request or simply publish it to pastebin.com (or any other service) and send me a link to include your translation
+1. Copy and paste `/lang/en_EN.php` and `/lang/en_EN-keys.php` into the same folder
+2. Change the name of the pasted files to your country lang code, for example `ru_RU.php` and `ru_RU-keys.php`
+3. Open and translate `ru_RU.php`
+4. Open and modify `ru_RU-keys.php`. **Read more about this file in the section Keywords**.
+5. Set your new language with `calculate set language ru_RU`
+6. Share it with the world -- and me! (I welcome pull requests or links to services like pastebin.com)
 
 ## Keywords
 
-Keywords are words that can be used when writing a query in natural language for example a keyword "ounces" will be converted to "oz", "kilometers" will be converted to "km" or "dollars" will be converted to "USD", this keywords allows the user to type in a more natural way and in their own language.
+Keywords are words that can be used when writing a query in natural language. For example, by default, the keyword "ounces" will be converted to "oz", "kilometers" will be converted to "km" and "dollars" will be converted to "USD". Keywords allow the user to type in a more natural way and in their own language.
 
 ```
 'units' => [
@@ -507,22 +509,24 @@ If the user the types:
 
 ```
 
-There is no limit in the keywords that you can add.
+There is no limit to the keywords that you can add.
 
 ## **Stop Words**
 
-Stop words are words that can be used in the query when using natural language for example **100km to cm** - here the stop word is **"to"**
+Stop words are words that can be used in the query when using natural language, for example `100km to cm`. Here the stop word is "to".
 
-Stop words are useful for two things
+Stop words are useful for two things:
 
-1. Allows the user to write more naturally and in their own language (e.g 100 dolares a mxn) "a" is the stop word
-2. Are used to check if the query has to be processed for example:
+1. Allow the user to write more naturally and in their own language (e.g 100 dolares a mxn) "a" is the stop word
+2. Check the query has to be processed
 
-**100km equals meters**
+For example:
 
-if the word **"equals"** is not registered in the stop_words array then it won't be processed. At the end this stop words are removed so 100km to cm becomes 100km cm.
+`100km equals meters`
 
-You can modify stop words in the same keys file for example /lang/en_EN-keys.php.
+If the word "equals" is not registered in the `stop_words` array then it won't be processed. After processing, stop words are removed so `100km to cm` is understood as `100km cm`.
+
+You can modify stop words in the same keys file, for example `/lang/en_EN-keys.php`.
 
 ```
 'units' => [
@@ -537,29 +541,29 @@ You can modify stop words in the same keys file for example /lang/en_EN-keys.php
 
 ## Configuration
 
-You can easily configure the workflow simply by opening Alfred and typing **calculate configure** you will see a list of all the available options to configure the workflow, select the option you want and press enter then simply enter your value and again press enter to save it. Check the following gif if you have doubts.
-
-### Cache
-
-The workflow stores some data about currency and other values in cache, you can delete the cache by opening Alfred and typing **calculate clear** you can decide between deleting the cache, delete stored settings or both
+You can easily configure the Calculate Anything workflow. Simply open Alfred, type `calculate configure` and you will see a list of all the available options to configure the workflow. Select the option you want, press Return and then enter the value you wish to set. Press Return again to save it. Check the following gif if you have doubts.
 
 <p align="center">
 <img src="https://i.ibb.co/Y0qQJhf/config.gif">
 </p>
 
+### Cache
+
+The workflow stores some data about currency and other values in a cache. You can delete the cache by opening Alfred and typing `calculate clear`. You can decide between deleting the cache, delete stored settings or both.
+
 ## Updates
 
-~~Starting from version 1.0.5 automatic updates were implemente, you will be notified if a new update is available or if you prefer you can launch Alfred and type **calculate update** to check for updates.~~
+~~Starting from version 1.0.5 automatic updates were implemented and you will be notified if a new update is available or if you prefer you can launch Alfred and type `calculate update` to check for updates.~~
 
-Starting from version 2.0.0 there's a new way to search and install automatic updates, before it was necessary to press enter when you used "Calculate Anything" and it will trigger the updater but the "Enter" key is not regularly used as this workflow does not depends on this key for the queries so you'll probably ended up with an outdated version. If you want you can still use **calculate update** to check for updates but it's not necessary anymore, the workflow will do it automatically for you.
+Starting from version 2.0.0, there's a new way to search and install automatic updates. It was previously necessary to press Return when triggering the updater but since Return is not regularly used it was easy to end up with an outdated version. If you want you can still type `calculate update` to check for updates but it's not necessary any more. The workflow will do it for you automatically.
 
 ## Performance
 
-For Currency, Percentages and Units this workflow will only process the query if it begins with a digit and it has at least 3 characters, it's really fast. Time and VAT have a keyword because those are not often used.
+For currency, percentage and unit conversions, Calculate Anything will only process the query if it begins with a digit and has at least 3 characters. Time and VAT conversions need a keyword because they are not often used.
 
-## Acknowledge
+## Acknowledgements
 
-This workflow could not be possible without:
+This workflow would not be possible without:
 
 - [Convertor](https://github.com/olifolkerd/convertor) with some modifications
 - [currency-converter-php](https://github.com/ojhaujjwal/currency-converter-php) for ExchangeRatesIo
@@ -659,4 +663,4 @@ This workflow could not be possible without:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for details.
