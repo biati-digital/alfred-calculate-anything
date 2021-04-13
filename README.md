@@ -433,7 +433,7 @@ Time is triggered by a keyword because is not often used so you can simply open 
 
 The following options are available.  Simply launch Alfred and type **calculate configure** and select any of the options below. [View the configuration section for more info](#configuration)
 
-- **Set base timezone** Base time zone to calculate dates in your time for example (America/Los_Angeles, Mexico/General, etc.)
+- **Set base timezone** Base time zone to calculate dates in your time.
 
 - **Add date format** Configure a new date format so the date is displayed the way you want for example (j F, Y, g:i:s a) [More information about available values for date](https://www.php.net/manual/en/function.date.php)
 
@@ -565,6 +565,14 @@ This workflow could not be possible without:
 - [currency-converter-php](https://github.com/ojhaujjwal/currency-converter-php) for ExchangeRatesIo
 
 ## Changelog
+
+### 2.1.0
+
+- New: Removed exchangeratesapi as it now requires an API Key
+- New: Added exchangerate.host
+- New: Improved configuration. Now displays a list of time zones to choose from
+- New: Improved configuration. Now displays a list of currencies to choose from
+- Fixed: Unable to run/save configuration on certain cases
 
 ### 2.0.4
 
