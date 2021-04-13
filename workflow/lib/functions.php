@@ -119,6 +119,26 @@ function loadTranslationsFile($lang)
     return false;
 }
 
+function getRegisteredTranslations()
+{
+    $dir = dirname(__DIR__, 2) . '/lang';
+    $fileList = glob($dir . '/*.php');
+    $langs = [];
+    foreach ($fileList as $file) {
+        if (strpos($file, '-keys') !== false) {
+            continue;
+        }
+
+        $lang = include $file;
+
+        if (isset($lang['code']) && isset($lang['name'])) {
+            $langs[$lang['code']] = $lang['name'];
+        }
+    }
+
+    return $langs;
+}
+
 function getText($key)
 {
     $strings = getTranslation('general');
