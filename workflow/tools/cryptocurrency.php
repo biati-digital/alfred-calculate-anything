@@ -194,7 +194,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
 
         $converted = $this->convert($data);
 
-        if ($converted['error']) {
+        if (!empty($converted['error'])) {
             return $converted['error'];
         }
 
@@ -227,7 +227,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
     {
         $items = [];
 
-        if ($result['noapi']) {
+        if (!empty($result['noapi'])) {
             $items[] = [
                 'title' => $this->lang['noapikey_title'],
                 'subtitle' => $this->lang['noapikey_subtitle'],
@@ -469,7 +469,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
 
             if (!empty($c)) {
                 $c = json_decode($c, true);
-                $updated = $c['timestamp'];
+                $updated = strtotime($c['status']['timestamp']);
                 $time = time() - $updated;
 
                 // Only return cached rates if cache

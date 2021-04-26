@@ -252,7 +252,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
         $converted = $this->convert($data);
 
-        if ($converted['error']) {
+        if (!empty($converted['error'])) {
             return $converted['error'];
         }
 
