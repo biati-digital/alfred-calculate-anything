@@ -469,7 +469,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
 
             if (!empty($c)) {
                 $c = json_decode($c, true);
-                $updated = strtotime($c['status']['timestamp']);
+                $updated = $c['timestamp'];
                 $time = time() - $updated;
 
                 // Only return cached rates if cache
