@@ -37,20 +37,11 @@ class Updater
     private $force_download;
 
     /**
-     * Force check
-     * Bypass the cache and check again the remote plist
+     * Notifications
      *
-     * @var bool
+     * @var array
      */
-    private $force_check;
-
-    /**
-     * Download type
-     * async/sync
-     *
-     * @var string
-     */
-    private $download_type;
+    private $alfred_notifications;
 
 
     /**
@@ -63,60 +54,67 @@ class Updater
         $this->remote_plist_url = $this->getVar($config, 'plist_url', false);
         $this->remote_workflow = $this->getVar($config, 'workflow_url', false);
         $this->check_interval = $this->getVar($config, 'check_interval', $this->check_interval);
-        $this->force_check = $this->getVar($config, 'force_check', false);
         $this->force_download = $this->getVar($config, 'force_download', false);
-        $this->download_type = $this->getVar($config, 'download_type', 'async');
+        $this->alfred_notifications = $this->getVar($config, 'alfred_notifications', false);
     }
 
 
     /**
      * Maybe check for updates
      */
-    public function checkUpdates()
+    public function checkForUpdates($force_check = null, $custom_last_check = null)
     {
         if (!$this->remote_plist_url || !$this->remote_workflow) {
             throw new Exception("Configure the plist and workflow URL");
         }
 
         $updates_file = $this->updatesFile();
+        $response = [
+            'update_available' => false,
+            'new_version' => '',
+            'current_version' => getenv('alfred_workflow_version'),
+            'performed_check' => false,
+        ];
 
-        if (!file_exists($updates_file) || $this->force_check || $this->force_download) {
-            return $this->getRemotePlist();
+        if (!file_exists($updates_file) || $force_check || $this->force_download) {
+            $remote_plist_content = $this->downloadRemotePlist();
+            $should_update = $this->shouldUpdate($remote_plist_content);
+            $response['performed_check'] = time();
+
+            if ($should_update) {
+                $response['update_available'] = true;
+                $response['new_version'] = $should_update;
+            }
+
+            return $response;
         }
 
-        $updated = filemtime($updates_file);
+        $updated = $custom_last_check ? $custom_last_check : filemtime($updates_file);
         $time = time() - $updated;
-
-        if ($time > $this->check_interval) { // interval passed, check again
-            $this->deleteRemotePlist();
-            $this->getRemotePlist();
-            return;
+        if ($time < 0 || $time > $this->check_interval) { // interval passed, check again
+            return $this->checkForUpdates(true);
         }
 
-        return false;
+        return $response;
     }
 
 
     /**
      * Download remote plist
+     * to compare it's version with
+     * the local
      */
-    private function getRemotePlist()
+    private function downloadRemotePlist()
     {
-        $tmp_download = $this->filePath('remote_plist.download');
-
-        if (file_exists($tmp_download)) { // pending download abort
-            return;
+        $remote_plist_content = file_get_contents($this->remote_plist_url);
+        if (!$remote_plist_content) {
+            return false;
         }
 
-        file_put_contents($tmp_download, time());
+        file_put_contents($this->remotePlistPath(), $remote_plist_content);
+        file_put_contents($this->updatesFile(), time());
 
-        if (file_put_contents($this->remotePlistPath(), file_get_contents($this->remote_plist_url))) {
-            if (file_exists($tmp_download)) {
-                unlink($tmp_download);
-            }
-            file_put_contents($this->updatesFile(), time());
-            return $this->shouldUpdate();
-        }
+        return $remote_plist_content;
     }
 
 
@@ -124,30 +122,37 @@ class Updater
      * shouldUpdate
      * compare remote version with local version
      */
-    private function shouldUpdate()
+    private function shouldUpdate($remote_plist_content = '')
     {
-        $remote_plist = $this->escapeEspaces($this->remotePlistPath());
-        $command = "/usr/libexec/PlistBuddy -c 'print version' {$remote_plist}";
-        $remote_version = shell_exec($command);
-        $local_version = getenv('alfred_workflow_version');
+        if (empty($remote_plist_content)) {
+            $remote_plist_content = file_get_contents($this->remotePlistPath());
+        }
 
-        if ($this->force_download || version_compare($remote_version, $local_version) > 0) {
-            $this->notifyUpdate();
-            $this->downloadWorkflow();
-
-            return true;
-        } else {
-            $this->deleteRemotePlist();
-            touch($this->updatesFile()); // Reset timer by touching local file
+        $matches = [];
+        preg_match_all('/<key>version<\/key>\s+<string>(.*)<\/string>/mx', $remote_plist_content, $matches);
+        if (empty($matches) || count($matches) < 2 || !isset($matches[1][0])) { // remote version not found
             return false;
         }
+
+        $remote_version = $matches[1][0];
+        $local_version = getenv('alfred_workflow_version');
+        if ($this->force_download || version_compare($remote_version, $local_version) > 0) {
+            return $remote_version;
+        }
+
+        touch($this->updatesFile()); // Reset timer by touching local file
+        return false;
+
+        /*$remote_plist = $this->escapeEspaces($this->remotePlistPath());
+        $command = "/usr/libexec/PlistBuddy -c 'print version' {$remote_plist}";
+        $remote_version = shell_exec($command);*/
     }
 
 
     /**
      * Download updated workflow
      */
-    private function downloadWorkflow()
+    public function downloadUpdate()
     {
         $title = getenv('alfred_workflow_name');
         $home = getenv('HOME');
@@ -157,7 +162,7 @@ class Updater
         $tmp_workflow = "{$home}/Downloads/{$name}.alfredworkflow";
 
         if (file_exists($tmp_download)) { // pending download abort
-            return;
+            //return;
         }
 
         file_put_contents($tmp_download, time());
@@ -166,21 +171,16 @@ class Updater
         $command .= ' && rm ' . $this->escapeEspaces($tmp_download);
         $command .= ' && rm ' . $this->escapeEspaces($this->remotePlistPath());
         $command .= ' && open ' . $this->escapeEspaces($tmp_workflow);
-        $command .= " && osascript -e 'display notification \"Download Completed\" with title \"{$title}\"'";
 
-        if ($this->download_type ==  'async') {
-            shell_exec("/usr/bin/nohup {$command} >/dev/null 2>&1 &");
-        }
-        if ($this->download_type ==  'sync') {
-            shell_exec("/usr/bin/nohup {$command}");
-        }
+        exec("/usr/bin/nohup {$command} >/dev/null 2>&1");
+        return true;
     }
 
 
     /**
      * Delete remote plist
      */
-    private function deleteRemotePlist()
+    public function deleteRemotePlist()
     {
         if (file_exists($this->remotePlistPath())) {
             unlink($this->remotePlistPath());
@@ -189,21 +189,33 @@ class Updater
 
 
     /**
-     * Show a notification about the update
-     */
-    private function notifyUpdate()
-    {
-        $this->notify('New version available. Downloading and installing…');
-    }
-
-
-    /**
      * Display notification
      */
-    private function notify($message = '', $title = '')
+    public function notify($message = '', $title = '', $trigger = '')
     {
         $title = (!empty($title) ? $title : getenv('alfred_workflow_name'));
-        $command = "osascript -e 'display notification \"{$message}\" with title \"{$title}\"'";
+        $native_notifications = $this->alfred_notifications;
+
+        if ($trigger) {
+            $native_notifications = $trigger;
+        }
+
+        if ($native_notifications) {
+            $trigger = is_string($native_notifications) ? $native_notifications : 'notifier';
+            $title = htmlspecialchars($title, ENT_QUOTES);
+            $message = htmlspecialchars($message, ENT_QUOTES);
+            $bundleid = getenv('alfred_workflow_bundleid');
+            $output = $title . '|' . $message;
+            $script = 'tell application id "com.runningwithcrayons.Alfred" to run trigger "' . $trigger . '" in workflow "' . $bundleid . '" with argument "' . $output . '"';
+            $command = "osascript -e '{$script}'";
+        }
+
+        if (!$native_notifications) {
+            $title = htmlspecialchars($title, ENT_QUOTES);
+            $message = htmlspecialchars($message, ENT_QUOTES);
+            $command = "osascript -e 'display notification \"{$message}\" with title \"{$title}\"'";
+        }
+
         shell_exec($command);
     }
 
@@ -277,7 +289,7 @@ class Updater
     private function getVar($array, $key, $default = null)
     {
         if (is_array($array) && isset($array[$key]) && !empty($array[$key])) {
-            return trim($array[$key]);
+            return $array[$key];
         }
         if (!is_null($default)) {
             return $default;
