@@ -62,7 +62,7 @@ You can set a base currencies so if you type for example **120 euros** it will b
 
 All these examples just work. You can add spaces between the value and the currency or not.
 <p align="center">
-<img src="https://i.ibb.co/6ZTMHQW/currency-v3.gif">
+<img src="/assets/gifts/currency-v3.gif?raw=true">
 </p>
 
 ### Currency Modifiers
