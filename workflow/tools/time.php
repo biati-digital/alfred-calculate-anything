@@ -27,9 +27,9 @@ class Time extends CalculateAnything implements CalculatorInterface
 
         $this->lang = $this->getTranslation('time');
         $this->keywords = $this->getKeywords('time');
-        $this->timezone = getVar(!empty($argv) ? $argv : '', 3, $this->getSetting('time_zone', 'America/Los_Angeles'));
+        $this->timezone = \Alfred\getArgument(!empty($argv) ? $argv : '', 3, $this->getSetting('time_zone', 'America/Los_Angeles'));
         $this->display_formats = $this->getSetting('timezones', ['F jS, Y, g:i:s a']);
-        $this->display_language = $this->getSetting('language', defaultLang());
+        $this->display_language = $this->getSetting('language', 'en_EN');
     }
 
 
@@ -93,7 +93,6 @@ class Time extends CalculateAnything implements CalculatorInterface
             return $items;
         }
 
-        // $instance = getVar($processed, 'instance', false);
         $instance = (isset($processed['instance']) ? $processed['instance'] : false);
 
         if (!$instance) {
@@ -253,7 +252,7 @@ class Time extends CalculateAnything implements CalculatorInterface
      * @param string $query
      * @return string
      */
-    function translateDate($query)
+    public function translateDate($query)
     {
         $query = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $query);
         $strs = $this->lang;
@@ -314,7 +313,7 @@ class Time extends CalculateAnything implements CalculatorInterface
      * @param string $format
      * @return string
      */
-    function timesDifference($time1, $time2, $format = 'hours')
+    public function timesDifference($time1, $time2, $format = 'hours')
     {
         $time1 = new Date($time1, new DateTimeZone($this->timezone));
         $time2 = new Date($time2, new DateTimeZone($this->timezone));
