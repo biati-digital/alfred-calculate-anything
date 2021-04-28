@@ -13,28 +13,51 @@
  * @modify date 06-09-2020
  */
 
-require_once __DIR__ . '/workflow/lib/functions.php';
+if (getenv('alfred_debug')) {
+    error_reporting(E_ALL);
+    error_reporting(-1);
+    ini_set('error_reporting', E_ALL);
+}
+
+require_once __DIR__ . '/autoload.php';
+require_once __DIR__ . '/alfred/Alfred.php';
 require_once __DIR__ . '/workflow/calculateanything.php';
 
-$query = cleanQuery(getVar($argv, 1));
-$action = getVar($argv, 2);
-$calculate = new Workflow\CalculateAnything($query);
+use function Alfred\getArgument;
+use function Alfred\cleanQuery;
 
-if (!empty($action)) {
-    if ($action == 'vat') {
+$query = cleanQuery(getArgument($argv, 1));
+$action = getArgument($argv, 2);
+$calculate = new Workflow\CalculateAnything($query);
+$processed = [];
+$alfred = ['items' => []];
+
+switch ($action) {
+    case 'vat':
         $processed = $calculate->processVat();
-    }
-    if ($action == 'time') {
+        break;
+    case 'time':
         $processed = $calculate->processTime();
-    }
-} else {
-    $processed = $calculate->processQuery();
+        break;
+    default:
+        $processed = $calculate->processQuery();
+}
+
+if (isset($processed['rerun'])) {
+    $alfred['rerun'] = $processed['rerun'];
+    unset($processed['rerun']);
+}
+
+if (isset($processed['variables'])) {
+    $alfred['variables'] = $processed['variables'];
+    unset($processed['variables']);
 }
 
 if ($processed) {
-    echo '{"items": ' . json_encode($processed) . ' }';
+    $alfred['items'] = $processed;
+    echo json_encode($alfred);
     exit(0);
 }
 
-echo '{"items": []}';
+echo json_encode($alfred);
 exit(0);
