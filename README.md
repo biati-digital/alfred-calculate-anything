@@ -151,7 +151,7 @@ Calculate Anything can convert between 100 cryptocurrencies and 168 currencies. 
 ```
 
 <p align="center">
-<img src="https://i.ibb.co/YcR3Qjr/crypto-v3.gif">
+<img src="/assets/gifts/crypto-v3.gif?raw=true">
 </p>
 
 ### Cryptocurrency Modifiers
@@ -207,7 +207,7 @@ You can write your query using natural language or just a few characters. Either
 If you don't remember the unit abbreviation, simply type the name of the unit. For example, instead of "oz" you can type "ounce" or "ounces" or even use words in your own language like "onza" or "onzas" in Spanish.
 
 <p align="center">
-<img src="https://i.ibb.co/26D7yq0/units-v3.gif">
+<img src="/assets/gifts/units-v3.gif?raw=true">
 </p>
 
 Finally, if you still don't remember the unit's abbreviation or name simply type `ca list` and select **List Available Units**. From there you can type to filter, etc.
@@ -376,7 +376,7 @@ You can write your query using natural language or just a few characters. Either
 ```
 
 <p align="center">
-<img src="https://i.ibb.co/W552d0Y/datastorage-v3.gif">
+<img src="/assets/gifts/datastorage-v3.gif?raw=true">
 </p>
 
 Please note, this workflow follows the **IEC Standard (International Electrotechnical Commission)** as it had been adopted by the IEEE, EU, and NIST. That means that if you type `1MB in KB` you will get `1000 KB` but if you type `1MiB in KiB` you will get `1024 KB`, you can read more about it here [Multiple-byte_units](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
@@ -441,7 +441,7 @@ Translations and natural language can also be used
 ```
 
 <p align="center">
-<img src="https://i.ibb.co/8Pr85Q2/percentages-v3.gif">
+<img src="/assets/gifts/percentages-v3.gif?raw=true">
 </p>
 
 ## PX, EM, REM, PT
@@ -514,7 +514,7 @@ Given its less frequently used, time conversions require the use of the keyword 
 ```
 
 <p align="center">
-<img src="https://i.ibb.co/G93kGbr/time-v3.gif">
+<img src="/assets/gifts/time-v3.gif?raw=true">
 </p>
 
 ### Time Options
@@ -538,7 +538,7 @@ Time will use the language that you configure with **Set base language**.
 With this you can calculate the VAT for a given amount. Like time, VAT is also triggered with a keyword. By default, the keyword is "vat" but you can change the keyword in the workflow.
 
 <p align="center">
-<img src="https://i.ibb.co/dLGL1B4/vat-v3.gif">
+<img src="/assets/gifts/vat-v3.gif?raw=true">
 </p>
 
 Given the following query
@@ -632,7 +632,7 @@ You can modify stop words in the same keys file, for example `/lang/en_EN-keys.p
 You can easily configure the Calculate Anything workflow. Simply open Alfred, type `ca` and you will see a list of all the available options to configure the workflow. You can also filter the options for example launch Alfred and start typing `ca fixer` and you will automatically see the options filtered. To select an option just press Return.
 
 <p align="center">
-<img src="https://i.ibb.co/KFcDSPk/config-v3-01.gif">
+<img src="/assets/gifts/config-v3-01.gif?raw=true">
 </p>
 
 ### Cache
