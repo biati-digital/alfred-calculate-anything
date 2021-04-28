@@ -20,6 +20,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
     private $keywords;
     private $currencyList;
     private $lang;
+    private static $fixer_rates;
+    private static $basic_rates;
 
     /**
      * Construct
@@ -31,6 +33,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $this->keywords = $this->getKeywords('currency');
         $this->stop_words = $this->getStopWords('currency');
         $this->currencyList = $this->currencies();
+        $this->rates_cache_seconds = 86400;
     }
 
 
@@ -253,7 +256,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $converted = $this->convert($data);
 
         if (!empty($converted['error'])) {
-            return $converted['error'];
+            return $this->outputError($converted);
         }
 
         $data['converted'] = [];
@@ -263,10 +266,12 @@ class Currency extends CalculateAnything implements CalculatorInterface
             $total = money_format('%i', $value['total']);
             $total = preg_replace('/[^0-9.,]/', '', $total);
             $single = $value['single'];
-            $single = $this->formatNumber($value['single']);
+            $single = money_format('%i', $single);
+            $single = preg_replace("/\w+[^0-9-., ]/", '', $single);
+            //$single = $this->formatNumber($value['single']);
 
-            $data['converted'][$key]['total'] = ['value' => $total, 'formatted' => "{$total}{$key}"];
-            $data['converted'][$key]['single'] = ['value' => $single, 'formatted' => "1{$data['from']} = {$single}{$key}"];
+            $data['converted'][$key]['total'] = ['value' => $total, 'formatted' => "{$total} {$key}"];
+            $data['converted'][$key]['single'] = ['value' => $single, 'formatted' => "1 {$data['from']} = {$single} {$key}"];
         }
 
         return $this->output($data);
@@ -289,7 +294,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         foreach ($converted as $key => $value) {
             $total = $value['total'];
             $single = $value['single'];
-            $icon = 'flags/' . $key . '.png';
+            $icon = 'assets/flags/' . $key . '.png';
 
             $items[] = [
                 'title' => $total['formatted'],
@@ -314,6 +319,26 @@ class Currency extends CalculateAnything implements CalculatorInterface
         return $items;
     }
 
+    /**
+     * Output error notification
+     *
+     * @param array $error
+     * @return array workflow response
+     */
+    public function outputError($error)
+    {
+        $items = [];
+        $items[] = [
+            'title' => $error['error'],
+            'valid' => false,
+            'arg' => '',
+        ];
+        if (isset($error['reload'])) {
+            $items['rerun'] = $error['reload'];
+        }
+        return $items;
+    }
+
 
     /**
      * Handle conversion
@@ -328,8 +353,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $from = $data['from'];
         $to = $data['to'];
         $use_cache = (isset($data['use_cache']) ? $data['use_cache'] : true);
-        $cache_seconds = ($use_cache ? 14400 : 0);
         $fixer_apikey = $this->getSetting('fixer_apikey');
+        $method = !empty($fixer_apikey) ? 'fixer' : 'exchangeratehost';
 
         if (is_string($to)) {
             $to = [$to];
@@ -337,16 +362,18 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
         foreach ($to as $currency) {
             // Use Fixer io
-            if (!empty($fixer_apikey)) {
-                $cache_seconds = ($use_cache ? 7200 : 0);
-                $conversion = $this->fixerConversion($amount, $from, $currency, $cache_seconds);
-            } else {
-                //$conversion = $this->exchangeRatesConversion($amount, $from, $currency, $cache_seconds);
-                $conversion = $this->exchangeRateHostConversion($amount, $from, $currency, $cache_seconds);
+            if ($method == 'fixer') {
+                $cache_seconds = ($use_cache ? $this->rates_cache_seconds : 0);
+                $conversion = $this->fixerConversion($amount, $from, $currency);
+            } elseif ($method == 'exchangeratehost') {
+                $conversion = $this->exchangeRateHostConversion($amount, $from, $currency);
             }
 
             if (isset($conversion['error']) && !empty($conversion['error'])) {
                 $converted['error'] = $conversion['error'];
+            }
+            if (isset($conversion['reload']) && !empty($conversion['reload'])) {
+                $converted['reload'] = $conversion['reload'];
             }
             $converted[$currency] = $conversion;
         }
@@ -356,7 +383,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
 
     /**
-     * Fixer conversion
+     * Fixer.io conversion
      *
      * @param int $amount
      * @param string $from
@@ -364,81 +391,45 @@ class Currency extends CalculateAnything implements CalculatorInterface
      * @param int $cache_seconds
      * @return array
      */
-    private function fixerConversion($amount, $from, $to, $cache_seconds)
+    private function fixerConversion($amount, $from, $to)
     {
-        $cached = $this->getCachedConversion('fixer', $from, $to, $cache_seconds);
-        if ($cached) {
-            $cached = (float) $cached;
-            $value = $cached;
-            $total = $amount * $value;
+        $apikey = $this->getSetting('fixer_apikey');
+        if (empty($apikey)) {
+            return [
+                'total' => '',
+                'single' => '',
+                'error' => $this->lang['nofixerapikey_title'],
+            ];
         }
 
-        if (!$cached) {
-            $exchange = $this->getRates($cache_seconds);
+        $exchange = self::$fixer_rates;
+        if (!$exchange) {
+            $cache_seconds = $this->rates_cache_seconds;
+            $ratesURL = "http://data.fixer.io/api/latest?access_key={$apikey}&format=1";
+            $exchange = $this->getRates('fixer', $ratesURL, $cache_seconds);
 
-            if (is_string($exchange)) {
-                return ['total' => '', 'single' => '', 'error' => $exchange];
+            if (isset($exchange['error'])) {
+                return [
+                    'total' => '',
+                    'single' => '',
+                    'error' => $exchange['error'],
+                    'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
+                ];
             }
 
-            $base = $exchange['base'];
-            $rates = $exchange['rates'];
-            $default_base_currency = $rates[$base];
-
-            $new_base_currency = $rates[$from]; //from currency
-            $base_exchange = $default_base_currency / $new_base_currency;
-            $value = ($rates[$to] * $base_exchange);
-            $total = $amount * $value;
-
-            $this->cacheConversion('fixer', $from, $to, $value);
+            self::$fixer_rates = $exchange;
         }
+
+        $base = $exchange['base'];
+        $rates = $exchange['rates'];
+        $default_base_currency = $rates[$base];
+
+        $new_base_currency = $rates[$from]; //from currency
+        $base_exchange = $default_base_currency / $new_base_currency;
+        $value = ($rates[$to] * $base_exchange);
+        $total = $amount * $value;
 
         return ['total' => $total, 'single' => $value, 'error' => false];
-    }
-
-
-    /**
-     * exchangeratesapi.io
-     *
-     * @param int $amount
-     * @param string $from
-     * @param string $to
-     * @param int $cache_seconds
-     * @return array
-     */
-    public function exchangeRatesConversion($amount, $from, $to, $cache_seconds)
-    {
-        $cached = $this->getCachedConversion('exchangerates', $from, $to, $cache_seconds);
-        if ($cached) {
-            $cached = (float) $cached;
-            $value = $cached;
-        }
-
-        if (!$cached) {
-            $this->required();
-
-            $converter = new \CurrencyConverter\CurrencyConverter();
-            $value = '';
-            $error = false;
-
-            try {
-                $value = $converter->convert($from, $to);
-                $this->cacheConversion('exchangerates', $from, $to, $value);
-            } catch (\Throwable $th) {
-                $error = true;
-                $message = $th->getMessage();
-                preg_match('/{(.*)}/', $message, $matches);
-
-                if ($matches && !empty($matches)) {
-                    $value = $matches[1];
-                }
-            }
-
-            if ($error) {
-                return ['error' => $value];
-            }
-        }
-
-        return ['total' => $amount * $value, 'single' => $value, 'error' => false];
     }
 
 
@@ -451,41 +442,37 @@ class Currency extends CalculateAnything implements CalculatorInterface
      * @param int $cache_seconds
      * @return array
      */
-    public function exchangeRateHostConversion($amount, $from, $to, $cache_seconds)
+    public function exchangeRateHostConversion($amount, $from, $to)
     {
-        $cached = $this->getCachedConversion('exchangeratehost', $from, $to, $cache_seconds);
-        if ($cached) {
-            $cached = (float) $cached;
-            $value = $cached;
-        }
+        //$basic_rates
+        $exchange = self::$basic_rates;
+        if (!$exchange) {
+            $cache_seconds = $this->rates_cache_seconds;
+            $ratesURL = "https://api.exchangerate.host/latest";
+            $exchange = $this->getRates('exchangeratehost', $ratesURL, $cache_seconds);
 
-        if (!$cached) {
-            $this->required();
-
-            $converter = new \CurrencyConverter\CurrencyConverter();
-            $converter->setRateProvider(new \CurrencyConverter\Provider\ExchangeRateHost());
-            $value = '';
-            $error = false;
-
-            try {
-                $value = $converter->convert($from, $to);
-                $this->cacheConversion('exchangeratehost', $from, $to, $value);
-            } catch (\Throwable $th) {
-                $error = true;
-                $message = $th->getMessage();
-                preg_match('/{(.*)}/', $message, $matches);
-
-                if ($matches && !empty($matches)) {
-                    $value = $matches[1];
-                }
+            if (!isset($exchange['success']) || !$exchange['success']) {
+                return [
+                    'total' => '',
+                    'single' => '',
+                    'error' => $exchange['error'],
+                    'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
+                ];
             }
 
-            if ($error) {
-                return ['error' => $value];
-            }
+            self::$basic_rates = $exchange;
         }
 
-        return ['total' => $amount * $value, 'single' => $value, 'error' => false];
+        $base = $exchange['base'];
+        $rates = $exchange['rates'];
+        $default_base_currency = $rates[$base];
+
+        $new_base_currency = $rates[$from]; //from currency
+        $base_exchange = $default_base_currency / $new_base_currency;
+        $value = ($rates[$to] * $base_exchange);
+        $total = $amount * $value;
+
+        return ['total' => $total, 'single' => $value, 'error' => false];
     }
 
 
@@ -508,7 +495,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
             return false;
         }
 
-        $amount = getVar($amount_match, 1);
+        $amount = \Alfred\getArgument($amount_match, 1);
         $amount = trim($amount);
         $string = str_replace($amount, '', $query);
         $string = trim($string);
@@ -518,12 +505,16 @@ class Currency extends CalculateAnything implements CalculatorInterface
         // Matches strings like 100 usd to mxn
         if (!empty($matches)) {
             $matches = array_values(array_filter($matches));
-            $from = getVar($matches, 1);
-            $to = getVar($matches, 3);
+            $from = \Alfred\getArgument($matches, 1);
+            $to = \Alfred\getArgument($matches, 3);
         }
         // String is like 100 usd or 100 usd mxn
         elseif (empty($matches)) {
             $keywords = $this->keywords;
+
+            uksort($keywords, function ($keya, $keyb) {
+                return strlen($keyb) - strlen($keya);
+            });
 
             foreach ($keywords as $key => $value) {
                 if (is_array($value)) {
@@ -535,11 +526,9 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
             $string = preg_replace('!\s+!', ' ', $string);
             $string = trim($string);
-
-
             $data = explode(' ', $string);
-            $from = getVar($data, 0);
-            $to = getVar($data, 1);
+            $from = \Alfred\getArgument($data, 0);
+            $to = \Alfred\getArgument($data, 1);
         }
 
         $from = strtoupper($from);
@@ -570,61 +559,53 @@ class Currency extends CalculateAnything implements CalculatorInterface
      * @param int $cache_seconds number of seconds before the cache expires
      * @return mixed array if sucess or string with error message
      */
-    private function getRates($cache_seconds)
+    private function getRates($id, $from, $cache_seconds)
     {
-        $apikey = $this->getSetting('fixer_apikey');
+        $ratesURL = $from;
+        $dir = \Alfred\getDataPath('cache/' . $id);
 
-        if (empty($apikey)) {
-            throw new Exception('No Fixer API Key provided');
-        }
+        \Alfred\createDir($dir);
 
-        $ratesURL = "http://data.fixer.io/api/latest?access_key={$apikey}&format=1";
-        $dir = getDataPath('cache/fixer');
-        createDir($dir);
+        $rates_file = $dir . '/rates.json';
+        //$ratesURL = str_replace('?', '\?', $ratesURL);
+        //$ratesURL = str_replace('=', '\=', $ratesURL);
+        //$ratesURL = str_replace('&', '\&', $ratesURL);
+        if (file_exists($rates_file)) {
+            $rates = file_get_contents($rates_file);
 
-        $file = $dir . '/rates.json';
-        $ratesURL = str_replace('?', '\?', $ratesURL);
-        $ratesURL = str_replace('=', '\=', $ratesURL);
-        $ratesURL = str_replace('&', '\&', $ratesURL);
+            if (!empty($rates)) {
+                $rates = json_decode($rates, true);
+                $updated = isset($rates['last_updated']) ? $rates['last_updated'] : null;
 
-        if (file_exists($file)) {
-            $c = file_get_contents($file);
+                if (is_null($updated)) {
+                    $updated = isset($rates['timestamp']) ? $rates['timestamp'] : date(strtotime('today - 3 days'));
+                }
 
-            if (!empty($c)) {
-                $c = json_decode($c, true);
-                $updated = $c['timestamp'];
                 $time = time() - $updated;
 
                 // Only return cached rates if cache
                 // has not expired otherwise continue
                 // to fetch the new rates
                 if ($time < $cache_seconds) {
-                    return $c;
+                    return $rates;
                 }
-
-                // Update the currency rates in the background
-                // and return the stored value for now
-                // so the user does not have to wait
-                $file = str_replace(' ', '\ ', $file);
-                $command = "curl -s {$ratesURL} -o {$file}";
-                shell_exec("{$command} &> /dev/null &");
-
-                return $c;
             }
         }
 
-
-        $file = str_replace(' ', '\ ', $file);
-        $command = "curl -s {$ratesURL} -o {$file}";
-        shell_exec("{$command}");
-        $c = shell_exec("cat {$file}");
-        // $c = file_get_contents($file);;
-
-        if (empty($c)) {
-            return $this->lang['fetch_error'];
+        $rates = file_get_contents($ratesURL);
+        if (empty($rates)) {
+            return [
+                'error' => $this->lang['fetch_error'],
+                'reload' => 0.1,
+            ];
         }
 
-        return json_decode($c, true);
+        $rates = json_decode($rates, true);
+        $rates['last_updated'] = time();
+
+        file_put_contents($rates_file, json_encode($rates));
+
+        return $rates;
     }
 
 
@@ -743,8 +724,9 @@ class Currency extends CalculateAnything implements CalculatorInterface
                         'subtitle' => $this->getText('action_copy'),
                     ]
                 ],
+                'variables' => ['action' => 'clipboard'],
                 'icon' => [
-                    'path' => "flags/{$curr}.png"
+                    'path' => "assets/flags/{$curr}.png"
                 ]
             ];
         }
@@ -752,81 +734,163 @@ class Currency extends CalculateAnything implements CalculatorInterface
         return $list;
     }
 
+
     /**
-     * Requred
-     * includes requred files
-     * only if conversion can be processed
+     * Curerncy locales
      *
-     * @return void
+     * @return array
      */
-    private function required()
+    public function currencyLocales()
     {
-        // $dir = __DIR__ . DIRECTORY_SEPARATOR . 'currency' . DIRECTORY_SEPARATOR;
-        $dir = dirname(__DIR__, 1) . '/lib/currency';
-
-        include $dir . '/Cache/Adapter/CacheAdapterInterface.php';
-        include $dir . '/Cache/Adapter/AbstractAdapter.php';
-        include $dir . '/Cache/Adapter/FileSystem.php';
-        include $dir . '/Cache/Adapter/ZendAdapter.php';
-
-        include $dir . '/Provider/ProviderInterface.php';
-        include $dir . '/Provider/ExchangeRateHost.php';
-        include $dir . '/Provider/ExchangeRatesIo.php';
-        include $dir . '/Provider/FixerApi.php';
-
-        include $dir . '/Exception/ExceptionInterface.php';
-        include $dir . '/Exception/InvalidArgumentException.php';
-        include $dir . '/Exception/RunTimeException.php';
-        include $dir . '/Exception/UnsupportedCurrencyException.php';
-
-        include $dir . '/guzzle/Exception/GuzzleException.php';
-        include $dir . '/guzzle/Exception/TransferException.php';
-        include $dir . '/guzzle/Exception/RequestException.php';
-        include $dir . '/guzzle/Exception/BadResponseException.php';
-        include $dir . '/guzzle/Exception/ConnectException.php';
-        include $dir . '/guzzle/Exception/ClientException.php';
-        include $dir . '/guzzle/Exception/InvalidArgumentException.php';
-        include $dir . '/guzzle/Exception/SeekException.php';
-        include $dir . '/guzzle/Exception/ServerException.php';
-        include $dir . '/guzzle/Exception/TooManyRedirectsException.php';
-        include $dir . '/guzzle/Handler/Proxy.php';
-
-        include $dir . '/guzzle/Handler/EasyHandle.php';
-        include $dir . '/guzzle/Handler/CurlMultiHandler.php';
-        include $dir . '/guzzle/Handler/CurlHandler.php';
-        include $dir . '/guzzle/Handler/CurlFactoryInterface.php';
-        include $dir . '/guzzle/Handler/CurlFactory.php';
-        include $dir . '/guzzle/Handler/StreamHandler.php';
-        include $dir . '/guzzle/functions.php';
-        include $dir . '/guzzle/PrepareBodyMiddleware.php';
-        include $dir . '/guzzle/Middleware.php';
-        include $dir . '/guzzle/RedirectMiddleware.php';
-        include $dir . '/guzzle/RequestOptions.php';
-        include $dir . '/guzzle/HandlerStack.php';
-        include $dir . '/PSR7/functions.php';
-        include $dir . '/PSR7/UriInterface.php';
-        include $dir . '/PSR7/MessageInterface.php';
-        include $dir . '/PSR7/Uri.php';
-        include $dir . '/PSR7/MessageTrait.php';
-        include $dir . '/PSR7/ResponseInterface.php';
-        include $dir . '/PSR7/Response.php';
-        include $dir . '/PSR7/RequestInterface.php';
-        include $dir . '/PSR7/Request.php';
-        include $dir . '/PSR7/StreamInterface.php';
-        include $dir . '/PSR7/Stream.php';
-
-        include $dir . '/guzzle/Promise/functions.php';
-        include $dir . '/guzzle/Promise/TaskQueueInterface.php';
-        include $dir . '/guzzle/Promise/TaskQueue.php';
-        include $dir . '/guzzle/Promise/PromiseInterface.php';
-        include $dir . '/guzzle/Promise/Promise.php';
-        include $dir . '/guzzle/Promise/FulfilledPromise.php';
-
-        include $dir . '/guzzle/ClientInterface.php';
-        include $dir . '/guzzle/Client.php';
-
-        include $dir . '/CurrencyConverterInterface.php';
-        include $dir . '/CurrencyConverter.php';
-        include $dir . '/CountryToCurrency.php';
+        return [
+            'en_US',
+            'af_ZA',
+            'am_ET',
+            'ar_AE',
+            'ar_BH',
+            'ar_DZ',
+            'ar_EG',
+            'ar_IQ',
+            'ar_JO',
+            'ar_KW',
+            'ar_LB',
+            'ar_LY',
+            'ar_MA',
+            'ar_OM',
+            'ar_QA',
+            'ar_SA',
+            'ar_SY',
+            'ar_TN',
+            'ar_YE',
+            'az_Cyrl_AZ',
+            'az_Latn_AZ',
+            'be_BY',
+            'bg_BG',
+            'bn_BD',
+            'bs_Cyrl_BA',
+            'bs_Latn_BA',
+            'cs_CZ',
+            'da_DK',
+            'de_AT',
+            'de_CH',
+            'de_DE',
+            'de_LI',
+            'de_LU',
+            'dv_MV',
+            'el_GR',
+            'en_AU',
+            'en_BZ',
+            'en_CA',
+            'en_GB',
+            'en_IE',
+            'en_JM',
+            'en_MY',
+            'en_NZ',
+            'en_SG',
+            'en_TT',
+            'en_ZA',
+            'en_ZW',
+            'es_AR',
+            'es_BO',
+            'es_CL',
+            'es_CO',
+            'es_CR',
+            'es_DO',
+            'es_EC',
+            'es_ES',
+            'es_GT',
+            'es_HN',
+            'es_MX',
+            'es_NI',
+            'es_PA',
+            'es_PE',
+            'es_PR',
+            'es_PY',
+            'es_SV',
+            'es_US',
+            'es_UY',
+            'es_VE',
+            'et_EE',
+            'fa_IR',
+            'fi_FI',
+            'fil_PH',
+            'fo_FO',
+            'fr_BE',
+            'fr_CA',
+            'fr_CH',
+            'fr_FR',
+            'fr_LU',
+            'fr_MC',
+            'he_IL',
+            'hi_IN',
+            'hr_BA',
+            'hr_HR',
+            'hu_HU',
+            'hy_AM',
+            'id_ID',
+            'ig_NG',
+            'is_IS',
+            'it_CH',
+            'it_IT',
+            'ja_JP',
+            'ka_GE',
+            'kk_KZ',
+            'kl_GL',
+            'km_KH',
+            'ko_KR',
+            'ky_KG',
+            'lb_LU',
+            'lo_LA',
+            'lt_LT',
+            'lv_LV',
+            'mi_NZ',
+            'mk_MK',
+            'mn_MN',
+            'ms_BN',
+            'ms_MY',
+            'mt_MT',
+            'nb_NO',
+            'ne_NP',
+            'nl_BE',
+            'nl_NL',
+            'pl_PL',
+            'prs_AF',
+            'ps_AF',
+            'pt_BR',
+            'pt_PT',
+            'ro_RO',
+            'ru_RU',
+            'rw_RW',
+            'sv_SE',
+            'si_LK',
+            'sk_SK',
+            'sl_SI',
+            'sq_AL',
+            'sr_Cyrl_BA',
+            'sr_Cyrl_CS',
+            'sr_Cyrl_ME',
+            'sr_Cyrl_RS',
+            'sr_Latn_BA',
+            'sr_Latn_CS',
+            'sr_Latn_ME',
+            'sr_Latn_RS',
+            'sw_KE',
+            'tg_Cyrl_TJ',
+            'th_TH',
+            'tk_TM',
+            'tr_TR',
+            'uk_UA',
+            'ur_PK',
+            'uz_Cyrl_UZ',
+            'uz_Latn_UZ',
+            'vi_VN',
+            'wo_SN',
+            'yo_NG',
+            'zh_CN',
+            'zh_HK',
+            'zh_MO',
+            'zh_SG',
+            'zh_TW'
+        ];
     }
 }
