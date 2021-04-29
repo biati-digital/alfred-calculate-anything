@@ -659,6 +659,15 @@ This workflow would not be possible without:
 
 ## Changelog
 
+### 3.0.1
+
+- New: Quart now defaults to US Quart (0.946353 Liters) to mimic the same results as other converters. You can sill type `1 uk quart in liter` or `1 ukqt in liter` or `1 us quart in liter`
+- Improved: Decimals formatting
+- Improved: Added eurs keyword
+- Fixed: Temperature conversion not working
+- Fixed: Cache folder not created for new installations
+- Fixed: Forgot to change the name of a env variable after a PR in time conversions
+
 ### 3.0.0
 
 - New: Now the Workflow settings are saved in the workflow variables, if you configure alfred to use Dropbox now the settings of the workflow will also be synced. Existing config will be converted automatically on update.
