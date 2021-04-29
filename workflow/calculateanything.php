@@ -792,13 +792,21 @@ class CalculateAnything
             // If string has 2 or more decimals make some cleanup
             if (count($string) >= 2) {
                 $decimals = 2;
+                $start_cero = 0;
 
                 foreach ($string as $order => $value) {
                     $prev = (isset($string[$order - 1]) ? $string[$order - 1] : '');
+
+                    if ($value == '0' && $prev == '0' && $count == 2) {
+                        $count = 0;
+                        break;
+                    }
+
                     if ($value == '0') {
                         $count += 1;
                         continue;
                     }
+
                     if ($value !== '0' && $prev !== '0') {
                         $count += 1;
                         $end_digit = $value;
