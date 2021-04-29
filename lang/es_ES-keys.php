@@ -23,7 +23,7 @@ return [
         'dias' => 'day',
         'dia' => 'day',
         'centígrados' => 'c',
-        'centigrados' => 'c',
+        'centígrado' => 'c',
         'metros' => 'm',
         'metro' => 'm',
         'micrometros' => 'μm',
