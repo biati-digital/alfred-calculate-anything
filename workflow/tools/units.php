@@ -91,6 +91,8 @@ class Units extends CalculateAnything implements CalculatorInterface
                 'ukpt',
                 'gal',
                 'qt',
+                'usqt',
+                'ukqt',
                 'ft3',
                 'in3',
                 'floz',
