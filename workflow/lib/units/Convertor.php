@@ -77,7 +77,11 @@ class Convertor
             //"usgal" => array("base" => "l", "conversion" => 3.78541), //Fluid ounces
             "usgal" => array("base" => "l", "conversion" => 3.78541), //us gallon
             "ukgal" => array("base" => "l", "conversion" => 4.405), //uk gallon
-            "qt" => array("base" => "l", "conversion" => 1.1365225), //quart
+            "qt" => array("base" => "l", "conversion" => 0.946353), //quart
+            "usqt" => array("base" => "l", "conversion" => 0.946353), //us quart
+            "ukqt" => array("base" => "l", "conversion" => 1.1365225), //uk imperial quart
+
+
             "ft3" => array("base" => "l", "conversion" => 28.316846592), //cubic feet
             "in3" => array("base" => "l", "conversion" => 0.016387064), //cubic inches
             "floz" => array("base" => "l", "conversion" => 0.0295735), //Fluid ounces
