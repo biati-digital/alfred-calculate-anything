@@ -136,6 +136,7 @@ function getVariable($key, $default = null)
     return processEnvVariable($value);
 }
 
+
 /**
  * Get variable as string
  * Get workflow variable
@@ -341,8 +342,9 @@ function getDataPath($ipath = '')
     createDir($path);
 
     if (!empty($ipath)) {
-        return $path . '/' . $ipath;
+        $path = $path . '/' . $ipath;
     }
+
     return $path;
 }
 
