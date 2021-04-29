@@ -494,8 +494,11 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
      */
     private function getRates($id, $from, $cache_seconds)
     {
-        $dir = \Alfred\getDataPath('cache/' . $id);
+        $cache_path = \Alfred\getDataPath('cache');
+        $dir = $cache_path .'/' . $id;
 
+        // Make sure the cache folder is created
+        \Alfred\createDir($cache_path);
         \Alfred\createDir($dir);
 
         $rates_file = $dir . '/rates.json';
