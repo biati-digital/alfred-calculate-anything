@@ -924,7 +924,7 @@
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>iva</string>
+				<string>vat</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -1740,7 +1740,7 @@ Made with love by https://www.biati.digital</string>
 		<key>language</key>
 		<string>en_EN</string>
 		<key>last_update_check</key>
-		<string>1619487191</string>
+		<string>1619667748</string>
 		<key>settings_migrated</key>
 		<string>1</string>
 		<key>time_format</key>
@@ -1763,7 +1763,7 @@ Made with love by https://www.biati.digital</string>
 		<string>settings_migrated</string>
 	</array>
 	<key>version</key>
-	<string>3.0.0</string>
+	<string>3.0.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
