@@ -22,6 +22,7 @@ use function Alfred\getTranslation;
 use function Alfred\getArgument;
 use function Alfred\cleanQuery;
 use function Alfred\filterRestults;
+use function Alfred\getThemeStyle;
 
 $response = [];
 $translation = getTranslation();
@@ -33,6 +34,7 @@ $id = getVariable('id');
 $process = false;
 $main_menu = true;
 $query = getArgument($argv, 1, '', false);
+$theme = getThemeStyle();
 
 if ($submenu || $input) {
     $main_menu = false;
@@ -292,9 +294,25 @@ if ($process && $main_menu) {
     }
 }
 
+$goback = [
+    'title' => $strings['goback_title'],
+    'subtitle' => $strings['goback_subtitle'],
+    'match' => 'goback',
+    'valid' => true,
+    'arg' => '',
+    'icon' => ['path' => 'assets/goback-for-' . $theme .'.png'],
+    'variables' => [
+        'fromkeyword' => true,
+        'action' => 'menu',
+        'submenu' => '',
+    ],
+];
+
 
 if ($submenu == 'language') {
     $langs = \Alfred\getRegisteredTranslations();
+
+    $response[] = $goback;
 
     foreach ($langs as $language_key => $language_val) {
         $response[] = [
@@ -315,6 +333,7 @@ if ($submenu == 'currency') {
     $calculate = new \Workflow\CalculateAnything();
     $items = $calculate->getCalculator('currency')->listAvailable();
 
+    $response[] = $goback;
     foreach ($items as $item) {
         $item['variables'] = [
             'action' => 'save_config',
@@ -336,6 +355,7 @@ if ($submenu == 'currency_format') {
     $calculate = new \Workflow\CalculateAnything();
     $locales = $calculate->getCalculator('currency')->currencyLocales();
     $formatted = [];
+    $response[] = $goback;
 
     foreach ($locales as $locale) {
         setlocale(LC_MONETARY, $locale);
@@ -363,6 +383,7 @@ if ($submenu == 'currency_format') {
 // Handle delete currency
 if ($submenu == 'delete_base_currency') {
     $stored_currencies = getVariable('base_currency', []);
+    $response[] = $goback;
 
     if (empty($stored_currencies)) {
         $response[] = [
@@ -390,6 +411,7 @@ if ($submenu == 'delete_base_currency') {
 
 if ($submenu == 'time_zone') {
     $zones = timezone_identifiers_list();
+    $response[] = $goback;
 
     foreach ($zones as $key => $value) {
         $response[] = [
@@ -413,6 +435,7 @@ if ($submenu == 'time_zone') {
 
 // Handle delete time zones
 if ($submenu == 'delete_time_format') {
+    $response[] = $goback;
     $timeformats = getVariable('time_format', []);
 
     if (empty($timeformats)) {
