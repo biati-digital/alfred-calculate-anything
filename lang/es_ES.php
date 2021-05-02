@@ -61,6 +61,8 @@ return [
         'updates_title' => 'Actualizar Calculate Anything',
         'updates_subtitle' => 'Buscar actualizaciones disponibles',
         'option_saved' => 'Configiración Guardada',
+        'goback_title' => 'Regresar a configuración',
+        'goback_subtitle' => 'ir al menú principal',
     ],
     'time' => [
         'day' => 'día',

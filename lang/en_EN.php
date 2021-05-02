@@ -61,6 +61,8 @@ return [
         'updates_title' => 'Update Calculate Anything',
         'updates_subtitle' => 'Check for available updates',
         'option_saved' => 'Configuration saved',
+        'goback_title' => 'Return to configuration',
+        'goback_subtitle' => 'Go back to main menu',
     ],
     'time' => [
         'day' => 'day',
