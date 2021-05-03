@@ -31,6 +31,23 @@ function getVariables()
     return $data;
 }
 
+/**
+ * Get variable
+ * Get workflow variable
+ *
+ * @param string $key variable name
+ * @return string|array  variable value
+ */
+function getVariable($key, $default = null)
+{
+    $value = getenv($key);
+    if (empty($value) && !is_null($default)) {
+        $value = $default;
+    }
+
+    return processEnvVariable($value);
+}
+
 
 /**
  * Create a notification using
@@ -118,22 +135,21 @@ function setVariable($key = '', $value = '', $exportable = null)
     return shell_exec($command);
 }
 
-
 /**
- * Get variable
- * Get workflow variable
+ * Remove workflow variable
  *
- * @param string $key variable name
- * @return string|array  variable value
+ * @param string $key
+ * @return string  output
  */
-function getVariable($key, $default = null)
+function removeVariable($key)
 {
-    $value = getenv($key);
-    if (empty($value) && !is_null($default)) {
-        $value = $default;
-    }
+    $trigger = 'preferences';
+    $bundleid = getWorkflowIdentifier();
+    $option = $key . '|null|null|true';
 
-    return processEnvVariable($value);
+    $script = 'tell application id "com.runningwithcrayons.Alfred" to run trigger "' . $trigger . '" in workflow "' . $bundleid . '" with argument "' . $option . '"';
+    $command = "osascript -e '{$script}' &";
+    return shell_exec($command);
 }
 
 
@@ -349,6 +365,40 @@ function getDataPath($ipath = '')
 }
 
 /**
+ * Theme color
+ * Alfred appearance color info
+ * from  shawnrice/alphred
+ *
+ * @return string
+ */
+function getThemeStyle()
+{
+    $matches = [];
+    $pattern = "/rgba\(([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3}),([0-9.]{4,})\)/";
+
+    preg_match_all($pattern, getVariable('alfred_theme_background'), $matches);
+
+    if (empty($matches)) {
+        throw new Exception('Unable to parse Alfred Theme');
+    }
+
+    $rgb = [
+        'r' => $matches[1][0],
+        'g' => $matches[2][0],
+        'b' => $matches[3][0]
+    ];
+
+    $luminance = (0.299 * $rgb[ 'r' ] + 0.587 * $rgb[ 'g' ] + 0.114 * $rgb[ 'b' ]) / 255;
+
+    if (0.5 < $luminance) {
+        return 'light';
+    }
+
+    return 'dark';
+}
+
+
+/**
  * Create dir
  *
  * @param string $path
@@ -387,6 +437,34 @@ function readFile($path, $type = 'text')
     }
 
     return $content;
+}
+
+
+/**
+ * Write file
+ *
+ * @param string $path file path
+ * @param string $type file type to parse
+ * @param bool  $append
+ * @return bool
+ */
+function writeFile($path, $content, $append = null)
+{
+    if (is_array($content)) {
+        $content = json_encode($content);
+    }
+
+    try {
+        if ($append) {
+            file_put_contents($path, $content, FILE_APPEND);
+        } elseif (!$append) {
+            file_put_contents($path, $content);
+        }
+    } catch (Exception $e) {
+        throw new Exception($e->getMessage());
+    }
+
+    return true;
 }
 
 
