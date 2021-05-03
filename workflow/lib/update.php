@@ -21,4 +21,6 @@ if (!$update_check || !isset($update_check['update_available']) || !$update_chec
 $updater->notify($translations['update_downloading']);
 $updater->downloadUpdate();
 
+\Alfred\removeVariable('update_available');
+
 echo $translations['update_downloaded'];
