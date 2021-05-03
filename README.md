@@ -8,7 +8,7 @@ Calculate Anything is a workflow for Alfred 4, that uses **natural language** an
 
 ## Why
 
-There are several conversion workflows out there but I wanted a workflow that worked naturally. For example, with Calculate Anything, you can open Alfred, type `100 + 9` and get a result. No need for keywords or hotkeys -- it just works. Type `100 + 16%`, `100 euros to usd`, `100km to cm` or `100 years to hours` and many more.
+There are several conversion workflows out there but I wanted a workflow that worked naturally. For example, you can open Alfred, type `100 + 9` and get a result. No need for keywords or hotkeys -- it just works. With Calculate Anything you can do the same, simply type `100 + 16%`, `100 euros to usd`, `100km in cm` or `100 years to hours` and many more.
 
 ## Features
 
@@ -95,7 +95,7 @@ Set your fixer API Key for support more currencies, after you select this option
 
 You can use currency symbols in your query. For example `100¥ to €` will be converted from 100 Japanese yen to the equivalent in Euros. Here is a list of available symbols:
 
-**If by any chance you don't remember the currency symbol or abbreviation simply type `ca list` and select "List Available Currencies" (view the gift above)**
+**If by any chance you don't remember the currency symbol or abbreviation simply type `ca list` and select "List Available Currencies"**
 
 Symbol     | Currency       | Value
 ------     | -----------    | -----------
@@ -138,7 +138,7 @@ TT$        | TTD            | Trinidad and Tobago dollar
 
 ## Cryptocurrency
 
-Calculate Anything can convert between 100 cryptocurrencies and 168 currencies. Again, you can use natural language or simply pass the currency symbol.
+Calculate Anything can convert between 100 cryptocurrencies. Again, you can use natural language or simply pass the currency symbol.
 
 ```
 - 2 bitcoins to dollars
@@ -641,7 +641,7 @@ The workflow stores some data about currency in the workflow data folder. You ca
 
 ## Updates
 
-The workflow will check for updates in the background every 15 days and will notify you when a new update is available. If you want to check for updates manually, launch opening Alfred and type `ca update`.
+The workflow will check for updates in the background every 15 days and will notify you when a new update is available. If you want to check for updates manually, launch Alfred and type `ca update`.
 
 <p align="center">
 <img src="https://i.ibb.co/BZsmvgk/update-v3.jpg">
@@ -658,6 +658,14 @@ This workflow would not be possible without:
 - [Convertor](https://github.com/olifolkerd/convertor) with some modifications
 
 ## Changelog
+
+### 3.0.2
+
+- Changed: Time keyword changed to "argument required" to not display results when not required
+- Improved: Configuration menu, when entering to a submenu now you can go back to the main menu instead of closing Alfred
+- Improved: Updates message in results
+- Improved: Previous settings migration
+- Fixed: Round units conversion
 
 ### 3.0.1
 
