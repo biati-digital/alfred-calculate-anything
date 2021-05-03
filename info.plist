@@ -63,7 +63,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>D94B8696-9651-445D-AF20-52D61231270C</string>
+				<string>211A2F0B-BCFD-4FBD-B058-548162E358B4</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -988,7 +988,7 @@
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>escaping</key>
 				<integer>4</integer>
 				<key>keyword</key>
@@ -1427,15 +1427,45 @@ require_once './workflow/lib/config/process-input.php';</string>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
-				<integer>102</integer>
+				<integer>68</integer>
 				<key>script</key>
 				<string>ObjC.import('stdlib');
 
-Application('com.runningwithcrayons.Alfred').setConfiguration($.getenv('configure_key'), {
-	inWorkflow: $.getenv('alfred_workflow_bundleid'),
-	toValue: $.getenv('configure_val'),
-	exportable: $.getenv('configure_exportable') === 'true',
-});</string>
+function setVariable(key, val, exportable) {
+	Application('com.runningwithcrayons.Alfred').setConfiguration(key, {
+		inWorkflow: $.getenv('alfred_workflow_bundleid'),
+		toValue: val,
+		exportable: exportable,
+	});
+}
+
+
+function removeVariable(key) {
+	Application('com.runningwithcrayons.Alfred').removeConfiguration(key, {
+  		inWorkflow: $.getenv('alfred_workflow_bundleid')
+	});
+}
+
+
+function run(argv) {
+	var key = $.getenv('configure_key');
+	var value = $.getenv('configure_val');
+	var exportable = $.getenv('configure_exportable') === 'true';
+	var deleteVar = false;
+
+	try {
+	    deleteVar = $.getenv('configure_remove') === 'true';
+	} catch (e) {
+    		deleteVar = false;
+	}
+
+	if (deleteVar) {
+		removeVariable(key);
+	} else {
+		setVariable(key, value, exportable);
+	}
+
+}</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -1446,7 +1476,7 @@ Application('com.runningwithcrayons.Alfred').setConfiguration($.getenv('configur
 			<key>type</key>
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>D94B8696-9651-445D-AF20-52D61231270C</string>
+			<string>211A2F0B-BCFD-4FBD-B058-548162E358B4</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -1480,6 +1510,8 @@ Application('com.runningwithcrayons.Alfred').setConfiguration($.getenv('configur
 					<string>{var:split3}</string>
 					<key>configure_key</key>
 					<string>{var:split1}</string>
+					<key>configure_remove</key>
+					<string>{var:split4}</string>
 					<key>configure_val</key>
 					<string>{var:split2}</string>
 				</dict>
@@ -1502,247 +1534,247 @@ Made with love by https://www.biati.digital</string>
 		<key>02CB4726-DF90-475A-835E-0038EE019394</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>60</integer>
+			<integer>35</integer>
 		</dict>
 		<key>03AE9542-EE54-423A-86E0-9B669EDE5A98</key>
 		<dict>
 			<key>xpos</key>
-			<integer>370</integer>
+			<integer>290</integer>
 			<key>ypos</key>
-			<integer>1795</integer>
+			<integer>1770</integer>
 		</dict>
 		<key>03F82D1C-9ACF-4789-91FD-9CCF291DEFFE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>490</integer>
+			<integer>410</integer>
 			<key>ypos</key>
-			<integer>1385</integer>
+			<integer>1360</integer>
 		</dict>
 		<key>0A003B52-98B8-4E6C-927C-1A463F47C612</key>
 		<dict>
 			<key>xpos</key>
-			<integer>370</integer>
+			<integer>290</integer>
 			<key>ypos</key>
-			<integer>1915</integer>
+			<integer>1890</integer>
 		</dict>
 		<key>0AE30FF8-13F7-4710-AFC3-157281E66B88</key>
 		<dict>
 			<key>note</key>
 			<string>Configuration</string>
 			<key>xpos</key>
-			<integer>320</integer>
+			<integer>240</integer>
 			<key>ypos</key>
-			<integer>1560</integer>
+			<integer>1535</integer>
+		</dict>
+		<key>211A2F0B-BCFD-4FBD-B058-548162E358B4</key>
+		<dict>
+			<key>xpos</key>
+			<integer>365</integer>
+			<key>ypos</key>
+			<integer>1860</integer>
 		</dict>
 		<key>2679D5D4-9D36-4AD4-A1EE-59EACA36C6E9</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>185</integer>
+			<integer>160</integer>
 		</dict>
 		<key>2CC668AD-747C-458A-B587-773D841610C7</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>1560</integer>
+			<integer>1535</integer>
 		</dict>
 		<key>35605323-7862-4781-94FE-ED0261247FB2</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>1120</integer>
+			<integer>1095</integer>
 		</dict>
 		<key>3D4DB816-B39C-482D-80EA-3F64F3DF1644</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>1885</integer>
+			<integer>1860</integer>
 		</dict>
 		<key>65F736EC-3B8C-4B6D-BE2C-837A63AC34A3</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>1250</integer>
+			<integer>1225</integer>
 		</dict>
 		<key>6B5446AC-124D-4626-92C3-D0CA1D94D27F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>535</integer>
+			<integer>510</integer>
 		</dict>
 		<key>6B6A13A8-C671-4033-A793-EE772BA1FB48</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>765</integer>
+			<integer>740</integer>
 		</dict>
 		<key>810259C6-0B1F-4440-99F4-7821B5226D70</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>1000</integer>
+			<integer>975</integer>
 		</dict>
 		<key>886C10B6-25CA-49B0-96F9-014B795AB902</key>
 		<dict>
 			<key>note</key>
 			<string>Update</string>
 			<key>xpos</key>
-			<integer>650</integer>
+			<integer>570</integer>
 			<key>ypos</key>
-			<integer>1375</integer>
+			<integer>1350</integer>
 		</dict>
 		<key>92A43CD2-2690-4939-8B4C-7ACD21A03287</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>885</integer>
+			<integer>860</integer>
 		</dict>
 		<key>9B97B9DE-FB12-4F5A-AAF8-4608DF0C7B14</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>420</integer>
+			<integer>395</integer>
 		</dict>
 		<key>A0989369-5B29-47E2-9CBC-8E61EEBB04C7</key>
 		<dict>
 			<key>note</key>
 			<string>Save Alfred variable</string>
 			<key>xpos</key>
-			<integer>830</integer>
+			<integer>750</integer>
 			<key>ypos</key>
-			<integer>1800</integer>
+			<integer>1775</integer>
 		</dict>
 		<key>ABA18E77-71E3-494A-8735-A60799F419B9</key>
 		<dict>
 			<key>xpos</key>
-			<integer>650</integer>
+			<integer>570</integer>
 			<key>ypos</key>
-			<integer>1250</integer>
+			<integer>1225</integer>
 		</dict>
 		<key>B4152C5E-D88F-4318-908F-77079A6EB867</key>
 		<dict>
 			<key>note</key>
 			<string>Return to Menu</string>
 			<key>xpos</key>
-			<integer>645</integer>
+			<integer>565</integer>
 			<key>ypos</key>
-			<integer>1525</integer>
+			<integer>1500</integer>
 		</dict>
 		<key>B65669C2-6057-4003-B79B-2AEFB92E07CE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>310</integer>
+			<integer>230</integer>
 			<key>ypos</key>
-			<integer>1795</integer>
+			<integer>1770</integer>
 		</dict>
 		<key>BB2A4C00-3D9B-43BD-957F-AFF92B5A1DCB</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>650</integer>
+			<integer>625</integer>
 		</dict>
 		<key>BEA1F80D-6781-4CB6-AA39-92C8A5D8BD82</key>
 		<dict>
 			<key>xpos</key>
-			<integer>830</integer>
+			<integer>750</integer>
 			<key>ypos</key>
-			<integer>1520</integer>
+			<integer>1495</integer>
 		</dict>
 		<key>D037BED7-D145-4DEB-8419-84840F408A48</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>305</integer>
+			<integer>280</integer>
 		</dict>
 		<key>D0EBB9BB-23B4-4BF8-9776-01D12130DC2A</key>
 		<dict>
 			<key>note</key>
 			<string>Clear Cache</string>
 			<key>xpos</key>
-			<integer>645</integer>
+			<integer>565</integer>
 			<key>ypos</key>
-			<integer>1660</integer>
+			<integer>1635</integer>
 		</dict>
 		<key>D29D156D-3EB3-4E6A-97D4-DE50834BBDAD</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>1765</integer>
-		</dict>
-		<key>D94B8696-9651-445D-AF20-52D61231270C</key>
-		<dict>
-			<key>xpos</key>
-			<integer>445</integer>
-			<key>ypos</key>
-			<integer>1885</integer>
+			<integer>1740</integer>
 		</dict>
 		<key>DAE2385A-3F7A-4CAE-8A23-EA406D2F5E6A</key>
 		<dict>
 			<key>xpos</key>
-			<integer>445</integer>
+			<integer>365</integer>
 			<key>ypos</key>
-			<integer>1765</integer>
+			<integer>1740</integer>
 		</dict>
 		<key>DEA519D6-6B0A-4B4A-9B56-917B28B78090</key>
 		<dict>
 			<key>xpos</key>
-			<integer>310</integer>
+			<integer>230</integer>
 			<key>ypos</key>
-			<integer>1915</integer>
+			<integer>1890</integer>
 		</dict>
 		<key>DEEA362A-4FDA-454E-9BC6-57B0F3C9FC10</key>
 		<dict>
 			<key>xpos</key>
-			<integer>160</integer>
+			<integer>80</integer>
 			<key>ypos</key>
-			<integer>1365</integer>
+			<integer>1340</integer>
 		</dict>
 		<key>E3AAE2B3-FF23-4D07-86EE-A0CC4CD28B8C</key>
 		<dict>
 			<key>note</key>
 			<string>Process variable</string>
 			<key>xpos</key>
-			<integer>645</integer>
+			<integer>565</integer>
 			<key>ypos</key>
-			<integer>1800</integer>
+			<integer>1775</integer>
 		</dict>
 		<key>F3219AA0-A1F6-4A6B-92EE-70A840B69D23</key>
 		<dict>
 			<key>xpos</key>
-			<integer>490</integer>
+			<integer>410</integer>
 			<key>ypos</key>
-			<integer>1555</integer>
+			<integer>1530</integer>
 		</dict>
 	</dict>
 	<key>variables</key>
 	<dict>
 		<key>base_currency</key>
-		<string>[\"MXN\",\"CAD\"]</string>
+		<string>["MXN"]</string>
 		<key>coinmarket_apikey</key>
-		<string>c823b5ee-7ca5-4823-8f98-a200e5fd7041</string>
+		<string></string>
 		<key>fixer_apikey</key>
-		<string>65fa43c123a096c17dbd903c2b0adbe9</string>
+		<string></string>
 		<key>language</key>
-		<string>en_EN</string>
+		<string>es_ES</string>
 		<key>last_update_check</key>
-		<string>1619667748</string>
+		<string>1619998933</string>
 		<key>settings_migrated</key>
-		<string>1</string>
+		<string>true</string>
 		<key>time_format</key>
 		<string>["j F, Y, g:i:s a"]</string>
 		<key>time_zone</key>
@@ -1757,13 +1789,13 @@ Made with love by https://www.biati.digital</string>
 		<string>base_currency</string>
 		<string>language</string>
 		<string>time_format</string>
-		<string>last_update_check</string>
 		<string>coinmarket_apikey</string>
+		<string>last_update_check</string>
 		<string>fixer_apikey</string>
 		<string>settings_migrated</string>
 	</array>
 	<key>version</key>
-	<string>3.0.1</string>
+	<string>3.0.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
