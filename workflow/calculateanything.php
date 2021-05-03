@@ -272,24 +272,38 @@ class CalculateAnything
             \Alfred\setVariable('last_update_check', $last_update_check);
         }
 
+        $update_cached = \Alfred\getVariable('update_available', null);
+        $show_update_message = false;
+
+        $output = [
+            'title' => $this->getText('update_available'),
+            'subtitle' => $this->getText('update_available_subtitle'),
+            'valid' => true,
+            'arg' => 'update',
+            'icon' => ['path' => 'assets/update.png'],
+            'variables' => [
+                'action' => 'update',
+            ],
+        ];
+
+        if (!empty($update_cached)) {
+            $local_version = \Alfred\getVariable('alfred_workflow_version', null);
+            if (version_compare($update_cached, $local_version) > 0) {
+                return $output;
+            }
+
+            \Alfred\removeVariable('update_available');
+            return;
+        }
+
         $update_check = $this->checkForUpdates($force_check, $last_update_check);
 
         if ($update_check) {
-            if (isset($update_check['performed_check']) && $update_check['performed_check']) {
+            if (!empty($update_check['performed_check'])) {
                 \Alfred\setVariable('last_update_check', $update_check['performed_check']);
             }
-            if (isset($update_check['update_available']) && $update_check['update_available']) {
-                $output = [
-                    'title' => $this->getText('update_available'),
-                    'subtitle' => $this->getText('update_available_subtitle'),
-                    'valid' => true,
-                    'arg' => 'update',
-                    'icon' => ['path' => 'assets/update.png'],
-                    'variables' => [
-                        'action' => 'update',
-                    ],
-                ];
-
+            if (!empty($update_check['update_available'])) {
+                \Alfred\setVariable('update_available', $update_check['new_version']);
                 return $output;
             }
         }
@@ -522,19 +536,32 @@ class CalculateAnything
     public function migrateSettings()
     {
         $settings_file = \Alfred\getDataPath('settings.json');
+        $backup_settings_file = \Alfred\getDataPath('settings-backup.json');
         $settings = \Alfred\readFile($settings_file, 'json');
-        $migrate_settings = [];
+        $new_settings = $settings;
+
+        if (empty($settings)) {
+            \Alfred\setVariable('settings_migrated', 'true');
+            return true;
+        }
+
+        if (!file_exists($backup_settings_file)) {
+            \Alfred\writeFile($backup_settings_file, $settings);
+        }
 
         foreach ($settings as $key => $val) {
+            $name = $key;
             if ($key == 'timezones') {
-                $key = 'time_format';
+                $name = 'time_format';
             }
-            $migrate_settings[$key] = ['value' => $val, 'exportable' => false];
-        }
-        $migrate_settings['settings_migrated'] = ['value' => true, 'exportable' => false];
-        $migrate_settings['last_update_check'] = ['value' => time(), 'exportable' => false];
 
-        \Alfred\setVariables($migrate_settings);
+            \Alfred\setVariable($name, $val, false);
+            unset($new_settings[$name]);
+            if ($key == 'timezones' && isset($new_settings['timezones'])) {
+                unset($new_settings['timezones']);
+            }
+            \Alfred\writeFile($settings_file, $new_settings);
+        }
         return true;
     }
 
@@ -755,6 +782,7 @@ class CalculateAnything
      * Format number
      * handle number format for the multiple
      * converters and their specific rules
+     * TODO: Remove single decimal when is 0 for example 100c f = 212.0 f
      *
      * @param int $number
      * @param int $decimals
