@@ -78,4 +78,4 @@ vendor
 flags/.DS_Store
 .nova
 .vscode
-tests
+assets/update.afphoto
