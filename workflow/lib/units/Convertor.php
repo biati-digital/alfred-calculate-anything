@@ -104,7 +104,7 @@ class Convertor
             "kph"=>array("base"=>"mps", "conversion"=>0.277778), //kilometer per hour
             //"mph"=>array("base"=>"mps", "conversion"=>0.277778), //kilometer per hour
             "mph"=>array("base"=>"mps", "conversion"=>0.44704), //miles per hour
-            "fps" => array("base" => "mps", "conversion" => 0.3048), // feet per second
+            "fps" => array("base" => "mps", "conversion" => 0.3048), //feet per second
 
             ///////Units Of Rotation///////
             "deg"=>array("base"=>"deg", "conversion"=>1), //degrees - base unit for rotation
