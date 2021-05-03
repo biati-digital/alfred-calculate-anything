@@ -277,7 +277,7 @@ class Units extends CalculateAnything implements CalculatorInterface
             try {
                 require_once dirname(__DIR__, 1) . '/lib/units/Convertor.php';
                 $convert = new \Convertor($amount, $from);
-                $converted = $convert->to($to);
+                $converted = $convert->to($to, 2, true);
             } catch (\Throwable $th) {
                 $conversion_error = $th->getMessage();
             }
