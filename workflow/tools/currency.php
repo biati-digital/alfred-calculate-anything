@@ -612,8 +612,6 @@ class Currency extends CalculateAnything implements CalculatorInterface
     }
 
 
-
-
     /**
      * Get correct currency
      * the user can enter for example ¥
