@@ -9,6 +9,9 @@ assignees: ''
 
 If you have a problem with the workflow please answer the following questions.
 
+**Are you using the latest version?**
+Before creating an issue make sure you are using the latest version, you can find the latest version in the [releases page](https://github.com/biati-digital/alfred-calculate-anything/releases)
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
