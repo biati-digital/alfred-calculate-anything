@@ -9,7 +9,7 @@ assignees: ''
 
 If you have a problem with the workflow please answer the following questions.
 
-**Are you using the latest version?**
+**Are you using the latest version of the workflow?**
 Before creating an issue make sure you are using the latest version, you can find the latest version in the [releases page](https://github.com/biati-digital/alfred-calculate-anything/releases)
 
 **Describe the bug**
