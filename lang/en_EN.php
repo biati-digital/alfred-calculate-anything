@@ -391,13 +391,13 @@ return [
         'cmd' => 'Action this item to copy the amount with no format',
         'alt' => 'Action this item to copy the value of 1 to the clipboard',
         'fetch_error' => 'Unable to get currencies data',
-        'nofixerapikey_title' => 'You need to confugure the API key for Fixer',
+        'nofixerapikey_title' => 'You need to configure the API key for Fixer',
     ],
     'crypto_currency' => [
         'cmd' => 'Action this item to copy the amount with no format',
         'alt' => 'Action this item to copy the value of 1 to the clipboard',
         'fetch_error' => 'Unable to get currencies data',
-        'noapikey_title' => 'You need to confugure the API key for cryptocurrencies',
+        'noapikey_title' => 'You need to configure the API key for cryptocurrencies',
         'noapikey_subtitle' => 'Please read the documentation for more information',
     ]
 ];
