@@ -119,16 +119,18 @@ class Vat extends CalculateAnything implements CalculatorInterface
             return $this->output($processed);
         }
 
-        $percent = (int) $percent;
+        $percent = (float) $percent;
         $amount = $this->cleanupNumber($query);
 
         $result = ($percent / 100) * $amount;
-        $result = (fmod($result, 1) !== 0.00 ? bcdiv($result, 1, 2) : $result);
+        //$result = (fmod($result, 1) !== 0.00 ? bcdiv($result, 1, 2) : $result);
+        $result = (fmod($result, 1) !== 0.00 ? bcdiv($result, 1, 3) : $result);
 
         if ($result && $result > 0) {
             $processed = true;
             $plusvat = $amount + $result;
-            $minusvat = $amount / ((float) "1.$percent");
+            //$minusvat = $amount / ((float) "1.$percent");
+            $minusvat = $amount / (1 + ($percent / 100));
             $lang = $this->lang;
 
             $result = $this->formatNumber($result);
