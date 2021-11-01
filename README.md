@@ -681,6 +681,7 @@ This workflow would not be possible without:
 
 - Improved: Mac OS Monterey support
 - Fixed: Support vat percentage with decimals
+- Fixed: Spelling error
 
 ### 3.0.2
 
