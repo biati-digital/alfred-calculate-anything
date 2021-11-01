@@ -21,13 +21,16 @@ if (getenv('alfred_debug')) {
 
 require_once __DIR__ . '/autoload.php';
 require_once __DIR__ . '/alfred/Alfred.php';
+require_once __DIR__ . '/workflow/lib/backcompat.php';
 require_once __DIR__ . '/workflow/calculateanything.php';
 
 use function Alfred\getArgument;
 use function Alfred\cleanQuery;
 
-$query = cleanQuery(getArgument($argv, 1));
-$action = getArgument($argv, 2);
+//$query = cleanQuery(getArgument($argv, 1));
+//$action = getArgument($argv, 2);
+$query = cleanQuery($query);
+$action = isset($action) ? $action : '';
 $calculate = new Workflow\CalculateAnything($query);
 $processed = [];
 $alfred = ['items' => []];
