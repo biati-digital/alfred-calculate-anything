@@ -24,6 +24,24 @@ There are several conversion workflows out there but I wanted a workflow that wo
 - **Translations** You can create your own translations to display results in your language
 - **Keywords** Extend the natural language support so you can type `100 dolares a pesos` and see the result of `100usd to mxn`
 
+## Requirements for Mac OS Monterey Users and up
+
+Starting from Mac OS Monterey Apple removed PHP so you have to install it manually, that can easily be done with [Homebrew](https://brew.sh/), just open your terminal and paste the commands below:
+
+1.- Install Homebrew
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+2.- Install PHP
+```
+brew install php
+```
+
+That's it, you need to have the latest version of Alfred and will automatically find the PHP version that you install.
+
+Mac OS Big Sur users and below do not need to do anything as your Mac OS already includes PHP.
+
 ## Download
 
 Make sure to download the latest released directly from the releases page. [Download here](https://github.com/biati-digital/alfred-calculate-anything/releases/).
@@ -658,6 +676,11 @@ This workflow would not be possible without:
 - [Convertor](https://github.com/olifolkerd/convertor) with some modifications
 
 ## Changelog
+
+### 3.1.1
+
+- Improved: Mac OS Monterey support
+- Fixed: Support vat percentage with decimals
 
 ### 3.0.2
 
