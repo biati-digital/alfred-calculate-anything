@@ -21,9 +21,18 @@ function getPlistPath()
  * @param array $options
  * @return array
  */
-function getVariables()
+function getVariables($vars = [])
 {
     $data = [];
+    if (!empty($vars)) {
+        foreach ($vars as $var) {
+            if (getenv($var) !== false) {
+                $data[$var] = processEnvVariable(getenv($var));
+            }
+        }
+        return $data;
+    }
+
     foreach ($_ENV as $key => $val) {
         $data[$key] = processEnvVariable($val);
     }
