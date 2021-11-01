@@ -25,13 +25,25 @@ class CalculateAnything
     protected static $settings;
     protected static $updater;
     protected static $_query;
+    protected static $settingsArgs = [
+        'base_currency',
+        'coinmarket_apikey',
+        'fixer_apikey',
+        'language',
+        'last_update_check',
+        'settings_migrated',
+        'time_format',
+        'time_zone',
+        'vat_percentage',
+        'locale_currency',
+    ];
 
     /**
      * Construct
      */
     public function __construct($query = '')
     {
-        self::$settings = \Alfred\getVariables();
+        self::$settings = \Alfred\getVariables(self::$settingsArgs);
         self::$translations = \Alfred\getTranslation();
         self::$langKeywords = $this->getExtraKeywords();
         self::$_query = $query;
@@ -45,6 +57,10 @@ class CalculateAnything
     public function processQuery()
     {
         $query = $this->getQuery();
+        if (empty($query)) {
+            $query = 'now';
+        }
+
         $lenght = strlen($query);
 
         // For all calculators that do not require a keyword
@@ -498,12 +514,12 @@ class CalculateAnything
             'start_config_upgrade' => true,
         ];
         $output[] = [
-             'title' => 'Migrating settings, please wait a few seconds...',
-             'subtitle' => 'This process will only happen once.',
-             'valid' => false,
-             'arg' => '',
-             'icon' => ['path' => 'assets/update.png']
-         ];
+            'title' => 'Migrating settings, please wait a few seconds...',
+            'subtitle' => 'This process will only happen once.',
+            'valid' => false,
+            'arg' => '',
+            'icon' => ['path' => 'assets/update.png']
+        ];
 
         if (\Alfred\getVariable('start_config_upgrade')) {
             $this->migrateSettings();
@@ -513,12 +529,12 @@ class CalculateAnything
                 'start_config_upgrade' => false,
             ];
             $output[] = [
-                 'title' => 'Migrating settings, please wait a few seconds...',
-                 'subtitle' => 'This process will only happen once.',
-                 'valid' => false,
-                 'arg' => '',
-                 'icon' => ['path' => 'assets/update.png']
-             ];
+                'title' => 'Migrating settings, please wait a few seconds...',
+                'subtitle' => 'This process will only happen once.',
+                'valid' => false,
+                'arg' => '',
+                'icon' => ['path' => 'assets/update.png']
+            ];
             return $output;
         }
 
@@ -675,7 +691,7 @@ class CalculateAnything
      * @param boolean $unit
      * @return array
      */
-    public function keywordTranslation($word = false, &$keywordsArray)
+    public function keywordTranslation($word = false, $keywordsArray = [])
     {
         $val = mb_strtolower($word, 'UTF-8');
         $keywords = $keywordsArray;
