@@ -14,6 +14,7 @@ if (getenv('alfred_debug')) {
 
 require_once getcwd() . '/autoload.php';
 require_once getcwd() . '/alfred/Alfred.php';
+require_once getcwd() . '/workflow/lib/backcompat.php';
 require_once getcwd() . '/workflow/calculateanything.php';
 
 use function Alfred\getVariable;
