@@ -114,6 +114,7 @@ return array(
 
     ///////Units Of Power///////
     "w"=>array("base"=>"w", "conversion"=>1), //watt - base unit for power
+    "kw"=>array("base"=>"w", "conversion"=>1000), // kilowatt
     "ps"=>array("base"=>"w", "conversion"=>735.5), //metric horsepower
     "hp"=>array("base"=>"w", "conversion"=>745.7), // mechanical horsepower
 

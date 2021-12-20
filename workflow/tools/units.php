@@ -160,6 +160,7 @@ class Units extends CalculateAnything implements CalculatorInterface
             ],
             'power' => [
                 'w',
+                'kw',
                 'ps',
                 'hp',
             ]

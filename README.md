@@ -380,7 +380,8 @@ mev     | Mega Electron Volt
 
 Unit | Unit Name
 ---- | ---------
-w   | Watts
+w    | Watts
+kw   | Kilowatts
 ps   | Metric Horsepower
 hp   | Mechanical Horsepower
 

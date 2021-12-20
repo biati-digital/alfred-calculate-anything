@@ -218,6 +218,7 @@ return [
 
         'power' => 'Power',
         'w' => 'Watt',
+        'kw' => 'Kilowatts',
         'ps' => 'Metric Horsepower',
         'hp' => 'Mechanical Horsepower',
 
