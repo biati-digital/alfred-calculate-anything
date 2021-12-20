@@ -100,7 +100,7 @@ return array(
     "μs" => array("base" => "s", "conversion" => 0.000001), //microsecond
     "ns" => array("base" => "s", "conversion" => 0.000000001), //nanosecond
 
-    ///////Units Of Power///////
+    ///////Units Of Energy///////
     "j" => array("base" => "j", "conversion" => 1), //joule - base unit for energy
     "kj" => array("base" => "j", "conversion" => 1000), //kilojoule
     "mj" => array("base" => "j", "conversion" => 1000000), //megajoule
@@ -111,6 +111,11 @@ return array(
     "kwhr" => array("base" => "j", "conversion" => 3600000), //kilowatt hour
     "mwhr" => array("base" => "j", "conversion" => 3600000000), //megawatt hour
     "mev" => array("base" => "j", "conversion" => 0.00000000000000016), //mega electron volt
+
+    ///////Units Of Power///////
+    "w"=>array("base"=>"w", "conversion"=>1), //watt - base unit for power
+    "ps"=>array("base"=>"w", "conversion"=>735.5), //metric horsepower
+    "hp"=>array("base"=>"w", "conversion"=>745.7), // mechanical horsepower
 
     ///////Area density///////
     "kg m**-2" => array("base" => "kg m**-2", "conversion" => 1),
