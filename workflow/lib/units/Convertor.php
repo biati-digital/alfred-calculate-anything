@@ -15,7 +15,7 @@ class Convertor
     private $baseUnit = false; //base unit of value
 
     //array to hold unit conversion functions
-    private $units = array();
+    private $units = [];
 
 
     /**
@@ -23,24 +23,24 @@ class Convertor
      */
     public function defineUnits()
     {
-        $this->units = array(
+        $this->units = [
             ///////Units Of Length///////
-            "m"=>array("base"=>"m", "conversion"=>1), //meter - base unit for distance
-            "km"=>array("base"=>"m", "conversion"=>1000), //kilometer
-            "dm"=>array("base"=>"m", "conversion"=>0.1), //decimeter
-            "cm"=>array("base"=>"m", "conversion"=>0.01), //centimeter
-            "mm"=>array("base"=>"m", "conversion"=>0.001), //milimeter
-            "μm"=>array("base"=>"m", "conversion"=>0.000001), //micrometer
-            "nm"=>array("base"=>"m", "conversion"=>0.000000001), //nanometer
-            "pm"=>array("base"=>"m", "conversion"=>0.000000000001), //picometer
-            "in"=>array("base"=>"m", "conversion"=>0.0254), //inch
-            "ft"=>array("base"=>"m", "conversion"=>0.3048), //foot
-            "yd"=>array("base"=>"m", "conversion"=>0.9144), //yard
-            "mi"=>array("base"=>"m", "conversion"=>1609.344), //mile
-            "h"=>array("base"=>"m", "conversion"=>0.1016), //hand
-            "ly"=>array("base"=>"m", "conversion"=>9460730472580800), //lightyear
-            "au"=>array("base"=>"m", "conversion"=>149597870700), //astronomical unit
-            "pc"=>array("base"=>"m", "conversion"=>30856775814913672.789139379577965), //parsec
+            "m"=> ["base"=>"m", "conversion"=> 1], //meter - base unit for distance
+            "km" => ["base"=> "m", "conversion"=> 1000], //kilometer
+            "dm" => ["base"=> "m", "conversion"=> 0.1], //decimeter
+            "cm" => ["base"=> "m", "conversion"=> 0.01], //centimeter
+            "mm" => ["base"=> "m", "conversion"=> 0.001], //milimeter
+            "μm" => ["base"=> "m", "conversion"=> 0.000001], //micrometer
+            "nm" => ["base"=> "m", "conversion"=> 0.000000001], //nanometer
+            "pm" => ["base"=> "m", "conversion"=> 0.000000000001], //picometer
+            "in" => ["base"=> "m", "conversion"=> 0.0254], //inch
+            "ft" => ["base"=> "m", "conversion"=> 0.3048], //foot
+            "yd" => ["base"=> "m", "conversion"=> 0.9144], //yard
+            "mi" => ["base"=> "m", "conversion"=> 1609.344], //mile
+            "h" => ["base"=> "m", "conversion"=> 0.1016], //hand
+            "ly" => ["base"=> "m", "conversion"=> 9460730472580800], //lightyear
+            "au "=> ["base"=> "m", "conversion"=> 149597870700], //astronomical unit
+            "pc" => ["base"=> "m", "conversion"=> 30856775814913672.789139379577965], //parsec
 
 
             ///////Units Of Area///////
@@ -53,126 +53,132 @@ class Convertor
             "ac"=>array("base"=>"m2", "conversion"=>4046.86), //acre
             "ha"=>array("base"=>"m2", "conversion"=>10000), //hectare*/
 
-            "m**2" => array("base" => "m**2", "conversion" => 1), //meter square - base unit for area
-            "km**2" => array("base" => "m**2", "conversion" => 1000000), //kilometer square
-            "cm**2" => array("base" => "m**2", "conversion" => 0.0001), //centimeter square
-            "mm**2" => array("base" => "m**2", "conversion" => 0.000001), //milimeter square
-            "ft**2" => array("base" => "m**2", "conversion" => 0.092903), //foot square
-            "mi**2" => array("base" => "m**2", "conversion" => 2589988.11), //mile square
-            "ac" => array("base" => "m**2", "conversion" => 4046.86), //acre
-            "ha" => array("base" => "m**2", "conversion" => 10000), //hectare
+            "m**2" => ["base" => "m**2", "conversion" => 1], //meter square - base unit for area
+            "km**2" => ["base" => "m**2", "conversion" => 1000000], //kilometer square
+            "cm**2" => ["base" => "m**2", "conversion" => 0.0001], //centimeter square
+            "mm**2" => ["base" => "m**2", "conversion" => 0.000001], //milimeter square
+            "ft**2" => ["base" => "m**2", "conversion" => 0.092903], //foot square
+            "mi**2" => ["base" => "m**2", "conversion" => 2589988.11], //mile square
+            "ac" => ["base" => "m**2", "conversion" => 4046.86], //acre
+            "ha" => ["base" => "m**2", "conversion" => 10000], //hectare
 
             ///////Units Of Volume///////
-            "dm3" => array("base" => "l", "conversion" => 1), //cubic decimeter - litre
-            "l" => array("base" => "l", "conversion" => 1), //litre - base unit for volume
-            "ml" => array("base" => "l", "conversion" => 0.001), //mililitre
-            "cm3" => array("base" => "l", "conversion" => 0.001), //cubic centimeter - mililitre
-            "hl" => array("base" => "l", "conversion" => 100), //hectolitre
-            "kl" => array("base" => "l", "conversion" => 1000), //kilolitre
-            "m3" => array("base" => "l", "conversion" => 1000), //meters cubed - kilolitre
-            "pt" => array("base" => "l", "conversion" => 0.473176), //pint
-            "uspt" => array("base" => "l", "conversion" => 0.473176), //us pint
-            "ukpt" => array("base" => "l", "conversion" => 0.56826125), //pint
-            "gal" => array("base" => "l", "conversion" => 3.78541), //gallon
+            "dm3" => ["base" => "l", "conversion" => 1], //cubic decimeter - litre
+            "l" => ["base" => "l", "conversion" => 1], //litre - base unit for volume
+            "ml" => ["base" => "l", "conversion" => 0.001], //mililitre
+            "cm3" => ["base" => "l", "conversion" => 0.001], //cubic centimeter - mililitre
+            "hl" => ["base" => "l", "conversion" => 100], //hectolitre
+            "kl" => ["base" => "l", "conversion" => 1000], //kilolitre
+            "m3" => ["base" => "l", "conversion" => 1000], //meters cubed - kilolitre
+            "pt" => ["base" => "l", "conversion" => 0.473176], //pint
+            "uspt" => ["base" => "l", "conversion" => 0.473176], //us pint
+            "ukpt" => ["base" => "l", "conversion" => 0.56826125], //pint
+            "gal" => ["base" => "l", "conversion" => 3.78541], //gallon
             //"usgal" => array("base" => "l", "conversion" => 3.78541), //Fluid ounces
-            "usgal" => array("base" => "l", "conversion" => 3.78541), //us gallon
-            "ukgal" => array("base" => "l", "conversion" => 4.405), //uk gallon
-            "qt" => array("base" => "l", "conversion" => 0.946353), //quart
-            "usqt" => array("base" => "l", "conversion" => 0.946353), //us quart
-            "ukqt" => array("base" => "l", "conversion" => 1.1365225), //uk imperial quart
+            "usgal" => ["base" => "l", "conversion" => 3.78541], //us gallon
+            "ukgal" => ["base" => "l", "conversion" => 4.405], //uk gallon
+            "qt" => ["base" => "l", "conversion" => 0.946353], //quart
+            "usqt" => ["base" => "l", "conversion" => 0.946353], //us quart
+            "ukqt" => ["base" => "l", "conversion" => 1.1365225], //uk imperial quart
 
-
-            "ft3" => array("base" => "l", "conversion" => 28.316846592), //cubic feet
-            "in3" => array("base" => "l", "conversion" => 0.016387064), //cubic inches
-            "floz" => array("base" => "l", "conversion" => 0.0295735), //Fluid ounces
+            "ft3" => ["base" => "l", "conversion" => 28.316846592], //cubic feet
+            "in3" => ["base" => "l", "conversion" => 0.016387064], //cubic inches
+            "floz" => ["base" => "l", "conversion" => 0.0295735], //Fluid ounces
 
             ///////Units Of Weight///////
-            "kg"=>array("base"=>"kg", "conversion"=>1), //kilogram - base unit for weight
-            "g"=>array("base"=>"kg", "conversion"=>0.001), //gram
-            "mg"=>array("base"=>"kg", "conversion"=>0.000001), //miligram
-            "N"=>array("base"=>"kg", "conversion"=>9.80665002863885), //Newton (based on earth gravity)
-            "st"=>array("base"=>"kg", "conversion"=>6.35029), //stone
-            "lb"=>array("base"=>"kg", "conversion"=>0.453592), //pound
-            "oz"=>array("base"=>"kg", "conversion"=>0.0283495), //ounce
-            "t"=>array("base"=>"kg", "conversion"=>1000), //metric tonne
-            "ukt"=>array("base"=>"kg", "conversion"=>1016.047), //UK Long Ton
-            "ust"=>array("base"=>"kg", "conversion"=>907.1847), //US short Ton
+            "kg"=>["base"=>"kg", "conversion"=>1], //kilogram - base unit for weight
+            "g"=>["base"=>"kg", "conversion"=>0.001], //gram
+            "mg"=>["base"=>"kg", "conversion"=>0.000001], //miligram
+            "N"=>["base"=>"kg", "conversion"=>9.80665002863885], //Newton (based on earth gravity)
+            "st"=>["base"=>"kg", "conversion"=>6.35029], //stone
+            "lb"=>["base"=>"kg", "conversion"=>0.453592], //pound
+            "oz"=>["base"=>"kg", "conversion"=>0.0283495], //ounce
+            "t"=>["base"=>"kg", "conversion"=>1000], //metric tonne
+            "ukt"=>["base"=>"kg", "conversion"=>1016.047], //UK Long Ton
+            "ust"=>["base"=>"kg", "conversion"=>907.1847], //US short Ton
 
             //////Units Of Speed///////
-            "mps"=>array("base"=>"mps", "conversion"=>1), //meter per seond - base unit for speed
+            "mps"=>["base"=>"mps", "conversion"=>1], //meter per seond - base unit for speed
             //"kph"=>array("base"=>"mps", "conversion"=>0.44704), //kilometer per hour
-            "kph"=>array("base"=>"mps", "conversion"=>0.277778), //kilometer per hour
+            "kph"=>["base"=>"mps", "conversion"=>0.277778], //kilometer per hour
             //"mph"=>array("base"=>"mps", "conversion"=>0.277778), //kilometer per hour
-            "mph"=>array("base"=>"mps", "conversion"=>0.44704), //miles per hour
-            "fps" => array("base" => "mps", "conversion" => 0.3048), //feet per second
+            "mph"=>["base"=>"mps", "conversion"=>0.44704], //miles per hour
+            "fps" => ["base" => "mps", "conversion" => 0.3048], //feet per second
+            "knot" => ["base" => "mps", "conversion" => 0.514444], //knot
 
             ///////Units Of Rotation///////
-            "deg"=>array("base"=>"deg", "conversion"=>1), //degrees - base unit for rotation
-            "rad"=>array("base"=>"deg", "conversion"=>57.2958), //radian
+            "deg"=>["base"=>"deg", "conversion"=>1], //degrees - base unit for rotation
+            "rad"=>["base"=>"deg", "conversion"=>57.2958], //radian
 
             ///////Units Of Temperature///////
-            "k"=>array("base"=>"k", "conversion"=>1), //kelvin - base unit for distance
-            "c"=>array("base"=>"k", "conversion"=>function ($val, $tofrom) {
+            "k"=>["base"=>"k", "conversion"=>1], //kelvin - base unit for distance
+            "c"=>["base"=>"k", "conversion"=>function ($val, $tofrom) {
                 return $tofrom ? $val - 273.15 : $val + 273.15;
-            }), //celsius
-            "f"=>array("base"=>"k", "conversion"=>function ($val, $tofrom) {
+            }], //celsius
+            "f"=>["base"=>"k", "conversion"=>function ($val, $tofrom) {
                 return $tofrom ? ($val * 9/5 - 459.67) : (($val + 459.67) * 5/9);
-            }), //Fahrenheit
+            }], //Fahrenheit
 
             ///////Units Of Pressure///////
-            "pa"=>array("base"=>"Pa", "conversion"=>1), //Pascal - base unit for Pressure
-            "hpa" => array("base" => "pa", "conversion" => 100), //hpa --added
-            "kpa"=>array("base"=>"Pa", "conversion"=>1000), //kilopascal
-            "mpa"=>array("base"=>"Pa", "conversion"=>1000000), //megapascal
-            "bar"=>array("base"=>"Pa", "conversion"=>100000), //bar
-            "mbar"=>array("base"=>"Pa", "conversion"=>100), //milibar
-            "psi"=>array("base"=>"Pa", "conversion"=>6894.76), //pound-force per square inch
+            "pa"=>["base"=>"Pa", "conversion"=>1], //Pascal - base unit for Pressure
+            "hpa" => ["base" => "pa", "conversion" => 100], //hpa --added
+            "kpa"=>["base"=>"Pa", "conversion"=>1000], //kilopascal
+            "mpa"=>["base"=>"Pa", "conversion"=>1000000], //megapascal
+            "bar"=>["base"=>"Pa", "conversion"=>100000], //bar
+            "mbar"=>["base"=>"Pa", "conversion"=>100], //milibar
+            "psi"=>["base"=>"Pa", "conversion"=>6894.76], //pound-force per square inch
 
             ///////Units Of Time///////
-            "s"=>array("base"=>"s", "conversion"=>1), //second - base unit for time
-            "year"=>array("base"=>"s", "conversion"=>31536000), //year - standard year
+            "s"=>["base"=>"s", "conversion"=>1], //second - base unit for time
+            "year"=>["base"=>"s", "conversion"=>31536000], //year - standard year
             //"month"=>array("base"=>"s", "conversion"=>18748800), //month - 31 days
-            "month"=>array("base"=>"s", "conversion"=>2628000), //month - 31 days
-            "week"=>array("base"=>"s", "conversion"=>604800), //week
-            "day"=>array("base"=>"s", "conversion"=>86400), //day
-            "hr"=>array("base"=>"s", "conversion"=>3600), //hour
+            "month"=>["base"=>"s", "conversion"=>2628000], //month - 31 days
+            "week"=>["base"=>"s", "conversion"=>604800], //week
+            "day"=>["base"=>"s", "conversion"=>86400], //day
+            "hr"=>["base"=>"s", "conversion"=>3600], //hour
             //"min"=>array("base"=>"s", "conversion"=>30), //minute
-            "min"=>array("base"=>"s", "conversion"=>60), //minute
+            "min"=>["base"=>"s", "conversion"=>60], //minute
             //"ms"=>array("base"=>"s", "conversion"=>0.001), //milisecond
-            "ms"=>array("base"=>"s", "conversion"=>0.001), //milisecond
-            "μs"=>array("base"=>"s", "conversion"=>0.000001), //microsecond
-            "ns"=>array("base"=>"s", "conversion"=>0.000000001), //nanosecond
+            "ms"=>["base"=>"s", "conversion"=>0.001], //milisecond
+            "μs"=>["base"=>"s", "conversion"=>0.000001], //microsecond
+            "ns"=>["base"=>"s", "conversion"=>0.000000001], //nanosecond
+
+            ///////Units Of Energy///////
+            "j"=>["base"=>"j", "conversion"=>1], //joule - base unit for energy
+            "kj"=>["base"=>"j", "conversion"=>1000], //kilojoule
+            "mj"=>["base"=>"j", "conversion"=>1000000], //megajoule
+            "cal"=>["base"=>"j", "conversion"=>4184], //calorie
+            "Nm"=>["base"=>"j", "conversion"=>1], //newton meter
+            "ftlb"=>["base"=>"j", "conversion"=>1.35582], //foot pound
+            "whr"=>["base"=>"j", "conversion"=>3600], //watt hour
+            "kwhr"=>["base"=>"j", "conversion"=>3600000], //kilowatt hour
+            "mwhr"=>["base"=>"j", "conversion"=>3600000000], //megawatt hour
+            "mev"=>["base"=>"j", "conversion"=>0.00000000000000016], //mega electron volt
 
             ///////Units Of Power///////
-            "j"=>array("base"=>"j", "conversion"=>1), //joule - base unit for energy
-            "kj"=>array("base"=>"j", "conversion"=>1000), //kilojoule
-            "mj"=>array("base"=>"j", "conversion"=>1000000), //megajoule
-            "cal"=>array("base"=>"j", "conversion"=>4184), //calorie
-            "Nm"=>array("base"=>"j", "conversion"=>1), //newton meter
-            "ftlb"=>array("base"=>"j", "conversion"=>1.35582), //foot pound
-            "whr"=>array("base"=>"j", "conversion"=>3600), //watt hour
-            "kwhr"=>array("base"=>"j", "conversion"=>3600000), //kilowatt hour
-            "mwhr"=>array("base"=>"j", "conversion"=>3600000000), //megawatt hour
-            "mev"=>array("base"=>"j", "conversion"=>0.00000000000000016), //mega electron volt
+            "w"=>["base"=>"w", "conversion"=>1], //watt - base unit for power
+            "kw"=>["base"=>"w", "conversion"=>1000], // kilowatt
+            "ps"=>["base"=>"w", "conversion"=>735.5], //metric horsepower
+            "hp"=>["base"=>"w", "conversion"=>745.7], // mechanical horsepower
 
             ///////Area density///////
-            "kg m**-2" => array("base" => "kg m**-2", "conversion" => 1),
+            "kg m**-2" => ["base" => "kg m**-2", "conversion" => 1],
             //vary area
-            "kg km**-2" => array("base" => "kg m**-2", "conversion" => 0.000001),
-            "kg cm**-2" => array("base" => "kg m**-2", "conversion" => 1e4),
-            "kg mm**-2" => array("base" => "kg m**-2", "conversion" => 1e6),
+            "kg km**-2" => ["base" => "kg m**-2", "conversion" => 0.000001],
+            "kg cm**-2" => ["base" => "kg m**-2", "conversion" => 1e4],
+            "kg mm**-2" => ["base" => "kg m**-2", "conversion" => 1e6],
             //vary weight
-            "g m**-2" => array("base" => "kg m**-2", "conversion" => 0.001), //gram
-            "mg m**-2" => array("base" => "kg m**-2", "conversion" => 0.000001), //miligram
-            "st m**-2" => array("base" => "kg m**-2", "conversion" => 6.35029), //stone
-            "lb m**-2" => array("base" => "kg m**-2", "conversion" => 0.453592), //pound
-            "oz m**-2" => array("base" => "kg m**-2", "conversion" => 0.0283495), //ounce
+            "g m**-2" => ["base" => "kg m**-2", "conversion" => 0.001], //gram
+            "mg m**-2" => ["base" => "kg m**-2", "conversion" => 0.000001], //miligram
+            "st m**-2" => ["base" => "kg m**-2", "conversion" => 6.35029], //stone
+            "lb m**-2" => ["base" => "kg m**-2", "conversion" => 0.453592], //pound
+            "oz m**-2" => ["base" => "kg m**-2", "conversion" => 0.0283495], //ounce
 
             //////Units Of Speed///////
-            "m s**-1" => array("base" => "m s**-1", "conversion" => 1), //meter per seond - base unit for speed
-            "km h**-1" => array("base" => "m s**-1", "conversion" => 1/3.6), //kilometer per hour
-            "mi h**-1" => array("base" => "m s**-1", "conversion" => 1.60934*1/3.6), //mi => km then convert like km/h
-        );
+            "m s**-1" => ["base" => "m s**-1", "conversion" => 1], //meter per seond - base unit for speed
+            "km h**-1" => ["base" => "m s**-1", "conversion" => 1/3.6], //kilometer per hour
+            "mi h**-1" => ["base" => "m s**-1", "conversion" => 1.60934*1/3.6], //mi => km then convert like km/h
+        ];
     }
 
     /**
@@ -305,7 +311,7 @@ class Convertor
      */
     private function toMany($unitList = [], $decimals=null, $round=true)
     {
-        $resultList = array();
+        $resultList = [];
 
         foreach ($unitList as $key) {
             //convert units for each element in the array
@@ -333,7 +339,7 @@ class Convertor
 
         //ensure the base unit has been set correctly
         if ($this->baseUnit) {
-            $unitList = array();
+            $unitList = [];
 
             //build array of units that share the same base unit.
             foreach ($this->units as $key => $values) {
@@ -370,7 +376,7 @@ class Convertor
                 throw new Exception("Base Unit Does Not Exist");
             } else {
                 //add unit to units array
-                $this->units[$unit] = array("base"=>$base, "conversion"=>$conversion);
+                $this->units[$unit] = ["base"=>$base, "conversion"=>$conversion];
                 return true;
             }
         }
@@ -420,7 +426,7 @@ class Convertor
             //find base unit
             $baseUnit = $this->units[$unit]["base"];
 
-            $unitList = array();
+            $unitList = [];
             //find all units that are linked to the base unit
             foreach ($this->units as $key => $values) {
                 if ($values["base"] == $baseUnit) {
