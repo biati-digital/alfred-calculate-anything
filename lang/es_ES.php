@@ -214,6 +214,12 @@ return [
         'mwhr' => 'Megawatt Hora',
         'mev' => 'Mega Electron Volt',
 
+        'power' => 'Power',
+        'w' => 'Watt',
+        'kw' => 'Kilowatts',
+        'ps' => 'Metric Horsepower',
+        'hp' => 'Mechanical Horsepower',
+
         'belongs_to' => '%s pertenece a %s',
         'error' => 'Error, no puedes convertir de %s a %s',
         'cmd' => 'Presiona enter para copiar el valor al clipboard sin formato',

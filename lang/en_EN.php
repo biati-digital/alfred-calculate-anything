@@ -216,6 +216,12 @@ return [
         'mwhr' => 'Megawatt Hour',
         'mev' => 'Mega Electron Volt',
 
+        'power' => 'Power',
+        'w' => 'Watt',
+        'kw' => 'Kilowatts',
+        'ps' => 'Metric Horsepower',
+        'hp' => 'Mechanical Horsepower',
+
         'belongs_to' => '%s is a %s unit',
         'error' => 'Error, you can not convert from %s to %s',
         'cmd' => 'Action this item to copy the amount with no format',

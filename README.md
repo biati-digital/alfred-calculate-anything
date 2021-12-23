@@ -361,7 +361,7 @@ ms      | Milisecond
 μs      | Microsecond
 ns      | Nanosecond
 
-#### Available Energy/Power Units
+#### Available Energy Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -376,6 +376,14 @@ kwhr    | Kilowatt Hour
 mwhr    | Megawatt Hour
 mev     | Mega Electron Volt
 
+#### Available Power Units
+
+Unit | Unit Name
+---- | ---------
+w    | Watts
+kw   | Kilowatts
+ps   | Metric Horsepower
+hp   | Mechanical Horsepower
 
 ## Data Storage
 

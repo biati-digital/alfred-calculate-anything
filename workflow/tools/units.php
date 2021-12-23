@@ -158,6 +158,12 @@ class Units extends CalculateAnything implements CalculatorInterface
                 'mwhr',
                 'mev',
             ],
+            'power' => [
+                'w',
+                'kw',
+                'ps',
+                'hp',
+            ]
         ];
     }
 
