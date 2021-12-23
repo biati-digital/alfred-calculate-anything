@@ -263,10 +263,10 @@ class Currency extends CalculateAnything implements CalculatorInterface
         foreach ($converted as $key => $value) {
             $data['converted'][$key] = [];
 
-            $total = money_format('%i', $value['total']);
+            $total = money_formatter('%i', $value['total']);
             $total = preg_replace('/[^0-9.,]/', '', $total);
             $single = $value['single'];
-            $single = money_format('%i', $single);
+            $single = money_formatter('%i', $single);
             $single = preg_replace("/\w+[^0-9-., ]/", '', $single);
             //$single = $this->formatNumber($value['single']);
 
@@ -403,6 +403,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         }
 
         $exchange = self::$fixer_rates;
+        $exchange = false;
         if (!$exchange) {
             $cache_seconds = $this->rates_cache_seconds;
             $ratesURL = "http://data.fixer.io/api/latest?access_key={$apikey}&format=1";
@@ -412,7 +413,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
                 return [
                     'total' => '',
                     'single' => '',
-                    'error' => $exchange['error'],
+                    'error' => $exchange['error']['info'],
                     'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
                 ];
             }
@@ -563,7 +564,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
     {
         $ratesURL = $from;
         $cache_path = \Alfred\getDataPath('cache');
-        $dir = $cache_path .'/' . $id;
+        $dir = $cache_path . '/' . $id;
 
         // Make sure the cache folder is created
         \Alfred\createDir($cache_path);
@@ -575,7 +576,6 @@ class Currency extends CalculateAnything implements CalculatorInterface
         //$ratesURL = str_replace('&', '\&', $ratesURL);
         if (file_exists($rates_file)) {
             $rates = file_get_contents($rates_file);
-
             if (!empty($rates)) {
                 $rates = json_decode($rates, true);
                 $updated = isset($rates['last_updated']) ? $rates['last_updated'] : null;
@@ -589,7 +589,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
                 // Only return cached rates if cache
                 // has not expired otherwise continue
                 // to fetch the new rates
-                if ($time < $cache_seconds) {
+                if ($rates['success'] && $time < $cache_seconds) {
                     return $rates;
                 }
             }
@@ -606,7 +606,9 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $rates = json_decode($rates, true);
         $rates['last_updated'] = time();
 
-        file_put_contents($rates_file, json_encode($rates));
+        if (isset($rates['success']) && $rates['success']) {
+            file_put_contents($rates_file, json_encode($rates));
+        }
 
         return $rates;
     }
