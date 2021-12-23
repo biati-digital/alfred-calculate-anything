@@ -116,6 +116,7 @@ class Units extends CalculateAnything implements CalculatorInterface
                 'kph',
                 'mph',
                 'fps',
+                'knot',
             ],
             'rotation' => [
                 'deg',
@@ -158,6 +159,12 @@ class Units extends CalculateAnything implements CalculatorInterface
                 'mwhr',
                 'mev',
             ],
+            'power' => [
+                'w',
+                'kw',
+                'ps',
+                'hp',
+            ]
         ];
     }
 
