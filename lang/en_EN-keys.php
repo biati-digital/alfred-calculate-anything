@@ -57,6 +57,10 @@ return [
         'milimeters' => 'mm',
         'milimeter' => 'mm',
         'micrometers' => 'μm',
+        'miles per hour' => 'mph',
+        'mile per hour' => 'mph',
+        'mile hour' => 'mph',
+        'knots' => 'knot',
         'miles' => 'mi',
         'mile' => 'mi',
         'yards' => 'yd',
@@ -127,6 +131,11 @@ return [
         'uk-gal' => 'ukgal',
         'ukgallon' => 'ukgal',
         'ukgal' => 'ukgal',
+        'watts' => 'w',
+        'watt' => 'w',
+        'kilowatts' => 'kw',
+        'kilowatt' => 'kw',
+        'metric horsepower' => 'ps',
 
         'stop_words' => ['to', '=', 'in', 'as']
     ],

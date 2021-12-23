@@ -172,6 +172,7 @@ return [
         'mps' => 'Metros por Segundo',
         'kph' => 'Kilometros Por Hora',
         'mph' => 'Millas Por Hora',
+        'knot' => 'Nudos',
 
         'rotation' => 'Rotación',
         'deg' => 'Grados',
@@ -213,6 +214,12 @@ return [
         'kwhr' => 'Kilowatt Hora',
         'mwhr' => 'Megawatt Hora',
         'mev' => 'Mega Electron Volt',
+
+        'power' => 'Poder',
+        'w' => 'Watt',
+        'kw' => 'Kilowatts',
+        'ps' => 'Caballo de fuerza',
+        'hp' => 'Caballo de fuerza mecánico',
 
         'belongs_to' => '%s pertenece a %s',
         'error' => 'Error, no puedes convertir de %s a %s',
