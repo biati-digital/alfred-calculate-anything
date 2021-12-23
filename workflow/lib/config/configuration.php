@@ -360,7 +360,7 @@ if ($submenu == 'currency_format') {
 
     foreach ($locales as $locale) {
         setlocale(LC_MONETARY, $locale);
-        $amount_formatted = money_format('%i', $amount);
+        $amount_formatted = money_formatter('%i', $amount);
         $amount_formatted = preg_replace("/\w+[^0-9-., ]/", '$', $amount_formatted);
         $amount_formatted = trim($amount_formatted);
 
