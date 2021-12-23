@@ -27,7 +27,7 @@ class Time extends CalculateAnything implements CalculatorInterface
 
         $this->lang = $this->getTranslation('time');
         $this->keywords = $this->getKeywords('time');
-        $this->timezone = \Alfred\getArgument(!empty($argv) ? $argv : '', 3, $this->getSetting('time_zone', 'America/Los_Angeles'));
+        $this->timezone = $this->getSetting('time_zone', 'America/Los_Angeles');
         $this->display_formats = $this->getSetting('time_format', ['F jS, Y, g:i:s a']);
         $this->display_language = $this->getSetting('language', 'en_EN');
     }
