@@ -198,11 +198,11 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         foreach ($converted as $key => $value) {
             $data['converted'][$key] = [];
 
-            $total = money_format('%i', $value['total']);
+            $total = money_formatter('%i', $value['total']);
             $total = preg_replace("/[^0-9.,]/", '', $total);
             $single = $value['single'];
             //$single = $this->formatNumber($value['single']);
-            $single = money_format('%i', $single);
+            $single = money_formatter('%i', $single);
             $single = preg_replace("/\w+[^0-9-., ]/", '', $single);
 
             $data['converted'][$key]['total'] = ['value' => $total, 'formatted' => "{$total} {$key}"];
