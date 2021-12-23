@@ -455,14 +455,18 @@ class CalculateAnything
      * @param mixed $default
      * @return mixed
      */
-    public function getSetting($name, $default = '')
+    public function getSetting($name, $default = null)
     {
         $settings = $this->getSettings();
         if (isset($settings[$name])) {
+            if (empty($settings[$name]) && !is_null($default)) {
+                return $default;
+            }
+
             return $settings[$name];
         }
 
-        if ($default) {
+        if (!is_null($default)) {
             return $default;
         }
 
