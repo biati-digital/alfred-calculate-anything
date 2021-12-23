@@ -677,6 +677,14 @@ This workflow would not be possible without:
 
 ## Changelog
 
+### 3.2.0
+
+- New: Added Power units w, kw, ps, and hp. @wwkeyboard
+- New: Added knot
+- Improved: Fixer API error handling
+- Fixed: Time errors caused by workflow missing user configuration
+- Fixed: Currency format error
+
 ### 3.1.1
 
 - Improved: Mac OS Monterey support
