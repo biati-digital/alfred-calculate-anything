@@ -245,6 +245,7 @@ return [
         'L' => 'HNL',
         'Ft' => 'HUF',
         'Rp' => 'IDR',
+        '₹' => 'INR',
         'rupe' => 'INR',
         'rupee' => 'INR',
         'rupees' => 'INR',
