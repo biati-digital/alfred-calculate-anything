@@ -135,6 +135,7 @@ RD$        | DOP            | Dominican peso
 Q          | GTQ            | Guatemalan quetzal
 L          | HNL            | Honduran lempira
 Ft         | HUF            | Hungarian forint
+₹          | INR            | Indian rupee
 Rp         | IDR            | Indonesian rupiah
 ﷼          | IRR            | Iranian rial
 ₪          | ILS            | Israeli new shekel
