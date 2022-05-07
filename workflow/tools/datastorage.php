@@ -172,7 +172,8 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
      * Do font calculations
      *
      * @param array $data
-     * @return string
+     *
+     * @return array
      */
     private function convertSize(&$data)
     {
@@ -185,13 +186,14 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
         $to_base = 0;
         $to_exponent = 0;
         $unit = (isset($units[$to]) ? $units[$to]['unit'] : $to);
+        $force_binary = \Alfred\getVariable('datastorage_force_binary');
 
-        if ($from_unit == 'bit' && $to == 'b') {
+        if ($from_unit === 'bit' && $to === 'b') {
             $result['value'] = $from * 0.125;
             $result['to'] = $unit;
             return $result;
         }
-        if ($from_unit == 'b' && $to == 'bit') {
+        if ($from_unit === 'b' && $to === 'bit') {
             $result['value'] = $from * 8;
             $result['to'] = $unit;
             return $result;
@@ -199,13 +201,18 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
 
         // Convert to bytes
         if ($from_unit !== 'b') {
+
+            if ($force_binary === true) {
+                $from_base = 1024;
+            }
+
             $from_exponent = (isset($units[$from_unit]) ? $units[$from_unit]['exponent'] : 0);
             $from = ($from_exponent > 0 ? $from * pow($from_base, $from_exponent) : $from * $from_base);
         }
 
         $bytes = $from;
 
-        if ($to == 'b') {
+        if ($to === 'b') {
             $result['value'] = $this->formatNumber($bytes, 8);
             $result['to'] = $unit;
 
@@ -223,7 +230,6 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
 
         $to_base = $units[$to]['base'];
         $to_exponent = $units[$to]['exponent'];
-        $force_binary = \Alfred\getVariable('datastorage_force_binary');
 
         if ($force_binary === true) {
             $to_base = 1024;
