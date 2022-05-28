@@ -2,6 +2,8 @@
 
 namespace Alfred;
 
+use Exception;
+
 class Updater
 {
     /**
@@ -106,7 +108,15 @@ class Updater
      */
     private function downloadRemotePlist()
     {
-        $remote_plist_content = file_get_contents($this->remote_plist_url);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $this->remote_plist_url);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $remote_plist_content = curl_exec($curl);
+
+        curl_close($curl);
+
         if (!$remote_plist_content) {
             return false;
         }
@@ -125,6 +135,9 @@ class Updater
     private function shouldUpdate($remote_plist_content = '')
     {
         if (empty($remote_plist_content)) {
+            if (!file_exists($this->remotePlistPath())) {
+                return false;
+            }
             $remote_plist_content = file_get_contents($this->remotePlistPath());
         }
 
