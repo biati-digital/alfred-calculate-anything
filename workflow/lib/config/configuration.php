@@ -170,6 +170,36 @@ if ($process && $main_menu) {
         ],
     ];
 
+    // Add cryptocurrency
+    $response[] = [
+        'title' => $strings['crypto_add_title'],
+        'subtitle' => $strings['crypto_add_subtitle'] . ': ' . getVariableAsString('custom_cryptocurrencies'),
+        'match' => 'add cryptocurrency ' .$strings['crypto_add_subtitle'],
+        'autocomplete' => $strings['crypto_add_title'],
+        'valid' => true,
+        'arg' => '',
+        'variables' => [
+            'id' => 'custom_cryptocurrencies',
+            'action' => 'menu',
+            'submenu' => 'cryptocurrency_add',
+        ],
+    ];
+
+    // Remove cryptocurrency
+    $response[] = [
+        'title' => $strings['crypto_remove_title'],
+        'subtitle' => $strings['crypto_remove_subtitle'],
+        'match' => 'remove cryptocurrency ' .$strings['crypto_add_subtitle'],
+        'autocomplete' => $strings['crypto_add_title'],
+        'valid' => true,
+        'arg' => '',
+        'variables' => [
+            'id' => 'custom_cryptocurrencies',
+            'action' => 'menu',
+            'submenu' => 'cryptocurrency_remove',
+        ],
+    ];
+
     // Vat percentage
     $response[] = [
         'title' => $strings['vat_title'],
@@ -310,7 +340,7 @@ $goback = [
 ];
 
 
-if ($submenu == 'language') {
+if ($submenu === 'language') {
     $langs = \Alfred\getRegisteredTranslations();
 
     $response[] = $goback;
@@ -330,7 +360,7 @@ if ($submenu == 'language') {
 }
 
 
-if ($submenu == 'currency') {
+if ($submenu === 'currency') {
     $calculate = new \Workflow\CalculateAnything();
     $items = $calculate->getCalculator('currency')->listAvailable();
 
@@ -351,7 +381,7 @@ if ($submenu == 'currency') {
     }
 }
 
-if ($submenu == 'currency_format') {
+if ($submenu === 'currency_format') {
     $amount = 1234.56;
     $calculate = new \Workflow\CalculateAnything();
     $locales = $calculate->getCalculator('currency')->currencyLocales();
@@ -382,7 +412,7 @@ if ($submenu == 'currency_format') {
 }
 
 // Handle delete currency
-if ($submenu == 'delete_base_currency') {
+if ($submenu === 'delete_base_currency') {
     $stored_currencies = getVariable('base_currency', []);
     $response[] = $goback;
 
@@ -410,7 +440,51 @@ if ($submenu == 'delete_base_currency') {
 }
 
 
-if ($submenu == 'time_zone') {
+if ($submenu === 'cryptocurrency_add') {
+    $response[] = [
+        'variables' => [
+            'action' => 'save_config',
+            'input_process' => 'add_cryptocurrency',
+            'configure_key' => 'custom_cryptocurrencies',
+            'configure_val' => trim($query),
+        ],
+        'title' => "{$strings['crypto']}: {$query}",
+        'subtitle' => $strings['enter_save'],
+        'uid' => $query,
+        'arg' => $query,
+        'valid' => true,
+    ];
+}
+
+if ($submenu === 'cryptocurrency_remove') {
+    $stored_cryptocurrencies = getVariable('custom_cryptocurrencies', []);
+    $response[] = $goback;
+
+    if (empty($stored_cryptocurrencies)) {
+        $response[] = [
+            'title' => '...',
+            'subtitle' => $strings['empty_cryptocurrency'],
+            'valid' => false,
+        ];
+    }
+
+    foreach ($stored_cryptocurrencies as $key => $value) {
+        $response[] = [
+            'variables' => [
+                'action' => 'save_config',
+                'input_process' => 'delete_cryptocurrency',
+                'configure_key' => $id,
+                'configure_val' => $key
+            ],
+            'title' => $value,
+            'subtitle' => $strings['enter_delete'],
+            'arg' => $value,
+        ];
+    }
+}
+
+
+if ($submenu === 'time_zone') {
     $zones = timezone_identifiers_list();
     $response[] = $goback;
 
@@ -435,7 +509,7 @@ if ($submenu == 'time_zone') {
 
 
 // Handle delete time zones
-if ($submenu == 'delete_time_format') {
+if ($submenu === 'delete_time_format') {
     $response[] = $goback;
     $timeformats = getVariable('time_format', []);
 
@@ -465,11 +539,11 @@ if ($submenu == 'delete_time_format') {
 }
 
 // List available
-if ($submenu == 'list' || strpos($query, 'list') !== false) {
+if ($submenu === 'list' || strpos($query, 'list') !== false) {
     $list_type = getVariable('list_type');
     $list_type = empty($list_type) ? 'select' : $list_type;
 
-    if ($list_type == 'select') {
+    if ($list_type === 'select') {
         $response[] = [
             'title' => $strings['list_currencies_title'],
             'subtitle' => $strings['list_subtitle'],

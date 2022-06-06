@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Process input
+ * this file is in charge of saving the
+ * workflow configuration as workflow variables
+ */
+
 require_once getcwd() . '/autoload.php';
 require_once getcwd() . '/alfred/Alfred.php';
 require_once getcwd() . '/workflow/lib/backcompat.php';
@@ -37,17 +43,23 @@ if (empty($input_process)) {
     die();
 }
 
-if ($input_process == 'add_base_currency') {
+if ($input_process === 'add_base_currency') {
     $currencies = getVariable('base_currency', []);
     $value = str_replace(' ', '', $value);
     $value = strtoupper($value);
     $value = trim($value);
     $value = explode(',', $value);
-    $newcurrencies = array_merge($currencies, $value);
+
+    $newcurrencies = $value;
+
+    if (is_array($currencies) && !empty($currencies)) {
+        $newcurrencies = array_merge($currencies, $value);
+    }
+
     $config_value = array_unique($newcurrencies);
 }
 
-if ($input_process == 'delete_base_currency') {
+if ($input_process === 'delete_base_currency') {
     $currencies = getVariable($param, []);
     if (empty($currencies)) {
         $currencies = [];
@@ -58,7 +70,40 @@ if ($input_process == 'delete_base_currency') {
     $config_value = $currencies;
 }
 
-if ($input_process == 'add_time_format') {
+
+if ($input_process === 'add_cryptocurrency') {
+    $cryptourrencies = getVariable('custom_cryptocurrencies', []);
+    $value = str_replace(' ', '', $value);
+    $value = strtoupper($value);
+    $value = trim($value);
+    $value = explode(',', $value);
+
+    $newryptocurrencies = $value;
+
+    if (is_array($cryptourrencies) && !empty($cryptourrencies)) {
+        $newryptocurrencies = array_merge($cryptourrencies, $value);
+    }
+
+    $config_value = array_unique($newryptocurrencies);
+
+    $cache_path = \Alfred\getDataPath('cache');
+    \Alfred\emptyDirectory($cache_path . '/coinmarketcap');
+}
+
+
+if ($input_process === 'delete_cryptocurrency') {
+    $cryptocurrencies = getVariable($param, []);
+    if (empty($cryptocurrencies)) {
+        $cryptocurrencies = [];
+    }
+    if (isset($cryptocurrencies[$value])) {
+        unset($cryptocurrencies[$value]);
+    }
+    $config_value = $cryptocurrencies;
+}
+
+
+if ($input_process === 'add_time_format') {
     $timezones = getVariable($param, []);
     if (empty($timezones)) {
         $timezones = [];
@@ -67,7 +112,7 @@ if ($input_process == 'add_time_format') {
     $config_value = $timezones;
 }
 
-if ($input_process == 'delete_time_format') {
+if ($input_process === 'delete_time_format') {
     $timezones = getVariable($param, []);
     if (empty($timezones)) {
         $timezones = [];
