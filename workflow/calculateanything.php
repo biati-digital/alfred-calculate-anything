@@ -29,6 +29,7 @@ class CalculateAnything
         'base_currency',
         'coinmarket_apikey',
         'fixer_apikey',
+        'fixer_apisource',
         'language',
         'last_update_check',
         'settings_migrated',
@@ -36,6 +37,9 @@ class CalculateAnything
         'time_zone',
         'vat_percentage',
         'locale_currency',
+        'currency_cache_hours',
+        'cryptocurrency_cache_hours',
+        'custom_cryptocurrencies'
     ];
 
     /**
@@ -82,18 +86,9 @@ class CalculateAnything
         $processed = $this->processByType();
 
         if ($processed) {
-            $migrate_settings = $this->shouldMigrateSettings();
-
-            if ($migrate_settings) {
-                $processed = $this->migrateSettingsOutput();
-                return $processed;
-            }
-
-            if (!$migrate_settings) {
-                $update_available = $this->checkForUpdatesOutput();
-                if ($update_available) {
-                    $processed[] = $update_available;
-                }
+            $update_available = $this->checkForUpdatesOutput();
+            if ($update_available) {
+                $processed[] = $update_available;
             }
         }
 
@@ -475,6 +470,7 @@ class CalculateAnything
 
     /**
      * Check if should Migrate old settings
+     * DEPRECATED
      * from settings file to
      * workflow variables
      *
@@ -500,6 +496,7 @@ class CalculateAnything
 
     /**
      * Migrate settings output
+     * DEPRECATED
      * firts we return a simple message explaining that
      * settings must be migrated, then set the variable
      * start_config_upgrade to true and rerun, this way alfred shows the
