@@ -29,6 +29,12 @@ return [
         'crypto_subtitle' => 'Configure your coinmarketcap API Key',
         'fixer_title' => 'Set Fixer API',
         'fixer_subtitle' => 'Configure your fixer API Key',
+        'crypto' => 'Cryptocurrency',
+        'crypto_add_title' => 'Add custom cryptocurrency',
+        'crypto_add_subtitle' => 'Configure custom cryptocurrencies',
+        'crypto_remove_title' => 'Remove custom cryptocurrency',
+        'crypto_remove_subtitle' => 'Remove custom cryptocurrencies',
+        'empty_cryptocurrency' => 'There are no stored custom cryptocurrencies',
         'measurement_title' => 'Set System of Measurement',
         'measurement_subtitle' => 'Define your system of measurement default to metric system',
         'vat_title' => 'Set VAT percentage',
@@ -398,6 +404,7 @@ return [
         'alt' => 'Action this item to copy the value of 1 to the clipboard',
         'fetch_error' => 'Unable to get currencies data',
         'nofixerapikey_title' => 'You need to configure the API key for Fixer',
+        'updating_rates' => 'Updating currency rates...',
     ],
     'crypto_currency' => [
         'cmd' => 'Action this item to copy the amount with no format',
@@ -405,5 +412,7 @@ return [
         'fetch_error' => 'Unable to get currencies data',
         'noapikey_title' => 'You need to configure the API key for cryptocurrencies',
         'noapikey_subtitle' => 'Please read the documentation for more information',
+        'nosymbol_title' => 'The crypto currency is not available, check the docs.',
+        'updating_rates' => 'Updating cryptocurrency rates...',
     ]
 ];

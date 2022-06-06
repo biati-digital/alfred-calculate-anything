@@ -99,9 +99,6 @@ return [
         'us qt' => 'usqt',
         'us-qt' => 'usqt',
         'usquart' => 'usqt',
-        'ukpint' => 'ukpt',
-        'uk pt' => 'ukpt',
-        'ukpt' => 'ukpt',
         'gallons' => 'gal',
         'gallon' => 'gal',
         'grams' => 'g',
@@ -284,6 +281,8 @@ return [
         'stop_words' => ['to', '=', 'in', 'as'],
     ],
     'crypto_currency' => [
+        'satoshis' => 'SAT',
+        'satoshi' => 'SAT',
         'bitcoins' => 'BTC',
         'ether' => 'ETH',
         'etherium' => 'ETH', //mispelled

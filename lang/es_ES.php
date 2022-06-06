@@ -29,6 +29,12 @@ return [
         'crypto_subtitle' => 'Ingresa la API Key de Coinmarketcap',
         'fixer_title' => 'Definir la API de Fixer',
         'fixer_subtitle' => 'Ingresa la API Key de Fixer',
+        'crypto' => 'Cryptomonedas',
+        'crypto_add_title' => 'Añadir cryptomeneda personalizada',
+        'crypto_add_subtitle' => 'Define cryptomonedas personalizadas',
+        'crypto_remove_title' => 'Eliminar cryptomeneda personalizada',
+        'crypto_remove_subtitle' => 'Eliminar cryptomenedas personalizada',
+        'empty_cryptocurrency' => 'No hay cryptomonedas personalizadas',
         'measurement_title' => 'Definir Sistema de unidades',
         'measurement_subtitle' => 'Define el sistema de unidades que usa tu país, por default sistema métrico',
         'vat_title' => 'Define el porcentaje del Valor agregado IVA',
@@ -60,7 +66,7 @@ return [
         'cache_deleted' => 'Caché vaciada correctamente',
         'updates_title' => 'Actualizar Calculate Anything',
         'updates_subtitle' => 'Buscar actualizaciones disponibles',
-        'option_saved' => 'Configiración Guardada',
+        'option_saved' => 'Configuración Guardada',
         'goback_title' => 'Regresar a configuración',
         'goback_subtitle' => 'ir al menú principal',
     ],
@@ -397,6 +403,7 @@ return [
         'alt' => 'Presiona enter para copiar el valor de 1 al clipboard',
         'fetch_error' => 'Error al importar la información de cambio',
         'nofixerapikey_title' => 'Debes de configurar la API key de Fixer',
+        'updating_rates' => 'Actualizando tipos de cambio...',
     ],
     'crypto_currency' => [
         'cmd' => 'Presiona enter para copiar el valor al clipboard sin formato',
@@ -404,5 +411,7 @@ return [
         'fetch_error' => 'Error al importar la información de cambio',
         'noapikey_title' => 'Debes de configurar la API key para cryptomonedas',
         'noapikey_subtitle' => 'Por favor lee la documentación para más información',
+        'nosymbol_title' => 'La crypto moneda no está disponible, revisa la documentación.',
+        'updating_rates' => 'Actualizando tasas de cryptomonedas...',
     ]
 ];
