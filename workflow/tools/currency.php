@@ -20,6 +20,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
     private $keywords;
     private $currencyList;
     private $lang;
+    private $rates_cache_seconds;
     private static $fixer_rates;
     private static $basic_rates;
 
@@ -33,7 +34,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $this->keywords = $this->getKeywords('currency');
         $this->stop_words = $this->getStopWords('currency');
         $this->currencyList = $this->currencies();
-        $this->rates_cache_seconds = 86400;
+        $this->rates_cache_seconds = $this->getCacheDuration();
     }
 
 
@@ -212,6 +213,24 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
 
     /**
+     * Duration of the cache
+     * before calling the API again
+     * @return int
+     */
+    private function getCacheDuration(): int
+    {
+        $duration = 86400;
+        $customCacheExpire = $this->getSetting('currency_cache_hours', '');
+        if (!empty($customCacheExpire) && is_numeric($customCacheExpire)) {
+            $customCacheExpire = (int)$customCacheExpire;
+            $duration = $customCacheExpire * 3600;
+        }
+
+        return $duration;
+    }
+
+
+    /**
      * shouldProcess
      *
      * @param string $query
@@ -362,10 +381,9 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
         foreach ($to as $currency) {
             // Use Fixer io
-            if ($method == 'fixer') {
-                $cache_seconds = ($use_cache ? $this->rates_cache_seconds : 0);
+            if ($method === 'fixer') {
                 $conversion = $this->fixerConversion($amount, $from, $currency);
-            } elseif ($method == 'exchangeratehost') {
+            } elseif ($method === 'exchangeratehost') {
                 $conversion = $this->exchangeRateHostConversion($amount, $from, $currency);
             }
 
@@ -394,6 +412,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
     private function fixerConversion($amount, $from, $to)
     {
         $apikey = $this->getSetting('fixer_apikey');
+        $apiSource = $this->getSetting('fixer_apisource', '');
+
         if (empty($apikey)) {
             return [
                 'total' => '',
@@ -403,11 +423,49 @@ class Currency extends CalculateAnything implements CalculatorInterface
         }
 
         $exchange = self::$fixer_rates;
-        $exchange = false;
+
         if (!$exchange) {
             $cache_seconds = $this->rates_cache_seconds;
-            $ratesURL = "http://data.fixer.io/api/latest?access_key={$apikey}&format=1";
-            $exchange = $this->getRates('fixer', $ratesURL, $cache_seconds);
+
+            // Fixer moved it's API to API layer
+            // old API keys will not work with API Layer and new API Keys
+            // will not work with the old API URL we need to validate
+            // the API key and save the correct source to avoid duplicated
+            // API calls, eventually the old API will stop working
+
+            if ($apiSource === 'apilayer') {
+                $fixerAPILayer = 'https://api.apilayer.com/fixer/latest';
+                $exchange = $this->getRates('fixer', $fixerAPILayer, $cache_seconds, [
+                    "Content-Type: text/plain",
+                    "apikey: {$apikey}",
+                ]);
+            } else {
+
+                $fixerAPI_deprecated = "http://data.fixer.io/api/latest?access_key={$apikey}&format=1";
+                $exchange = $this->getRates('fixer', $fixerAPI_deprecated, $cache_seconds);
+
+                // If the API key provided does not work with the deprecated API URL
+                // try to use the new API URL of API Layer
+                if (isset($exchange['error']) && $exchange['error']['type'] === 'invalid_access_key') {
+                    $fixerAPILayer = 'https://api.apilayer.com/fixer/latest';
+                    $exchange = $this->getRates('fixer', $fixerAPILayer, $cache_seconds, [
+                        "Content-Type: text/plain",
+                        "apikey: {$apikey}",
+                    ]);
+                    if (isset($exchange['success']) && $exchange['success']) {
+                        \Alfred\setVariable('fixer_apisource', 'apilayer', false);
+                    }
+                }
+            }
+
+            if (isset($exchange['reload'])) {
+                return [
+                    'total' => '',
+                    'single' => '',
+                    'error' => $exchange['message'],
+                    'reload' => $exchange['reload'],
+                ];
+            }
 
             if (isset($exchange['error'])) {
                 return [
@@ -452,12 +510,20 @@ class Currency extends CalculateAnything implements CalculatorInterface
             $ratesURL = "https://api.exchangerate.host/latest";
             $exchange = $this->getRates('exchangeratehost', $ratesURL, $cache_seconds);
 
+            if (isset($exchange['reload'])) {
+                return [
+                    'total' => '',
+                    'single' => '',
+                    'error' => $exchange['message'],
+                    'reload' => $exchange['reload'],
+                ];
+            }
+
             if (!isset($exchange['success']) || !$exchange['success']) {
                 return [
                     'total' => '',
                     'single' => '',
-                    'error' => $exchange['error'],
-                    'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
+                    'error' => $exchange['error']
                 ];
             }
 
@@ -560,7 +626,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
      * @param int $cache_seconds number of seconds before the cache expires
      * @return mixed array if sucess or string with error message
      */
-    private function getRates($id, $from, $cache_seconds)
+    private function getRates($id, $from, $cache_seconds, $http_headers = [])
     {
         $ratesURL = $from;
         $cache_path = \Alfred\getDataPath('cache');
@@ -571,9 +637,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         \Alfred\createDir($dir);
 
         $rates_file = $dir . '/rates.json';
-        //$ratesURL = str_replace('?', '\?', $ratesURL);
-        //$ratesURL = str_replace('=', '\=', $ratesURL);
-        //$ratesURL = str_replace('&', '\&', $ratesURL);
+
         if (file_exists($rates_file)) {
             $rates = file_get_contents($rates_file);
             if (!empty($rates)) {
@@ -595,7 +659,33 @@ class Currency extends CalculateAnything implements CalculatorInterface
             }
         }
 
-        $rates = file_get_contents($ratesURL);
+        // Before we update the rates, as it takes a few seconds
+        // depending on the API and intenet connection, we tell
+        // Alfred to display a loading message and rerun the query
+        // if the variable "rerun" exists it means that this is the second
+        // run and we should not display the loading message and
+        // call the API to update the rates
+        if (!\Alfred\getVariable('rerun')) {
+            return [
+                'message' => $this->lang['updating_rates'],
+                'reload' => 0.2,
+            ];
+        }
+
+        if (empty($http_headers)) {
+            $http_headers = ['Accepts: application/json'];
+        }
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $from);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $http_headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $rates = curl_exec($curl);
+
+        curl_close($curl);
+
         if (empty($rates)) {
             return [
                 'error' => $this->lang['fetch_error'],
