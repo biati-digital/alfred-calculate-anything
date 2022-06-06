@@ -2,6 +2,19 @@
 
 namespace Alfred;
 
+use Exception;
+
+/**
+ * Workflow path
+ *
+ * @return string workflow path
+ */
+function getWorkflowPath()
+{
+    return getcwd();
+}
+
+
 /**
  * Plist path
  *
@@ -651,4 +664,48 @@ function filterRestults(&$results, $query, $filterIn = ['title', 'match'])
     }, ARRAY_FILTER_USE_BOTH);*/
 
     return $filtered;
+}
+
+
+/**
+ * Empty directory
+ *
+ * @return bool
+ */
+function emptyCacheDirectory()
+{
+    $cache_dir = getDataPath('cache');
+    return emptyDirectory($cache_dir);
+}
+
+
+
+/**
+ * Empty directory
+ *
+ * @param string $path
+ * @return bool
+ */
+function emptyDirectory($dir)
+{
+    if (!$dir || !file_exists($dir)) {
+        return true;
+    }
+
+    // Delete all children.
+    $files = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
+        \RecursiveIteratorIterator::CHILD_FIRST
+    );
+
+    if (!empty($files)) {
+        foreach ($files as $fileinfo) {
+            $action = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
+            if (!@$action($fileinfo->getRealPath())) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
