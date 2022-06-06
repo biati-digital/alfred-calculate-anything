@@ -109,6 +109,9 @@ Used to format the converted amount, you will see a list of formats to choose fr
 - **Set Fixer API**
 Set your fixer API Key for support more currencies, after you select this option just copy paste your Key and press Return to save it.
 
+**The currencies are updated every 24 hours, if you need to update this more often you can set a custom interval.** To do this you need to [Set a Workflow Environment Variables](https://www.alfredapp.com/help/workflows/advanced/variables/). The name should be `currency_cache_interval` and the value should be the number of hours, for example, to update every 6 hours you need to set the value to `6`. Only do this if you know what you are doing and you understand that the API has limits.
+
+
 ### Currency Symbols
 
 You can use currency symbols in your query. For example `100¥ to €` will be converted from 100 Japanese yen to the equivalent in Euros. Here is a list of available symbols:
@@ -157,7 +160,7 @@ TT$        | TTD            | Trinidad and Tobago dollar
 
 ## Cryptocurrency
 
-Calculate Anything can convert between 100 cryptocurrencies. Again, you can use natural language or simply pass the currency symbol.
+Calculate Anything can convert between 5,000 cryptocurrencies and you can define your own. Again, you can use natural language or simply pass the currency symbol.
 
 ```
 - 2 bitcoins to dollars
@@ -192,6 +195,14 @@ The following options are available for cryptocurrency conversions. Simply launc
 
 - **Set Coinmarketcap API**
 Select this option, paste your API key and press Return to save it.
+
+- **Add custom cryptocurrency**
+  The workflow includes up to 5,000 cryptocurrencies. if you need a cryptocurrency that it's not included, you can select this option and enter the cryptocurrency symbol, for example `SATS` for Satoshi, if you do not know the symbol go to [https://coinmarketcap.com](https://coinmarketcap.com), search for the cryptocurrency and the symbol will be at the right side of the cryptocurrency name.
+
+- **Remove custom cryptocurrency**
+  Select this option to remove a custom cryptocurrency if no longer needed.
+
+**The cryptocurrencies are updated every 24 hours, if you need to update this more often you can set a custom interval.** To do this you need to [Set a Workflow Environment Variables](https://www.alfredapp.com/help/workflows/advanced/variables/). The name should be `cryptocurrency_cache_interval` and the value should be the number of hours, for example, to update every 6 hours you need to set the value to `6`. Only do this if you know what you are doing and you understand that the API has limits.
 
 
 ## Units
@@ -362,7 +373,7 @@ ms      | Milisecond
 μs      | Microsecond
 ns      | Nanosecond
 
-#### Available Energy Units
+#### Available Energy/Power Units
 
 Unit    | Unit Name
 ------  | -----------
@@ -377,14 +388,6 @@ kwhr    | Kilowatt Hour
 mwhr    | Megawatt Hour
 mev     | Mega Electron Volt
 
-#### Available Power Units
-
-Unit | Unit Name
----- | ---------
-w    | Watts
-kw   | Kilowatts
-ps   | Metric Horsepower
-hp   | Mechanical Horsepower
 
 ## Data Storage
 
@@ -685,6 +688,22 @@ This workflow would not be possible without:
 - [Convertor](https://github.com/olifolkerd/convertor) with some modifications
 
 ## Changelog
+
+### 3.4.0
+
+- New: You can now provide a workflow variable to define the duration of the currencies cache
+- New: Support for more cryptocurrencies, up to 5,000
+- New: You can also difine custom cryptocurrencies
+- Updated: Fixer.io API now uses API Layer, the workflow will check your API key to make sure the correct endpoint is used.
+- Improved: Now the workflow shows a message when it's updating currency and cryptocurrencies rates
+- Improved: Replaced file_get_contents with curl for some operations
+- Fixed: datastorage_force_binary was not working as expected
+- Fixed: No output in cryptocurrencies when "from" and "to" were the same
+- Fixed: Error on updater not working correctly with some PHP versions
+
+### 3.3.0
+
+- Updated dependencies
 
 ### 3.2.0
 
