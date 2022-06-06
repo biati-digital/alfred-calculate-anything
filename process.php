@@ -49,6 +49,12 @@ switch ($action) {
 if (isset($processed['rerun'])) {
     $alfred['rerun'] = $processed['rerun'];
     unset($processed['rerun']);
+
+    if (!isset($processed['variables'])) {
+        $processed['variables'] = [];
+    }
+
+    $processed['variables']['rerun'] = true;
 }
 
 if (isset($processed['variables'])) {
