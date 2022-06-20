@@ -52,6 +52,13 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
             $symbols = file_get_contents($file);
             if (!empty($symbols)) {
                 $symbols = json_decode($symbols, true);
+                $currencies = self::$currencyCalculator->currencies();
+                foreach ($currencies as $key => $item) {
+                    if (isset($symbols[$key])) {
+                        $symbols[] = $key;
+                    }
+                }
+
             }
         }
 
@@ -64,6 +71,20 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
                 }
             }
         }
+
+        /*print_r($symbols);*/
+
+        /*$matched = [];
+        $currencies = self::$currencyCalculator->currencies();
+        foreach ($money as $key => $item) {
+            if (isset($symbols[$key])) {
+                $matched[] = $key;
+            }
+        }
+
+        print_r('total '. count($money));
+        print_r('found '. count($matched));
+        print_r($matched);*/
 
         return $symbols;
     }
@@ -103,8 +124,22 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
 
         $checks = array_chunk($this->symbolsList, 100, true);
         $match = false;
+        $query = $this->query;
+        /*$query = preg_replace('/^([,.\d+]+)/', '${1} ', $query);
+        $query = preg_replace('/\s+/', ' ', $query);*/
 
         foreach ($checks as $list) {
+            $currencies = $this->matchRegex($list);
+            $stopwords = $this->getStopWordsString($this->stop_words);
+            preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+
+            if (!empty($matches)) {
+                $match = true;
+                break;
+            }
+        }
+
+        /*foreach ($checks as $list) {
             $currencies = $this->matchRegex($list);
             $stopwords = $this->getStopWordsString($this->stop_words);
             $query = $this->query;
@@ -114,22 +149,16 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
                 $match = true;
                 break;
             }
-        }
+        }*/
 
         return $match;
-
-
-        /*$currencies = $this->matchRegex();
-        $stopwords = $this->getStopWordsString($this->stop_words);
-        $query = $this->query;
-        return preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);*/
     }
 
 
     /**
      * Process query
      *
-     * @return string|array
+     * @return bool|array
      */
     public function processQuery()
     {
@@ -348,13 +377,12 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
             ];
         }
 
-
         $total = 0;
         $value = 0;
         $crypto_value = $crypto_data['price'];
         $to_type = $this->isValidSymbol($to) ? 'cryptocurrency' : 'currency';
 
-        // Check if doing a converstion from crypto currency to crypto currency
+        // Check if doing a converstion from cryptocurrency to cryptocurrency
         if ($to_type === 'cryptocurrency') {
             $crypto_to_data = $this->getRate($to, $exchange);
             if (!$crypto_to_data) {
@@ -376,11 +404,14 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
                 $total = $crypto_value * $amount;
                 $value = $crypto_value;
             } elseif (self::$currencyCalculator->isValidCurrency($to)) {
+                self::$currencyCalculator->setUpdatingMessageDisplay(false);
                 $currency_conversion = self::$currencyCalculator->convert([
                     'from' => 'USD',
                     'to' => $to,
                     'amount' => $crypto_value,
                 ]);
+
+                self::$currencyCalculator->setUpdatingMessageDisplay(true);
 
                 if ($currency_conversion && isset($currency_conversion[$to])) {
                     $total = str_replace(',', '', $currency_conversion[$to]['total']);
@@ -704,16 +735,16 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
     private function matchRegex($currencies = [])
     {
         $currencies = !empty($currencies) ? $currencies : $this->symbolsList;
-        $params = implode('|', array_keys($currencies));
-        $params .= '|' . implode('|', array_values($currencies));
+        $params = implode('\b|', array_keys($currencies));
+        $params .= '\b|' . implode('\b|', array_values($currencies));
         $translation_keywords = $this->keywords;
 
         if (!empty($translation_keywords)) {
-            $params .= '|' . implode('|', array_keys($translation_keywords));
+            $params .= '\b|' . implode('\b|', array_keys($translation_keywords));
         }
         $params = $this->escapeKeywords($params);
 
-        return '(' . $params . ')';
+        return '(' . $params . '\b)';
     }
 
 

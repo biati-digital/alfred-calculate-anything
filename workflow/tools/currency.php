@@ -23,6 +23,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
     private $rates_cache_seconds;
     private static $fixer_rates;
     private static $basic_rates;
+    private static $display_updating_message;
 
     /**
      * Construct
@@ -35,6 +36,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $this->stop_words = $this->getStopWords('currency');
         $this->currencyList = $this->currencies();
         $this->rates_cache_seconds = $this->getCacheDuration();
+        $this->setUpdatingMessageDisplay(true);
     }
 
 
@@ -44,7 +46,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
      *
      * @return array
      */
-    private function currencies()
+    public function currencies()
     {
         return [
             'AED' => 'United Arab Emirates dirham',
@@ -246,7 +248,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $query = $this->query;
         $currencies = $this->matchRegex();
         $stopwords = $this->getStopWordsString($this->stop_words);
-
+        
         return preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
     }
 
@@ -665,7 +667,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         // if the variable "rerun" exists it means that this is the second
         // run and we should not display the loading message and
         // call the API to update the rates
-        if (!\Alfred\getVariable('rerun')) {
+        if (!\Alfred\getVariable('rerun') && $this->shouldDisplayUpdatingMessage()) {
             return [
                 'message' => $this->lang['updating_rates'],
                 'reload' => 0.2,
@@ -742,6 +744,19 @@ class Currency extends CalculateAnything implements CalculatorInterface
     private function matchRegex()
     {
         $currencies = $this->currencyList;
+        $params = implode('\b|', array_keys($currencies));
+        $params .= '\b|' . implode('\b|', array_values($currencies));
+        $translation_keywords = $this->keywords;
+
+        if (!empty($translation_keywords)) {
+            $params .= '\b|' . implode('\b|', array_keys($translation_keywords));
+        }
+        $params = $this->escapeKeywords($params);
+
+        return '(' . $params . '\b)';
+
+
+        /*$currencies = $this->currencyList;
         $params = implode('|', array_keys($currencies));
         $params .= '|' . implode('|', array_values($currencies));
         $translation_keywords = $this->keywords;
@@ -751,7 +766,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         }
         $params = $this->escapeKeywords($params);
 
-        return '(' . $params . ')';
+        return '(' . $params . ')';*/
     }
 
 
@@ -825,6 +840,30 @@ class Currency extends CalculateAnything implements CalculatorInterface
         }
 
         return $list;
+    }
+
+
+    /**
+     * Enable or disable
+     * showing the updating rates message
+     * @param $display
+     *
+     * @return void
+     */
+    public function setUpdatingMessageDisplay($display)
+    {
+        self::$display_updating_message = $display;
+    }
+
+
+    /**
+     * Should display updating rates message
+
+     * @return boolean
+     */
+    public function shouldDisplayUpdatingMessage()
+    {
+        return self::$display_updating_message;
     }
 
 
