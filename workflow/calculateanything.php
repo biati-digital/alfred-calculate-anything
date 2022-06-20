@@ -56,7 +56,7 @@ class CalculateAnything
     /**
      * Process initial query
      *
-     * @return array
+     * @return boolean|array
      */
     public function processQuery()
     {
@@ -136,12 +136,12 @@ class CalculateAnything
             return $datastorage->processQuery();
         }
 
-        if ($cryptocurrency->shouldProcess($lenght)) {
-            return $cryptocurrency->processQuery();
-        }
-
         if ($currency->shouldProcess($lenght)) {
             return $currency->processQuery();
+        }
+
+        if ($cryptocurrency->shouldProcess($lenght)) {
+            return $cryptocurrency->processQuery();
         }
 
         return $processed;
