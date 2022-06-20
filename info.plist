@@ -934,7 +934,7 @@ include_once "./process.php";</string>
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>iva</string>
+				<string>vat</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -1207,19 +1207,6 @@ include_once "./process.php";</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>triggerid</key>
-				<string>menu</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.external</string>
-			<key>uid</key>
-			<string>2CC668AD-747C-458A-B587-773D841610C7</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -1267,6 +1254,19 @@ require_once './workflow/lib/config/configuration.php';</string>
 			<string>0AE30FF8-13F7-4710-AFC3-157281E66B88</string>
 			<key>version</key>
 			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>triggerid</key>
+				<string>menu</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>2CC668AD-747C-458A-B587-773D841610C7</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1778,14 +1778,12 @@ Made with love by https://www.biati.digital</string>
 		<string>c823b5ee-7ca5-4823-8f98-a200e5fd7041</string>
 		<key>fixer_apikey</key>
 		<string>65fa43c123a096c17dbd903c2b0adbe9</string>
-		<key>fixer_apikey_apilayer</key>
-		<string>3IwfT4vc7Pa3fy2Dv8qykk6WsyN1w3Pz</string>
 		<key>fixer_apisource</key>
 		<string></string>
 		<key>language</key>
 		<string>es_ES</string>
 		<key>last_update_check</key>
-		<string>1653779649</string>
+		<string>1655368410</string>
 		<key>settings_migrated</key>
 		<string>true</string>
 		<key>time_format</key>
@@ -1797,20 +1795,19 @@ Made with love by https://www.biati.digital</string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>
-		<string>time_format</string>
 		<string>time_zone</string>
-		<string>vat_percentage</string>
-		<string>fixer_apikey_apilayer</string>
-		<string>base_currency</string>
-		<string>language</string>
-		<string>last_update_check</string>
-		<string>coinmarket_apikey</string>
-		<string>fixer_apisource</string>
 		<string>fixer_apikey</string>
 		<string>settings_migrated</string>
+		<string>base_currency</string>
+		<string>language</string>
+		<string>time_format</string>
+		<string>coinmarket_apikey</string>
+		<string>last_update_check</string>
+		<string>fixer_apisource</string>
+		<string>vat_percentage</string>
 	</array>
 	<key>version</key>
-	<string>3.4.0</string>
+	<string>3.5.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
