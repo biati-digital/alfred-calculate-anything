@@ -689,6 +689,11 @@ This workflow would not be possible without:
 
 ## Changelog
 
+### v3.5.0
+
+- Changed: Currency conversion is prioritized over cryptocurrencies, there`s thousands of useless cryptocurrencies and some use the same code, for example Bitish Pound and Crypto Good Boy Points both use the code GBP, now if you try to convert 100 GBP it will default to Bitish Pound, you can still configure it to use the crypto if you prefer it that way 
+- Fixed: Crytocurrency to currency noy working correctly when the currency cache was expired
+
 ### 3.4.0
 
 - New: You can now provide a workflow variable to define the duration of the currencies cache
