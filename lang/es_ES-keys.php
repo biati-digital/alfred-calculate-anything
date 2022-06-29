@@ -39,6 +39,8 @@ return [
         'milla hora' => 'mph',
         'millas' => 'mi',
         'milla' => 'mi',
+        'milla náuticas' => 'nmi',
+        'millas náuticas' => 'nmi',
         'nudos' => 'knot',
         'nudo' => 'knot',
         'yardas' => 'yd',

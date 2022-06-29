@@ -275,6 +275,7 @@ in      | Inch
 ft      | Foot
 yd      | Yard
 mi      | Mile
+nmi     | Nautical Mile
 h       | Hand
 ly      | Lightyear
 au      | Astronomical Unit

@@ -63,6 +63,8 @@ return [
         'knots' => 'knot',
         'miles' => 'mi',
         'mile' => 'mi',
+        'nautical miles' => 'nmi',
+        'nautical mile' => 'nmi',
         'yards' => 'yd',
         'yard' => 'yd',
         'feets' => 'ft',
