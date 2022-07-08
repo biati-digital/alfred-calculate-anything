@@ -141,6 +141,7 @@ return [
         'ft' => 'Pie',
         'yd' => 'Yarda',
         'mi' => 'Milla',
+        'nmi' => 'Milla Náuticas',
         'h ' => 'Mano',
         'ly' => 'Año Luz',
         'au' => 'Unidad Astronomica',
