@@ -101,7 +101,7 @@ By default the workflow will use exchangeratehost api to make the conversion. ex
 The following options are available for each currency. Simply launch Alfred, type `ca` and select any of the options below. [View the configuration section for more info](#configuration).
 
 - **Add base currency**
-This will become your base currency, if you type `100eur` it will automatically be converted to the currencies you define here. You can define multiple currencies by repeting the process.
+This will become your base currency, if you type `100eur` it will automatically be converted to the currencies you define here. You can define multiple currencies by repeating the process.
 - **Delete base currency**
 If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply pressing Return
 - **Set currency format**
@@ -267,7 +267,7 @@ m       | Meter
 km      | Kilometer
 dm      | Decimeter
 cm      | Centimeter
-mm      | Milimeter
+mm      | Millimeter
 μm      | Micrometer
 nm      | Nanometer
 pm      | Picometer
@@ -288,7 +288,7 @@ Unit    | Unit Name
 m2      | Square Meter
 km2     | Square Kilometer
 cm2     | Square Centimeter
-mm2     | Square Milimeter
+mm2     | Square Millimeter
 ft2     | Square Foot
 mi2     | Square Mile
 ha      | Hectare
@@ -298,7 +298,7 @@ ha      | Hectare
 Unit    | Unit Name
 ------  | -----------
 l       | Litre
-ml      | Mililitre
+ml      | Millilitre
 m3      | Cubic Meter
 kl      | kilolitre
 hl      | hectolitre
@@ -315,7 +315,7 @@ Unit    | Unit Name
 ------  | -----------
 kg      | Kilogram
 gl      | Gram
-mg      | Miligram
+mg      | Milligram
 N       | Newton
 st      | Stone
 lb      | Pound
@@ -356,7 +356,7 @@ pa      | Pascal
 kpa     | Kilopascal
 mpa     | Megapascal
 bar     | Bar
-mbar    | Milibar
+mbar    | Millibar
 psi     | Pound-force Per Square Inch
 
 #### Available Time Units
@@ -370,7 +370,7 @@ week    | Week
 day     | Day
 hr      | Hour
 min     | Minute
-ms      | Milisecond
+ms      | Millisecond
 μs      | Microsecond
 ns      | Nanosecond
 
@@ -692,14 +692,14 @@ This workflow would not be possible without:
 
 ### v3.5.0
 
-- Changed: Currency conversion is prioritized over cryptocurrencies, there`s thousands of useless cryptocurrencies and some use the same code, for example Bitish Pound and Crypto Good Boy Points both use the code GBP, now if you try to convert 100 GBP it will default to Bitish Pound, you can still configure it to use the crypto if you prefer it that way 
-- Fixed: Crytocurrency to currency noy working correctly when the currency cache was expired
+- Changed: Currency conversion is prioritized over cryptocurrencies, there`s thousands of useless cryptocurrencies and some use the same code, for example British Pound and Crypto Good Boy Points both use the code GBP, now if you try to convert 100 GBP it will default to British Pound, you can still configure it to use the crypto if you prefer it that way 
+- Fixed: Cryptocurrency to currency noy working correctly when the currency cache was expired
 
 ### 3.4.0
 
 - New: You can now provide a workflow variable to define the duration of the currencies cache
 - New: Support for more cryptocurrencies, up to 5,000
-- New: You can also difine custom cryptocurrencies
+- New: You can also define custom cryptocurrencies
 - Updated: Fixer.io API now uses API Layer, the workflow will check your API key to make sure the correct endpoint is used.
 - Improved: Now the workflow shows a message when it's updating currency and cryptocurrencies rates
 - Improved: Replaced file_get_contents with curl for some operations
@@ -811,7 +811,7 @@ This workflow would not be possible without:
 
 - New: Complete rewrite to be more maintainable and extendable
 - New: Added cryptocurrencies support
-- New: Actions mofidiers, you can press CMD or option to copy the value in different formats
+- New: Actions modifiers, you can press CMD or option to copy the value in different formats
 - New: Display exchange rate conversions in multiple currencies at once
 - New: Added new workflow updater
 
@@ -850,7 +850,7 @@ This workflow would not be possible without:
 
 ### 1.0.1
 
-- FIXED Decimal pints to display values correcly from currencies
+- FIXED Decimal pints to display values correctly from currencies
 - FIXED currency conversions to base currency always displayed the $ symbol
 - FIXED currency conversions from base currency eur to EUR triggered error
 
