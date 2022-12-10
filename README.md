@@ -153,6 +153,7 @@ C$         | NIO            | Nicaraguan córdoba
 B/.        | PAB            | Panamanian balboa
 Gs         | PYG            | Paraguayan guaraní
 S/.        | PEN            | Peruvian Sol
+₺          | TRY            | Turkish Lira
 TT$        | TTD            | Trinidad and Tobago dollar
 TT$        | TTD            | Trinidad and Tobago dollar
 ₴          | UAH            | Ukrainian hryvnia
