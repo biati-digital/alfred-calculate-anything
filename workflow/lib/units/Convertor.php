@@ -82,6 +82,7 @@ class Convertor
             "usqt" => ["base" => "l", "conversion" => 0.946353], //us quart
             "ukqt" => ["base" => "l", "conversion" => 1.1365225], //uk imperial quart
 
+            "yd3" => ["base" => "l", "conversion" => 764.55485798], //cubic yard
             "ft3" => ["base" => "l", "conversion" => 28.316846592], //cubic feet
             "in3" => ["base" => "l", "conversion" => 0.016387064], //cubic inches
             "floz" => ["base" => "l", "conversion" => 0.0295735], //Fluid ounces
