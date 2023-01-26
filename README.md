@@ -598,6 +598,7 @@ Language   | Code
 ------     | -----------
 English    | en_EN
 Spanish    | es_ES
+Swedish    | sv_SE
 
 To create your own translation, just follow these steps:
 
