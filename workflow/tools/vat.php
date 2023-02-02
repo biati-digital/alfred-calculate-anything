@@ -111,16 +111,12 @@ class Vat extends CalculateAnything implements CalculatorInterface
      */
     public function getVatOf($amount)
     {
-        $query = $amount;
-        $percent = $this->percent;
-        $processed = false;
-
-        if (empty($query)) {
-            return $this->output($processed);
+        if (empty($amount)) {
+            return $this->output(false);
         }
 
-        $percent = (float) $percent;
-        $amount = $this->cleanupNumber($query);
+        $percent = (float) $this->percent;
+        $amount = $this->cleanupNumber($amount);
 
         $result = ($percent / 100) * $amount;
         //$result = (fmod($result, 1) !== 0.00 ? bcdiv($result, 1, 2) : $result);
