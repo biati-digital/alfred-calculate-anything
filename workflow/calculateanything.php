@@ -10,6 +10,7 @@ use Workflow\Tools\Units;
 use Workflow\Tools\Vat;
 use Workflow\Tools\Time;
 use Workflow\Tools\DataStorage;
+use NumberFormatter;
 
 class CalculateAnything
 {
@@ -156,7 +157,8 @@ class CalculateAnything
      */
     public function processVat()
     {
-        $query = preg_replace('/[^\\d.]+/', '', self::$_query);
+        $query = preg_replace('/^[^\d,\.]+/', '', self::$_query);
+
         $vatCalculator = new Vat($query);
         $data = $vatCalculator->getVatOf($query);
         return $vatCalculator->output($data);
@@ -785,14 +787,21 @@ class CalculateAnything
 
 
     /**
-     * Cleanup number
+     * Cleanup number according to the users chosen formatting locale
      *
      * @param string $number
      * @return int
      */
     public function cleanupNumber($number)
     {
-        return floatval(str_replace(',', '', $number));
+        $locale = $this->getSetting('locale_currency', 'en_US');
+        $formatter = new NumberFormatter($locale, NumberFormatter::DECIMAL);
+        $number = $formatter->parse($number);
+        if($number == false) {
+            $formatter = new NumberFormatter('en_US', NumberFormatter::DECIMAL);
+            $number = $formatter->parse($number);
+        }
+        return floatval($number);
     }
 
     /**
@@ -812,63 +821,24 @@ class CalculateAnything
             return $number;
         }
 
-        // Check if number is exponent and simply return it as is
-        preg_match('/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)/s', $number, $matches);
-        if (!empty($matches) && isset($matches[1])) {
-            return sprintf('%f', $number);
-            // return $number;
+        // Check if number is then parse as float value of that
+        preg_match('/([-+]?[0-9]*\.?[0-9]+)([eE][-+]?[0-9]+)/s', $number, $matches);
+        if (!empty($matches) && isset($matches[2])) {
+            $number = floatval($number);
         }
 
-        if (fmod($number, 1) !== 0.00) {
-            if ($decimals >= 0) {
-                if ($round) {
-                    return number_format($number, $decimals);
-                }
+        // Limit decimals if parameter is set
+        if($decimals>=0) {
+            if($round) {
+                $number = round($number, $decimals);
+            } else {
                 $number = bcdiv($number, 1, $decimals);
-                return number_format($number, $decimals);
             }
-
-            $decimals = 1;
-            $string = '' . $number;
-            $string = explode('.', $string);
-            $string = str_split(end($string));
-            $count = 1;
-
-            // If string has 2 or more decimals make some cleanup
-            if (count($string) >= 2) {
-                $decimals = 2;
-                $start_cero = 0;
-
-                foreach ($string as $order => $value) {
-                    $prev = (isset($string[$order - 1]) ? $string[$order - 1] : '');
-
-                    if ($value == '0' && $prev == '0' && $count == 2) {
-                        $count = 0;
-                        break;
-                    }
-
-                    if ($value == '0') {
-                        $count += 1;
-                        continue;
-                    }
-
-                    if ($value !== '0' && $prev !== '0') {
-                        $count += 1;
-                        $end_digit = $value;
-                        break;
-                    }
-                }
-                $decimals = $count;
-            }
-
-            if ($round) {
-                return number_format($number, $decimals);
-            }
-
-            $number = bcdiv($number, 1, $decimals);
-            return number_format($number, $decimals);
-        } else {
-            return number_format($number);
         }
+
+        $locale = $this->getSetting('locale_currency', 'en_US');
+        $formatter= new NumberFormatter($locale, NumberFormatter::DECIMAL);
+
+        return $formatter->format($number);
     }
 }

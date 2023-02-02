@@ -28,7 +28,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
      */
     public function __construct($query)
     {
-        $this->query = str_replace(',', '', $query);
+        $this->query = $query;
         $this->lang = $this->getTranslation('crypto_currency');
         $this->keywords = $this->getKeywords('crypto_currency');
         $this->stop_words = $this->getStopWords('crypto_currency');
@@ -131,7 +131,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         foreach ($checks as $list) {
             $currencies = $this->matchRegex($list);
             $stopwords = $this->getStopWordsString($this->stop_words);
-            preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+            preg_match('/^[\d,\.]+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
 
             if (!empty($matches)) {
                 $match = true;
@@ -143,7 +143,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
             $currencies = $this->matchRegex($list);
             $stopwords = $this->getStopWordsString($this->stop_words);
             $query = $this->query;
-            preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+            preg_match('/^[\d,\.]+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
 
             if (!empty($matches)) {
                 $match = true;
@@ -439,7 +439,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         $default_currency = self::$currencyCalculator->getBaseCurrency();
         $stopwords = $this->getStopWordsString($this->stop_words, ' %s ');
 
-        preg_match('/^(\d*\.?\d+)[^\d]/i', $query, $amount_match);
+        preg_match('/^([\d,\.]+)[^\d]/i', $query, $amount_match);
         if (empty($amount_match)) {
             return false;
         }

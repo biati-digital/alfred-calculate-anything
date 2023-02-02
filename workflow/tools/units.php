@@ -34,7 +34,7 @@ class Units extends CalculateAnything implements CalculatorInterface
      */
     public function __construct($query)
     {
-        $this->query = str_replace(',', '', $query);
+        $this->query = $query;
         $this->lang = $this->getTranslation('units');
         $this->keywords = $this->getKeywords('units');
         $this->stop_words = $this->getStopWords('units');
@@ -188,7 +188,7 @@ class Units extends CalculateAnything implements CalculatorInterface
         $stopwords = $this->getStopWordsString($this->stop_words);
         $this->match_units = $units;
 
-        return preg_match('/^\d*\.?\d+ ?' . $units . ' ?' . $stopwords . '? ' . $units . '$/i', $query, $matches);
+        return preg_match('/^([\d,\.]+) ?' . $units . ' ?' . $stopwords . '? ' . $units . '$/i', $query, $matches);
     }
 
 
@@ -347,10 +347,9 @@ class Units extends CalculateAnything implements CalculatorInterface
     private function extractQueryData($query)
     {
         $matches = [];
-        $query = str_replace(',', '', $query);
         $stopwords = $this->getStopWordsString($this->stop_words);
 
-        preg_match('/^(\d*\.?\d+) ?' . $this->match_units . ' ?' . $stopwords . '? ' . $this->match_units . '$/i', $query, $matches);
+        preg_match('/^([\d,\.]+) ?' . $this->match_units . ' ?' . $stopwords . '? ' . $this->match_units . '$/i', $query, $matches);
 
         if (empty($matches)) {
             return false;

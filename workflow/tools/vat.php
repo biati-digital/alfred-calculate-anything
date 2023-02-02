@@ -50,7 +50,7 @@ class Vat extends CalculateAnything implements CalculatorInterface
         $stopwords = '(' . $stopwords . ')';
         $word = strtolower($this->lang['vat']);
 
-        preg_match('/^(\d*\.?\d*) ?' . $stopwords . ' ?' . $word . '$/i', $query, $matches);
+        preg_match('/^([\d,\.]+) ?' . $stopwords . ' ?' . $word . '$/i', $query, $matches);
 
         if (empty($matches)) {
             return false;
@@ -146,7 +146,7 @@ class Vat extends CalculateAnything implements CalculatorInterface
                 ],
                 'plusvat' => [
                     'title' => sprintf($lang['plus'], $amount, $plusvat),
-                    'subtitle' => sprintf($lang['subtitle'], "{$percent}%"),
+                    'subtitle' => sprintf($lang['plus_subtitle'], $amount, "{$percent}%"),
                     'value' => $plusvat
                 ],
                 'minusvat' => [
@@ -192,7 +192,7 @@ class Vat extends CalculateAnything implements CalculatorInterface
                 'mods' => [
                     'cmd' => [
                         'valid' => true,
-                        'arg' => $this->cleanupNumber($value['value']),
+                        'arg' => $value['value'],
                         'subtitle' => $this->lang['cmd'],
                     ]
                 ]

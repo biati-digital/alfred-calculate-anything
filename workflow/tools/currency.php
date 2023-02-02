@@ -30,7 +30,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     public function __construct($query)
     {
-        $this->query = str_replace(',', '', $query);
+        $this->query = $query;
         $this->lang = $this->getTranslation('currency');
         $this->keywords = $this->getKeywords('currency');
         $this->stop_words = $this->getStopWords('currency');
@@ -249,7 +249,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $currencies = $this->matchRegex();
         $stopwords = $this->getStopWordsString($this->stop_words);
         
-        return preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+        return preg_match('/^[\d,\.]+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
     }
 
 
@@ -559,7 +559,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $default_currency = $this->getBaseCurrency();
         $stopwords = $this->getStopWordsString($this->stop_words, ' %s ');
 
-        preg_match('/^(\d*\.?\d+)[^\d]/i', $query, $amount_match);
+        preg_match('/^([\d,\.]+)[^\d]/i', $query, $amount_match);
         if (empty($amount_match)) {
             return false;
         }

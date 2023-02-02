@@ -33,7 +33,7 @@ class PXEmRem extends CalculateAnything implements CalculatorInterface
      */
     public function __construct($query)
     {
-        $this->query = str_replace(',', '', $query);
+        $this->query = $query;
         $this->keywords = $this->getKeywords('units');
         $this->stop_words = $this->getStopWords('units');
     }
@@ -53,7 +53,7 @@ class PXEmRem extends CalculateAnything implements CalculatorInterface
         }
 
         $query = $this->query;
-        return preg_match('/^\d*\.?\d+ ?(px|em|rem|pt) ?/', $query, $matches);
+        return preg_match('/^[\d,\.]+ ?(px|em|rem|pt) ?/', $query, $matches);
     }
 
 
@@ -69,7 +69,7 @@ class PXEmRem extends CalculateAnything implements CalculatorInterface
         $query = preg_replace("/ ?" . $stop_words . " ?/i", ' ', $query);
         $query = preg_replace('!\s+!', ' ', $query);
 
-        preg_match('/^(\d*\.?\d+) ?(px|em|rem|pt) ?' . $stop_words . '? ?(px|em|rem|pt)? ?(base.*px$)?/', $query, $matches);
+        preg_match('/^([\d,\.]+) ?(px|em|rem|pt) ?' . $stop_words . '? ?(px|em|rem|pt)? ?(base.*px$)?/', $query, $matches);
         $matches = array_values(array_filter($matches));
 
         $from = 0;

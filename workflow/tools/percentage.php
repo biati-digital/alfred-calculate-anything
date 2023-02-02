@@ -34,7 +34,6 @@ class Percentage extends CalculateAnything implements CalculatorInterface
     public function shouldProcess(int $strlenght = 0)
     {
         $query = trim($this->query);
-        $query = str_replace(',', '', $query);
 
         if ($strlenght < 3 || !strpos($query, '%')) {
             return false;
@@ -54,7 +53,7 @@ class Percentage extends CalculateAnything implements CalculatorInterface
             $query = str_replace($k, $value, trim($query));
         }
 
-        preg_match('/^(\d*\.?\d*%?)\s?' . $stopwords . '\s?(\d*\.?\d*%?)/i', $query, $matches);
+        preg_match('/^([\d,\.]*%?)\s?' . $stopwords . '\s?([\d,\.]*%?)/i', $query, $matches);
 
         if (empty($matches)) {
             return false;
@@ -251,6 +250,9 @@ class Percentage extends CalculateAnything implements CalculatorInterface
         $pdecrease = ($val2 - $val1) / $val2 * 100;
         $pdecrease = $this->formatNumber($pdecrease);
         $lang = $this->lang;
+
+        $val1 = $this->formatNumber($val1);
+        $val2 = $this->formatNumber($val2);
 
         $values = [];
         $values["{$percentage}%"] = sprintf($lang['result'], $val1, "{$percentage}%", $val2);

@@ -33,7 +33,7 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
      */
     public function __construct($query)
     {
-        $this->query = str_replace(',', '', $query);
+        $this->query = $query;
         $this->lang = $this->getTranslation('datastorage');
         $this->keywords = $this->getKeywords('datastorage');
         $this->stop_words = $this->getStopWords('datastorage');
@@ -82,7 +82,7 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
 
         $query = $this->query;
         $stop_words = $this->stop_words_regex;
-        return preg_match('/^\d*\.?\d+ ?'. $this->match_regex . '\b ?' . $stop_words . '? ?\b' . $this->match_regex . '\b/i', $query, $matches);
+        return preg_match('/[\d,\.]+ ?'. $this->match_regex . '\b ?' . $stop_words . '? ?\b' . $this->match_regex . '\b/i', $query, $matches);
     }
 
 
@@ -97,7 +97,7 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
         $stop_words = $this->stop_words_regex;
         $query = preg_replace("/ ?" . $stop_words . " ?/i", ' ', $query);
         $query = preg_replace('!\s+!', ' ', $query);
-        preg_match('/^(\d*\.?\d+) ?' . $this->match_regex . '\b ?' . $stop_words . '? ?\b' . $this->match_regex . '\b/i', $query, $matches);
+        preg_match('/^([\d,\.]+) ?' . $this->match_regex . '\b ?' . $stop_words . '? ?\b' . $this->match_regex . '\b/i', $query, $matches);
         $matches = array_values(array_filter($matches));
 
         $total_inputs = count($matches);
