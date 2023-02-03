@@ -795,12 +795,12 @@ class CalculateAnything
     public function cleanupNumber($number)
     {
         $locale = $this->getSetting('locale_currency', 'en_US');
-        $formatter = new NumberFormatter($locale, NumberFormatter::DECIMAL);
-        $number = $formatter->parse($number);
-        if($number == false) {
-            $formatter = new NumberFormatter('en_US', NumberFormatter::DECIMAL);
-            $number = $formatter->parse($number);
-        }
+        setlocale(LC_NUMERIC, $locale);
+        $locale_format = localeconv();
+        // Set internal decimal point
+        $number = str_replace($locale_format['decimal_point'], '.', $number);
+        // Remove thousand separator
+        $number = str_replace($locale_format['thousands_sep'], '', $number);
         return floatval($number);
     }
 
@@ -836,9 +836,7 @@ class CalculateAnything
             }
         }
 
-        $locale = $this->getSetting('locale_currency', 'en_US');
-        $formatter= new NumberFormatter($locale, NumberFormatter::DECIMAL);
-
-        return $formatter->format($number);
+        $locale_format = localeconv();
+        return number_format($number, $decimals, $locale_format['decimal_point'], $locale_format['thousands_sep']);
     }
 }
