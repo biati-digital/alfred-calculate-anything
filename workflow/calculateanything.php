@@ -711,7 +711,7 @@ class CalculateAnything
                 continue;
             }
             $key = $this->escapeKeywords($key);
-            $val = preg_replace('/(^|\W)' . $key . '(\W|$)/i', ' ' . $value . ' ', $val);
+            $val = preg_replace('/(^|\W)' . $key . '\b(\W|$)/i', ' ' . $value . ' ', $val);
         }
 
         $val = trim($val);
