@@ -224,7 +224,7 @@ class Units extends CalculateAnything implements CalculatorInterface
             $items[] = [
                 'title' => $result,
                 'arg' => false,
-                'subtitle' => $this->getText('action_copy'),
+                'subtitle' => '',
                 'valid' => false,
             ];
             return $items;
@@ -330,7 +330,7 @@ class Units extends CalculateAnything implements CalculatorInterface
         $resultUnit = $this->standardUnit($to);
 
         return [
-            'formatted' => $resultValue .' ' . $resultUnit,
+            'formatted' => $resultValue . ' ' . $resultUnit,
             'value' => $resultValue
         ];
     }
