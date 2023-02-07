@@ -62,6 +62,7 @@ class Units extends CalculateAnything implements CalculatorInterface
                 'ft',
                 'yd',
                 'mi',
+                'nmi',
                 'h',
                 'ly',
                 'au',

@@ -312,6 +312,11 @@ function cleanQuery($query)
 
     $clean = urldecode($clean);
     $clean = preg_replace('!\s+!', ' ', $clean);
+
+    // Normalize UTF-8 to avoid non matching characters that should
+    // be identical. (canonically composed vs precomposed characters)
+    $clean = normalizer_normalize($clean);
+
     $clean = mb_strtolower($clean, 'UTF-8');
     return $clean;
 }

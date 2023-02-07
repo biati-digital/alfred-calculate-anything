@@ -143,6 +143,7 @@ return [
         'ft' => 'Foot',
         'yd' => 'Yard',
         'mi' => 'Mile',
+        'nmi' => 'Nautical Mile',
         'h ' => 'Hand',
         'ly' => 'LightYear',
         'au' => 'Astronomical Unit',

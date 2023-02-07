@@ -37,6 +37,7 @@ class Convertor
             "ft" => ["base"=> "m", "conversion"=> 0.3048], //foot
             "yd" => ["base"=> "m", "conversion"=> 0.9144], //yard
             "mi" => ["base"=> "m", "conversion"=> 1609.344], //mile
+            "nmi" => ["base"=> "m", "conversion"=> 1852], //nautical miles
             "h" => ["base"=> "m", "conversion"=> 0.1016], //hand
             "ly" => ["base"=> "m", "conversion"=> 9460730472580800], //lightyear
             "au "=> ["base"=> "m", "conversion"=> 149597870700], //astronomical unit

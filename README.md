@@ -275,6 +275,7 @@ in      | Inch
 ft      | Foot
 yd      | Yard
 mi      | Mile
+nmi     | Nautical Mile
 h       | Hand
 ly      | Lightyear
 au      | Astronomical Unit
@@ -597,6 +598,7 @@ Language   | Code
 ------     | -----------
 English    | en_EN
 Spanish    | es_ES
+Swedish    | sv_SE
 
 To create your own translation, just follow these steps:
 
