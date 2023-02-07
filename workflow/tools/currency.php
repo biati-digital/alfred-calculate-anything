@@ -30,7 +30,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     public function __construct($query)
     {
-        $this->query = str_replace(',', '', $query);
+        $this->query = $query;
         $this->lang = $this->getTranslation('currency');
         $this->keywords = $this->getKeywords('currency');
         $this->stop_words = $this->getStopWords('currency');
@@ -248,8 +248,9 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $query = $this->query;
         $currencies = $this->matchRegex();
         $stopwords = $this->getStopWordsString($this->stop_words);
-        
-        return preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+
+        return preg_match('/^[0-9,.]+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+        //return preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
     }
 
 
@@ -271,9 +272,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
             return $data['amount'] . $data['to'];
         }
 
-        $locale = $this->getSetting('locale_currency', 'en_US');
-        setlocale(LC_MONETARY, $locale);
-
+        /*$locale = $this->getSetting('locale_currency', 'en_US');
+        $decimals = $this->getSetting('decimals', '2');*/
         $converted = $this->convert($data);
 
         if (!empty($converted['error'])) {
@@ -283,17 +283,13 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $data['converted'] = [];
         foreach ($converted as $key => $value) {
             $data['converted'][$key] = [];
-
-            $total = money_formatter('%i', $value['total']);
-            $total = preg_replace('/[^0-9.,]/', '', $total);
-            $single = $value['single'];
-            $single = money_formatter('%i', $single);
-            $single = preg_replace("/\w+[^0-9-., ]/", '', $single);
-            //$single = $this->formatNumber($value['single']);
+            $total = $this->formatNumber($value['total']);
+            $single = $this->formatNumber($value['single'], -1);
 
             $data['converted'][$key]['total'] = ['value' => $total, 'formatted' => "{$total} {$key}"];
             $data['converted'][$key]['single'] = ['value' => $single, 'formatted' => "1 {$data['from']} = {$single} {$key}"];
         }
+
 
         return $this->output($data);
     }
@@ -373,7 +369,6 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $amount = $data['amount'];
         $from = $data['from'];
         $to = $data['to'];
-        $use_cache = (isset($data['use_cache']) ? $data['use_cache'] : true);
         $fixer_apikey = $this->getSetting('fixer_apikey');
         $method = !empty($fixer_apikey) ? 'fixer' : 'exchangeratehost';
 
@@ -478,6 +473,15 @@ class Currency extends CalculateAnything implements CalculatorInterface
                 ];
             }
 
+            if (isset($exchange['message']) && str_contains($exchange['message'], 'Invalid')) {
+                return [
+                    'total' => '',
+                    'single' => '',
+                    'error' => $exchange['message'],
+                    'reload' => false
+                ];
+            }
+
             self::$fixer_rates = $exchange;
         }
 
@@ -500,7 +504,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
      * @param int $amount
      * @param string $from
      * @param string $to
-     * @param int $cache_seconds
+     *
      * @return array
      */
     public function exchangeRateHostConversion($amount, $from, $to)
@@ -516,7 +520,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
                 return [
                     'total' => '',
                     'single' => '',
-                    'error' => $exchange['message'],
+                    'error' => isset($exchange['message']) ? $exchange['message'] : '',
                     'reload' => $exchange['reload'],
                 ];
             }
@@ -559,7 +563,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $default_currency = $this->getBaseCurrency();
         $stopwords = $this->getStopWordsString($this->stop_words, ' %s ');
 
-        preg_match('/^(\d*\.?\d+)[^\d]/i', $query, $amount_match);
+        /*preg_match('/^(\d*\.?\d+)[^\d]/i', $query, $amount_match);*/
+        preg_match('/^([0-9,.]+)[^\d]/i', $query, $amount_match);
         if (empty($amount_match)) {
             return false;
         }
@@ -743,20 +748,19 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     private function matchRegex()
     {
+        // $currencies = $this->currencyList;
+        // $params = implode('\b|', array_keys($currencies));
+        // $params .= '\b|' . implode('\b|', array_values($currencies));
+        // $translation_keywords = $this->keywords;
+
+        // if (!empty($translation_keywords)) {
+        //     $params .= '\b|' . implode('\b|', array_keys($translation_keywords));
+        // }
+        // $params = $this->escapeKeywords($params);
+
+        // return '(' . $params . '\b)';
+
         $currencies = $this->currencyList;
-        $params = implode('\b|', array_keys($currencies));
-        $params .= '\b|' . implode('\b|', array_values($currencies));
-        $translation_keywords = $this->keywords;
-
-        if (!empty($translation_keywords)) {
-            $params .= '\b|' . implode('\b|', array_keys($translation_keywords));
-        }
-        $params = $this->escapeKeywords($params);
-
-        return '(' . $params . '\b)';
-
-
-        /*$currencies = $this->currencyList;
         $params = implode('|', array_keys($currencies));
         $params .= '|' . implode('|', array_values($currencies));
         $translation_keywords = $this->keywords;
@@ -766,7 +770,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         }
         $params = $this->escapeKeywords($params);
 
-        return '(' . $params . ')';*/
+        return '(' . $params . ')';
     }
 
 
