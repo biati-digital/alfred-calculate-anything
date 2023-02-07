@@ -76,208 +76,216 @@ if (!$process) {
 }
 
 if ($process && $main_menu) {
-    // Language
-    $response[] = [
-        'title' => $strings['lang_title'],
-        'subtitle' => $strings['lang_subtitle'] . ': ' . getVariable('language', 'en_EN'),
-        'valid' => true,
-        'match' => 'lang ' . $strings['lang_title'],
-        'autocomplete' => $strings['lang_title'],
-        'arg' => '',
-        'variables' => [
-            'id' => 'language',
-            'action' => 'menu',
-            'submenu' => 'language',
-        ],
-    ];
 
-    // Add currency
-    $response[] = [
-        'title' => $strings['currency_title'],
-        'subtitle' => $strings['currency_subtitle'] . ': ' . getVariableAsString('base_currency'),
-        'match' => 'add currency ' .$strings['currency_title'],
-        'autocomplete' => $strings['currency_title'],
-        'valid' => true,
-        'arg' => '',
-        'variables' => [
-            'id' => 'base_currency',
-            'action' => 'menu',
-            'submenu' => 'currency',
-        ],
-    ];
+    if (\Alfred\getAlfredVersion() < 5) {
+        // Language
+        $response[] = [
+            'title' => $strings['lang_title'],
+            'subtitle' => $strings['lang_subtitle'] . ': ' . getVariable('language', 'en_EN'),
+            'valid' => true,
+            'match' => 'lang ' . $strings['lang_title'],
+            'autocomplete' => $strings['lang_title'],
+            'arg' => '',
+            'variables' => [
+                'id' => 'language',
+                'action' => 'menu',
+                'submenu' => 'language',
+            ],
+        ];
 
-    // Delete currency
-    $response[] = [
-        'title' => $strings['delete_currency_title'],
-        'subtitle' => $strings['delete_currency_subtitle'],
-        'match' => 'delete currency ' . $strings['delete_currency_title'],
-        'autocomplete' => $strings['delete_currency_title'],
-        'valid' => true,
-        'arg' => '',
-        'variables' => [
-            'id' => 'base_currency',
-            'action' => 'menu',
-            'submenu' => 'delete_base_currency',
-        ],
-    ];
+        // Add currency
+        $response[] = [
+            'title' => $strings['currency_title'],
+            'subtitle' => $strings['currency_subtitle'] . ': ' . getVariableAsString('base_currency'),
+            'match' => 'add currency ' .$strings['currency_title'],
+            'autocomplete' => $strings['currency_title'],
+            'valid' => true,
+            'arg' => '',
+            'variables' => [
+                'id' => 'base_currency',
+                'action' => 'menu',
+                'submenu' => 'currency',
+            ],
+        ];
 
-    // Currency Format
-    $response[] = [
-        'title' => $strings['currency_locale_title'],
-        'subtitle' => $strings['currency_locale_subtitle'],
-        'match' => 'currency format ' . $strings['currency_locale_title'],
-        'autocomplete' => $strings['currency_locale_title'],
-        'valid' => true,
-        'arg' => '',
-        'variables' => [
-            'id' => 'locale_currency',
-            'action' => 'menu',
-            'submenu' => 'currency_format',
-        ],
-    ];
+        // Delete currency
+        $response[] = [
+            'title' => $strings['delete_currency_title'],
+            'subtitle' => $strings['delete_currency_subtitle'],
+            'match' => 'delete currency ' . $strings['delete_currency_title'],
+            'autocomplete' => $strings['delete_currency_title'],
+            'valid' => true,
+            'arg' => '',
+            'variables' => [
+                'id' => 'base_currency',
+                'action' => 'menu',
+                'submenu' => 'delete_base_currency',
+            ],
+        ];
 
-    // Currency Fixer API Key
-    $response[] = [
-        'title' => $strings['fixer_title'],
-        'subtitle' => $strings['fixer_subtitle'] . ': ' . getVariable('fixer_apikey', ''),
-        'match' => 'fixer ' . $strings['fixer_title'],
-        'autocomplete' => $strings['fixer_title'],
-        'valid' => true,
-        'arg' => getVariable('fixer_apikey', ''),
-        'variables' => [
-            'id' => 'fixer_apikey',
-            'action' => 'menu',
-            'input' => true,
-            'input_title' => 'API Key',
-            'input_value' => getVariable('fixer_apikey', ''),
-        ],
-    ];
 
-    // Coin Market API Key
-    $response[] = [
-        'title' => $strings['crypto_title'],
-        'subtitle' => $strings['crypto_subtitle'] . ': ' . getVariable('coinmarket_apikey', $strings['value_not_set']),
-        'match' => 'crypto ' . $strings['crypto_title'],
-        'autocomplete' => $strings['crypto_title'],
-        'valid' => true,
-        'arg' => getVariable('coinmarket_apikey', ''),
-        'variables' => [
-            'id' => 'coinmarket_apikey',
-            'action' => 'menu',
-            'input' => true,
-            'input_title' => 'API Key',
-            'input_value' => getVariable('coinmarket_apikey', ''),
-        ],
-    ];
+        // Currency Format
+        $response[] = [
+            'title' => $strings['currency_locale_title'],
+            'subtitle' => $strings['currency_locale_subtitle'],
+            'match' => 'currency format ' . $strings['currency_locale_title'],
+            'autocomplete' => $strings['currency_locale_title'],
+            'valid' => true,
+            'arg' => '',
+            'variables' => [
+                'id' => 'locale_currency',
+                'action' => 'menu',
+                'submenu' => 'currency_format',
+            ],
+        ];
 
-    // Add cryptocurrency
-    $response[] = [
-        'title' => $strings['crypto_add_title'],
-        'subtitle' => $strings['crypto_add_subtitle'] . ': ' . getVariableAsString('custom_cryptocurrencies'),
-        'match' => 'add cryptocurrency ' .$strings['crypto_add_subtitle'],
-        'autocomplete' => $strings['crypto_add_title'],
-        'valid' => true,
-        'arg' => '',
-        'variables' => [
-            'id' => 'custom_cryptocurrencies',
-            'action' => 'menu',
-            'submenu' => 'cryptocurrency_add',
-        ],
-    ];
 
-    // Remove cryptocurrency
-    $response[] = [
-        'title' => $strings['crypto_remove_title'],
-        'subtitle' => $strings['crypto_remove_subtitle'],
-        'match' => 'remove cryptocurrency ' .$strings['crypto_add_subtitle'],
-        'autocomplete' => $strings['crypto_add_title'],
-        'valid' => true,
-        'arg' => '',
-        'variables' => [
-            'id' => 'custom_cryptocurrencies',
-            'action' => 'menu',
-            'submenu' => 'cryptocurrency_remove',
-        ],
-    ];
+        // Currency Fixer API Key
+        $response[] = [
+            'title' => $strings['fixer_title'],
+            'subtitle' => $strings['fixer_subtitle'] . ': ' . getVariable('fixer_apikey', ''),
+            'match' => 'fixer ' . $strings['fixer_title'],
+            'autocomplete' => $strings['fixer_title'],
+            'valid' => true,
+            'arg' => getVariable('fixer_apikey', ''),
+            'variables' => [
+                'id' => 'fixer_apikey',
+                'action' => 'menu',
+                'input' => true,
+                'input_title' => 'API Key',
+                'input_value' => getVariable('fixer_apikey', ''),
+            ],
+        ];
 
-    // Vat percentage
-    $response[] = [
-        'title' => $strings['vat_title'],
-        'subtitle' => $strings['vat_subtitle'] . ': ' . getVariable('vat_percentage', '16%'),
-        'match' => 'vat ' . $strings['vat_title'],
-        'autocomplete' => $strings['vat_title'],
-        'valid' => true,
-        'arg' => getVariable('vat_percentage', '16%'),
-        'variables' => [
-            'id' => 'vat_percentage',
-            'action' => 'menu',
-            'input' => true,
-            'input_title' => $strings['vat_input'],
-        ],
-    ];
 
-    // Time zone
-    $response[] = [
-        'title' => $strings['base_timezone_title'],
-        'subtitle' => $strings['base_timezone_subtitle'] . ': ' . getVariable('time_zone', 'America/Los_Angeles'),
-        'match' => $strings['base_timezone_title'],
-        'autocomplete' => $strings['base_timezone_title'],
-        'valid' => true,
-        'arg' => '',
-        'variables' => [
-            'id' => 'time_zone',
-            'action' => 'menu',
-            'submenu' => 'time_zone',
-        ],
-    ];
+        // Coin Market API Key
+        $response[] = [
+            'title' => $strings['crypto_title'],
+            'subtitle' => $strings['crypto_subtitle'] . ': ' . getVariable('coinmarket_apikey', $strings['value_not_set']),
+            'match' => 'crypto ' . $strings['crypto_title'],
+            'autocomplete' => $strings['crypto_title'],
+            'valid' => true,
+            'arg' => getVariable('coinmarket_apikey', ''),
+            'variables' => [
+                'id' => 'coinmarket_apikey',
+                'action' => 'menu',
+                'input' => true,
+                'input_title' => 'API Key',
+                'input_value' => getVariable('coinmarket_apikey', ''),
+            ],
+        ];
 
-    // Add Time format
-    $response[] = [
-        'title' => $strings['add_date_title'],
-        'subtitle' => $strings['add_date_subtitle'],
-        'match' => $strings['add_date_title'],
-        'autocomplete' => $strings['add_date_title'],
-        'valid' => true,
-        'arg' => '',
-        'variables' => [
-            'id' => 'time_format',
-            'action' => 'menu',
-            'input' => true,
-            'input_process' => 'add_time_format',
-            'input_title' => $strings['enter_save'],
-        ],
-    ];
 
-    // Delete Time format
-    $response[] = [
-        'title' => $strings['delete_date_title'],
-        'subtitle' => $strings['delete_date_subtitle'],
-        'match' => $strings['delete_date_title'],
-        'autocomplete' => $strings['delete_date_title'],
-        'valid' => true,
-        'arg' => '',
-        'variables' => [
-            'id' => 'time_format',
-            'action' => 'menu',
-            'submenu' => 'delete_time_format',
-        ],
-    ];
+        // Add cryptocurrency
+        $response[] = [
+            'title' => $strings['crypto_add_title'],
+            'subtitle' => $strings['crypto_add_subtitle'] . ': ' . getVariableAsString('custom_cryptocurrencies'),
+            'match' => 'add cryptocurrency ' .$strings['crypto_add_subtitle'],
+            'autocomplete' => $strings['crypto_add_title'],
+            'valid' => true,
+            'arg' => '',
+            'variables' => [
+                'id' => 'custom_cryptocurrencies',
+                'action' => 'menu',
+                'submenu' => 'cryptocurrency_add',
+            ],
+        ];
 
-    // Base Pixels
-    $response[] = [
-        'title' => $strings['base_pixels_title'],
-        'subtitle' => $strings['base_pixels_subtitle'] . ': ' . getVariable('base_pixels', '16px'),
-        'match' => 'pixels ' . $strings['base_pixels_title'],
-        'autocomplete' => $strings['base_pixels_title'],
-        'valid' => true,
-        'arg' => getVariable('base_pixels', '16px'),
-        'variables' => [
-            'id' => 'base_pixels',
-            'action' => 'menu',
-            'input' => true,
-            'input_title' => 'Pixels',
-        ],
-    ];
+        // Remove cryptocurrency
+        $response[] = [
+            'title' => $strings['crypto_remove_title'],
+            'subtitle' => $strings['crypto_remove_subtitle'],
+            'match' => 'remove cryptocurrency ' .$strings['crypto_add_subtitle'],
+            'autocomplete' => $strings['crypto_add_title'],
+            'valid' => true,
+            'arg' => '',
+            'variables' => [
+                'id' => 'custom_cryptocurrencies',
+                'action' => 'menu',
+                'submenu' => 'cryptocurrency_remove',
+            ],
+        ];
+
+        // Vat percentage
+        $response[] = [
+            'title' => $strings['vat_title'],
+            'subtitle' => $strings['vat_subtitle'] . ': ' . getVariable('vat_percentage', '16%'),
+            'match' => 'vat ' . $strings['vat_title'],
+            'autocomplete' => $strings['vat_title'],
+            'valid' => true,
+            'arg' => getVariable('vat_percentage', '16%'),
+            'variables' => [
+                'id' => 'vat_percentage',
+                'action' => 'menu',
+                'input' => true,
+                'input_title' => $strings['vat_input'],
+            ],
+        ];
+
+        // Time zone
+        $response[] = [
+            'title' => $strings['base_timezone_title'],
+            'subtitle' => $strings['base_timezone_subtitle'] . ': ' . getVariable('time_zone', 'America/Los_Angeles'),
+            'match' => $strings['base_timezone_title'],
+            'autocomplete' => $strings['base_timezone_title'],
+            'valid' => true,
+            'arg' => '',
+            'variables' => [
+                'id' => 'time_zone',
+                'action' => 'menu',
+                'submenu' => 'time_zone',
+            ],
+        ];
+
+        // Add Time format
+        $response[] = [
+            'title' => $strings['add_date_title'],
+            'subtitle' => $strings['add_date_subtitle'],
+            'match' => $strings['add_date_title'],
+            'autocomplete' => $strings['add_date_title'],
+            'valid' => true,
+            'arg' => '',
+            'variables' => [
+                'id' => 'time_format',
+                'action' => 'menu',
+                'input' => true,
+                'input_process' => 'add_time_format',
+                'input_title' => $strings['enter_save'],
+            ],
+        ];
+
+        // Delete Time format
+        $response[] = [
+            'title' => $strings['delete_date_title'],
+            'subtitle' => $strings['delete_date_subtitle'],
+            'match' => $strings['delete_date_title'],
+            'autocomplete' => $strings['delete_date_title'],
+            'valid' => true,
+            'arg' => '',
+            'variables' => [
+                'id' => 'time_format',
+                'action' => 'menu',
+                'submenu' => 'delete_time_format',
+            ],
+        ];
+
+        // Base Pixels
+        $response[] = [
+            'title' => $strings['base_pixels_title'],
+            'subtitle' => $strings['base_pixels_subtitle'] . ': ' . getVariable('base_pixels', '16px'),
+            'match' => 'pixels ' . $strings['base_pixels_title'],
+            'autocomplete' => $strings['base_pixels_title'],
+            'valid' => true,
+            'arg' => getVariable('base_pixels', '16px'),
+            'variables' => [
+                'id' => 'base_pixels',
+                'action' => 'menu',
+                'input' => true,
+                'input_title' => 'Pixels',
+            ],
+        ];
+    }
+
 
     if (strpos($query, 'list') === false) {
         // List available
