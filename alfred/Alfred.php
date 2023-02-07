@@ -27,6 +27,18 @@ function getPlistPath()
 
 
 /**
+ * Alfred version
+ * https://www.alfredapp.com/help/workflows/script-environment-variables/
+ *
+ * @return string
+ */
+function getAlfredVersion()
+{
+    return (float)getenv('alfred_version');
+}
+
+
+/**
  * Get all workflow varibales
  * creating an array of all options
  * and processing the value
@@ -301,7 +313,6 @@ function cleanQuery($query)
     $clean = urldecode($clean);
     $clean = preg_replace('!\s+!', ' ', $clean);
     $clean = mb_strtolower($clean, 'UTF-8');
-
     return $clean;
 }
 
