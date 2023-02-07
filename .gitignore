@@ -79,3 +79,14 @@ flags/.DS_Store
 .nova
 .vscode
 assets/update.afphoto
+.idea/.gitignore
+.idea/alfred-calculate-anything.iml
+.idea/git_toolbox_prj.xml
+.idea/highlightedFiles.xml
+.idea/modules.xml
+.idea/php.xml
+.idea/prettier.xml
+.idea/vagrant.xml
+.idea/vcs.xml
+.idea/inspectionProfiles/Project_Default.xml
+*.lock
