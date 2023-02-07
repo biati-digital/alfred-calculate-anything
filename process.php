@@ -42,6 +42,9 @@ switch ($action) {
     case 'time':
         $processed = $calculate->processTime();
         break;
+    case 'color':
+        $processed = $calculate->processColor();
+        break;
     default:
         $processed = $calculate->processQuery();
 }
