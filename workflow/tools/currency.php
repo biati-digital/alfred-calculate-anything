@@ -631,7 +631,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
      * it fetches the rates again
      *
      * @param int $cache_seconds number of seconds before the cache expires
-     * @return mixed array if sucess or string with error message
+     * @return mixed array if success or string with error message
      */
     private function getRates($id, $from, $cache_seconds, $http_headers = [])
     {
@@ -776,7 +776,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
     /**
      * Is valid
-     * check if given srting
+     * check if given string
      * is valid and exists in the
      * available array
      *
@@ -872,7 +872,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
 
     /**
-     * Curerncy locales
+     * Currency locales
      *
      * @return array
      */
