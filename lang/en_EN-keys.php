@@ -258,6 +258,7 @@ return [
         'argentinian' => 'ARS',
         'colombian pesos' => 'COP',
         'colombian peso' => 'COP',
+        '₺' => 'TRY',
 
         'canadian dollars' => 'CAD',
         'canadian dollar' => 'CAD',
