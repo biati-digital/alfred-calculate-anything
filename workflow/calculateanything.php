@@ -10,6 +10,7 @@ use Workflow\Tools\Units;
 use Workflow\Tools\Vat;
 use Workflow\Tools\Time;
 use Workflow\Tools\DataStorage;
+use Workflow\Tools\Color;
 
 class CalculateAnything
 {
@@ -22,24 +23,41 @@ class CalculateAnything
     protected static $unitsCalculator;
     protected static $vatCalculator;
     protected static $dataStorageCalculator;
+    protected static $colorCalculator;
     protected static $settings;
     protected static $updater;
     protected static $_query;
     protected static $settingsArgs = [
+        'language',
         'base_currency',
         'coinmarket_apikey',
         'fixer_apikey',
         'fixer_apisource',
-        'language',
         'last_update_check',
         'settings_migrated',
         'time_format',
         'time_zone',
         'vat_percentage',
         'locale_currency',
+        'decimal_separator',
         'currency_cache_hours',
         'cryptocurrency_cache_hours',
         'custom_cryptocurrencies'
+    ];
+    // new settings for Alfred 5
+    protected static $settingsArgsV5 = [
+        'lang',
+        'decimals',
+        'decimal_separator',
+        'currency_output',
+        'timezone',
+        'base_currencies',
+        'apikey_fixer',
+        'apikey_coinmarket',
+        'crypto_decimals',
+        'vat_value',
+        'date_format',
+        'pixels_base',
     ];
 
     /**
@@ -47,11 +65,12 @@ class CalculateAnything
      */
     public function __construct($query = '')
     {
-        self::$settings = \Alfred\getVariables(self::$settingsArgs);
+        self::$settings = $this->loadSettings();
         self::$translations = \Alfred\getTranslation();
         self::$langKeywords = $this->getExtraKeywords();
         self::$_query = $query;
     }
+
 
     /**
      * Process initial query
@@ -172,6 +191,21 @@ class CalculateAnything
     {
         $timeCalculator = new Time(self::$_query);
         $data = $timeCalculator->processQuery();
+
+        return $data;
+    }
+
+
+    /**
+     * Process Color
+     * handle color conversions
+     *
+     * @return array|bool
+     */
+    public function processColor()
+    {
+        $colorCalculator = new Color(self::$_query);
+        $data = $colorCalculator->processQuery();
 
         return $data;
     }
@@ -466,6 +500,59 @@ class CalculateAnything
         }
 
         return null;
+    }
+
+
+    /**
+     * Load Settings
+     * works for Alfred 4 settings
+     * and the new settings for Alfred 5
+     *
+     * @return array
+     */
+    public function loadSettings()
+    {
+        // old Alfred v4 settings
+        $settings = \Alfred\getVariables(self::$settingsArgs);
+
+        if (\Alfred\getAlfredVersion() >= 5) {
+            $new_settings = \Alfred\getVariables(self::$settingsArgsV5);
+
+            if (!empty($settings['language']) && $settings['language'] !== 'en_EN' && $new_settings['lang'] !== 'en_EN') {
+                $settings['language'] = $new_settings['lang'];
+            }
+            if (!empty($new_settings['timezone']) && $new_settings['timezone'] !== 'none') {
+                $settings['time_zone'] = $new_settings['timezone'];
+            }
+            if (!empty($new_settings['base_currencies'])) {
+                $settings['base_currency'] = str_replace(' ', '', $new_settings['base_currencies']);
+                $settings['base_currency'] = explode(',', $settings['base_currency']);
+            }
+            if (!empty($new_settings['apikey_fixer'])) {
+                $settings['fixer_apikey'] = $new_settings['apikey_fixer'];
+            }
+            if (!empty($new_settings['apikey_coinmarket'])) {
+                $settings['coinmarket_apikey'] = $new_settings['apikey_coinmarket'];
+            }
+            if (!empty($new_settings['crypto_decimals'])) {
+                $settings['crypto_decimals'] = $new_settings['crypto_decimals'];
+            }
+            if (!empty($new_settings['currency_output'])) {
+                $settings['locale_currency'] = $new_settings['currency_output'];
+            }
+            if (!empty($new_settings['vat_value'])) {
+                $settings['vat_percentage'] = $new_settings['vat_value'];
+            }
+            if (!empty($new_settings['pixels_base'])) {
+                $settings['pixels_base'] = $new_settings['pixels_base'];
+            }
+            if (!empty($new_settings['date_format']) && $new_settings['date_format'] !== 'j F, Y, g:i:s a') {
+                $settings['time_format'] = str_replace(' ', '', $new_settings['time_format']);
+                $settings['time_format'] = explode(',', $settings['time_format']);
+            }
+        }
+
+        return $settings;
     }
 
     /**
@@ -790,8 +877,14 @@ class CalculateAnything
      * @param string $number
      * @return int
      */
-    public function cleanupNumber($number)
+    public function cleanupNumber(string $number)
     {
+        if ($this->getSetting('decimal_separator', 'dot') === 'comma')  {
+            $number = str_replace('.', '', $number);
+            $number = str_replace(',', '.', $number);
+            return floatval($number);
+        }
+
         return floatval(str_replace(',', '', $number));
     }
 
@@ -802,11 +895,11 @@ class CalculateAnything
      * TODO: Remove single decimal when is 0 for example 100c f = 212.0 f
      *
      * @param int $number
-     * @param int $decimals
+     * @param int $custom_decimals
      * @param bool $round
-     * @return int
+     * @return int|float
      */
-    public function formatNumber($number, $decimals = -1, $round = false)
+    public function formatNumber($number, $custom_decimals = false, $round = false)
     {
         if (!is_numeric($number)) {
             return $number;
@@ -816,8 +909,26 @@ class CalculateAnything
         preg_match('/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)/s', $number, $matches);
         if (!empty($matches) && isset($matches[1])) {
             return sprintf('%f', $number);
-            // return $number;
         }
+
+        $decimals = 2;
+        $user_decimals = $this->getSetting('decimals', '2');
+        if (!empty($user_decimals)) {
+            $decimals = (int)$user_decimals;
+        }
+        if ($custom_decimals !== false) {
+            $decimals = $custom_decimals;
+        }
+
+        /*if ($decimals < 0) {
+            $decimals = 50;
+        }
+        $negation = ($number < 0) ? (-1) : 1;
+        $coefficient = 10 ** $decimals;
+        $decPoint = '.';
+        $thousandsSep = ',';
+        $number = $negation * floor((string)(abs($number) * $coefficient)) / $coefficient;
+        return number_format($number, $decimals, $decPoint, $thousandsSep);*/
 
         if (fmod($number, 1) !== 0.00) {
             if ($decimals >= 0) {
@@ -831,17 +942,16 @@ class CalculateAnything
             $decimals = 1;
             $string = '' . $number;
             $string = explode('.', $string);
+            $decimals_string = $string[1];
             $string = str_split(end($string));
+            $decimals_numbers = $string;
             $count = 1;
 
             // If string has 2 or more decimals make some cleanup
             if (count($string) >= 2) {
                 $decimals = 2;
-                $start_cero = 0;
-
                 foreach ($string as $order => $value) {
                     $prev = (isset($string[$order - 1]) ? $string[$order - 1] : '');
-
                     if ($value == '0' && $prev == '0' && $count == 2) {
                         $count = 0;
                         break;
@@ -854,12 +964,15 @@ class CalculateAnything
 
                     if ($value !== '0' && $prev !== '0') {
                         $count += 1;
-                        $end_digit = $value;
                         break;
                     }
                 }
                 $decimals = $count;
             }
+
+            $decimals_numbers = array_slice($decimals_numbers, 0, $decimals);
+            $decimals_numbers = implode('', $decimals_numbers);
+            $decimals_numbers_new = round($decimals_numbers);
 
             if ($round) {
                 return number_format($number, $decimals);
@@ -867,8 +980,8 @@ class CalculateAnything
 
             $number = bcdiv($number, 1, $decimals);
             return number_format($number, $decimals);
-        } else {
-            return number_format($number);
         }
+
+        return number_format($number);
     }
 }
