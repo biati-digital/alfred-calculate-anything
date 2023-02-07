@@ -1,12 +1,17 @@
 <?php
 
-function money_formatter($format, $number)
+function money_formatter($format, $number, $data = [])
 {
     $regex  = '/%((?:[\^!\-]|\+|\(|\=.)*)([0-9]+)?'.
               '(?:#([0-9]+))?(?:\.([0-9]+))?([in%])/';
     if (setlocale(LC_MONETARY, 0) == 'C') {
         setlocale(LC_MONETARY, '');
     }
+
+    if (!empty($data['locale'])) {
+        setlocale(LC_MONETARY, $data['locale']);
+    }
+
     $locale = localeconv();
     preg_match_all($regex, $format, $matches, PREG_SET_ORDER);
     foreach ($matches as $fmatch) {
@@ -62,6 +67,13 @@ function money_formatter($format, $number)
             $currency = '';
         }
         $space  = $locale["{$letter}_sep_by_space"] ? ' ' : '';
+
+        if (!empty($data['decimals']) && is_numeric($data['decimals'])) {
+            if (is_string($data['decimals'])) {
+                $data['decimals'] = (int)$data['decimals'];
+            }
+            $right = $data['decimals'];
+        }
 
         $value = number_format(
             $value,
