@@ -430,13 +430,13 @@ class Units extends CalculateAnything implements CalculatorInterface
         $params_start = [];
         foreach ($units as $value) {
             // $params_start[] = implode(' |', $value);
-            $params_start[] = implode('|', $value);
+            $params_start[] = implode('\b|', $value).'\b';
         }
 
         $translation_keywords = $this->keywords;
         if (!empty($translation_keywords)) {
             // $params_start[] = implode(' |', array_keys($translation_keywords));
-            $params_start[] = implode('|', array_keys($translation_keywords));
+            $params_start[] = implode('\b|', array_keys($translation_keywords)).'\b';
         }
 
         $params_start = implode('|', $params_start);
