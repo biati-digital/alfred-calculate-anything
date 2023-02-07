@@ -303,5 +303,9 @@ return [
         'tax' => 'VAT',
 
         'stop_words' => ['of']
+    ],
+    'color' => [
+
+        'stop_words' => ['to', '=', 'in', 'as'],
     ]
 ];

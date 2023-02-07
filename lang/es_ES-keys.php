@@ -218,5 +218,9 @@ return [
         'impuesto' => 'VAT',
 
         'stop_words' => ['de']
+    ],
+    'color' => [
+
+        'stop_words' => ['a', '=', 'en'],
     ]
 ];

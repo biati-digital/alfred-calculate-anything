@@ -235,7 +235,7 @@ return [
     ],
     'datastorage' => [
         'error' => 'Error, unable to convert to %s',
-        'cmd' => 'Presiona enter para copiar el valor al clipboard sin formato',
+        'cmd' => 'Action this item to copy the amount with no format',
     ],
     'currency' => [
         'AED' => "United Arab Emirates dirham",
@@ -414,5 +414,6 @@ return [
         'noapikey_subtitle' => 'Please read the documentation for more information',
         'nosymbol_title' => 'The crypto currency is not available, check the docs.',
         'updating_rates' => 'Updating cryptocurrency rates...',
-    ]
+    ],
+    'color' => []
 ];

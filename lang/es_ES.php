@@ -413,5 +413,6 @@ return [
         'noapikey_subtitle' => 'Por favor lee la documentación para más información',
         'nosymbol_title' => 'La crypto moneda no está disponible, revisa la documentación.',
         'updating_rates' => 'Actualizando tasas de cryptomonedas...',
-    ]
+    ],
+    'color' => []
 ];
