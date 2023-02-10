@@ -26,6 +26,7 @@ class Units extends CalculateAnything implements CalculatorInterface
     private $stop_words;
     private $keywords;
     private $unitsList;
+    private $fractionUnits;
     private $lang;
     private $match_units;
 
@@ -39,6 +40,7 @@ class Units extends CalculateAnything implements CalculatorInterface
         $this->keywords = $this->getKeywords('units');
         $this->stop_words = $this->getStopWords('units');
         $this->unitsList = $this->availableUnits();
+        $this->fractionUnits = $this->fractionUnits();
     }
 
     /**
@@ -170,6 +172,33 @@ class Units extends CalculateAnything implements CalculatorInterface
         ];
     }
 
+    private function fractionUnits() {
+        return [
+            'm' => 'cm',
+            'km' => 'm',
+            'dm' => 'cm',
+            'cm' => 'mm',
+            'mm' => 'μm',
+            'μm' => 'nm',
+            'nm' => 'pm',
+            'ft' => 'in',
+            'yd' => 'in',
+            'mi' => 'ft',
+            'l' => 'ml',
+            'pt' => 'floz',
+            'uspt' => 'floz',
+            'ukpt' => 'floz',
+            'gal' => 'qt',
+            'qt' => 'pt',
+            'usqt' => 'uspt',
+            'ukqt' => 'ukpt',
+            'usgal' => 'usqt',
+            'ukgal' => 'ukqt',
+            'g' => 'mg',
+            'st' => 'lb',
+        ];
+    }
+
 
     /**
      * shouldProcess
@@ -250,6 +279,26 @@ class Units extends CalculateAnything implements CalculatorInterface
                 ],
             ]
         ];
+        if(isset($result['fraction']) and $result['fraction']) {
+            $items[] = [
+                'title' => $result['fraction']['formatted'],
+                'arg' => $result['fraction']['value'],
+                'subtitle' => $this->getText('action_copy'),
+                'valid' => true,
+                'mods' => [
+                    'cmd' => [
+                        'valid' => true,
+                        'arg' => $this->cleanupNumber($result['fraction']['value']),
+                        'subtitle' => $this->lang['cmd'],
+                    ],
+                    'alt' => [
+                        'valid' => true,
+                        'arg' => $result['fraction']['formatted'],
+                        'subtitle' => $this->lang['alt'],
+                    ],
+                ]
+            ];
+        }
 
         return $items;
     }
@@ -295,6 +344,11 @@ class Units extends CalculateAnything implements CalculatorInterface
                 return $conversion_error;
             }
         }
+        if(in_array($to, $this->fractionUnits) and fmod($converted,1) > 0) {
+            $convert->from(fmod($converted,1),$to);
+            $fraction = $convert->to($this->fractionUnits[$to]);
+            $fraction_unit = $this->fractionUnits[$to];
+        }
 
         $decimals = -1;
         if ($from_type == 'temperature') {
@@ -333,7 +387,11 @@ class Units extends CalculateAnything implements CalculatorInterface
 
         return [
             'formatted' => $resultValue .' ' . $resultUnit,
-            'value' => $resultValue
+            'value' => $resultValue,
+            'fraction' => (isset($fraction)?[
+                'formatted' => bcdiv($converted, 1, 0).' '.$resultUnit.', '.$fraction.' '.$fraction_unit,
+                'value' => $resultValue
+            ]:false)
         ];
     }
 
