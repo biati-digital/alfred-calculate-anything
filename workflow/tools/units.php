@@ -218,7 +218,7 @@ class Units extends CalculateAnything implements CalculatorInterface
         $stopwords = $this->getStopWordsString($this->stop_words);
         $this->match_units = $units;
 
-        return preg_match('/^\d*\.?\d+ ?' . $units . ' ?' . $stopwords . '? ' . $units . '$/i', $query, $matches);
+        return preg_match('/^-?\d*\.?\d+ ?' . $units . ' ?' . $stopwords . '? ' . $units . '$/i', $query, $matches);
     }
 
 

@@ -70,7 +70,8 @@ class CalculateAnything
         // For all calculators that do not require a keyword
         // the passed query must have at leats 3 characters
         // being the first one a number
-        if ($lenght < 3 || !is_numeric($query[0])) {
+        $is_valid_number = $lenght >= 3 && (is_numeric($query[0]) || is_numeric($query[1]));
+        if (!$is_valid_number) {
             return false;
         }
 
