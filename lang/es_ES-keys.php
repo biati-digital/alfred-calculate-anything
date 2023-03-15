@@ -195,6 +195,8 @@ return [
         'dolar' => 'USD',
         'dolares' => 'USD',
         'yenes' => 'JPY',
+        'won' => 'KRW',
+        'wones' => 'KRW',
 
         'stop_words' => ['a', '=', 'en'],
     ],
