@@ -106,13 +106,6 @@ class CalculateAnything
         // Process query
         $processed = $this->processByType();
 
-        if ($processed) {
-            $update_available = $this->checkForUpdatesOutput();
-            if ($update_available) {
-                $processed[] = $update_available;
-            }
-        }
-
         return $processed;
     }
 
@@ -279,83 +272,6 @@ class CalculateAnything
         }
 
         return self::$updater;
-    }
-
-
-    /**
-     * Check for workflow updates
-     *
-     * @return bool
-     */
-    public function checkForUpdates($force = null, $custom_last_check = null)
-    {
-        if (!self::$updater) {
-            $this->setUpdater();
-        }
-
-        return self::$updater->checkForUpdates($force, $custom_last_check);
-    }
-
-
-    /**
-     * Check for updates when the worflow is used
-     * Updates are checked once every 15 days
-     * so it will compare the current date with
-     * the last check and exit if no need to check for updates
-     * if a check is performed, it will return an array
-     * stating the new version number, current version
-     * and the new time the check was performed
-     *
-     * @return mixed
-     */
-    private function checkForUpdatesOutput()
-    {
-        $last_update_check = $this->getSetting('last_update_check', null);
-        $force_check = false;
-
-        if (!$last_update_check) {
-            $force_check = true;
-            $last_update_check = time();
-            \Alfred\setVariable('last_update_check', $last_update_check);
-        }
-
-        $update_cached = \Alfred\getVariable('update_available', null);
-        $show_update_message = false;
-
-        $output = [
-            'title' => $this->getText('update_available'),
-            'subtitle' => $this->getText('update_available_subtitle'),
-            'valid' => true,
-            'arg' => 'update',
-            'icon' => ['path' => 'assets/update.png'],
-            'variables' => [
-                'action' => 'update',
-            ],
-        ];
-
-        if (!empty($update_cached)) {
-            $local_version = \Alfred\getVariable('alfred_workflow_version', null);
-            if (version_compare($update_cached, $local_version) > 0) {
-                return $output;
-            }
-
-            \Alfred\removeVariable('update_available');
-            return;
-        }
-
-        $update_check = $this->checkForUpdates($force_check, $last_update_check);
-
-        if ($update_check) {
-            if (!empty($update_check['performed_check'])) {
-                \Alfred\setVariable('last_update_check', $update_check['performed_check']);
-            }
-            if (!empty($update_check['update_available'])) {
-                \Alfred\setVariable('update_available', $update_check['new_version']);
-                return $output;
-            }
-        }
-
-        return false;
     }
 
 

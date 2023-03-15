@@ -426,7 +426,7 @@ function getThemeStyle()
         'b' => $matches[3][0]
     ];
 
-    $luminance = (0.299 * $rgb[ 'r' ] + 0.587 * $rgb[ 'g' ] + 0.114 * $rgb[ 'b' ]) / 255;
+    $luminance = (0.299 * $rgb['r'] + 0.587 * $rgb['g'] + 0.114 * $rgb['b']) / 255;
 
     if (0.5 < $luminance) {
         return 'light';
@@ -609,29 +609,6 @@ function getRegisteredTranslations()
     }
 
     return $langs;
-}
-
-
-/**
- * Workflow updater
- *
- * @param array $config
- * @return bool
- */
-function workflowUpdater($config)
-{
-    require_once workflowDir('/alfred/Updater.php');
-
-    $default = [
-        'plist_url' => '',
-        'workflow_url' => '',
-        'force_check' => false,
-        'force_download' => false,
-        'alfred_notifications' => false,
-    ];
-    $updater = new Updater(array_merge($default, $config));
-
-    return $updater;
 }
 
 
