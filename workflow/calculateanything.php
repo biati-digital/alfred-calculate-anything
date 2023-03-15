@@ -41,19 +41,22 @@ class CalculateAnything
         'locale_currency',
         'decimal_separator',
         'currency_cache_hours',
+        'currency_decimals',
         'cryptocurrency_cache_hours',
-        'custom_cryptocurrencies'
+        'custom_cryptocurrencies',
+        'decimals',
     ];
     // new settings for Alfred 5
     protected static $settingsArgsV5 = [
         'lang',
         'decimals',
         'decimal_separator',
-        'currency_output',
+        'number_output_format',
         'timezone',
         'base_currencies',
         'apikey_fixer',
         'apikey_coinmarket',
+        'currency_decimals',
         'crypto_decimals',
         'vat_value',
         'date_format',
@@ -85,11 +88,10 @@ class CalculateAnything
         }
 
         $lenght = strlen($query);
-
         // For all calculators that do not require a keyword
-        // the passed query must have at leats 3 characters
+        // the passed query must have at least 3 characters
         // being the first one a number
-        if ($lenght < 3 || !is_numeric($query[0])) {
+        if ($lenght < 3 || ($query[0] !== '-' && !is_numeric($query[0])) || ($query[0] === '-' && !is_numeric($query[1]))) {
             return false;
         }
 
@@ -515,6 +517,7 @@ class CalculateAnything
         // old Alfred v4 settings
         $settings = \Alfred\getVariables(self::$settingsArgs);
 
+
         if (\Alfred\getAlfredVersion() >= 5) {
             $new_settings = \Alfred\getVariables(self::$settingsArgsV5);
 
@@ -537,9 +540,6 @@ class CalculateAnything
             if (!empty($new_settings['crypto_decimals'])) {
                 $settings['crypto_decimals'] = $new_settings['crypto_decimals'];
             }
-            if (!empty($new_settings['currency_output'])) {
-                $settings['locale_currency'] = $new_settings['currency_output'];
-            }
             if (!empty($new_settings['vat_value'])) {
                 $settings['vat_percentage'] = $new_settings['vat_value'];
             }
@@ -549,6 +549,12 @@ class CalculateAnything
             if (!empty($new_settings['date_format']) && $new_settings['date_format'] !== 'j F, Y, g:i:s a') {
                 $settings['time_format'] = str_replace(' ', '', $new_settings['time_format']);
                 $settings['time_format'] = explode(',', $settings['time_format']);
+            }
+            if (!empty($new_settings['number_output_format'])) {
+                $settings['number_output_format'] = $new_settings['number_output_format'];
+            }
+            if (!empty($new_settings['currency_decimals'])) {
+                $settings['currency_decimals'] = $new_settings['currency_decimals'];
             }
         }
 
@@ -879,7 +885,9 @@ class CalculateAnything
      */
     public function cleanupNumber(string $number)
     {
-        if ($this->getSetting('decimal_separator', 'dot') === 'comma')  {
+        $number = str_replace(' ', '', $number);
+
+        if ($this->getSetting('decimal_separator', 'dot') === 'comma') {
             $number = str_replace('.', '', $number);
             $number = str_replace(',', '.', $number);
             return floatval($number);
@@ -899,89 +907,68 @@ class CalculateAnything
      * @param bool $round
      * @return int|float
      */
-    public function formatNumber($number, $custom_decimals = false, $round = false)
+    public function formatNumber($number, $decimals = -1, $round = false)
     {
         if (!is_numeric($number)) {
             return $number;
         }
 
-        // Check if number is exponent and simply return it as is
-        preg_match('/[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)/s', $number, $matches);
-        if (!empty($matches) && isset($matches[1])) {
-            return sprintf('%f', $number);
+        // decimals from Alfred config are returned as strings
+        if (gettype($decimals) === 'string') {
+            $decimals = floatval($decimals);
         }
 
-        $decimals = 2;
-        $user_decimals = $this->getSetting('decimals', '2');
-        if (!empty($user_decimals)) {
-            $decimals = (int)$user_decimals;
-        }
-        if ($custom_decimals !== false) {
-            $decimals = $custom_decimals;
+        if ($decimals == -1) {
+            $decimals = 10;
         }
 
-        /*if ($decimals < 0) {
-            $decimals = 50;
+        // Check if number is then parse as float value of that
+        preg_match('/([-+]?[0-9]*\.?[0-9]+)([eE][-+]?[0-9]+)/s', $number, $matches);
+        if (!empty($matches) && isset($matches[2])) {
+            $number = floatval($number);
         }
+
+        $output_format = $this->getSetting('number_output_format', 'comma_dot');
+
+        switch ($output_format) {
+            case 'dot_comma':
+                $thousands_sep = '.';
+                $decimal_point = ',';
+                break;
+            case 'space_comma':
+                $thousands_sep = ' ';
+                $decimal_point = ',';
+                break;
+            default:
+                $thousands_sep = ',';
+                $decimal_point = '.';
+                break;
+        }
+
+        //if decimals are .00 remove them
+        if (fmod($number, 1) === 0.00) {
+            $decimals = 0;
+        }
+
+        if ($round) {
+            $number = round($number, $decimals);
+        }
+
         $negation = ($number < 0) ? (-1) : 1;
         $coefficient = 10 ** $decimals;
-        $decPoint = '.';
-        $thousandsSep = ',';
         $number = $negation * floor((string)(abs($number) * $coefficient)) / $coefficient;
-        return number_format($number, $decimals, $decPoint, $thousandsSep);*/
+        $data = explode('.', $number . '');
+        $decimalsInNumber = strlen(end($data));
 
-        if (fmod($number, 1) !== 0.00) {
-            if ($decimals >= 0) {
-                if ($round) {
-                    return number_format($number, $decimals);
-                }
-                $number = bcdiv($number, 1, $decimals);
-                return number_format($number, $decimals);
-            }
-
-            $decimals = 1;
-            $string = '' . $number;
-            $string = explode('.', $string);
-            $decimals_string = $string[1];
-            $string = str_split(end($string));
-            $decimals_numbers = $string;
-            $count = 1;
-
-            // If string has 2 or more decimals make some cleanup
-            if (count($string) >= 2) {
-                $decimals = 2;
-                foreach ($string as $order => $value) {
-                    $prev = (isset($string[$order - 1]) ? $string[$order - 1] : '');
-                    if ($value == '0' && $prev == '0' && $count == 2) {
-                        $count = 0;
-                        break;
-                    }
-
-                    if ($value == '0') {
-                        $count += 1;
-                        continue;
-                    }
-
-                    if ($value !== '0' && $prev !== '0') {
-                        $count += 1;
-                        break;
-                    }
-                }
-                $decimals = $count;
-            }
-
-            $decimals_numbers = array_slice($decimals_numbers, 0, $decimals);
-            $decimals_numbers = implode('', $decimals_numbers);
-            $decimals_numbers_new = round($decimals_numbers);
-
-            if ($round) {
-                return number_format($number, $decimals);
-            }
-
-            $number = bcdiv($number, 1, $decimals);
-            return number_format($number, $decimals);
+        if ($decimals > $decimalsInNumber) {
+            $decimals = $decimalsInNumber;
+        }
+        if ($decimals > 8) {
+            $decimals = 8;
         }
 
-        return number_format($number);
+        $formatted = number_format($number, $decimals, $decimal_point, $thousands_sep);
+
+        return $formatted;
     }
 }
