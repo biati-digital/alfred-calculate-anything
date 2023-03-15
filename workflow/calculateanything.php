@@ -34,7 +34,6 @@ class CalculateAnything
         'fixer_apikey',
         'fixer_apisource',
         'last_update_check',
-        'settings_migrated',
         'time_format',
         'time_zone',
         'vat_percentage',
@@ -476,121 +475,6 @@ class CalculateAnything
 
         return $settings;
     }
-
-    /**
-     * Check if should Migrate old settings
-     * DEPRECATED
-     * from settings file to
-     * workflow variables
-     *
-     * @return bool
-     */
-    private function shouldMigrateSettings()
-    {
-        $settings_migrated = \Alfred\getVariable('settings_migrated');
-        if ($settings_migrated) {
-            return false;
-        }
-
-        $settings_file = \Alfred\getDataPath('settings.json');
-        $settings = \Alfred\readFile($settings_file, 'json');
-        if (empty($settings)) {
-            \Alfred\setVariable('settings_migrated', 'true');
-            return false;
-        }
-
-        return true;
-    }
-
-
-    /**
-     * Migrate settings output
-     * DEPRECATED
-     * firts we return a simple message explaining that
-     * settings must be migrated, then set the variable
-     * start_config_upgrade to true and rerun, this way alfred shows the
-     * message and reruns, on the second run checks if start_config_upgrade
-     * is true and initialize the migration, on done it will rerun again
-     * with a small delay so the new variables are already available
-     * in Alfred. and process the query correctly
-     *
-     * @return array
-     */
-    private function migrateSettingsOutput()
-    {
-        $output = [];
-        $output['rerun'] = 0.1;
-        $output['variables'] = [
-            'start_config_upgrade' => true,
-        ];
-        $output[] = [
-            'title' => 'Migrating settings, please wait a few seconds...',
-            'subtitle' => 'This process will only happen once.',
-            'valid' => false,
-            'arg' => '',
-            'icon' => ['path' => 'assets/update.png']
-        ];
-
-        if (\Alfred\getVariable('start_config_upgrade')) {
-            $this->migrateSettings();
-            $output = [];
-            $output['rerun'] = 0.5;
-            $output['variables'] = [
-                'start_config_upgrade' => false,
-            ];
-            $output[] = [
-                'title' => 'Migrating settings, please wait a few seconds...',
-                'subtitle' => 'This process will only happen once.',
-                'valid' => false,
-                'arg' => '',
-                'icon' => ['path' => 'assets/update.png']
-            ];
-            return $output;
-        }
-
-        return $output;
-    }
-
-
-    /**
-     * Migrate old settings
-     * migrate from settings file to
-     * workflow variables
-     *
-     * @return bool
-     */
-    public function migrateSettings()
-    {
-        $settings_file = \Alfred\getDataPath('settings.json');
-        $backup_settings_file = \Alfred\getDataPath('settings-backup.json');
-        $settings = \Alfred\readFile($settings_file, 'json');
-        $new_settings = $settings;
-
-        if (empty($settings)) {
-            \Alfred\setVariable('settings_migrated', 'true');
-            return true;
-        }
-
-        if (!file_exists($backup_settings_file)) {
-            \Alfred\writeFile($backup_settings_file, $settings);
-        }
-
-        foreach ($settings as $key => $val) {
-            $name = $key;
-            if ($key == 'timezones') {
-                $name = 'time_format';
-            }
-
-            \Alfred\setVariable($name, $val, false);
-            unset($new_settings[$name]);
-            if ($key == 'timezones' && isset($new_settings['timezones'])) {
-                unset($new_settings['timezones']);
-            }
-            \Alfred\writeFile($settings_file, $new_settings);
-        }
-        return true;
-    }
-
 
 
 
