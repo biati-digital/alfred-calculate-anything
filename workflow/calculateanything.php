@@ -56,6 +56,8 @@ class CalculateAnything
         'apikey_coinmarket',
         'currency_decimals',
         'crypto_decimals',
+        'currency_cache_hours',
+        'cryptocurrency_cache_hours',
         'vat_value',
         'date_format',
         'pixels_base',
