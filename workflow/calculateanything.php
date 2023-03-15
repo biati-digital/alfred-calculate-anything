@@ -33,7 +33,6 @@ class CalculateAnything
         'coinmarket_apikey',
         'fixer_apikey',
         'fixer_apisource',
-        'last_update_check',
         'time_format',
         'time_zone',
         'vat_percentage',
@@ -207,7 +206,7 @@ class CalculateAnything
 
     /**
      * Return a new instance
-     * of a calclulator
+     * of a calculator
      *
      * @param string $id
      * @param string $query
@@ -272,7 +271,7 @@ class CalculateAnything
     /**
      * Keywords
      * returns an array of keywords
-     * that are used for natual language queries
+     * that are used for natural language queries
      * this keywords is an array of key value pairs
      * the key is the keyword and the value is
      * the end result for example
@@ -299,7 +298,7 @@ class CalculateAnything
      * of the string and  then removed
      * for example in the query
      * 100 km to meters
-     * to is a stop word, they can be safetly removed
+     * to is a stop word, they can be safety removed
      *
      * @param string $key
      * @return array
@@ -446,7 +445,7 @@ class CalculateAnything
 
 
     /**
-     * Esaape words
+     * Escape words
      * dos some escape for regex match
      *
      * @param string $key
@@ -467,7 +466,7 @@ class CalculateAnything
      * keywords are a list of words in natural language
      * that teh user can use in the workflow, for example
      * a keywords can be bitcoins and it will be converted to BTC
-     * or the keywods kilograms will be converted to kg
+     * or the keywords kilograms will be converted to kg
      * that way natural language can be used on queries
      *
      * @param string $key
@@ -536,7 +535,7 @@ class CalculateAnything
      * Translated keywords
      * Convert some keywords to
      * the actual value so you can use
-     * natual language to make conversions
+     * natural language to make conversions
      *
      * For example:
      * 100¥ to $
