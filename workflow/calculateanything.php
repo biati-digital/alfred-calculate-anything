@@ -240,39 +240,6 @@ class CalculateAnything
     }
 
 
-    /**
-     * Set updater instance
-     *
-     * @param array $options
-     * @return void
-     */
-    public function setUpdater($options = [])
-    {
-        $update_data = [
-            'plist_url' => 'https://raw.githubusercontent.com/biati-digital/alfred-calculate-anything/master/info.plist',
-            'workflow_url' => 'https://github.com/biati-digital/alfred-calculate-anything/releases/latest/download/Calculate.Anything.alfredworkflow',
-            'alfred_notifications' => 'notifier',
-            'check_interval' => 86400 * 15, // check every 15 days
-        ];
-
-        $update_data = (!empty($options) ? array_merge($update_data, $options) : $update_data);
-        self::$updater = \Alfred\workflowUpdater($update_data);
-    }
-
-    /**
-     * Download for workflow updates
-     *
-     * @return void
-     */
-    public function getUpdater()
-    {
-        if (!self::$updater) {
-            $this->setUpdater();
-        }
-
-        return self::$updater;
-    }
-
 
     /**
      * Translations
