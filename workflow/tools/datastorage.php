@@ -63,7 +63,7 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
             'eib' => ['title' => 'Exbibyte', 'unit' => 'EiB', 'base' => 1024, 'exponent' => 6],
             'zib' => ['title' => 'Zebibyte', 'unit' => 'ZiB', 'base' => 1024, 'exponent' => 7],
             'yib' => ['title' => 'Yobibyte', 'unit' => 'YiB', 'base' => 1024, 'exponent' => 8],
-         ];
+        ];
     }
 
 
@@ -82,7 +82,7 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
 
         $query = $this->query;
         $stop_words = $this->stop_words_regex;
-        return preg_match('/^\d*\.?\d+ ?'. $this->match_regex . '\b ?' . $stop_words . '? ?\b' . $this->match_regex . '\b/i', $query, $matches);
+        return preg_match('/^\d*\.?\d+ ?' . $this->match_regex . '\b ?' . $stop_words . '? ?\b' . $this->match_regex . '\b/i', $query, $matches);
     }
 
 
@@ -186,7 +186,7 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
         $to_base = 0;
         $to_exponent = 0;
         $unit = (isset($units[$to]) ? $units[$to]['unit'] : $to);
-        $force_binary = \Alfred\getVariable('datastorage_force_binary');
+        $force_binary = $this->getSetting('datastorage_force_binary');
 
         if ($from_unit === 'bit' && $to === 'b') {
             $result['value'] = $from * 0.125;
@@ -201,8 +201,7 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
 
         // Convert to bytes
         if ($from_unit !== 'b') {
-
-            if ($force_binary === true) {
+            if (!empty($force_binary)) {
                 $from_base = 1024;
             }
 
@@ -231,7 +230,7 @@ class DataStorage extends CalculateAnything implements CalculatorInterface
         $to_base = $units[$to]['base'];
         $to_exponent = $units[$to]['exponent'];
 
-        if ($force_binary === true) {
+        if (!empty($force_binary)) {
             $to_base = 1024;
         }
 
