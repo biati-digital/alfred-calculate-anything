@@ -39,7 +39,7 @@ function getAlfredVersion()
 
 
 /**
- * Get all workflow varibales
+ * Get all workflow variables
  * creating an array of all options
  * and processing the value
  *
