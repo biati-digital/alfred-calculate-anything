@@ -1,6 +1,6 @@
 # Calculate Anything
 
-Calculate Anything is a workflow for Alfred 4, that uses **natural language** and is able to calculate multiple things like currency, time, vat, px, em, rem, percentage, and more.
+Calculate Anything is a workflow for Alfred 4 and Alfred 5, that uses **natural language** and is able to calculate multiple things like currency, cryptocurrency, time, vat, px, em, rem, percentage, and more.
 
 <p align="center">
 <img src="https://i.ibb.co/LZnQcCL/calculate-anything-gh.jpg">
@@ -13,8 +13,9 @@ There are several conversion workflows out there but I wanted a workflow that wo
 ## Features
 
 - **Natural language** - type `100 euros to dollars`, `100 euros in usd`, `100€ to $`, `100eur usd`, `100 euros a dolares` -- it does not matter, the same result will be displayed
+- **Multiple languages** - the workflow has support for natural language in English, Spanish and Swedish
 - **Currency** - Up to 168 currencies
-- **Cryptocurrency** - Support for 100 cryptocurrencies
+- **Cryptocurrency** - Support for 5,000 cryptocurrencies
 - **Units** - `100 kilometers to meters` or `100 km to m` or simply `100km m`
 - **Data Storage** - `100 gigabytes in megabytes`, `2 gb to mb`, `400MiB to kib`, `2tb gb` etc.
 - **Percentages** - `100 + 16%`, `100 - 16%`, `40 as a % of 50`, `20 is what % of 50` etc.
@@ -29,11 +30,13 @@ There are several conversion workflows out there but I wanted a workflow that wo
 Starting from Mac OS Monterey Apple removed PHP so you have to install it manually, that can easily be done with [Homebrew](https://brew.sh/), just open your terminal and paste the commands below:
 
 1.- Install Homebrew
+
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 2.- Install PHP
+
 ```
 brew install php
 ```
@@ -46,15 +49,15 @@ Mac OS Big Sur users and below do not need to do anything as your Mac OS already
 
 Make sure to download the latest released directly from the releases page. [Download here](https://github.com/biati-digital/alfred-calculate-anything/releases/).
 
-## Base Configuration
+## Configuration
 
-There's only one global setting and that's the language. This setting will allow you to type in Alfred using your own language and also will change the notifications and texts. View the Translations section for the available languages.
+If you are using Alfred 4 please check the [README for Alfred 4](https://github.com/biati-digital/alfred-calculate-anything/blob/master/README-ALFRED4.md).
 
-Configure it with:
+If you are using Alfred 5 you can use the new workflow configuration panel.
 
-- In Alfred type `ca`, select **Set base language** and select the language you want to use. You can also type `ca lang`
-
-[View the configuration section for more info](#configuration).
+<p align="center">
+<img src="https://i.ibb.co/k65g7v7/config.webp">
+</p>
 
 ## Currency
 
@@ -94,29 +97,15 @@ Press Command + Return to copy the value without formatting, for example 2376.54
 - **Option + Return**
 Press Option + Return to copy the value of a single unit, for example 23.76
 
-### Currency Options
+### Currency API Key (not required but will provide a lot more currencies)
 
-By default the workflow will use exchangeratehost api to make the conversion. exchangeratehost only support 32 currencies; if you need support for additional currencies supported by Calculate Anything, you need to get a _free_ API key from [https://fixer.io](https://fixer.io) -- it takes less than a minute!
-
-The following options are available for each currency. Simply launch Alfred, type `ca` and select any of the options below. [View the configuration section for more info](#configuration).
-
-- **Add base currency**
-This will become your base currency, if you type `100eur` it will automatically be converted to the currencies you define here. You can define multiple currencies by repeting the process.
-- **Delete base currency**
-If you no longer want a base currency you can select this option to list all configured base currencies, you can delete a currency by simply pressing Return
-- **Set currency format**
-Used to format the converted amount, you will see a list of formats to choose from, simply press return to select a format.
-- **Set Fixer API**
-Set your fixer API Key for support more currencies, after you select this option just copy paste your Key and press Return to save it.
-
-**The currencies are updated every 24 hours, if you need to update this more often you can set a custom interval.** To do this you need to [Set a Workflow Environment Variables](https://www.alfredapp.com/help/workflows/advanced/variables/). The name should be `currency_cache_interval` and the value should be the number of hours, for example, to update every 6 hours you need to set the value to `6`. Only do this if you know what you are doing and you understand that the API has limits.
-
+By default the workflow will use exchangeratehost api to make the conversion. exchangeratehost only support 32 currencies; if you need support for additional currencies supported by Calculate Anything, you need to get a _free_ API key from [https://fixer.io](https://fixer.io) -- it takes less than a minute! You can configure the API key in the new workflow configuration window.
 
 ### Currency Symbols
 
 You can use currency symbols in your query. For example `100¥ to €` will be converted from 100 Japanese yen to the equivalent in Euros. Here is a list of available symbols:
 
-**If by any chance you don't remember the currency symbol or abbreviation simply type `ca list` and select "List Available Currencies"**
+**Please note: This list only shows symbols that can be used instead of the currency code, the workflow supports up to 168 currency codes.**
 
 Symbol     | Currency       | Value
 ------     | -----------    | -----------
@@ -158,7 +147,6 @@ TT$        | TTD            | Trinidad and Tobago dollar
 TT$        | TTD            | Trinidad and Tobago dollar
 ₴          | UAH            | Ukrainian hryvnia
 
-
 ## Cryptocurrency
 
 Calculate Anything can convert between 5,000 cryptocurrencies and you can define your own. Again, you can use natural language or simply pass the currency symbol.
@@ -188,23 +176,9 @@ Press Command + Return to copy the value without formatting, for example 2376.54
 - **Option + Return**
 Press Option + Return to copy the value of a single unit, for example 23.76
 
-### Cryptocurrency Options
+### Cryptocurrency Api Key
 
 You need to get a free API key from [https://coinmarketcap.com/api/pricing/](https://coinmarketcap.com/api/pricing/). This takes less than a minute.
-
-The following options are available for cryptocurrency conversions. Simply launch Alfred, type `ca` and select any of the options below. [View the configuration section for more info](#configuration).
-
-- **Set Coinmarketcap API**
-Select this option, paste your API key and press Return to save it.
-
-- **Add custom cryptocurrency**
-  The workflow includes up to 5,000 cryptocurrencies. if you need a cryptocurrency that it's not included, you can select this option and enter the cryptocurrency symbol, for example `SATS` for Satoshi, if you do not know the symbol go to [https://coinmarketcap.com](https://coinmarketcap.com), search for the cryptocurrency and the symbol will be at the right side of the cryptocurrency name.
-
-- **Remove custom cryptocurrency**
-  Select this option to remove a custom cryptocurrency if no longer needed.
-
-**The cryptocurrencies are updated every 24 hours, if you need to update this more often you can set a custom interval.** To do this you need to [Set a Workflow Environment Variables](https://www.alfredapp.com/help/workflows/advanced/variables/). The name should be `cryptocurrency_cache_interval` and the value should be the number of hours, for example, to update every 6 hours you need to set the value to `6`. Only do this if you know what you are doing and you understand that the API has limits.
-
 
 ## Units
 
@@ -241,8 +215,6 @@ If you don't remember the unit abbreviation, simply type the name of the unit. F
 <img src="/assets/gifts/units-v3.gif?raw=true">
 </p>
 
-Finally, if you still don't remember the unit's abbreviation or name simply type `ca list` and select **List Available Units**. From there you can type to filter, etc.
-
 ### Unit Modifiers
 
 When a result is displayed you can use action modifiers to copy the value in different formats:
@@ -253,10 +225,6 @@ Press Return to copy the value with format, for example 2,376.54
 Press Command + Return to copy the value without formatting, for example 2376.54
 - **Option + Return**
 Press Option + Return to copy the value of a single unit, for example 23.76
-
-### Unit Options
-
-**There are no options available for now.**
 
 Here is a list of all available units and their names just to make this README even longer.
 
@@ -390,7 +358,6 @@ kwhr    | Kilowatt Hour
 mwhr    | Megawatt Hour
 mev     | Mega Electron Volt
 
-
 ## Data Storage
 
 You can write your query using natural language or just a few characters. Either way works!
@@ -413,7 +380,7 @@ You can write your query using natural language or just a few characters. Either
 
 Please note, this workflow follows the **IEC Standard (International Electrotechnical Commission)** as it had been adopted by the IEEE, EU, and NIST. That means that if you type `1MB in KB` you will get `1000 KB` but if you type `1MiB in KiB` you will get `1024 KB`, you can read more about it here [Multiple-byte_units](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
 
-Do you prefer **1 MB = 1024 KB**? No problem, you can configure it, checkout **Data Storage Options**.
+Do you prefer **1 MB = 1024 KB**? No problem, you can configure it using the Configure Workflow window.
 
 ### Data Storage Modifiers
 
@@ -423,10 +390,6 @@ When a result is displayed you can use action modifiers to copy the value in dif
 Press Return to copy the value with format, for example 2,376.54
 - **Command + Return**
 Press Command + Return to copy the value without formatting, for example 2376.54
-
-### Data Storage Options
-
-There's no exactly "options" it's more of a way for people to overwrite the conversion and **use always the Binary mode so `1 MB = 1024 KB`**. To enable this you need to [Set a Workflow Environment Variables](https://www.alfredapp.com/help/workflows/advanced/variables/). The name should be `datastorage_force_binary` and the value should be `true`.
 
 #### Data Storage Available Units
 
@@ -450,7 +413,6 @@ PiB      | Pebibyte
 EiB      | Exbibyte
 ZiB      | Zebibyte
 YiB      | Yobibyte
-
 
 ## Percentages
 
@@ -490,12 +452,6 @@ Open Alfred, type `12px` and you'll see the value converted to em, rem and pt. I
 # use a custom px base or configure it in the workflow
 - 12px in em base 17px
 ```
-
-### px,em,rem,pt Options
-
-The following options are available. Simply launch Alfred, type `ca` and select any of the options below. [View the configuration section for more info](#configuration).
-
-- **Set base pixels** The base pixels for calculations (the value must be in px), for example **16px**
 
 ## Time
 
@@ -557,14 +513,6 @@ The following options are available.  Simply launch Alfred, type `ca` and select
 
 - **Add date format** Configure a new date format so the date is displayed the way you want, for example **j F, Y, g:i:s a** ([more information about available values for date](https://www.php.net/manual/en/function.date.php))
 
-- **Delete date format** It will show you a list of configured date formats, simply select the one you want to delete and press Return to remove it
-
-### Example: Adding Date and Time Formats
-
-You can add formats for your dates and times. Simply launch Alfred, type `ca` and select the option **Add date format**. Enter the format you want and press Return. [View the configuration section for more info](#configuration).
-
-Time will use the language that you configure with **Set base language**.
-
 ## VAT (Value Added Tax)
 
 With this you can calculate the VAT for a given amount. Like time, VAT is also triggered with a keyword. By default, the keyword is "vat" but you can change the keyword in the workflow.
@@ -585,13 +533,7 @@ Calculate Anything will provide the following conversions:
 - 400 plus VAT = 464 (the Amount plus VAT)
 - 400 minus VAT = 344.82 (the Amount minus VAT, useful if you have a final amount and want to know the VAT applied)
 
-### VAT Options
-
-The following options are available. Simply launch Alfred, type `ca` and select any of the options below. [View the configuration section for more info](#configuration).
-
-- **Set VAT percentage** the VAT percentage to apply,for example 16%
-
-## Translations
+## Languages
 
 This is a list of available languages:
 
@@ -607,8 +549,7 @@ To create your own translation, just follow these steps:
 2. Change the name of the pasted files to your country lang code, for example `ru_RU.php` and `ru_RU-keys.php`
 3. Open and translate `ru_RU.php`
 4. Open and modify `ru_RU-keys.php`. **Read more about this file in the section Keywords**.
-5. Set your new language with `ca lang` (Your new language should be detected automatically)
-6. Share it with the world -- and me! (I welcome pull requests or links to services like pastebin.com)
+5. Share it with the world -- and me! (I welcome pull requests or links to services like pastebin.com)
 
 ## Keywords
 
@@ -660,206 +601,14 @@ You can modify stop words in the same keys file, for example `/lang/en_EN-keys.p
 
 ```
 
-## Configuration
-
-You can easily configure the Calculate Anything workflow. Simply open Alfred, type `ca` and you will see a list of all the available options to configure the workflow. You can also filter the options for example launch Alfred and start typing `ca fixer` and you will automatically see the options filtered. To select an option just press Return.
-
-<p align="center">
-<img src="/assets/gifts/config-v3-01.gif?raw=true">
-</p>
-
-### Cache
-
-The workflow stores some data about currency in the workflow data folder. You can delete the cache by opening Alfred and typing `ca clear`. You can decide between deleting the cache, delete stored settings or both.
-
-## Updates
-
-The workflow will check for updates in the background every 15 days and will notify you when a new update is available. If you want to check for updates manually, launch Alfred and type `ca update`.
-
-<p align="center">
-<img src="https://i.ibb.co/BZsmvgk/update-v3.jpg">
-</p>
-
 ## Performance
 
 For currency, percentage and unit conversions, Calculate Anything will only process the query if it begins with a digit and has at least 3 characters. Time and VAT conversions need a keyword because they are not often used.
 
-## Acknowledgements
+## Deleting cache
 
-This workflow would not be possible without:
-
-- [Convertor](https://github.com/olifolkerd/convertor) with some modifications
+The workflow stores information about currency and cryptocurrency rates, to clear the cache open alfred and type `_caclear`
 
 ## Changelog
 
-### v3.5.0
-
-- Changed: Currency conversion is prioritized over cryptocurrencies, there`s thousands of useless cryptocurrencies and some use the same code, for example Bitish Pound and Crypto Good Boy Points both use the code GBP, now if you try to convert 100 GBP it will default to Bitish Pound, you can still configure it to use the crypto if you prefer it that way 
-- Fixed: Crytocurrency to currency noy working correctly when the currency cache was expired
-
-### 3.4.0
-
-- New: You can now provide a workflow variable to define the duration of the currencies cache
-- New: Support for more cryptocurrencies, up to 5,000
-- New: You can also difine custom cryptocurrencies
-- Updated: Fixer.io API now uses API Layer, the workflow will check your API key to make sure the correct endpoint is used.
-- Improved: Now the workflow shows a message when it's updating currency and cryptocurrencies rates
-- Improved: Replaced file_get_contents with curl for some operations
-- Fixed: datastorage_force_binary was not working as expected
-- Fixed: No output in cryptocurrencies when "from" and "to" were the same
-- Fixed: Error on updater not working correctly with some PHP versions
-
-### 3.3.0
-
-- Updated dependencies
-
-### 3.2.0
-
-- New: Added Power units w, kw, ps, and hp. @wwkeyboard
-- New: Added knot
-- Improved: Fixer API error handling
-- Fixed: Time errors caused by workflow missing user configuration
-- Fixed: Currency format error
-
-### 3.1.1
-
-- Improved: Mac OS Monterey support
-- Fixed: Support vat percentage with decimals
-- Fixed: Spelling error
-
-### 3.0.2
-
-- Changed: Time keyword changed to "argument required" to not display results when not required
-- Improved: Configuration menu, when entering to a submenu now you can go back to the main menu instead of closing Alfred
-- Improved: Updates message in results
-- Improved: Previous settings migration
-- Fixed: Round units conversion
-
-### 3.0.1
-
-- New: Quart now defaults to US Quart (0.946353 Liters) to mimic the same results as other converters. You can sill type `1 uk quart in liter` or `1 ukqt in liter` or `1 us quart in liter`
-- Improved: Decimals formatting
-- Improved: Added eurs keyword
-- Fixed: Temperature conversion not working
-- Fixed: Cache folder not created for new installations
-- Fixed: Forgot to change the name of a env variable after a PR in time conversions
-
-### 3.0.0
-
-- New: Now the Workflow settings are saved in the workflow variables, if you configure alfred to use Dropbox now the settings of the workflow will also be synced. Existing config will be converted automatically on update.
-- New: Added support for data storage: Byte, Kilobyte, Megabyte, Gigabyte, Terabyte, Petabyte, Exabyte, Zettabyte, Yottabyte, bit, Kibibyte, Mebibyte, Gibibyte, Tebibyte, Pebibyte, Exbibyte, Zebibyte, Yobibyte.
-- New: Added US Gallon in Volume conversions
-- New: Added Fluid Ounces in Volume conversions
-- New: Gallon now defaults to US Gallon (3.78541 Liters) to mimic the same results as other converters. You can sill type `1 uk gal in liter` or `1 ukgal in liter` `1 uk gallon in liter` or `1 us gal in liter`
-- New: Pint now defaults to US Pint (0.473176 Liters) to mimic the same results as other converters. You can sill type `1 uk pint in liter` or `1 uk pint in liter` `1 uk pt in liter` or `1 us pint in liter`
-- New: Added stopword `as` so you can type `1 kilometer as meters` or `1km as m`, etc.
-- New: Added stopword `en` (spanish) so you can type `1 kilometro en metros` or `1km en m`, etc.
-- New: When downloading rates the workflow will rerun it's query to update the results
-- New: The workflow was restructured and some parts were rewritten
-- New: Added millas, milla, miles, mile, keywords so you can type `4 miles in feet`
-- New: Updated documentation and examples
-- Improved: Updater, now displays notifications using alfred and will also notify you in the results
-- Improved: Updated translations
-- Improved: Added space between number and unit/currency for better readability
-- Improved: Removed some dependencies
-- Fixed: Subtitle not formatted according the currency locale in crypto conversions
-- Fixed: Error in subtitle for time conversions (milliseconds)
-- Fixed: Incorrect Time Unit Conversion
-- Fixed: Incorrect crypto conversion when downloading updated currency rates
-- Fixed: crypto currencies result now displays default workflow icon instead of an empty space
-
-### 2.1.0
-
-- New: Removed exchangeratesapi as it now requires an API Key
-- New: Added exchangerate.host
-- New: Improved configuration. Now displays a list of time zones to choose from
-- New: Improved configuration. Now displays a list of currencies to choose from
-- New: Improved configuration. Now displays a list of languages to choose from
-- Fixed: Unable to run/save configuration on certain cases
-
-### 2.0.4
-
-- New: Improved natural language for percentages 40 as a % of 50 = 80%, 20 is what % of 50 = 40%
-- Fixed: Modifier keys for units (command key to copy value without format)
-- Fixed: Modifier keys for percentages (command key to copy value without format)
-- Fixed: Percentages now working even if there are no spaces in the query (6000-10%)
-- Fixed: An error in vat calculation that when pressing enter the wrong value was copied to clipboard
-
-### 2.0.3
-
-- New: Improved currency conversion speed.
-- New: You can use quick calculations for VAT.
-- New: Added calculate clear to easily clear the workflow cache, settings or both.
-- Changed: Vat action modifiers to be the same as currency, etc.
-- Fixed: months to year calculation
-- Fixed: updater error causing the workflow to not work
-
-### 2.0.2
-
-- Changed: standard output for percentage calculations
-- Fixed: Error that prevented the conversion of some units
-- Fixed: unit conversion displaying null in Alfred
-- Fixed: vat calculations not able to use natural language
-- Improved: Detection of units
-- Improved: Detection of percentages
-- Improved: Language translations
-
-### 2.0.1
-
-- New: Improved actions modifiers, more info in the docs.
-- Fixed: Error when saving base currencies
-
-### 2.0.0
-
-- New: Complete rewrite to be more maintainable and extendable
-- New: Added cryptocurrencies support
-- New: Actions mofidiers, you can press CMD or option to copy the value in different formats
-- New: Display exchange rate conversions in multiple currencies at once
-- New: Added new workflow updater
-
-### 1.0.7
-
-- Fixed a bug where some configuration was saves in lowercase causing some problems with dates and currency formatting
-
-### 1.0.6
-
-- New: pixels, em, rem, pt calculations example: 12px or 12px to em or 12px to rem or 12px to pt
-- New: Added today + X workdays
-- Updated translations
-- Fixed currency now works correctly with decimals and commas
-- Fixed some units conversion not working
-
-### 1.0.5
-
-- New: Added new way to configure the workflow
-- New: Added OneUpdated for automatic updates
-- Fixed percentage calculation error
-- Improved decimal places to ignore last 0 for example 17.50 becomes 17.5
-- Improved the workflow, cleaning and removing nodes and code
-
-### 1.0.4
-
-- Fixed speed calculations not working
-
-### 1.0.3
-
-- Changed currency cache expiration to 2 hours for fixer.io and 12 hours for exchangerates
-
-### 1.0.2
-
-- Added support for fixer.io
-- Some cleanup
-
-### 1.0.1
-
-- FIXED Decimal pints to display values correcly from currencies
-- FIXED currency conversions to base currency always displayed the $ symbol
-- FIXED currency conversions from base currency eur to EUR triggered error
-
-### 1.0.0
-
-- Initial release
-
-## License
-
-This project is licensed under the MIT License. See [LICENSE.md](LICENSE.md) for details.
+The Changelog is available [here](https://github.com/biati-digital/alfred-calculate-anything/blob/master/CHANGELOG.md).
