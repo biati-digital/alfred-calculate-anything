@@ -385,16 +385,12 @@ class Units extends CalculateAnything implements CalculatorInterface
         $can_convert = $this->getConversionCategory($data['from'], $data['to']);
 
         if (empty($can_convert)) {
-            return false;
+            return sprintf($this->lang['error'], $this->standardUnit($data['from']), $this->standardUnit($data['to']));
         }
 
         $category = isset($can_convert['category']) ? $can_convert['category'] : '';
         $from = isset($can_convert['from']) ? $can_convert['from'] : '';
         $to = isset($can_convert['to']) ? $can_convert['to'] : '';
-
-        if (!$can_convert) {
-            return sprintf($this->lang['error'], $this->standardUnit($data['from']), $this->standardUnit($data['to']));
-        }
 
         $converted = $this->convertTo($amount, $from, $to);
 
