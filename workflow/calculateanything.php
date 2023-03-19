@@ -40,13 +40,15 @@ class CalculateAnything
         'decimal_separator',
         'currency_cache_hours',
         'currency_decimals',
+        'base_pixels',
         'cryptocurrency_cache_hours',
         'custom_cryptocurrencies',
+        'datastorage_force_binary',
         'decimals',
     ];
     // new settings for Alfred 5
     protected static $settingsArgsV5 = [
-        'lang',
+        'language',
         'decimals',
         'decimal_separator',
         'number_output_format',
@@ -58,6 +60,7 @@ class CalculateAnything
         'crypto_decimals',
         'currency_cache_hours',
         'cryptocurrency_cache_hours',
+        'datastorage_force_binary',
         'vat_value',
         'date_format',
         'pixels_base',
@@ -69,7 +72,7 @@ class CalculateAnything
     public function __construct($query = '')
     {
         self::$settings = $this->loadSettings();
-        self::$translations = \Alfred\getTranslation();
+        self::$translations = \Alfred\getTranslation('', $this->getSetting('language'));
         self::$langKeywords = $this->getExtraKeywords();
         self::$_query = $query;
     }
@@ -404,8 +407,11 @@ class CalculateAnything
         if (\Alfred\getAlfredVersion() >= 5) {
             $new_settings = \Alfred\getVariables(self::$settingsArgsV5);
 
-            if (!empty($settings['language']) && $settings['language'] !== 'en_EN' && $new_settings['lang'] !== 'en_EN') {
-                $settings['language'] = $new_settings['lang'];
+            if (!empty($settings['language']) && $settings['language'] !== 'en_EN' && $new_settings['language'] !== 'en_EN') {
+                $settings['language'] = $new_settings['language'];
+            }
+            if (empty($settings['language'])) {
+                $settings['language'] = $new_settings['language'];
             }
             if (!empty($new_settings['timezone']) && $new_settings['timezone'] !== 'none') {
                 $settings['time_zone'] = $new_settings['timezone'];
@@ -427,7 +433,7 @@ class CalculateAnything
                 $settings['vat_percentage'] = $new_settings['vat_value'];
             }
             if (!empty($new_settings['pixels_base'])) {
-                $settings['pixels_base'] = $new_settings['pixels_base'];
+                $settings['base_pixels'] = $new_settings['pixels_base'];
             }
             if (!empty($new_settings['date_format']) && $new_settings['date_format'] !== 'j F, Y, g:i:s a') {
                 $settings['time_format'] = str_replace(' ', '', $new_settings['time_format']);
@@ -486,7 +492,7 @@ class CalculateAnything
 
             // Return default lang if translation error
             if (!is_array($translations) || empty($translations)) {
-                return getExtraKeywords($key, $default_lang);
+                return $this->getExtraKeywords($key, $default_lang);
             }
 
             // If language is different
@@ -551,7 +557,7 @@ class CalculateAnything
      * /lang/{lang}-keys.php
      *
      * @param boolean $unit
-     * @return array
+     * @return array|string
      */
     public function keywordTranslation($word = false, $keywordsArray = [])
     {
@@ -646,6 +652,35 @@ class CalculateAnything
 
 
     /**
+     * Do request
+     * make a curl request
+     */
+    public function doRequest($to, $headers = [], $method = 'GET')
+    {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $to);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+        $req = curl_exec($curl);
+
+        curl_close($curl);
+
+        if (empty($req)) {
+            return false;
+        }
+
+        try {
+            $req = json_decode($req, true);
+        } catch (\Throwable $th) {
+        }
+
+        return $req;
+    }
+
+
+    /**
      * Cleanup number
      *
      * @param string $number
@@ -686,10 +721,6 @@ class CalculateAnything
             $decimals = floatval($decimals);
         }
 
-        if ($decimals == -1) {
-            $decimals = 10;
-        }
-
         // Check if number is then parse as float value of that
         preg_match('/([-+]?[0-9]*\.?[0-9]+)([eE][-+]?[0-9]+)/s', $number, $matches);
         if (!empty($matches) && isset($matches[2])) {
@@ -718,25 +749,38 @@ class CalculateAnything
             $decimals = 0;
         }
 
-        if ($round) {
-            $number = round($number, $decimals);
+        // handle numbers with a lot of decimals like
+        // 0.00035486302682 to bypass the decimals configured by the user
+        $data = explode('.', $number . '');
+        $decimals_in_number = end($data);
+        $total_decimals_in_number = strlen($decimals_in_number);
+
+        if (str_starts_with($decimals_in_number, '0')) {
+            preg_match('/^(0+)([1-9]{1,})/', $decimals_in_number, $matches);
+            if (!empty($matches) && !empty($matches[1]) && !empty($matches[2])) {
+                if (strlen($matches[2]) > $decimals) {
+                    $decimals = strlen($matches[1]) + $decimals;
+                } else {
+                    $decimals = strlen($matches[1]) + strlen($matches[2]);
+                }
+            }
+        }
+
+        if ($decimals == -1) {
+            $decimals = $total_decimals_in_number;
         }
 
         $negation = ($number < 0) ? (-1) : 1;
         $coefficient = 10 ** $decimals;
         $number = $negation * floor((string)(abs($number) * $coefficient)) / $coefficient;
-        $data = explode('.', $number . '');
-        $decimalsInNumber = strlen(end($data));
 
-        if ($decimals > $decimalsInNumber) {
-            $decimals = $decimalsInNumber;
+        if ($number > 1 && $decimals > $total_decimals_in_number) {
+            $decimals = $total_decimals_in_number;
         }
         if ($decimals > 8) {
             $decimals = 8;
         }
 
-        $formatted = number_format($number, $decimals, $decimal_point, $thousands_sep);
-
-        return $formatted;
+        return number_format($number, $decimals, $decimal_point, $thousands_sep);
     }
 }
