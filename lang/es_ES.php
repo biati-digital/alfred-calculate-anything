@@ -404,7 +404,7 @@ return [
         'alt' => 'Presiona enter para copiar el valor de 1 al clipboard',
         'fetch_error' => 'Error al importar la información de cambio',
         'nofixerapikey_title' => 'Debes de configurar la API key de Fixer',
-        'updating_rates' => 'Actualizando tipos de cambio...',
+        'updating_rates' => 'Actualizando tasas de cambio...',
     ],
     'crypto_currency' => [
         'cmd' => 'Presiona enter para copiar el valor al clipboard sin formato',
@@ -413,7 +413,7 @@ return [
         'noapikey_title' => 'Debes de configurar la API key para cryptomonedas',
         'noapikey_subtitle' => 'Por favor lee la documentación para más información',
         'nosymbol_title' => 'La crypto moneda no está disponible, revisa la documentación.',
-        'updating_rates' => 'Actualizando tasas de cryptomonedas...',
+        'updating_rates' => 'Actualizando tasas de cambio...',
     ],
     'color' => []
 ];

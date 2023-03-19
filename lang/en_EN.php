@@ -405,7 +405,7 @@ return [
         'alt' => 'Action this item to copy the value of 1 to the clipboard',
         'fetch_error' => 'Unable to get currencies data',
         'nofixerapikey_title' => 'You need to configure the API key for Fixer',
-        'updating_rates' => 'Updating currency rates...',
+        'updating_rates' => 'Updating rates...',
     ],
     'crypto_currency' => [
         'cmd' => 'Action this item to copy the amount with no format',
@@ -414,7 +414,7 @@ return [
         'noapikey_title' => 'You need to configure the API key for cryptocurrencies',
         'noapikey_subtitle' => 'Please read the documentation for more information',
         'nosymbol_title' => 'The crypto currency is not available, check the docs.',
-        'updating_rates' => 'Updating cryptocurrency rates...',
+        'updating_rates' => 'Updating rates...',
     ],
     'color' => []
 ];
