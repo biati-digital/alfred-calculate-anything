@@ -3,6 +3,7 @@
 namespace Workflow\Tools;
 
 use Workflow\CalculateAnything as CalculateAnything;
+use Workflow\Tools\Cryptocurrency;
 
 /**
  * Currency
@@ -21,8 +22,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
     private $currencyList;
     private $lang;
     private $rates_cache_seconds;
-    private static $fixer_rates;
-    private static $basic_rates;
+    private static $rates;
     private static $display_updating_message;
 
     /**
@@ -249,8 +249,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $currencies = $this->matchRegex();
         $stopwords = $this->getStopWordsString($this->stop_words);
 
-        return preg_match('/^[0-9,.]+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
-        //return preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+        return preg_match('/^([-\d+\.,\s]*) ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
     }
 
 
@@ -268,28 +267,60 @@ class Currency extends CalculateAnything implements CalculatorInterface
             return false;
         }
 
-        if ($data['amount'] <= 0 || $data['from'] == $data['to']) {
-            return $data['amount'] . $data['to'];
+        $data['converted'] = [];
+        if ($data['amount'] <= 0 || (!empty($data['to']['currency']) && $data['from'] == $data['to']['currency'][0])) {
+            $_to = $data['to']['currency'][0];
+            $data['converted'][$_to . '_currency'] = [
+                'total' => ['value' => $data['amount'], 'formatted' => "{$data['amount']} $_to"],
+                'single' => ['value' => 1, 'formatted' => "1 {$data['from']} = 1 $_to"],
+                'symbol' => $_to,
+                'icon' => 'flags/' . $_to . '.png',
+            ];
+            return $this->output($data);
         }
 
-        /*$locale = $this->getSetting('locale_currency', 'en_US');
-        $decimals = $this->getSetting('decimals', '2');*/
         $converted = $this->convert($data);
+        $decimals = $this->getSetting('currency_decimals', 2);
 
         if (!empty($converted['error'])) {
             return $this->outputError($converted);
         }
 
-        $data['converted'] = [];
-        foreach ($converted as $key => $value) {
-            $data['converted'][$key] = [];
-            $total = $this->formatNumber($value['total']);
-            $single = $this->formatNumber($value['single'], -1);
+        if (!empty($converted['currency'])) {
+            foreach ($converted['currency'] as $key => $value) {
+                $currency_key = $key . '_currency';
+                $data['converted'][$currency_key] = [];
+                $total = $this->formatNumber($value['total'], $decimals);
+                $single = $this->formatNumber($value['single'], -1);
 
-            $data['converted'][$key]['total'] = ['value' => $total, 'formatted' => "{$total} {$key}"];
-            $data['converted'][$key]['single'] = ['value' => $single, 'formatted' => "1 {$data['from']} = {$single} {$key}"];
+                $data['converted'][$currency_key]['total'] = ['value' => $total, 'formatted' => "{$total} {$key}"];
+                $data['converted'][$currency_key]['single'] = ['value' => $single, 'formatted' => "1 {$data['from']} = {$single} {$key}"];
+                $data['converted'][$currency_key]['symbol'] = $key;
+                $data['converted'][$currency_key]['icon'] = 'flags/' . $key . '.png';
+            }
         }
 
+        if (!empty($converted['crypto'])) {
+            foreach ($converted['crypto'] as $key => $value) {
+                $currency_key = $key . '_crypto';
+                $data['converted'][$currency_key] = [];
+                $total = $this->formatNumber($value['total'], $decimals);
+                $single = $this->formatNumber($value['single'], -1);
+
+                $formatted_text = "{$total} {$key}";
+                $formatted_single_text = "1 {$data['from']} = {$single} {$key}";
+
+                $name = self::$cryptocurrencyCalculator->getCryptoFullName($key);
+                if (!empty($name)) {
+                    $formatted_single_text .= " - {$name}";
+                }
+
+                $data['converted'][$currency_key]['total'] = ['value' => $total, 'formatted' => $formatted_text];
+                $data['converted'][$currency_key]['single'] = ['value' => $single, 'formatted' => $formatted_single_text];
+                $data['converted'][$currency_key]['symbol'] = $key;
+                $data['converted'][$currency_key]['icon'] = '';
+            }
+        }
 
         return $this->output($data);
     }
@@ -308,16 +339,16 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $items = [];
         $converted = $result['converted'];
 
-        foreach ($converted as $key => $value) {
+        foreach ($converted as $value) {
             $total = $value['total'];
             $single = $value['single'];
-            $icon = 'assets/flags/' . $key . '.png';
+            $icon = $value['icon'];
 
             $items[] = [
                 'title' => $total['formatted'],
                 'subtitle' => $single['formatted'],
                 'arg' => $total['value'],
-                'icon' => ['path' => $icon],
+                'icon' =>  $icon ? ['path' => $icon] : false,
                 'mods' => [
                     'cmd' => [
                         'valid' => true,
@@ -365,32 +396,65 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     public function convert($data)
     {
-        $converted = [];
+        $converted = ['currency' => false, 'crypto' => false, 'error' => false, 'reload' => false];
         $amount = $data['amount'];
         $from = $data['from'];
-        $to = $data['to'];
-        $fixer_apikey = $this->getSetting('fixer_apikey');
-        $method = !empty($fixer_apikey) ? 'fixer' : 'exchangeratehost';
 
-        if (is_string($to)) {
-            $to = [$to];
+        $to_currency = isset($data['to']['currency']) ? $data['to']['currency'] : false;
+        $to_crypto = isset($data['to']['crypto']) ? $data['to']['crypto'] : false;
+
+        if (!empty($to_currency)) {
+            $converted['currency'] = [];
+            foreach ($to_currency as $currency) {
+                $conversion = $this->exchangeConversion($amount, $from, $currency);
+
+                if (isset($conversion['error']) && !empty($conversion['error'])) {
+                    $converted['error'] = $conversion['error'];
+                }
+                if (isset($conversion['reload']) && !empty($conversion['reload'])) {
+                    $converted['reload'] = $conversion['reload'];
+                }
+                $converted['currency'][$currency] = $conversion;
+            }
         }
 
-        foreach ($to as $currency) {
-            // Use Fixer io
-            if ($method === 'fixer') {
-                $conversion = $this->fixerConversion($amount, $from, $currency);
-            } elseif ($method === 'exchangeratehost') {
-                $conversion = $this->exchangeRateHostConversion($amount, $from, $currency);
-            }
+        if (empty($converted['reload']) && empty($converted['error']) && !empty($to_crypto)) {
+            $converted['crypto'] = [];
+            foreach ($to_crypto as $crypto) {
 
-            if (isset($conversion['error']) && !empty($conversion['error'])) {
-                $converted['error'] = $conversion['error'];
+                // Get the crypto value in USD
+                // and make the conversion
+                $crypto_conversion = self::$cryptocurrencyCalculator->getCryptoData($crypto);
+                if (!empty($crypto_conversion)) {
+                    $total = 0;
+                    $single = 0;
+                    $_amount = $amount;
+
+                    // crypto prices are always returned in USD
+                    $crypto_price = $crypto_conversion['price'];
+
+                    if ($from === 'USD') {
+                        $total = $amount / $crypto_price;
+                        $single = 1000 / $crypto_price;
+                    } else {
+                        // convert to USD first
+                        self::$display_updating_message = false;
+                        $conversion = $this->exchangeConversion($amount, $from, 'USD');
+                        if (!empty($conversion)) {
+                            $amount = $conversion['total'];
+                            $total = $amount / $crypto_price;
+                            $single = $total / $_amount;
+                        }
+                    }
+
+                    $converted['crypto'][$crypto] = [
+                        'total' => $total,
+                        'single' => $single,
+                        'error' => '',
+                        'reload' => false,
+                    ];
+                }
             }
-            if (isset($conversion['reload']) && !empty($conversion['reload'])) {
-                $converted['reload'] = $conversion['reload'];
-            }
-            $converted[$currency] = $conversion;
         }
 
         return $converted;
@@ -398,91 +462,48 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
 
     /**
-     * Fixer.io conversion
+     * Exchange conversion
      *
      * @param int $amount
      * @param string $from
      * @param string $to
-     * @param int $cache_seconds
      * @return array
      */
-    private function fixerConversion($amount, $from, $to)
+    public function exchangeConversion($amount, $from, $to)
     {
-        $apikey = $this->getSetting('fixer_apikey');
-        $apiSource = $this->getSetting('fixer_apisource', '');
+        $exchange = self::$rates;
+        if (empty($exchange)) {
+            $exchange = $this->getRates();
+        }
 
-        if (empty($apikey)) {
+        if (isset($exchange['error'])) {
             return [
                 'total' => '',
                 'single' => '',
-                'error' => $this->lang['nofixerapikey_title'],
+                'error' => $exchange['error']['info'],
+                'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
             ];
         }
 
-        $exchange = self::$fixer_rates;
+        if (
+            isset($exchange['message']) &&
+            (str_contains($exchange['message'], 'Invalid') || str_contains($exchange['message'], 'API key'))
+        ) {
+            return [
+                'total' => '',
+                'single' => '',
+                'error' => $exchange['message'],
+                'reload' => false
+            ];
+        }
 
-        if (!$exchange) {
-            $cache_seconds = $this->rates_cache_seconds;
-
-            // Fixer moved it's API to API layer
-            // old API keys will not work with API Layer and new API Keys
-            // will not work with the old API URL we need to validate
-            // the API key and save the correct source to avoid duplicated
-            // API calls, eventually the old API will stop working
-
-            if ($apiSource === 'apilayer') {
-                $fixerAPILayer = 'https://api.apilayer.com/fixer/latest';
-                $exchange = $this->getRates('fixer', $fixerAPILayer, $cache_seconds, [
-                    "Content-Type: text/plain",
-                    "apikey: {$apikey}",
-                ]);
-            } else {
-
-                $fixerAPI_deprecated = "http://data.fixer.io/api/latest?access_key={$apikey}&format=1";
-                $exchange = $this->getRates('fixer', $fixerAPI_deprecated, $cache_seconds);
-
-                // If the API key provided does not work with the deprecated API URL
-                // try to use the new API URL of API Layer
-                if (isset($exchange['error']) && $exchange['error']['type'] === 'invalid_access_key') {
-                    $fixerAPILayer = 'https://api.apilayer.com/fixer/latest';
-                    $exchange = $this->getRates('fixer', $fixerAPILayer, $cache_seconds, [
-                        "Content-Type: text/plain",
-                        "apikey: {$apikey}",
-                    ]);
-                    if (isset($exchange['success']) && $exchange['success']) {
-                        \Alfred\setVariable('fixer_apisource', 'apilayer', false);
-                    }
-                }
-            }
-
-            if (isset($exchange['reload'])) {
-                return [
-                    'total' => '',
-                    'single' => '',
-                    'error' => $exchange['message'],
-                    'reload' => $exchange['reload'],
-                ];
-            }
-
-            if (isset($exchange['error'])) {
-                return [
-                    'total' => '',
-                    'single' => '',
-                    'error' => $exchange['error']['info'],
-                    'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
-                ];
-            }
-
-            if (isset($exchange['message']) && str_contains($exchange['message'], 'Invalid')) {
-                return [
-                    'total' => '',
-                    'single' => '',
-                    'error' => $exchange['message'],
-                    'reload' => false
-                ];
-            }
-
-            self::$fixer_rates = $exchange;
+        if (isset($exchange['reload'])) {
+            return [
+                'total' => '',
+                'single' => '',
+                'error' => $exchange['message'],
+                'reload' => $exchange['reload'],
+            ];
         }
 
         $base = $exchange['base'];
@@ -494,58 +515,13 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $value = ($rates[$to] * $base_exchange);
         $total = $amount * $value;
 
-        return ['total' => $total, 'single' => $value, 'error' => false];
-    }
-
-
-    /**
-     * exchangerate.host
-     *
-     * @param int $amount
-     * @param string $from
-     * @param string $to
-     *
-     * @return array
-     */
-    public function exchangeRateHostConversion($amount, $from, $to)
-    {
-        //$basic_rates
-        $exchange = self::$basic_rates;
-        if (!$exchange) {
-            $cache_seconds = $this->rates_cache_seconds;
-            $ratesURL = "https://api.exchangerate.host/latest";
-            $exchange = $this->getRates('exchangeratehost', $ratesURL, $cache_seconds);
-
-            if (isset($exchange['reload'])) {
-                return [
-                    'total' => '',
-                    'single' => '',
-                    'error' => isset($exchange['message']) ? $exchange['message'] : '',
-                    'reload' => $exchange['reload'],
-                ];
-            }
-
-            if (!isset($exchange['success']) || !$exchange['success']) {
-                return [
-                    'total' => '',
-                    'single' => '',
-                    'error' => $exchange['error']
-                ];
-            }
-
-            self::$basic_rates = $exchange;
-        }
-
-        $base = $exchange['base'];
-        $rates = $exchange['rates'];
-        $default_base_currency = $rates[$base];
-
-        $new_base_currency = $rates[$from]; //from currency
-        $base_exchange = $default_base_currency / $new_base_currency;
-        $value = ($rates[$to] * $base_exchange);
-        $total = $amount * $value;
-
-        return ['total' => $total, 'single' => $value, 'error' => false];
+        return [
+            'total' => $total,
+            'single' => $value,
+            'name' => $this->currencyList[$to],
+            'slug' => $to,
+            'error' => false
+        ];
     }
 
 
@@ -563,8 +539,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $default_currency = $this->getBaseCurrency();
         $stopwords = $this->getStopWordsString($this->stop_words, ' %s ');
 
-        /*preg_match('/^(\d*\.?\d+)[^\d]/i', $query, $amount_match);*/
-        preg_match('/^([0-9,.]+)[^\d]/i', $query, $amount_match);
+        preg_match('/^([0-9,.\s]+)[^\d]/i', $query, $amount_match);
         if (empty($amount_match)) {
             return false;
         }
@@ -605,19 +580,46 @@ class Currency extends CalculateAnything implements CalculatorInterface
             $to = \Alfred\getArgument($data, 1);
         }
 
-        $from = strtoupper($from);
-        $to = (!empty($to) ? strtoupper($to) : $default_currency);
+        $from = $this->getCorrectCurrency(strtoupper($from));
+        $_to = strtoupper($to);
+        $to = !empty($to) ? $this->getCorrectCurrency($_to) : '';
+        $convert_to = ['currency' => false, 'crypto' => false];
 
-        $from = $this->getCorrectCurrency($from);
-        $to = (is_string($to) ? $this->getCorrectCurrency($to) : $to);
+        // there's 4 possible cases
+        // 1 - $to is provided and $to is a regular currency (like pln) but also a crypto
+        // 2 - $to is provided and $to is regular currency
+        // 3 - $to is provided and $to is crypto
+        // 4 - no $to is provided so we default to $default_currency if they are defined
 
-        if (!$from || !$to) {
+        if (!empty($to) && is_string($to)) {
+            $to_crypto = self::$cryptocurrencyCalculator->getCorrectSymbol($_to);
+
+            if ($to_crypto) {
+                // Handle case 1
+                $convert_to['currency'] = [$to];
+                $convert_to['crypto'] = [$to_crypto];
+            } else {
+                // Handle case 2
+                $convert_to['currency'] = [$to];
+            }
+        } elseif (empty($to) && !empty($_to)) {
+            // // Handle case 3
+            $to_crypto = self::$cryptocurrencyCalculator->getCorrectSymbol($_to);
+            if ($to_crypto) {
+                $convert_to['crypto'] = [$to_crypto];
+            }
+        } elseif (empty($to) && !empty($default_currency)) {
+            // Handle case 4
+            $convert_to['currency'] = $default_currency;
+        }
+
+        if (!$from || (empty($convert_to['crypto']) && empty($convert_to['currency']))) {
             return false;
         }
 
         return [
             'from' => $from,
-            'to' => $to,
+            'to' => $convert_to,
             'amount' => $this->cleanupNumber($amount),
         ];
     }
@@ -630,12 +632,26 @@ class Currency extends CalculateAnything implements CalculatorInterface
      * the cached rates otherwise
      * it fetches the rates again
      *
+     * it should return an array in the following format
+     * [
+     *     [success] => 1
+     *     [base] => EUR
+     *     [rates] => [
+     *        [AED] => 3.94891
+     *        ...
+     *     ]
+     * ]
+     *
      * @param int $cache_seconds number of seconds before the cache expires
      * @return mixed array if success or string with error message
      */
-    private function getRates($id, $from, $cache_seconds, $http_headers = [])
+    private function getRates()
     {
-        $ratesURL = $from;
+        $configured_exchange = $this->getConfiguredExchangeData();
+        $cache_seconds = $this->rates_cache_seconds;
+        $id = $configured_exchange['id'];
+        $from = $configured_exchange['url'];
+        $http_headers = $configured_exchange['headers'];
         $cache_path = \Alfred\getDataPath('cache');
         $dir = $cache_path . '/' . $id;
 
@@ -661,13 +677,14 @@ class Currency extends CalculateAnything implements CalculatorInterface
                 // has not expired otherwise continue
                 // to fetch the new rates
                 if ($rates['success'] && $time < $cache_seconds) {
+                    self::$rates = $rates;
                     return $rates;
                 }
             }
         }
 
         // Before we update the rates, as it takes a few seconds
-        // depending on the API and intenet connection, we tell
+        // depending on the API and internet connection, we tell
         // Alfred to display a loading message and rerun the query
         // if the variable "rerun" exists it means that this is the second
         // run and we should not display the loading message and
@@ -683,32 +700,96 @@ class Currency extends CalculateAnything implements CalculatorInterface
             $http_headers = ['Accepts: application/json'];
         }
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $from);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $http_headers);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $rates = $this->doRequest($from, $http_headers);
 
-        $rates = curl_exec($curl);
-
-        curl_close($curl);
-
-        if (empty($rates)) {
+        if (empty($rates) || !is_array($rates)) {
             return [
                 'error' => $this->lang['fetch_error'],
                 'reload' => 0.1,
             ];
         }
 
-        $rates = json_decode($rates, true);
         $rates['last_updated'] = time();
 
         if (isset($rates['success']) && $rates['success']) {
             file_put_contents($rates_file, json_encode($rates));
         }
 
+        self::$rates = $rates;
+
         return $rates;
     }
+
+
+    /**
+     * The entire pourpose of this method
+     * is to get the correct API endpoint
+     * it requires a big ass method
+     * because fixer changed it's endpoint a few months ago
+     * we need to verify if the user API is from
+     * the previous endpoint or the new one
+     * and store it in a workflow variable
+     * once the old endpoint stops working completely
+     * we can remove this method and just add
+     * the urls directly in the getRates method
+     */
+    private function getConfiguredExchangeData()
+    {
+        $id = 'exchangeratehost';
+        $api_url = "https://api.exchangerate.host/latest";
+        $headers = [];
+        $fixer_apikey = $this->getSetting('fixer_apikey');
+
+        if (!empty($fixer_apikey)) {
+            $id = 'fixer';
+            $apiSource = \Alfred\getVariable('fixer_source_api', '');
+            $old_api = "http://data.fixer.io/api/latest?access_key={$fixer_apikey}&format=1";
+            $new_url = 'https://api.apilayer.com/fixer/latest';
+            $new_headers = [
+                "Content-Type: text/plain",
+                "apikey: {$fixer_apikey}",
+            ];
+
+            // Fixer moved it's API to API layer
+            // old API keys will not work with API Layer and new API Keys
+            // will not work with the old API URL we need to validate
+            // the API key and save the correct source to avoid duplicated
+            // API calls, eventually the old API will stop working
+            // make request to check what's the correct endpoint
+            if (empty($apiSource)) {
+                $req = $this->doRequest($old_api);
+
+                if ($req && !empty($req['success'])) {
+                    $apiSource = 'fixer_io';
+                } else {
+                    // If the API key does not work with the deprecated url, try with the new one
+                    $req = $this->doRequest($new_url, $new_headers);
+                    if ($req && !empty($req['success'])) {
+                        $apiSource = 'fixer_apilayer';
+                    }
+                }
+
+                if (!empty($apiSource)) {
+                    \Alfred\setVariable('fixer_source_api', $apiSource, false);
+                }
+            }
+
+            if ($apiSource === 'fixer_io') {
+                $api_url = $old_api;
+            }
+            if ($apiSource === 'fixer_apilayer') {
+                $api_url = $new_url;
+                $headers = $new_headers;
+            }
+        }
+
+        return [
+            'id' => $id,
+            'url' => $api_url,
+            'headers' => $headers
+        ];
+    }
+
 
 
     /**
@@ -727,7 +808,6 @@ class Currency extends CalculateAnything implements CalculatorInterface
             return $val;
         }
 
-        // $val = strtolower($val);
         $val = mb_strtolower($val);
         $val = $this->keywordTranslation($val, $this->keywords);
         $val = strtoupper($val);
@@ -748,18 +828,6 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     private function matchRegex()
     {
-        // $currencies = $this->currencyList;
-        // $params = implode('\b|', array_keys($currencies));
-        // $params .= '\b|' . implode('\b|', array_values($currencies));
-        // $translation_keywords = $this->keywords;
-
-        // if (!empty($translation_keywords)) {
-        //     $params .= '\b|' . implode('\b|', array_keys($translation_keywords));
-        // }
-        // $params = $this->escapeKeywords($params);
-
-        // return '(' . $params . '\b)';
-
         $currencies = $this->currencyList;
         $params = implode('|', array_keys($currencies));
         $params .= '|' . implode('|', array_values($currencies));
@@ -787,6 +855,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
     {
         return isset($this->currencyList[$val]);
     }
+
+
 
 
     /**
