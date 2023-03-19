@@ -5,7 +5,7 @@ namespace Workflow\Tools;
 use Workflow\CalculateAnything as CalculateAnything;
 
 /**
- * Cryptourrency
+ * Cryptocurrency
  * Handle cryptocurrency conversions
  * for example 100 bitcoins in usd
  * 100 bitcoin mxn
@@ -22,6 +22,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
     private $rates_cache_seconds;
     private static $rates;
     private static $custom_rates;
+    private static $display_updating_message;
 
     /**
      * Construct
@@ -34,6 +35,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         $this->stop_words = $this->getStopWords('crypto_currency');
         $this->symbolsList = $this->symbols();
         $this->rates_cache_seconds = $this->getCacheDuration();
+        $this->setUpdatingMessageDisplay(true);
     }
 
 
@@ -47,7 +49,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
     {
         $symbols = [];
         $file = \Alfred\getWorkflowPath() . '/data/crypto-currencies.json';
-        
+
         if (file_exists($file)) {
             $symbols = file_get_contents($file);
             if (!empty($symbols)) {
@@ -58,7 +60,6 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
                         $symbols[] = $key;
                     }
                 }
-
             }
         }
 
@@ -71,20 +72,6 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
                 }
             }
         }
-
-        /*print_r($symbols);*/
-
-        /*$matched = [];
-        $currencies = self::$currencyCalculator->currencies();
-        foreach ($money as $key => $item) {
-            if (isset($symbols[$key])) {
-                $matched[] = $key;
-            }
-        }
-
-        print_r('total '. count($money));
-        print_r('found '. count($matched));
-        print_r($matched);*/
 
         return $symbols;
     }
@@ -125,31 +112,17 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         $checks = array_chunk($this->symbolsList, 100, true);
         $match = false;
         $query = $this->query;
-        /*$query = preg_replace('/^([,.\d+]+)/', '${1} ', $query);
-        $query = preg_replace('/\s+/', ' ', $query);*/
 
         foreach ($checks as $list) {
             $currencies = $this->matchRegex($list);
             $stopwords = $this->getStopWordsString($this->stop_words);
-            preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+            preg_match('/^([-\d+\.,\s]*) ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
 
             if (!empty($matches)) {
                 $match = true;
                 break;
             }
         }
-
-        /*foreach ($checks as $list) {
-            $currencies = $this->matchRegex($list);
-            $stopwords = $this->getStopWordsString($this->stop_words);
-            $query = $this->query;
-            preg_match('/^\d*\.?\d+ ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
-
-            if (!empty($matches)) {
-                $match = true;
-                break;
-            }
-        }*/
 
         return $match;
     }
@@ -169,7 +142,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         }
 
         $data['converted'] = [];
-        if ($data['amount'] <= 0 || $data['from'] === $data['to']) {
+        if ($data['amount'] <= 0 || (!empty($data['to']['crypto']) && $data['from'] === $data['to']['crypto'][0])) {
             $data['converted'][$data['to']] = [
                 'total' => ['value' => $data['amount'], 'formatted' => "{$data['amount']} {$data['to']}"],
                 'single' => ['value' => 1, 'formatted' => "1 {$data['from']} = 1 {$data['to']}"],
@@ -177,26 +150,46 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
             return $this->output($data);
         }
 
-        $locale = $this->getSetting('locale_currency', 'en_US');
-        setlocale(LC_MONETARY, $locale);
-
+        $decimals = $this->getSetting('crypto_decimals', 2);
         $converted = $this->convert($data);
 
         if (!empty($converted['error'])) {
             return $this->outputError($converted);
         }
 
-        foreach ($converted as $key => $value) {
-            $data['converted'][$key] = [];
+        if (!empty($converted['currency'])) {
+            foreach ($converted['currency'] as $key => $value) {
+                $currency_key = $key . '_currency';
+                $data['converted'][$currency_key] = [];
+                $total = $this->formatNumber($value['total'], $decimals);
+                $single = $this->formatNumber($value['single'], -1);
 
-            $total = money_formatter('%i', $value['total']);
-            $total = preg_replace("/[^0-9.,]/", '', $total);
-            $single = $value['single'];
-            $single = money_formatter('%i', $single);
-            $single = preg_replace("/\w+[^0-9-., ]/", '', $single);
+                $data['converted'][$currency_key]['total'] = ['value' => $total, 'formatted' => "{$total} {$key}"];
+                $data['converted'][$currency_key]['single'] = ['value' => $single, 'formatted' => "1 {$data['from']} = {$single} {$key}"];
+                $data['converted'][$currency_key]['symbol'] = $key;
+                $data['converted'][$currency_key]['icon'] = 'flags/' . $key . '.png';;
+            }
+        }
 
-            $data['converted'][$key]['total'] = ['value' => $total, 'formatted' => "{$total} {$key}"];
-            $data['converted'][$key]['single'] = ['value' => $single, 'formatted' => "1 {$data['from']} = {$single} {$key}"];
+        if (!empty($converted['crypto'])) {
+            foreach ($converted['crypto'] as $key => $value) {
+                $data['converted'][$key] = [];
+                $total = $this->formatNumber($value['total'], $decimals);
+                $single = $this->formatNumber($value['single'], -1);
+
+                $formatted_text = "{$total} {$key}";
+                $formatted_single_text = "1 {$data['from']} = {$single} {$key}";
+
+                $name = $this->getCryptoFullName($key);
+                if (!empty($name)) {
+                    $formatted_single_text .= " - {$name}";
+                }
+
+                $data['converted'][$key]['total'] = ['value' => $total, 'formatted' => $formatted_text];
+                $data['converted'][$key]['single'] = ['value' => $single, 'formatted' => $formatted_single_text];
+                $data['converted'][$key]['symbol'] = $key;
+                $data['converted'][$key]['icon'] = false;
+            }
         }
 
         return $this->output($data);
@@ -230,13 +223,13 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         foreach ($converted as $key => $value) {
             $total = $value['total'];
             $single = $value['single'];
-            $icon = 'flags/' . $key . '.png';
+            $icon = $value['icon'];
 
             $items[] = [
                 'title' => $total['formatted'],
                 'subtitle' => $single['formatted'],
                 'arg' => $total['value'],
-                //'icon' => ['path' => $icon],
+                'icon' =>  $icon ? ['path' => $icon] : false,
                 'mods' => [
                     'cmd' => [
                         'valid' => true,
@@ -287,25 +280,55 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
      */
     public function convert(array $data): array
     {
-        $converted = [];
+        $converted = ['currency' => false, 'crypto' => false, 'error' => false, 'reload' => false];
         $amount = $data['amount'];
         $from = $data['from'];
-        $to = $data['to'];
+        $to_currency = isset($data['to']['currency']) ? $data['to']['currency'] : false;
+        $to_crypto = isset($data['to']['crypto']) ? $data['to']['crypto'] : false;
 
-        if (is_string($to)) {
-            $to = [$to];
+        if (!empty($to_crypto)) {
+            $converted['crypto'] = [];
+            foreach ($to_crypto as $crypto) {
+                $conversion = $this->cryptoConversion($amount, $from, $crypto);
+                if (!empty($conversion['error'])) {
+                    $converted['error'] = $conversion['error'];
+                }
+                if (!empty($conversion['reload'])) {
+                    $converted['reload'] = $conversion['reload'];
+                }
+                $converted['crypto'][$crypto] = $conversion;
+            }
         }
 
-        foreach ($to as $currency) {
-            $conversion = $this->coinmarketConversion($amount, $from, $currency);
+        if (empty($converted['reload']) && empty($converted['error']) && !empty($to_currency)) {
+            $converted['currency'] = [];
 
-            if (isset($conversion['error']) && !empty($conversion['error'])) {
-                $converted['error'] = $conversion['error'];
+            foreach ($to_currency as $currency) {
+                $crypto_data = $this->getCryptoData($from);
+
+                if (!empty($crypto_data)) {
+                    // rates are already in USD, if the target currency
+                    // is USD just return the stored value
+                    if ($currency === 'USD') {
+                        $converted['currency'][$currency] = [
+                            'total' => $crypto_data['price'] * $amount,
+                            'single' => $crypto_data['price'],
+                            'error' => '',
+                            'reload' => false,
+                        ];
+                    } else {
+                        self::$currencyCalculator->setUpdatingMessageDisplay(false);
+                        $currency_conversion = self::$currencyCalculator->exchangeConversion($crypto_data['price'] * $amount, 'USD', $currency);
+
+                        if (!empty($currency_conversion['error'])) {
+                            $converted['error'] = $currency_conversion['error'];
+                        } else {
+                            $currency_conversion['single'] = $currency_conversion['total'] / $amount;
+                            $converted['currency'][$currency] = $currency_conversion;
+                        }
+                    }
+                }
             }
-            if (isset($conversion['reload']) && !empty($conversion['reload'])) {
-                $converted['reload'] = $conversion['reload'];
-            }
-            $converted[$currency] = $conversion;
         }
 
         return $converted;
@@ -322,48 +345,33 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
      *
      * @return array
      */
-    private function coinmarketConversion($amount, $from, $to)
+    private function cryptoConversion($amount, $from, $to)
     {
-        $apikey = $this->getSetting('coinmarket_apikey', '');
-        if (empty($apikey)) {
+        $exchange = self::$rates;
+        if (empty($exchange)) {
+            $exchange = $this->getRates();
+        }
+
+        if (isset($exchange['reload'])) {
             return [
                 'total' => '',
                 'single' => '',
-                'error' => $this->lang['noapikey_title'],
+                'error' => $exchange['message'],
+                'reload' => $exchange['reload'],
             ];
         }
 
-        $exchange = self::$rates;
-
-        if (!$exchange) {
-            $cache_seconds = $this->rates_cache_seconds;
-            $url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY={$apikey}&limit=5000";
-            $exchange = $this->getRates('coinmarketcap', $url, $cache_seconds);
-
-            if (isset($exchange['reload'])) {
-                return [
-                    'total' => '',
-                    'single' => '',
-                    'error' => $exchange['message'],
-                    'reload' => $exchange['reload'],
-                ];
-            }
-
-            if (isset($exchange['error_message'])) {
-                return [
-                    'total' => '',
-                    'single' => '',
-                    'error' => $exchange['error_message'],
-                    'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
-                ];
-            }
-            if (is_string($exchange)) {
-                return ['total' => '', 'single' => '', 'error' => $exchange];
-            }
-
-            self::$rates = $exchange;
+        if (isset($exchange['error_message'])) {
+            return [
+                'total' => '',
+                'single' => '',
+                'error' => $exchange['error_message'],
+                'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
+            ];
         }
-
+        if (is_string($exchange)) {
+            return ['total' => '', 'single' => '', 'error' => $exchange];
+        }
 
         $exchange = $exchange['data'];
         $crypto_data = $this->getRate($from, $exchange);
@@ -380,49 +388,25 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         $total = 0;
         $value = 0;
         $crypto_value = $crypto_data['price'];
-        $to_type = $this->isValidSymbol($to) ? 'cryptocurrency' : 'currency';
-
-        // Check if doing a converstion from cryptocurrency to cryptocurrency
-        if ($to_type === 'cryptocurrency') {
-            $crypto_to_data = $this->getRate($to, $exchange);
-            if (!$crypto_to_data) {
-                return [];
-            }
-
-            $to_value = $crypto_to_data['price'];
-            $to_value = str_replace(',', '', $to_value);
-
-            $convert = (float)$crypto_value / (float)$to_value;
-            $value = $convert;
-            $total = $convert * $amount;
+        $crypto_to_data = $this->getRate($to, $exchange);
+        if (!$crypto_to_data) {
+            return [];
         }
 
-        if ($to_type === 'currency') {
-            if ($to === 'USD') {
-                // Rates are already in USD
-                $crypto_value = floatval(str_replace(',', '', $crypto_value));
-                $total = $crypto_value * $amount;
-                $value = $crypto_value;
-            } elseif (self::$currencyCalculator->isValidCurrency($to)) {
-                self::$currencyCalculator->setUpdatingMessageDisplay(false);
-                $currency_conversion = self::$currencyCalculator->convert([
-                    'from' => 'USD',
-                    'to' => $to,
-                    'amount' => $crypto_value,
-                ]);
+        $to_value = $crypto_to_data['price'];
+        $to_value = str_replace(',', '', $to_value);
 
-                self::$currencyCalculator->setUpdatingMessageDisplay(true);
+        $convert = (float)$crypto_value / (float)$to_value;
+        $value = $convert;
+        $total = $convert * $amount;
 
-                if ($currency_conversion && isset($currency_conversion[$to])) {
-                    $total = str_replace(',', '', $currency_conversion[$to]['total']);
-                    $value = (float)$total;
-                    $total = (float)$total * $amount;
-                }
-            }
-        }
-
-        return ['total' => $total, 'single' => $value, 'error' => false];
+        return [
+            'total' => $total,
+            'single' => $value,
+            'error' => false
+        ];
     }
+
 
 
     /**
@@ -476,17 +460,47 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         }
 
         $from = strtoupper($from);
-        $to = (!empty($to) ? strtoupper($to) : $default_currency);
+        $to = (!empty($to) ? strtoupper($to) : '');
+        $_to = $to;
         $from = $this->getCorrectSymbol($from);
-        $to = (is_string($to) ? $this->getCorrectSymbol($to) : $to);
+        $to = (!empty($to) ? $this->getCorrectSymbol($to) : '');
+        $convert_to = ['currency' => false, 'crypto' => false];
 
-        if (!$from || !$to) {
+        // there's 4 possible cases
+        // 1 - $to is provided and $to is crypto and also regular currency (like pln)
+        // 2 - $to is provided and $to is crypto
+        // 3 - $to is provided and $to is regular currency
+        // 4 - no $to is provided so we default to $default_currency if they are defined
+
+        if (!empty($to)) {
+            $to_currency = $this->isNormalCurrency($_to);
+
+            if ($to_currency) {
+                // Handle case 1
+                $convert_to['crypto'] = [$to];
+                $convert_to['currency'] = [$to_currency];
+            } else {
+                // Handle case 2
+                $convert_to['crypto'] = [$to];
+            }
+        } elseif (empty($to) && !empty($_to)) {
+            // Handle case 3
+            $to_currency = $this->isNormalCurrency($_to);
+            if ($to_currency) {
+                $convert_to['currency'] = [$to_currency];
+            }
+        } elseif (empty($to) && !empty($default_currency)) {
+            // Handle case 4
+            $convert_to['currency'] = $default_currency;
+        }
+
+        if (!$from || (empty($convert_to['crypto']) && empty($convert_to['currency']))) {
             return false;
         }
 
         return [
             'from' => $from,
-            'to' => $to,
+            'to' => $convert_to,
             'amount' => $this->cleanupNumber($amount),
         ];
     }
@@ -501,12 +515,24 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
      *
      * @param int $cache_seconds number of seconds before the cache expires
      *
-     * @return mixed array if sucess or string with error message
+     * @return mixed array if success or string with error message
      */
-    private function getRates($id, $from, $cache_seconds)
+    private function getRates($skip_rerun = false)
     {
+        $id = 'coinmarketcap';
+        $cache_seconds = $this->rates_cache_seconds;
+        $apikey = $this->getSetting('coinmarket_apikey', '');
+        $from = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY={$apikey}&limit=5000";
         $cache_path = \Alfred\getDataPath('cache');
         $dir = $cache_path . '/' . $id;
+
+        if (empty($apikey)) {
+            return [
+                'total' => '',
+                'single' => '',
+                'error_message' => $this->lang['noapikey_title'],
+            ];
+        }
 
         // Make sure the cache folder is created
         \Alfred\createDir($cache_path);
@@ -531,6 +557,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
                 // has not expired otherwise continue
                 // to fetch the new rates
                 if ($time < $cache_seconds) {
+                    self::$rates = $rates;
                     return $rates;
                 }
             }
@@ -538,27 +565,19 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
 
 
         // Before we update the rates, as it takes a few seconds
-        // depending on the API and intenet connection, we tell
+        // depending on the API and internet connection, we tell
         // Alfred to display a loading message and rerun the query
         // if the variable "rerun" exists it means that this is the second
         // run and we should not display the loading message and
         // call the API to update the rates
-        if (!\Alfred\getVariable('rerun')) {
+        if (!\Alfred\getVariable('rerun') && $this->shouldDisplayUpdatingMessage()) {
             return [
                 'message' => $this->lang['updating_rates'],
                 'reload' => 0.2,
             ];
         }
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $from);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Accepts: application/json']);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-        $rates = curl_exec($curl);
-
-        curl_close($curl);
+        $rates = $this->doRequest($from, ['Accepts: application/json']);
 
         if (empty($rates)) {
             return [
@@ -568,7 +587,6 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         }
 
         $ratesData = ['data' => []];
-        $rates = json_decode($rates, true);
         $ratesData['last_updated'] = time();
 
         if (is_array($rates) && !empty($rates['data'])) {
@@ -594,6 +612,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
 
             file_put_contents($rates_file, json_encode($ratesData));
 
+            self::$rates = $ratesData;
             return $ratesData;
         }
 
@@ -697,13 +716,12 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
      * @param string $val
      * @return string|bool
      */
-    private function getCorrectSymbol($val)
+    public function getCorrectSymbol($val)
     {
         if ($this->isValidSymbol($val)) {
             return $val;
         }
 
-        // $val = strtolower($val);
         $val = mb_strtolower($val);
         $val = $this->keywordTranslation($val, $this->keywords);
 
@@ -715,6 +733,12 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
             return $key;
         }
 
+        return false;
+    }
+
+
+    public function isNormalCurrency($val)
+    {
         // Check if instead of a cryptocurrency is a regular currency
         $is_currency = self::$currencyCalculator->getCorrectCurrency($val);
         if ($is_currency) {
@@ -722,6 +746,42 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         }
 
         return false;
+    }
+
+
+    public function getCryptoData($val)
+    {
+        $rates = self::$rates;
+        if (empty($rates)) {
+            self::$display_updating_message = false;
+            $rates = $this->getRates();
+        }
+        $symbol = $this->getCorrectSymbol($val);
+
+        if (
+            empty($symbol) ||
+            empty($rates) ||
+            empty($rates['data']) ||
+            empty($rates['data'][$symbol])
+        ) {
+            return false;
+        }
+
+        $rate = $rates['data'][$symbol];
+        $rate['code'] = $symbol;
+
+        return $rate;
+    }
+
+
+    public function getCryptoFullName($val)
+    {
+        $data = $this->getCryptoData($val);
+        if (empty($data)) {
+            return false;
+        }
+
+        return $data['name'];
     }
 
 
@@ -760,6 +820,30 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
     private function isValidSymbol($val)
     {
         return isset($this->symbolsList[$val]);
+    }
+
+
+    /**
+     * Enable or disable
+     * showing the updating rates message
+     * @param $display
+     *
+     * @return void
+     */
+    public function setUpdatingMessageDisplay($display)
+    {
+        self::$display_updating_message = $display;
+    }
+
+
+    /**
+     * Should display updating rates message
+
+     * @return boolean
+     */
+    public function shouldDisplayUpdatingMessage()
+    {
+        return self::$display_updating_message;
     }
 
 
