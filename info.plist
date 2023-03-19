@@ -8,6 +8,19 @@
 	<string>Tools</string>
 	<key>connections</key>
 	<dict>
+		<key>00D9A9DF-F127-4AD2-A690-9839954F0748</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>03F82D1C-9ACF-4789-91FD-9CCF291DEFFE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>02CB4726-DF90-475A-835E-0038EE019394</key>
 		<array>
 			<dict>
@@ -48,35 +61,12 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>886C10B6-25CA-49B0-96F9-014B795AB902</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
 		</array>
 		<key>0A003B52-98B8-4E6C-927C-1A463F47C612</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>211A2F0B-BCFD-4FBD-B058-548162E358B4</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
-		<key>0AE30FF8-13F7-4710-AFC3-157281E66B88</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>F3219AA0-A1F6-4A6B-92EE-70A840B69D23</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -98,11 +88,11 @@
 				<false/>
 			</dict>
 		</array>
-		<key>2CC668AD-747C-458A-B587-773D841610C7</key>
+		<key>35605323-7862-4781-94FE-ED0261247FB2</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>0AE30FF8-13F7-4710-AFC3-157281E66B88</string>
+				<string>03F82D1C-9ACF-4789-91FD-9CCF291DEFFE</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -111,7 +101,7 @@
 				<false/>
 			</dict>
 		</array>
-		<key>35605323-7862-4781-94FE-ED0261247FB2</key>
+		<key>3A7C34F3-DA23-4945-9F94-3E186EE4559F</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
@@ -176,6 +166,19 @@
 				<false/>
 			</dict>
 		</array>
+		<key>73B44DBE-FC34-4F54-8A7D-A1EAA2A0EE58</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>D0EBB9BB-23B4-4BF8-9776-01D12130DC2A</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
 		<key>810259C6-0B1F-4440-99F4-7821B5226D70</key>
 		<array>
 			<dict>
@@ -189,11 +192,11 @@
 				<false/>
 			</dict>
 		</array>
-		<key>886C10B6-25CA-49B0-96F9-014B795AB902</key>
+		<key>9059D0AE-7BF8-414C-8594-0F680FC38945</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>BEA1F80D-6781-4CB6-AA39-92C8A5D8BD82</string>
+				<string>03F82D1C-9ACF-4789-91FD-9CCF291DEFFE</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -228,8 +231,6 @@
 				<false/>
 			</dict>
 		</array>
-		<key>A0989369-5B29-47E2-9CBC-8E61EEBB04C7</key>
-		<array/>
 		<key>ABA18E77-71E3-494A-8735-A60799F419B9</key>
 		<array/>
 		<key>B65669C2-6057-4003-B79B-2AEFB92E07CE</key>
@@ -323,90 +324,6 @@
 				<false/>
 			</dict>
 		</array>
-		<key>E3AAE2B3-FF23-4D07-86EE-A0CC4CD28B8C</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>BEA1F80D-6781-4CB6-AA39-92C8A5D8BD82</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>A0989369-5B29-47E2-9CBC-8E61EEBB04C7</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
-		<key>F3219AA0-A1F6-4A6B-92EE-70A840B69D23</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>ABA18E77-71E3-494A-8735-A60799F419B9</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>sourceoutputuid</key>
-				<string>E6EE1059-41B2-44F0-8CA8-80D391CD9E2D</string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>886C10B6-25CA-49B0-96F9-014B795AB902</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>sourceoutputuid</key>
-				<string>61049157-B5E3-45CE-BD81-CC1F48846B99</string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>B4152C5E-D88F-4318-908F-77079A6EB867</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>sourceoutputuid</key>
-				<string>089A18AA-A5E0-47F3-931C-5510AC8FCF8B</string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>D0EBB9BB-23B4-4BF8-9776-01D12130DC2A</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>sourceoutputuid</key>
-				<string>BAA617C6-73D4-49BC-A79E-EB478FA1BAFD</string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>E3AAE2B3-FF23-4D07-86EE-A0CC4CD28B8C</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Biati Digital</string>
@@ -465,6 +382,112 @@ include_once "./process.php";</string>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
 			<string>02CB4726-DF90-475A-835E-0038EE019394</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>.</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>$query = "{query}";
+if (is_numeric(mb_substr($query, 0, 1))) {
+	$query = "0.{query}";	
+	include_once "./process.php";
+}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string></string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>00D9A9DF-F127-4AD2-A690-9839954F0748</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>-</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>$query = "{query}";
+if (is_numeric(mb_substr($query, 0, 1))) {
+	$query = "-{query}";	
+	include_once "./process.php";
+}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string></string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>9059D0AE-7BF8-414C-8594-0F680FC38945</string>
 			<key>version</key>
 			<integer>3</integer>
 		</dict>
@@ -1042,29 +1065,6 @@ include_once "./process.php";</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>include_once "./workflow/lib/update.php";</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>1</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>886C10B6-25CA-49B0-96F9-014B795AB902</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>conditions</key>
 				<array>
 					<dict>
@@ -1084,11 +1084,85 @@ include_once "./process.php";</string>
 				</array>
 				<key>elselabel</key>
 				<string>Update</string>
+				<key>hideelse</key>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.utility.conditional</string>
 			<key>uid</key>
 			<string>03F82D1C-9ACF-4789-91FD-9CCF291DEFFE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttreatemptyqueryasnil</key>
+				<false/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>4</integer>
+				<key>keyword</key>
+				<string>color</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Calculating Color...</string>
+				<key>script</key>
+				<string>$query = "{query}";
+$action = 'color';
+include_once "./process.php";</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Calculate Color in multiple color spaces</string>
+				<key>title</key>
+				<string>Calculate Color</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>3A7C34F3-DA23-4945-9F94-3E186EE4559F</string>
+			<key>version</key>
+			<integer>3</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>keyword</key>
+				<string>_caclear</string>
+				<key>subtext</key>
+				<string>Clear all caches of this workflow</string>
+				<key>text</key>
+				<string>Calculate Anything Clear Cache</string>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>73B44DBE-FC34-4F54-8A7D-A1EAA2A0EE58</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1110,161 +1184,6 @@ include_once "./process.php";</string>
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>BEA1F80D-6781-4CB6-AA39-92C8A5D8BD82</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>externaltriggerid</key>
-				<string>menu</string>
-				<key>passinputasargument</key>
-				<true/>
-				<key>passvariables</key>
-				<true/>
-				<key>workflowbundleid</key>
-				<string>self</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.callexternaltrigger</string>
-			<key>uid</key>
-			<string>B4152C5E-D88F-4318-908F-77079A6EB867</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>conditions</key>
-				<array>
-					<dict>
-						<key>inputstring</key>
-						<string>{var:action}</string>
-						<key>matchcasesensitive</key>
-						<false/>
-						<key>matchmode</key>
-						<integer>0</integer>
-						<key>matchstring</key>
-						<string>clipboard</string>
-						<key>outputlabel</key>
-						<string>Clipboard</string>
-						<key>uid</key>
-						<string>E6EE1059-41B2-44F0-8CA8-80D391CD9E2D</string>
-					</dict>
-					<dict>
-						<key>inputstring</key>
-						<string>{var:action}</string>
-						<key>matchcasesensitive</key>
-						<false/>
-						<key>matchmode</key>
-						<integer>0</integer>
-						<key>matchstring</key>
-						<string>update</string>
-						<key>outputlabel</key>
-						<string>Update</string>
-						<key>uid</key>
-						<string>61049157-B5E3-45CE-BD81-CC1F48846B99</string>
-					</dict>
-					<dict>
-						<key>inputstring</key>
-						<string>{var:action}</string>
-						<key>matchcasesensitive</key>
-						<false/>
-						<key>matchmode</key>
-						<integer>0</integer>
-						<key>matchstring</key>
-						<string>menu</string>
-						<key>outputlabel</key>
-						<string>Menu</string>
-						<key>uid</key>
-						<string>089A18AA-A5E0-47F3-931C-5510AC8FCF8B</string>
-					</dict>
-					<dict>
-						<key>inputstring</key>
-						<string>{var:action}</string>
-						<key>matchcasesensitive</key>
-						<false/>
-						<key>matchmode</key>
-						<integer>0</integer>
-						<key>matchstring</key>
-						<string>clear_cache</string>
-						<key>outputlabel</key>
-						<string>Clear cache</string>
-						<key>uid</key>
-						<string>BAA617C6-73D4-49BC-A79E-EB478FA1BAFD</string>
-					</dict>
-				</array>
-				<key>elselabel</key>
-				<string>else</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.conditional</string>
-			<key>uid</key>
-			<string>F3219AA0-A1F6-4A6B-92EE-70A840B69D23</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>1</integer>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>keyword</key>
-				<string>ca</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string></string>
-				<key>script</key>
-				<string>&lt;?php
-$query = "{query}";
-require_once './workflow/lib/config/configuration.php';</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Calculate Anything...</string>
-				<key>title</key>
-				<string>Calculate Anything</string>
-				<key>type</key>
-				<integer>1</integer>
-				<key>withspace</key>
-				<false/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>0AE30FF8-13F7-4710-AFC3-157281E66B88</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>triggerid</key>
-				<string>menu</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.trigger.external</string>
-			<key>uid</key>
-			<string>2CC668AD-747C-458A-B587-773D841610C7</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -1294,6 +1213,8 @@ require_once './workflow/lib/config/configuration.php';</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>availableviaurlhandler</key>
+				<false/>
 				<key>triggerid</key>
 				<string>notifier</string>
 			</dict>
@@ -1330,6 +1251,10 @@ require_once './workflow/lib/config/configuration.php';</string>
 			<dict>
 				<key>delimiter</key>
 				<string>|</string>
+				<key>discardemptyarguments</key>
+				<false/>
+				<key>outputas</key>
+				<integer>0</integer>
 				<key>trimarguments</key>
 				<true/>
 				<key>variableprefix</key>
@@ -1367,59 +1292,8 @@ require_once './workflow/lib/config/configuration.php';</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
+				<key>availableviaurlhandler</key>
 				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>ObjC.import('stdlib');
-
-Application('com.runningwithcrayons.Alfred').setConfiguration($.getenv('configure_key'), {
-	inWorkflow: $.getenv('alfred_workflow_bundleid'),
-	toValue: $.getenv('configure_val'),
-	exportable: false
-});</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>7</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>A0989369-5B29-47E2-9CBC-8E61EEBB04C7</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>&lt;?php
-require_once './workflow/lib/config/process-input.php';</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>1</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>E3AAE2B3-FF23-4D07-86EE-A0CC4CD28B8C</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>triggerid</key>
 				<string>preferences</string>
 			</dict>
@@ -1494,6 +1368,10 @@ function run(argv) {
 			<dict>
 				<key>delimiter</key>
 				<string>|</string>
+				<key>discardemptyarguments</key>
+				<false/>
+				<key>outputas</key>
+				<integer>0</integer>
 				<key>trimarguments</key>
 				<true/>
 				<key>variableprefix</key>
@@ -1534,280 +1412,2290 @@ function run(argv) {
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Calculate Anything
+	<string>**Calculate Anything** is a workflow for Alfred, that uses natural language and is able to calculate multiple things like currency, cryptocurrency, time, distance, data storage, units, vat, px, em, rem, percentage, color and more.
 
-https://github.com/biati-digital/alfred-calculate-anything
-Made with love by https://www.biati.digital</string>
+![Calculate Anything](./assets/calculate-anything.jpg)
+
+## Why
+There are several conversion workflows out there but I wanted a workflow that worked naturally. For example, you can open Alfred, type 100 + 9 and get a result. No need for keywords or hotkeys -- it just works. With Calculate Anything you can do the same, simply type 100 + 16%, 100 euros to usd, 100km in cm or 100 years to hours and many more.
+
+## Features
+
+- **Natural language** - type `100 euros to dollars`, `100 euros in usd`, `100€ to $`, `100eur usd`, `100 euros a dolares` -- it does not matter, the same result will be displayed
+- **Currency** - Up to 168 currencies
+- **Cryptocurrency** - Support for up to 5,000 cryptocurrencies
+- **Units** - `100 kilometers to meters` or `100 km to m` or simply `100km m`
+- **Data Storage** - `100 gigabytes in megabytes`, `2 gb to mb`, `400MiB to kib`, `2tb gb` etc.
+- **Percentages** - `100 + 16%`, `100 - 16%`, `40 as a % of 50`, `20 is what % of 50` etc.
+- **px,em,rem,pt** - `12px` or `12px to em` or `12px pt`
+- **Time** - `time +15 years`, `time now plus 6 hours` or convert a timestamp
+- **VAT** - value added tax calculations, we all need this
+- **Translations** You can create your own translations to display results in your language
+- **Keywords** Extend the natural language support so you can type `100 dolares a pesos` and see the result of `100usd to mxn`
+
+
+## Documentation
+
+You can find the documentation on Github https://github.com/biati-digital/alfred-calculate-anything
+
+## Support
+
+If you need help please do not hesitate to open an issue filling all the questions in the bug report template https://github.com/biati-digital/alfred-calculate-anything
+
+
+**Made with love by https://www.biati.digital**</string>
 	<key>uidata</key>
 	<dict>
+		<key>00D9A9DF-F127-4AD2-A690-9839954F0748</key>
+		<dict>
+			<key>xpos</key>
+			<real>250</real>
+			<key>ypos</key>
+			<real>35</real>
+		</dict>
 		<key>02CB4726-DF90-475A-835E-0038EE019394</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>35</integer>
+			<real>35</real>
 		</dict>
 		<key>03AE9542-EE54-423A-86E0-9B669EDE5A98</key>
 		<dict>
 			<key>xpos</key>
-			<integer>290</integer>
+			<real>285</real>
 			<key>ypos</key>
-			<integer>1770</integer>
+			<real>1790</real>
 		</dict>
 		<key>03F82D1C-9ACF-4789-91FD-9CCF291DEFFE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>410</integer>
+			<real>410</real>
 			<key>ypos</key>
-			<integer>1360</integer>
+			<real>1360</real>
 		</dict>
 		<key>0A003B52-98B8-4E6C-927C-1A463F47C612</key>
 		<dict>
 			<key>xpos</key>
-			<integer>290</integer>
+			<real>285</real>
 			<key>ypos</key>
-			<integer>1890</integer>
-		</dict>
-		<key>0AE30FF8-13F7-4710-AFC3-157281E66B88</key>
-		<dict>
-			<key>note</key>
-			<string>Configuration</string>
-			<key>xpos</key>
-			<integer>240</integer>
-			<key>ypos</key>
-			<integer>1535</integer>
+			<real>1910</real>
 		</dict>
 		<key>211A2F0B-BCFD-4FBD-B058-548162E358B4</key>
 		<dict>
 			<key>xpos</key>
-			<integer>365</integer>
+			<real>360</real>
 			<key>ypos</key>
-			<integer>1860</integer>
+			<real>1880</real>
 		</dict>
 		<key>2679D5D4-9D36-4AD4-A1EE-59EACA36C6E9</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>160</integer>
-		</dict>
-		<key>2CC668AD-747C-458A-B587-773D841610C7</key>
-		<dict>
-			<key>xpos</key>
-			<integer>80</integer>
-			<key>ypos</key>
-			<integer>1535</integer>
+			<real>160</real>
 		</dict>
 		<key>35605323-7862-4781-94FE-ED0261247FB2</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>1095</integer>
+			<real>1095</real>
+		</dict>
+		<key>3A7C34F3-DA23-4945-9F94-3E186EE4559F</key>
+		<dict>
+			<key>xpos</key>
+			<real>80</real>
+			<key>ypos</key>
+			<real>1460</real>
 		</dict>
 		<key>3D4DB816-B39C-482D-80EA-3F64F3DF1644</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>75</real>
 			<key>ypos</key>
-			<integer>1860</integer>
+			<real>1880</real>
 		</dict>
 		<key>65F736EC-3B8C-4B6D-BE2C-837A63AC34A3</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>1225</integer>
+			<real>1225</real>
 		</dict>
 		<key>6B5446AC-124D-4626-92C3-D0CA1D94D27F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>510</integer>
+			<real>510</real>
 		</dict>
 		<key>6B6A13A8-C671-4033-A793-EE772BA1FB48</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>740</integer>
+			<real>740</real>
+		</dict>
+		<key>73B44DBE-FC34-4F54-8A7D-A1EAA2A0EE58</key>
+		<dict>
+			<key>xpos</key>
+			<real>75</real>
+			<key>ypos</key>
+			<real>1585</real>
 		</dict>
 		<key>810259C6-0B1F-4440-99F4-7821B5226D70</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>975</integer>
+			<real>975</real>
 		</dict>
-		<key>886C10B6-25CA-49B0-96F9-014B795AB902</key>
+		<key>9059D0AE-7BF8-414C-8594-0F680FC38945</key>
 		<dict>
-			<key>note</key>
-			<string>Update</string>
 			<key>xpos</key>
-			<integer>570</integer>
+			<real>250</real>
 			<key>ypos</key>
-			<integer>1350</integer>
+			<real>160</real>
 		</dict>
 		<key>92A43CD2-2690-4939-8B4C-7ACD21A03287</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>860</integer>
+			<real>860</real>
 		</dict>
 		<key>9B97B9DE-FB12-4F5A-AAF8-4608DF0C7B14</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>395</integer>
-		</dict>
-		<key>A0989369-5B29-47E2-9CBC-8E61EEBB04C7</key>
-		<dict>
-			<key>note</key>
-			<string>Save Alfred variable</string>
-			<key>xpos</key>
-			<integer>750</integer>
-			<key>ypos</key>
-			<integer>1775</integer>
+			<real>395</real>
 		</dict>
 		<key>ABA18E77-71E3-494A-8735-A60799F419B9</key>
 		<dict>
 			<key>xpos</key>
-			<integer>570</integer>
+			<real>570</real>
 			<key>ypos</key>
-			<integer>1225</integer>
-		</dict>
-		<key>B4152C5E-D88F-4318-908F-77079A6EB867</key>
-		<dict>
-			<key>note</key>
-			<string>Return to Menu</string>
-			<key>xpos</key>
-			<integer>565</integer>
-			<key>ypos</key>
-			<integer>1500</integer>
+			<real>1225</real>
 		</dict>
 		<key>B65669C2-6057-4003-B79B-2AEFB92E07CE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>230</integer>
+			<real>225</real>
 			<key>ypos</key>
-			<integer>1770</integer>
+			<real>1790</real>
 		</dict>
 		<key>BB2A4C00-3D9B-43BD-957F-AFF92B5A1DCB</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>625</integer>
+			<real>625</real>
 		</dict>
 		<key>BEA1F80D-6781-4CB6-AA39-92C8A5D8BD82</key>
 		<dict>
 			<key>xpos</key>
-			<integer>750</integer>
+			<real>445</real>
 			<key>ypos</key>
-			<integer>1495</integer>
+			<real>1585</real>
 		</dict>
 		<key>D037BED7-D145-4DEB-8419-84840F408A48</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>280</integer>
+			<real>280</real>
 		</dict>
 		<key>D0EBB9BB-23B4-4BF8-9776-01D12130DC2A</key>
 		<dict>
 			<key>note</key>
 			<string>Clear Cache</string>
 			<key>xpos</key>
-			<integer>565</integer>
+			<real>270</real>
 			<key>ypos</key>
-			<integer>1635</integer>
+			<real>1585</real>
 		</dict>
 		<key>D29D156D-3EB3-4E6A-97D4-DE50834BBDAD</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>75</real>
 			<key>ypos</key>
-			<integer>1740</integer>
+			<real>1760</real>
 		</dict>
 		<key>DAE2385A-3F7A-4CAE-8A23-EA406D2F5E6A</key>
 		<dict>
 			<key>xpos</key>
-			<integer>365</integer>
+			<real>360</real>
 			<key>ypos</key>
-			<integer>1740</integer>
+			<real>1760</real>
 		</dict>
 		<key>DEA519D6-6B0A-4B4A-9B56-917B28B78090</key>
 		<dict>
 			<key>xpos</key>
-			<integer>230</integer>
+			<real>225</real>
 			<key>ypos</key>
-			<integer>1890</integer>
+			<real>1910</real>
 		</dict>
 		<key>DEEA362A-4FDA-454E-9BC6-57B0F3C9FC10</key>
 		<dict>
 			<key>xpos</key>
-			<integer>80</integer>
+			<real>80</real>
 			<key>ypos</key>
-			<integer>1340</integer>
-		</dict>
-		<key>E3AAE2B3-FF23-4D07-86EE-A0CC4CD28B8C</key>
-		<dict>
-			<key>note</key>
-			<string>Process variable</string>
-			<key>xpos</key>
-			<integer>565</integer>
-			<key>ypos</key>
-			<integer>1775</integer>
-		</dict>
-		<key>F3219AA0-A1F6-4A6B-92EE-70A840B69D23</key>
-		<dict>
-			<key>xpos</key>
-			<integer>410</integer>
-			<key>ypos</key>
-			<integer>1530</integer>
+			<real>1340</real>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>en_EN</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>English</string>
+						<string>en_EN</string>
+					</array>
+					<array>
+						<string>Spanish</string>
+						<string>es_ES</string>
+					</array>
+					<array>
+						<string>Swedish</string>
+						<string>sv_SE</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Prefered language to use in the workflow</string>
+			<key>label</key>
+			<string>Language</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>language</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>dot</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>Dot (23.51)</string>
+						<string>dot</string>
+					</array>
+					<array>
+						<string>Comma (23,51)</string>
+						<string>comma</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Select the decimal separator</string>
+			<key>label</key>
+			<string>Input decimal separator</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>decimal_separator</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>comma_dot</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>1,234.56</string>
+						<string>comma_dot</string>
+					</array>
+					<array>
+						<string>1 234,56</string>
+						<string>space_comma</string>
+					</array>
+					<array>
+						<string>1.234,56</string>
+						<string>dot_comma</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Choose how you want to format the numbers</string>
+			<key>label</key>
+			<string>Number output format</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>number_output_format</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>none</string>
+				<key>pairs</key>
+				<array>
+					<array>
+						<string>Select Time Zone</string>
+						<string>none</string>
+					</array>
+					<array>
+						<string>Africa/Abidjan</string>
+						<string>Africa/Abidjan</string>
+					</array>
+					<array>
+						<string>Africa/Accra</string>
+						<string>Africa/Accra</string>
+					</array>
+					<array>
+						<string>Africa/Addis Ababa</string>
+						<string>Africa/Addis_Ababa</string>
+					</array>
+					<array>
+						<string>Africa/Algiers</string>
+						<string>Africa/Algiers</string>
+					</array>
+					<array>
+						<string>Africa/Asmara</string>
+						<string>Africa/Asmara</string>
+					</array>
+					<array>
+						<string>Africa/Bamako</string>
+						<string>Africa/Bamako</string>
+					</array>
+					<array>
+						<string>Africa/Bangui</string>
+						<string>Africa/Bangui</string>
+					</array>
+					<array>
+						<string>Africa/Banjul</string>
+						<string>Africa/Banjul</string>
+					</array>
+					<array>
+						<string>Africa/Bissau</string>
+						<string>Africa/Bissau</string>
+					</array>
+					<array>
+						<string>Africa/Blantyre</string>
+						<string>Africa/Blantyre</string>
+					</array>
+					<array>
+						<string>Africa/Brazzaville</string>
+						<string>Africa/Brazzaville</string>
+					</array>
+					<array>
+						<string>Africa/Bujumbura</string>
+						<string>Africa/Bujumbura</string>
+					</array>
+					<array>
+						<string>Africa/Cairo</string>
+						<string>Africa/Cairo</string>
+					</array>
+					<array>
+						<string>Africa/Casablanca</string>
+						<string>Africa/Casablanca</string>
+					</array>
+					<array>
+						<string>Africa/Ceuta</string>
+						<string>Africa/Ceuta</string>
+					</array>
+					<array>
+						<string>Africa/Conakry</string>
+						<string>Africa/Conakry</string>
+					</array>
+					<array>
+						<string>Africa/Dakar</string>
+						<string>Africa/Dakar</string>
+					</array>
+					<array>
+						<string>Africa/Dar es Salaam</string>
+						<string>Africa/Dar_es_Salaam</string>
+					</array>
+					<array>
+						<string>Africa/Djibouti</string>
+						<string>Africa/Djibouti</string>
+					</array>
+					<array>
+						<string>Africa/Douala</string>
+						<string>Africa/Douala</string>
+					</array>
+					<array>
+						<string>Africa/El Aaiun</string>
+						<string>Africa/El_Aaiun</string>
+					</array>
+					<array>
+						<string>Africa/Freetown</string>
+						<string>Africa/Freetown</string>
+					</array>
+					<array>
+						<string>Africa/Gaborone</string>
+						<string>Africa/Gaborone</string>
+					</array>
+					<array>
+						<string>Africa/Harare</string>
+						<string>Africa/Harare</string>
+					</array>
+					<array>
+						<string>Africa/Johannesburg</string>
+						<string>Africa/Johannesburg</string>
+					</array>
+					<array>
+						<string>Africa/Juba</string>
+						<string>Africa/Juba</string>
+					</array>
+					<array>
+						<string>Africa/Kampala</string>
+						<string>Africa/Kampala</string>
+					</array>
+					<array>
+						<string>Africa/Khartoum</string>
+						<string>Africa/Khartoum</string>
+					</array>
+					<array>
+						<string>Africa/Kigali</string>
+						<string>Africa/Kigali</string>
+					</array>
+					<array>
+						<string>Africa/Kinshasa</string>
+						<string>Africa/Kinshasa</string>
+					</array>
+					<array>
+						<string>Africa/Lagos</string>
+						<string>Africa/Lagos</string>
+					</array>
+					<array>
+						<string>Africa/Libreville</string>
+						<string>Africa/Libreville</string>
+					</array>
+					<array>
+						<string>Africa/Lome</string>
+						<string>Africa/Lome</string>
+					</array>
+					<array>
+						<string>Africa/Luanda</string>
+						<string>Africa/Luanda</string>
+					</array>
+					<array>
+						<string>Africa/Lubumbashi</string>
+						<string>Africa/Lubumbashi</string>
+					</array>
+					<array>
+						<string>Africa/Lusaka</string>
+						<string>Africa/Lusaka</string>
+					</array>
+					<array>
+						<string>Africa/Malabo</string>
+						<string>Africa/Malabo</string>
+					</array>
+					<array>
+						<string>Africa/Maputo</string>
+						<string>Africa/Maputo</string>
+					</array>
+					<array>
+						<string>Africa/Maseru</string>
+						<string>Africa/Maseru</string>
+					</array>
+					<array>
+						<string>Africa/Mbabane</string>
+						<string>Africa/Mbabane</string>
+					</array>
+					<array>
+						<string>Africa/Mogadishu</string>
+						<string>Africa/Mogadishu</string>
+					</array>
+					<array>
+						<string>Africa/Monrovia</string>
+						<string>Africa/Monrovia</string>
+					</array>
+					<array>
+						<string>Africa/Nairobi</string>
+						<string>Africa/Nairobi</string>
+					</array>
+					<array>
+						<string>Africa/Ndjamena</string>
+						<string>Africa/Ndjamena</string>
+					</array>
+					<array>
+						<string>Africa/Niamey</string>
+						<string>Africa/Niamey</string>
+					</array>
+					<array>
+						<string>Africa/Nouakchott</string>
+						<string>Africa/Nouakchott</string>
+					</array>
+					<array>
+						<string>Africa/Ouagadougou</string>
+						<string>Africa/Ouagadougou</string>
+					</array>
+					<array>
+						<string>Africa/Porto-Novo</string>
+						<string>Africa/Porto-Novo</string>
+					</array>
+					<array>
+						<string>Africa/Sao Tome</string>
+						<string>Africa/Sao_Tome</string>
+					</array>
+					<array>
+						<string>Africa/Tripoli</string>
+						<string>Africa/Tripoli</string>
+					</array>
+					<array>
+						<string>Africa/Tunis</string>
+						<string>Africa/Tunis</string>
+					</array>
+					<array>
+						<string>Africa/Windhoek</string>
+						<string>Africa/Windhoek</string>
+					</array>
+					<array>
+						<string>America/Adak</string>
+						<string>America/Adak</string>
+					</array>
+					<array>
+						<string>America/Anchorage</string>
+						<string>America/Anchorage</string>
+					</array>
+					<array>
+						<string>America/Anguilla</string>
+						<string>America/Anguilla</string>
+					</array>
+					<array>
+						<string>America/Antigua</string>
+						<string>America/Antigua</string>
+					</array>
+					<array>
+						<string>America/Araguaina</string>
+						<string>America/Araguaina</string>
+					</array>
+					<array>
+						<string>America/Argentina/Buenos Aires</string>
+						<string>America/Argentina/Buenos_Aires</string>
+					</array>
+					<array>
+						<string>America/Argentina/Catamarca</string>
+						<string>America/Argentina/Catamarca</string>
+					</array>
+					<array>
+						<string>America/Argentina/Cordoba</string>
+						<string>America/Argentina/Cordoba</string>
+					</array>
+					<array>
+						<string>America/Argentina/Jujuy</string>
+						<string>America/Argentina/Jujuy</string>
+					</array>
+					<array>
+						<string>America/Argentina/La Rioja</string>
+						<string>America/Argentina/La_Rioja</string>
+					</array>
+					<array>
+						<string>America/Argentina/Mendoza</string>
+						<string>America/Argentina/Mendoza</string>
+					</array>
+					<array>
+						<string>America/Argentina/Rio Gallegos</string>
+						<string>America/Argentina/Rio_Gallegos</string>
+					</array>
+					<array>
+						<string>America/Argentina/Salta</string>
+						<string>America/Argentina/Salta</string>
+					</array>
+					<array>
+						<string>America/Argentina/San Juan</string>
+						<string>America/Argentina/San_Juan</string>
+					</array>
+					<array>
+						<string>America/Argentina/San Luis</string>
+						<string>America/Argentina/San_Luis</string>
+					</array>
+					<array>
+						<string>America/Argentina/Tucuman</string>
+						<string>America/Argentina/Tucuman</string>
+					</array>
+					<array>
+						<string>America/Argentina/Ushuaia</string>
+						<string>America/Argentina/Ushuaia</string>
+					</array>
+					<array>
+						<string>America/Aruba</string>
+						<string>America/Aruba</string>
+					</array>
+					<array>
+						<string>America/Asuncion</string>
+						<string>America/Asuncion</string>
+					</array>
+					<array>
+						<string>America/Atikokan</string>
+						<string>America/Atikokan</string>
+					</array>
+					<array>
+						<string>America/Bahia</string>
+						<string>America/Bahia</string>
+					</array>
+					<array>
+						<string>America/Bahia Banderas</string>
+						<string>America/Bahia_Banderas</string>
+					</array>
+					<array>
+						<string>America/Barbados</string>
+						<string>America/Barbados</string>
+					</array>
+					<array>
+						<string>America/Belem</string>
+						<string>America/Belem</string>
+					</array>
+					<array>
+						<string>America/Belize</string>
+						<string>America/Belize</string>
+					</array>
+					<array>
+						<string>America/Blanc-Sablon</string>
+						<string>America/Blanc-Sablon</string>
+					</array>
+					<array>
+						<string>America/Boa Vista</string>
+						<string>America/Boa_Vista</string>
+					</array>
+					<array>
+						<string>America/Bogota</string>
+						<string>America/Bogota</string>
+					</array>
+					<array>
+						<string>America/Boise</string>
+						<string>America/Boise</string>
+					</array>
+					<array>
+						<string>America/Cambridge Bay</string>
+						<string>America/Cambridge_Bay</string>
+					</array>
+					<array>
+						<string>America/Campo Grande</string>
+						<string>America/Campo_Grande</string>
+					</array>
+					<array>
+						<string>America/Cancun</string>
+						<string>America/Cancun</string>
+					</array>
+					<array>
+						<string>America/Caracas</string>
+						<string>America/Caracas</string>
+					</array>
+					<array>
+						<string>America/Cayenne</string>
+						<string>America/Cayenne</string>
+					</array>
+					<array>
+						<string>America/Cayman</string>
+						<string>America/Cayman</string>
+					</array>
+					<array>
+						<string>America/Chicago</string>
+						<string>America/Chicago</string>
+					</array>
+					<array>
+						<string>America/Chihuahua</string>
+						<string>America/Chihuahua</string>
+					</array>
+					<array>
+						<string>America/Costa Rica</string>
+						<string>America/Costa_Rica</string>
+					</array>
+					<array>
+						<string>America/Creston</string>
+						<string>America/Creston</string>
+					</array>
+					<array>
+						<string>America/Cuiaba</string>
+						<string>America/Cuiaba</string>
+					</array>
+					<array>
+						<string>America/Curacao</string>
+						<string>America/Curacao</string>
+					</array>
+					<array>
+						<string>America/Danmarkshavn</string>
+						<string>America/Danmarkshavn</string>
+					</array>
+					<array>
+						<string>America/Dawson</string>
+						<string>America/Dawson</string>
+					</array>
+					<array>
+						<string>America/Dawson Creek</string>
+						<string>America/Dawson_Creek</string>
+					</array>
+					<array>
+						<string>America/Denver</string>
+						<string>America/Denver</string>
+					</array>
+					<array>
+						<string>America/Detroit</string>
+						<string>America/Detroit</string>
+					</array>
+					<array>
+						<string>America/Dominica</string>
+						<string>America/Dominica</string>
+					</array>
+					<array>
+						<string>America/Edmonton</string>
+						<string>America/Edmonton</string>
+					</array>
+					<array>
+						<string>America/Eirunepe</string>
+						<string>America/Eirunepe</string>
+					</array>
+					<array>
+						<string>America/El Salvador</string>
+						<string>America/El_Salvador</string>
+					</array>
+					<array>
+						<string>America/Fort Nelson</string>
+						<string>America/Fort_Nelson</string>
+					</array>
+					<array>
+						<string>America/Fortaleza</string>
+						<string>America/Fortaleza</string>
+					</array>
+					<array>
+						<string>America/Glace Bay</string>
+						<string>America/Glace_Bay</string>
+					</array>
+					<array>
+						<string>America/Goose Bay</string>
+						<string>America/Goose_Bay</string>
+					</array>
+					<array>
+						<string>America/Grand Turk</string>
+						<string>America/Grand_Turk</string>
+					</array>
+					<array>
+						<string>America/Grenada</string>
+						<string>America/Grenada</string>
+					</array>
+					<array>
+						<string>America/Guadeloupe</string>
+						<string>America/Guadeloupe</string>
+					</array>
+					<array>
+						<string>America/Guatemala</string>
+						<string>America/Guatemala</string>
+					</array>
+					<array>
+						<string>America/Guayaquil</string>
+						<string>America/Guayaquil</string>
+					</array>
+					<array>
+						<string>America/Guyana</string>
+						<string>America/Guyana</string>
+					</array>
+					<array>
+						<string>America/Halifax</string>
+						<string>America/Halifax</string>
+					</array>
+					<array>
+						<string>America/Havana</string>
+						<string>America/Havana</string>
+					</array>
+					<array>
+						<string>America/Hermosillo</string>
+						<string>America/Hermosillo</string>
+					</array>
+					<array>
+						<string>America/Indiana/Indianapolis</string>
+						<string>America/Indiana/Indianapolis</string>
+					</array>
+					<array>
+						<string>America/Indiana/Knox</string>
+						<string>America/Indiana/Knox</string>
+					</array>
+					<array>
+						<string>America/Indiana/Marengo</string>
+						<string>America/Indiana/Marengo</string>
+					</array>
+					<array>
+						<string>America/Indiana/Petersburg</string>
+						<string>America/Indiana/Petersburg</string>
+					</array>
+					<array>
+						<string>America/Indiana/Tell City</string>
+						<string>America/Indiana/Tell_City</string>
+					</array>
+					<array>
+						<string>America/Indiana/Vevay</string>
+						<string>America/Indiana/Vevay</string>
+					</array>
+					<array>
+						<string>America/Indiana/Vincennes</string>
+						<string>America/Indiana/Vincennes</string>
+					</array>
+					<array>
+						<string>America/Indiana/Winamac</string>
+						<string>America/Indiana/Winamac</string>
+					</array>
+					<array>
+						<string>America/Inuvik</string>
+						<string>America/Inuvik</string>
+					</array>
+					<array>
+						<string>America/Iqaluit</string>
+						<string>America/Iqaluit</string>
+					</array>
+					<array>
+						<string>America/Jamaica</string>
+						<string>America/Jamaica</string>
+					</array>
+					<array>
+						<string>America/Juneau</string>
+						<string>America/Juneau</string>
+					</array>
+					<array>
+						<string>America/Kentucky/Louisville</string>
+						<string>America/Kentucky/Louisville</string>
+					</array>
+					<array>
+						<string>America/Kentucky/Monticello</string>
+						<string>America/Kentucky/Monticello</string>
+					</array>
+					<array>
+						<string>America/Kralendijk</string>
+						<string>America/Kralendijk</string>
+					</array>
+					<array>
+						<string>America/La Paz</string>
+						<string>America/La_Paz</string>
+					</array>
+					<array>
+						<string>America/Lima</string>
+						<string>America/Lima</string>
+					</array>
+					<array>
+						<string>America/Los Angeles</string>
+						<string>America/Los_Angeles</string>
+					</array>
+					<array>
+						<string>America/Lower Princes</string>
+						<string>America/Lower_Princes</string>
+					</array>
+					<array>
+						<string>America/Maceio</string>
+						<string>America/Maceio</string>
+					</array>
+					<array>
+						<string>America/Managua</string>
+						<string>America/Managua</string>
+					</array>
+					<array>
+						<string>America/Manaus</string>
+						<string>America/Manaus</string>
+					</array>
+					<array>
+						<string>America/Marigot</string>
+						<string>America/Marigot</string>
+					</array>
+					<array>
+						<string>America/Martinique</string>
+						<string>America/Martinique</string>
+					</array>
+					<array>
+						<string>America/Matamoros</string>
+						<string>America/Matamoros</string>
+					</array>
+					<array>
+						<string>America/Mazatlan</string>
+						<string>America/Mazatlan</string>
+					</array>
+					<array>
+						<string>America/Menominee</string>
+						<string>America/Menominee</string>
+					</array>
+					<array>
+						<string>America/Merida</string>
+						<string>America/Merida</string>
+					</array>
+					<array>
+						<string>America/Metlakatla</string>
+						<string>America/Metlakatla</string>
+					</array>
+					<array>
+						<string>America/Mexico City</string>
+						<string>America/Mexico_City</string>
+					</array>
+					<array>
+						<string>America/Miquelon</string>
+						<string>America/Miquelon</string>
+					</array>
+					<array>
+						<string>America/Moncton</string>
+						<string>America/Moncton</string>
+					</array>
+					<array>
+						<string>America/Monterrey</string>
+						<string>America/Monterrey</string>
+					</array>
+					<array>
+						<string>America/Montevideo</string>
+						<string>America/Montevideo</string>
+					</array>
+					<array>
+						<string>America/Montserrat</string>
+						<string>America/Montserrat</string>
+					</array>
+					<array>
+						<string>America/Nassau</string>
+						<string>America/Nassau</string>
+					</array>
+					<array>
+						<string>America/New York</string>
+						<string>America/New_York</string>
+					</array>
+					<array>
+						<string>America/Nipigon</string>
+						<string>America/Nipigon</string>
+					</array>
+					<array>
+						<string>America/Nome</string>
+						<string>America/Nome</string>
+					</array>
+					<array>
+						<string>America/Noronha</string>
+						<string>America/Noronha</string>
+					</array>
+					<array>
+						<string>America/North Dakota/Beulah</string>
+						<string>America/North_Dakota/Beulah</string>
+					</array>
+					<array>
+						<string>America/North Dakota/Center</string>
+						<string>America/North_Dakota/Center</string>
+					</array>
+					<array>
+						<string>America/North Dakota/New Salem</string>
+						<string>America/North_Dakota/New_Salem</string>
+					</array>
+					<array>
+						<string>America/Nuuk</string>
+						<string>America/Nuuk</string>
+					</array>
+					<array>
+						<string>America/Ojinaga</string>
+						<string>America/Ojinaga</string>
+					</array>
+					<array>
+						<string>America/Panama</string>
+						<string>America/Panama</string>
+					</array>
+					<array>
+						<string>America/Pangnirtung</string>
+						<string>America/Pangnirtung</string>
+					</array>
+					<array>
+						<string>America/Paramaribo</string>
+						<string>America/Paramaribo</string>
+					</array>
+					<array>
+						<string>America/Phoenix</string>
+						<string>America/Phoenix</string>
+					</array>
+					<array>
+						<string>America/Port-au-Prince</string>
+						<string>America/Port-au-Prince</string>
+					</array>
+					<array>
+						<string>America/Port of Spain</string>
+						<string>America/Port_of_Spain</string>
+					</array>
+					<array>
+						<string>America/Porto Velho</string>
+						<string>America/Porto_Velho</string>
+					</array>
+					<array>
+						<string>America/Puerto Rico</string>
+						<string>America/Puerto_Rico</string>
+					</array>
+					<array>
+						<string>America/Punta Arenas</string>
+						<string>America/Punta_Arenas</string>
+					</array>
+					<array>
+						<string>America/Rainy River</string>
+						<string>America/Rainy_River</string>
+					</array>
+					<array>
+						<string>America/Rankin Inlet</string>
+						<string>America/Rankin_Inlet</string>
+					</array>
+					<array>
+						<string>America/Recife</string>
+						<string>America/Recife</string>
+					</array>
+					<array>
+						<string>America/Regina</string>
+						<string>America/Regina</string>
+					</array>
+					<array>
+						<string>America/Resolute</string>
+						<string>America/Resolute</string>
+					</array>
+					<array>
+						<string>America/Rio Branco</string>
+						<string>America/Rio_Branco</string>
+					</array>
+					<array>
+						<string>America/Santarem</string>
+						<string>America/Santarem</string>
+					</array>
+					<array>
+						<string>America/Santiago</string>
+						<string>America/Santiago</string>
+					</array>
+					<array>
+						<string>America/Santo Domingo</string>
+						<string>America/Santo_Domingo</string>
+					</array>
+					<array>
+						<string>America/Sao Paulo</string>
+						<string>America/Sao_Paulo</string>
+					</array>
+					<array>
+						<string>America/Scoresbysund</string>
+						<string>America/Scoresbysund</string>
+					</array>
+					<array>
+						<string>America/Sitka</string>
+						<string>America/Sitka</string>
+					</array>
+					<array>
+						<string>America/St Barthelemy</string>
+						<string>America/St_Barthelemy</string>
+					</array>
+					<array>
+						<string>America/St Johns</string>
+						<string>America/St_Johns</string>
+					</array>
+					<array>
+						<string>America/St Kitts</string>
+						<string>America/St_Kitts</string>
+					</array>
+					<array>
+						<string>America/St Lucia</string>
+						<string>America/St_Lucia</string>
+					</array>
+					<array>
+						<string>America/St Thomas</string>
+						<string>America/St_Thomas</string>
+					</array>
+					<array>
+						<string>America/St Vincent</string>
+						<string>America/St_Vincent</string>
+					</array>
+					<array>
+						<string>America/Swift Current</string>
+						<string>America/Swift_Current</string>
+					</array>
+					<array>
+						<string>America/Tegucigalpa</string>
+						<string>America/Tegucigalpa</string>
+					</array>
+					<array>
+						<string>America/Thule</string>
+						<string>America/Thule</string>
+					</array>
+					<array>
+						<string>America/Thunder Bay</string>
+						<string>America/Thunder_Bay</string>
+					</array>
+					<array>
+						<string>America/Tijuana</string>
+						<string>America/Tijuana</string>
+					</array>
+					<array>
+						<string>America/Toronto</string>
+						<string>America/Toronto</string>
+					</array>
+					<array>
+						<string>America/Tortola</string>
+						<string>America/Tortola</string>
+					</array>
+					<array>
+						<string>America/Vancouver</string>
+						<string>America/Vancouver</string>
+					</array>
+					<array>
+						<string>America/Whitehorse</string>
+						<string>America/Whitehorse</string>
+					</array>
+					<array>
+						<string>America/Winnipeg</string>
+						<string>America/Winnipeg</string>
+					</array>
+					<array>
+						<string>America/Yakutat</string>
+						<string>America/Yakutat</string>
+					</array>
+					<array>
+						<string>America/Yellowknife</string>
+						<string>America/Yellowknife</string>
+					</array>
+					<array>
+						<string>Antarctica/Casey</string>
+						<string>Antarctica/Casey</string>
+					</array>
+					<array>
+						<string>Antarctica/Davis</string>
+						<string>Antarctica/Davis</string>
+					</array>
+					<array>
+						<string>Antarctica/DumontDUrville</string>
+						<string>Antarctica/DumontDUrville</string>
+					</array>
+					<array>
+						<string>Antarctica/Macquarie</string>
+						<string>Antarctica/Macquarie</string>
+					</array>
+					<array>
+						<string>Antarctica/Mawson</string>
+						<string>Antarctica/Mawson</string>
+					</array>
+					<array>
+						<string>Antarctica/McMurdo</string>
+						<string>Antarctica/McMurdo</string>
+					</array>
+					<array>
+						<string>Antarctica/Palmer</string>
+						<string>Antarctica/Palmer</string>
+					</array>
+					<array>
+						<string>Antarctica/Rothera</string>
+						<string>Antarctica/Rothera</string>
+					</array>
+					<array>
+						<string>Antarctica/Syowa</string>
+						<string>Antarctica/Syowa</string>
+					</array>
+					<array>
+						<string>Antarctica/Troll</string>
+						<string>Antarctica/Troll</string>
+					</array>
+					<array>
+						<string>Antarctica/Vostok</string>
+						<string>Antarctica/Vostok</string>
+					</array>
+					<array>
+						<string>Arctic/Longyearbyen</string>
+						<string>Arctic/Longyearbyen</string>
+					</array>
+					<array>
+						<string>Asia/Aden</string>
+						<string>Asia/Aden</string>
+					</array>
+					<array>
+						<string>Asia/Almaty</string>
+						<string>Asia/Almaty</string>
+					</array>
+					<array>
+						<string>Asia/Amman</string>
+						<string>Asia/Amman</string>
+					</array>
+					<array>
+						<string>Asia/Anadyr</string>
+						<string>Asia/Anadyr</string>
+					</array>
+					<array>
+						<string>Asia/Aqtau</string>
+						<string>Asia/Aqtau</string>
+					</array>
+					<array>
+						<string>Asia/Aqtobe</string>
+						<string>Asia/Aqtobe</string>
+					</array>
+					<array>
+						<string>Asia/Ashgabat</string>
+						<string>Asia/Ashgabat</string>
+					</array>
+					<array>
+						<string>Asia/Atyrau</string>
+						<string>Asia/Atyrau</string>
+					</array>
+					<array>
+						<string>Asia/Baghdad</string>
+						<string>Asia/Baghdad</string>
+					</array>
+					<array>
+						<string>Asia/Bahrain</string>
+						<string>Asia/Bahrain</string>
+					</array>
+					<array>
+						<string>Asia/Baku</string>
+						<string>Asia/Baku</string>
+					</array>
+					<array>
+						<string>Asia/Bangkok</string>
+						<string>Asia/Bangkok</string>
+					</array>
+					<array>
+						<string>Asia/Barnaul</string>
+						<string>Asia/Barnaul</string>
+					</array>
+					<array>
+						<string>Asia/Beirut</string>
+						<string>Asia/Beirut</string>
+					</array>
+					<array>
+						<string>Asia/Bishkek</string>
+						<string>Asia/Bishkek</string>
+					</array>
+					<array>
+						<string>Asia/Brunei</string>
+						<string>Asia/Brunei</string>
+					</array>
+					<array>
+						<string>Asia/Chita</string>
+						<string>Asia/Chita</string>
+					</array>
+					<array>
+						<string>Asia/Choibalsan</string>
+						<string>Asia/Choibalsan</string>
+					</array>
+					<array>
+						<string>Asia/Colombo</string>
+						<string>Asia/Colombo</string>
+					</array>
+					<array>
+						<string>Asia/Damascus</string>
+						<string>Asia/Damascus</string>
+					</array>
+					<array>
+						<string>Asia/Dhaka</string>
+						<string>Asia/Dhaka</string>
+					</array>
+					<array>
+						<string>Asia/Dili</string>
+						<string>Asia/Dili</string>
+					</array>
+					<array>
+						<string>Asia/Dubai</string>
+						<string>Asia/Dubai</string>
+					</array>
+					<array>
+						<string>Asia/Dushanbe</string>
+						<string>Asia/Dushanbe</string>
+					</array>
+					<array>
+						<string>Asia/Famagusta</string>
+						<string>Asia/Famagusta</string>
+					</array>
+					<array>
+						<string>Asia/Gaza</string>
+						<string>Asia/Gaza</string>
+					</array>
+					<array>
+						<string>Asia/Hebron</string>
+						<string>Asia/Hebron</string>
+					</array>
+					<array>
+						<string>Asia/Ho Chi Minh</string>
+						<string>Asia/Ho_Chi_Minh</string>
+					</array>
+					<array>
+						<string>Asia/Hong Kong</string>
+						<string>Asia/Hong_Kong</string>
+					</array>
+					<array>
+						<string>Asia/Hovd</string>
+						<string>Asia/Hovd</string>
+					</array>
+					<array>
+						<string>Asia/Irkutsk</string>
+						<string>Asia/Irkutsk</string>
+					</array>
+					<array>
+						<string>Asia/Jakarta</string>
+						<string>Asia/Jakarta</string>
+					</array>
+					<array>
+						<string>Asia/Jayapura</string>
+						<string>Asia/Jayapura</string>
+					</array>
+					<array>
+						<string>Asia/Jerusalem</string>
+						<string>Asia/Jerusalem</string>
+					</array>
+					<array>
+						<string>Asia/Kabul</string>
+						<string>Asia/Kabul</string>
+					</array>
+					<array>
+						<string>Asia/Kamchatka</string>
+						<string>Asia/Kamchatka</string>
+					</array>
+					<array>
+						<string>Asia/Karachi</string>
+						<string>Asia/Karachi</string>
+					</array>
+					<array>
+						<string>Asia/Kathmandu</string>
+						<string>Asia/Kathmandu</string>
+					</array>
+					<array>
+						<string>Asia/Khandyga</string>
+						<string>Asia/Khandyga</string>
+					</array>
+					<array>
+						<string>Asia/Kolkata</string>
+						<string>Asia/Kolkata</string>
+					</array>
+					<array>
+						<string>Asia/Krasnoyarsk</string>
+						<string>Asia/Krasnoyarsk</string>
+					</array>
+					<array>
+						<string>Asia/Kuala Lumpur</string>
+						<string>Asia/Kuala_Lumpur</string>
+					</array>
+					<array>
+						<string>Asia/Kuching</string>
+						<string>Asia/Kuching</string>
+					</array>
+					<array>
+						<string>Asia/Kuwait</string>
+						<string>Asia/Kuwait</string>
+					</array>
+					<array>
+						<string>Asia/Macau</string>
+						<string>Asia/Macau</string>
+					</array>
+					<array>
+						<string>Asia/Magadan</string>
+						<string>Asia/Magadan</string>
+					</array>
+					<array>
+						<string>Asia/Makassar</string>
+						<string>Asia/Makassar</string>
+					</array>
+					<array>
+						<string>Asia/Manila</string>
+						<string>Asia/Manila</string>
+					</array>
+					<array>
+						<string>Asia/Muscat</string>
+						<string>Asia/Muscat</string>
+					</array>
+					<array>
+						<string>Asia/Nicosia</string>
+						<string>Asia/Nicosia</string>
+					</array>
+					<array>
+						<string>Asia/Novokuznetsk</string>
+						<string>Asia/Novokuznetsk</string>
+					</array>
+					<array>
+						<string>Asia/Novosibirsk</string>
+						<string>Asia/Novosibirsk</string>
+					</array>
+					<array>
+						<string>Asia/Omsk</string>
+						<string>Asia/Omsk</string>
+					</array>
+					<array>
+						<string>Asia/Oral</string>
+						<string>Asia/Oral</string>
+					</array>
+					<array>
+						<string>Asia/Phnom Penh</string>
+						<string>Asia/Phnom_Penh</string>
+					</array>
+					<array>
+						<string>Asia/Pontianak</string>
+						<string>Asia/Pontianak</string>
+					</array>
+					<array>
+						<string>Asia/Pyongyang</string>
+						<string>Asia/Pyongyang</string>
+					</array>
+					<array>
+						<string>Asia/Qatar</string>
+						<string>Asia/Qatar</string>
+					</array>
+					<array>
+						<string>Asia/Qostanay</string>
+						<string>Asia/Qostanay</string>
+					</array>
+					<array>
+						<string>Asia/Qyzylorda</string>
+						<string>Asia/Qyzylorda</string>
+					</array>
+					<array>
+						<string>Asia/Riyadh</string>
+						<string>Asia/Riyadh</string>
+					</array>
+					<array>
+						<string>Asia/Sakhalin</string>
+						<string>Asia/Sakhalin</string>
+					</array>
+					<array>
+						<string>Asia/Samarkand</string>
+						<string>Asia/Samarkand</string>
+					</array>
+					<array>
+						<string>Asia/Seoul</string>
+						<string>Asia/Seoul</string>
+					</array>
+					<array>
+						<string>Asia/Shanghai</string>
+						<string>Asia/Shanghai</string>
+					</array>
+					<array>
+						<string>Asia/Singapore</string>
+						<string>Asia/Singapore</string>
+					</array>
+					<array>
+						<string>Asia/Srednekolymsk</string>
+						<string>Asia/Srednekolymsk</string>
+					</array>
+					<array>
+						<string>Asia/Taipei</string>
+						<string>Asia/Taipei</string>
+					</array>
+					<array>
+						<string>Asia/Tashkent</string>
+						<string>Asia/Tashkent</string>
+					</array>
+					<array>
+						<string>Asia/Tbilisi</string>
+						<string>Asia/Tbilisi</string>
+					</array>
+					<array>
+						<string>Asia/Tehran</string>
+						<string>Asia/Tehran</string>
+					</array>
+					<array>
+						<string>Asia/Thimphu</string>
+						<string>Asia/Thimphu</string>
+					</array>
+					<array>
+						<string>Asia/Tokyo</string>
+						<string>Asia/Tokyo</string>
+					</array>
+					<array>
+						<string>Asia/Tomsk</string>
+						<string>Asia/Tomsk</string>
+					</array>
+					<array>
+						<string>Asia/Ulaanbaatar</string>
+						<string>Asia/Ulaanbaatar</string>
+					</array>
+					<array>
+						<string>Asia/Urumqi</string>
+						<string>Asia/Urumqi</string>
+					</array>
+					<array>
+						<string>Asia/Ust-Nera</string>
+						<string>Asia/Ust-Nera</string>
+					</array>
+					<array>
+						<string>Asia/Vientiane</string>
+						<string>Asia/Vientiane</string>
+					</array>
+					<array>
+						<string>Asia/Vladivostok</string>
+						<string>Asia/Vladivostok</string>
+					</array>
+					<array>
+						<string>Asia/Yakutsk</string>
+						<string>Asia/Yakutsk</string>
+					</array>
+					<array>
+						<string>Asia/Yangon</string>
+						<string>Asia/Yangon</string>
+					</array>
+					<array>
+						<string>Asia/Yekaterinburg</string>
+						<string>Asia/Yekaterinburg</string>
+					</array>
+					<array>
+						<string>Asia/Yerevan</string>
+						<string>Asia/Yerevan</string>
+					</array>
+					<array>
+						<string>Atlantic/Azores</string>
+						<string>Atlantic/Azores</string>
+					</array>
+					<array>
+						<string>Atlantic/Bermuda</string>
+						<string>Atlantic/Bermuda</string>
+					</array>
+					<array>
+						<string>Atlantic/Canary</string>
+						<string>Atlantic/Canary</string>
+					</array>
+					<array>
+						<string>Atlantic/Cape Verde</string>
+						<string>Atlantic/Cape_Verde</string>
+					</array>
+					<array>
+						<string>Atlantic/Faroe</string>
+						<string>Atlantic/Faroe</string>
+					</array>
+					<array>
+						<string>Atlantic/Madeira</string>
+						<string>Atlantic/Madeira</string>
+					</array>
+					<array>
+						<string>Atlantic/Reykjavik</string>
+						<string>Atlantic/Reykjavik</string>
+					</array>
+					<array>
+						<string>Atlantic/South Georgia</string>
+						<string>Atlantic/South_Georgia</string>
+					</array>
+					<array>
+						<string>Atlantic/St Helena</string>
+						<string>Atlantic/St_Helena</string>
+					</array>
+					<array>
+						<string>Atlantic/Stanley</string>
+						<string>Atlantic/Stanley</string>
+					</array>
+					<array>
+						<string>Australia/Adelaide</string>
+						<string>Australia/Adelaide</string>
+					</array>
+					<array>
+						<string>Australia/Brisbane</string>
+						<string>Australia/Brisbane</string>
+					</array>
+					<array>
+						<string>Australia/Broken Hill</string>
+						<string>Australia/Broken_Hill</string>
+					</array>
+					<array>
+						<string>Australia/Darwin</string>
+						<string>Australia/Darwin</string>
+					</array>
+					<array>
+						<string>Australia/Eucla</string>
+						<string>Australia/Eucla</string>
+					</array>
+					<array>
+						<string>Australia/Hobart</string>
+						<string>Australia/Hobart</string>
+					</array>
+					<array>
+						<string>Australia/Lindeman</string>
+						<string>Australia/Lindeman</string>
+					</array>
+					<array>
+						<string>Australia/Lord Howe</string>
+						<string>Australia/Lord_Howe</string>
+					</array>
+					<array>
+						<string>Australia/Melbourne</string>
+						<string>Australia/Melbourne</string>
+					</array>
+					<array>
+						<string>Australia/Perth</string>
+						<string>Australia/Perth</string>
+					</array>
+					<array>
+						<string>Australia/Sydney</string>
+						<string>Australia/Sydney</string>
+					</array>
+					<array>
+						<string>Europe/Amsterdam</string>
+						<string>Europe/Amsterdam</string>
+					</array>
+					<array>
+						<string>Europe/Andorra</string>
+						<string>Europe/Andorra</string>
+					</array>
+					<array>
+						<string>Europe/Astrakhan</string>
+						<string>Europe/Astrakhan</string>
+					</array>
+					<array>
+						<string>Europe/Athens</string>
+						<string>Europe/Athens</string>
+					</array>
+					<array>
+						<string>Europe/Belgrade</string>
+						<string>Europe/Belgrade</string>
+					</array>
+					<array>
+						<string>Europe/Berlin</string>
+						<string>Europe/Berlin</string>
+					</array>
+					<array>
+						<string>Europe/Bratislava</string>
+						<string>Europe/Bratislava</string>
+					</array>
+					<array>
+						<string>Europe/Brussels</string>
+						<string>Europe/Brussels</string>
+					</array>
+					<array>
+						<string>Europe/Bucharest</string>
+						<string>Europe/Bucharest</string>
+					</array>
+					<array>
+						<string>Europe/Budapest</string>
+						<string>Europe/Budapest</string>
+					</array>
+					<array>
+						<string>Europe/Busingen</string>
+						<string>Europe/Busingen</string>
+					</array>
+					<array>
+						<string>Europe/Chisinau</string>
+						<string>Europe/Chisinau</string>
+					</array>
+					<array>
+						<string>Europe/Copenhagen</string>
+						<string>Europe/Copenhagen</string>
+					</array>
+					<array>
+						<string>Europe/Dublin</string>
+						<string>Europe/Dublin</string>
+					</array>
+					<array>
+						<string>Europe/Gibraltar</string>
+						<string>Europe/Gibraltar</string>
+					</array>
+					<array>
+						<string>Europe/Guernsey</string>
+						<string>Europe/Guernsey</string>
+					</array>
+					<array>
+						<string>Europe/Helsinki</string>
+						<string>Europe/Helsinki</string>
+					</array>
+					<array>
+						<string>Europe/Isle of Man</string>
+						<string>Europe/Isle_of_Man</string>
+					</array>
+					<array>
+						<string>Europe/Istanbul</string>
+						<string>Europe/Istanbul</string>
+					</array>
+					<array>
+						<string>Europe/Jersey</string>
+						<string>Europe/Jersey</string>
+					</array>
+					<array>
+						<string>Europe/Kaliningrad</string>
+						<string>Europe/Kaliningrad</string>
+					</array>
+					<array>
+						<string>Europe/Kiev</string>
+						<string>Europe/Kiev</string>
+					</array>
+					<array>
+						<string>Europe/Kirov</string>
+						<string>Europe/Kirov</string>
+					</array>
+					<array>
+						<string>Europe/Lisbon</string>
+						<string>Europe/Lisbon</string>
+					</array>
+					<array>
+						<string>Europe/Ljubljana</string>
+						<string>Europe/Ljubljana</string>
+					</array>
+					<array>
+						<string>Europe/London</string>
+						<string>Europe/London</string>
+					</array>
+					<array>
+						<string>Europe/Luxembourg</string>
+						<string>Europe/Luxembourg</string>
+					</array>
+					<array>
+						<string>Europe/Madrid</string>
+						<string>Europe/Madrid</string>
+					</array>
+					<array>
+						<string>Europe/Malta</string>
+						<string>Europe/Malta</string>
+					</array>
+					<array>
+						<string>Europe/Mariehamn</string>
+						<string>Europe/Mariehamn</string>
+					</array>
+					<array>
+						<string>Europe/Minsk</string>
+						<string>Europe/Minsk</string>
+					</array>
+					<array>
+						<string>Europe/Monaco</string>
+						<string>Europe/Monaco</string>
+					</array>
+					<array>
+						<string>Europe/Moscow</string>
+						<string>Europe/Moscow</string>
+					</array>
+					<array>
+						<string>Europe/Oslo</string>
+						<string>Europe/Oslo</string>
+					</array>
+					<array>
+						<string>Europe/Paris</string>
+						<string>Europe/Paris</string>
+					</array>
+					<array>
+						<string>Europe/Podgorica</string>
+						<string>Europe/Podgorica</string>
+					</array>
+					<array>
+						<string>Europe/Prague</string>
+						<string>Europe/Prague</string>
+					</array>
+					<array>
+						<string>Europe/Riga</string>
+						<string>Europe/Riga</string>
+					</array>
+					<array>
+						<string>Europe/Rome</string>
+						<string>Europe/Rome</string>
+					</array>
+					<array>
+						<string>Europe/Samara</string>
+						<string>Europe/Samara</string>
+					</array>
+					<array>
+						<string>Europe/San Marino</string>
+						<string>Europe/San_Marino</string>
+					</array>
+					<array>
+						<string>Europe/Sarajevo</string>
+						<string>Europe/Sarajevo</string>
+					</array>
+					<array>
+						<string>Europe/Saratov</string>
+						<string>Europe/Saratov</string>
+					</array>
+					<array>
+						<string>Europe/Simferopol</string>
+						<string>Europe/Simferopol</string>
+					</array>
+					<array>
+						<string>Europe/Skopje</string>
+						<string>Europe/Skopje</string>
+					</array>
+					<array>
+						<string>Europe/Sofia</string>
+						<string>Europe/Sofia</string>
+					</array>
+					<array>
+						<string>Europe/Stockholm</string>
+						<string>Europe/Stockholm</string>
+					</array>
+					<array>
+						<string>Europe/Tallinn</string>
+						<string>Europe/Tallinn</string>
+					</array>
+					<array>
+						<string>Europe/Tirane</string>
+						<string>Europe/Tirane</string>
+					</array>
+					<array>
+						<string>Europe/Ulyanovsk</string>
+						<string>Europe/Ulyanovsk</string>
+					</array>
+					<array>
+						<string>Europe/Uzhgorod</string>
+						<string>Europe/Uzhgorod</string>
+					</array>
+					<array>
+						<string>Europe/Vaduz</string>
+						<string>Europe/Vaduz</string>
+					</array>
+					<array>
+						<string>Europe/Vatican</string>
+						<string>Europe/Vatican</string>
+					</array>
+					<array>
+						<string>Europe/Vienna</string>
+						<string>Europe/Vienna</string>
+					</array>
+					<array>
+						<string>Europe/Vilnius</string>
+						<string>Europe/Vilnius</string>
+					</array>
+					<array>
+						<string>Europe/Volgograd</string>
+						<string>Europe/Volgograd</string>
+					</array>
+					<array>
+						<string>Europe/Warsaw</string>
+						<string>Europe/Warsaw</string>
+					</array>
+					<array>
+						<string>Europe/Zagreb</string>
+						<string>Europe/Zagreb</string>
+					</array>
+					<array>
+						<string>Europe/Zaporozhye</string>
+						<string>Europe/Zaporozhye</string>
+					</array>
+					<array>
+						<string>Europe/Zurich</string>
+						<string>Europe/Zurich</string>
+					</array>
+					<array>
+						<string>Indian/Antananarivo</string>
+						<string>Indian/Antananarivo</string>
+					</array>
+					<array>
+						<string>Indian/Chagos</string>
+						<string>Indian/Chagos</string>
+					</array>
+					<array>
+						<string>Indian/Christmas</string>
+						<string>Indian/Christmas</string>
+					</array>
+					<array>
+						<string>Indian/Cocos</string>
+						<string>Indian/Cocos</string>
+					</array>
+					<array>
+						<string>Indian/Comoro</string>
+						<string>Indian/Comoro</string>
+					</array>
+					<array>
+						<string>Indian/Kerguelen</string>
+						<string>Indian/Kerguelen</string>
+					</array>
+					<array>
+						<string>Indian/Mahe</string>
+						<string>Indian/Mahe</string>
+					</array>
+					<array>
+						<string>Indian/Maldives</string>
+						<string>Indian/Maldives</string>
+					</array>
+					<array>
+						<string>Indian/Mauritius</string>
+						<string>Indian/Mauritius</string>
+					</array>
+					<array>
+						<string>Indian/Mayotte</string>
+						<string>Indian/Mayotte</string>
+					</array>
+					<array>
+						<string>Indian/Reunion</string>
+						<string>Indian/Reunion</string>
+					</array>
+					<array>
+						<string>Pacific/Apia</string>
+						<string>Pacific/Apia</string>
+					</array>
+					<array>
+						<string>Pacific/Auckland</string>
+						<string>Pacific/Auckland</string>
+					</array>
+					<array>
+						<string>Pacific/Bougainville</string>
+						<string>Pacific/Bougainville</string>
+					</array>
+					<array>
+						<string>Pacific/Chatham</string>
+						<string>Pacific/Chatham</string>
+					</array>
+					<array>
+						<string>Pacific/Chuuk</string>
+						<string>Pacific/Chuuk</string>
+					</array>
+					<array>
+						<string>Pacific/Easter</string>
+						<string>Pacific/Easter</string>
+					</array>
+					<array>
+						<string>Pacific/Efate</string>
+						<string>Pacific/Efate</string>
+					</array>
+					<array>
+						<string>Pacific/Fakaofo</string>
+						<string>Pacific/Fakaofo</string>
+					</array>
+					<array>
+						<string>Pacific/Fiji</string>
+						<string>Pacific/Fiji</string>
+					</array>
+					<array>
+						<string>Pacific/Funafuti</string>
+						<string>Pacific/Funafuti</string>
+					</array>
+					<array>
+						<string>Pacific/Galapagos</string>
+						<string>Pacific/Galapagos</string>
+					</array>
+					<array>
+						<string>Pacific/Gambier</string>
+						<string>Pacific/Gambier</string>
+					</array>
+					<array>
+						<string>Pacific/Guadalcanal</string>
+						<string>Pacific/Guadalcanal</string>
+					</array>
+					<array>
+						<string>Pacific/Guam</string>
+						<string>Pacific/Guam</string>
+					</array>
+					<array>
+						<string>Pacific/Honolulu</string>
+						<string>Pacific/Honolulu</string>
+					</array>
+					<array>
+						<string>Pacific/Kanton</string>
+						<string>Pacific/Kanton</string>
+					</array>
+					<array>
+						<string>Pacific/Kiritimati</string>
+						<string>Pacific/Kiritimati</string>
+					</array>
+					<array>
+						<string>Pacific/Kosrae</string>
+						<string>Pacific/Kosrae</string>
+					</array>
+					<array>
+						<string>Pacific/Kwajalein</string>
+						<string>Pacific/Kwajalein</string>
+					</array>
+					<array>
+						<string>Pacific/Majuro</string>
+						<string>Pacific/Majuro</string>
+					</array>
+					<array>
+						<string>Pacific/Marquesas</string>
+						<string>Pacific/Marquesas</string>
+					</array>
+					<array>
+						<string>Pacific/Midway</string>
+						<string>Pacific/Midway</string>
+					</array>
+					<array>
+						<string>Pacific/Nauru</string>
+						<string>Pacific/Nauru</string>
+					</array>
+					<array>
+						<string>Pacific/Niue</string>
+						<string>Pacific/Niue</string>
+					</array>
+					<array>
+						<string>Pacific/Norfolk</string>
+						<string>Pacific/Norfolk</string>
+					</array>
+					<array>
+						<string>Pacific/Noumea</string>
+						<string>Pacific/Noumea</string>
+					</array>
+					<array>
+						<string>Pacific/Pago Pago</string>
+						<string>Pacific/Pago_Pago</string>
+					</array>
+					<array>
+						<string>Pacific/Palau</string>
+						<string>Pacific/Palau</string>
+					</array>
+					<array>
+						<string>Pacific/Pitcairn</string>
+						<string>Pacific/Pitcairn</string>
+					</array>
+					<array>
+						<string>Pacific/Pohnpei</string>
+						<string>Pacific/Pohnpei</string>
+					</array>
+					<array>
+						<string>Pacific/Port Moresby</string>
+						<string>Pacific/Port_Moresby</string>
+					</array>
+					<array>
+						<string>Pacific/Rarotonga</string>
+						<string>Pacific/Rarotonga</string>
+					</array>
+					<array>
+						<string>Pacific/Saipan</string>
+						<string>Pacific/Saipan</string>
+					</array>
+					<array>
+						<string>Pacific/Tahiti</string>
+						<string>Pacific/Tahiti</string>
+					</array>
+					<array>
+						<string>Pacific/Tarawa</string>
+						<string>Pacific/Tarawa</string>
+					</array>
+					<array>
+						<string>Pacific/Tongatapu</string>
+						<string>Pacific/Tongatapu</string>
+					</array>
+					<array>
+						<string>Pacific/Wake</string>
+						<string>Pacific/Wake</string>
+					</array>
+					<array>
+						<string>Pacific/Wallis</string>
+						<string>Pacific/Wallis</string>
+					</array>
+					<array>
+						<string>UTC</string>
+						<string>UTC</string>
+					</array>
+				</array>
+			</dict>
+			<key>description</key>
+			<string>Select your time zone to calculate dates in your time</string>
+			<key>label</key>
+			<string>Time zone</string>
+			<key>type</key>
+			<string>popupbutton</string>
+			<key>variable</key>
+			<string>timezone</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>2</string>
+				<key>placeholder</key>
+				<string>2</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Number of decimals to display in currency conversions, you can enter -1 to display different number of decimals depending on your query</string>
+			<key>label</key>
+			<string>Currency decimals</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>currency_decimals</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>USD, EUR</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>If you type "100 Yen" it will automatically be converted to the currencies defined here separated by comma, for example: USD, EUR</string>
+			<key>label</key>
+			<string>Set base currencies</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>base_currencies</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Not mandatory. By default you have access to 32 currencies, If you need access to more than 150 currencies you can add a free API key. It takes less than a minute to get the key from https://fixer.io.</string>
+			<key>label</key>
+			<string>Fixer API</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>apikey_fixer</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>12</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>The amount of hours to cache the currencies before checking for new rates, for example, enter "6" to update currencies every 6 hours</string>
+			<key>label</key>
+			<string>Currencies cache duration</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>currency_cache_hours</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string></string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>If you need crypto currencies conversion please enter your API key here. You need to get a free API key from https://coinmarketcap.com/api/pricing. This takes less than a minute.</string>
+			<key>label</key>
+			<string>Coinmarket API key</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>apikey_coinmarket</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>12</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>The amount of hours to cache the crytocurrencies before checking for new rates, for example, enter "6" to update currencies every 6 hours</string>
+			<key>label</key>
+			<string>Cryptocurrencies cache duration</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>cryptocurrency_cache_hours</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>-1</string>
+				<key>placeholder</key>
+				<string>-1</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Number of decimals to display for crypto currencies, you can enter -1 to display every single decimal from the conversion</string>
+			<key>label</key>
+			<string>Decimals for cryptocurrencies</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>crypto_decimals</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string></string>
+				<key>placeholder</key>
+				<string>16%</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Configure your default VAT percentage for example 16%</string>
+			<key>label</key>
+			<string>VAT percentage</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>vat_value</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>j F, Y, g:i:s a</string>
+				<key>placeholder</key>
+				<string>j F, Y, g:i:s a</string>
+				<key>required</key>
+				<false/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>Add date format so date is formatted the way you need for example: j F, Y, g:i:s a, You can add multiple formats separating them with comma</string>
+			<key>label</key>
+			<string>Add date format</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>date_format</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<string>16px</string>
+				<key>placeholder</key>
+				<string>16px</string>
+				<key>required</key>
+				<true/>
+				<key>trim</key>
+				<true/>
+			</dict>
+			<key>description</key>
+			<string>For conversions between em, rem</string>
+			<key>label</key>
+			<string>Set base pixels</string>
+			<key>type</key>
+			<string>textfield</string>
+			<key>variable</key>
+			<string>pixels_base</string>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>default</key>
+				<false/>
+				<key>required</key>
+				<false/>
+				<key>text</key>
+				<string></string>
+			</dict>
+			<key>description</key>
+			<string>Enable to always use Binary mode so 1 MB = 1024 KB if disabled then the IEC Standard is used where 1 MB = 1000 KB</string>
+			<key>label</key>
+			<string>Data Storage - Binary Mode</string>
+			<key>type</key>
+			<string>checkbox</string>
+			<key>variable</key>
+			<string>datastorage_force_binary</string>
+		</dict>
+	</array>
 	<key>variables</key>
 	<dict>
-		<key>base_currency</key>
-		<string>[\"MXN\"]</string>
-		<key>coinmarket_apikey</key>
-		<string>c823b5ee-7ca5-4823-8f98-a200e5fd7041</string>
-		<key>fixer_apikey</key>
-		<string>65fa43c123a096c17dbd903c2b0adbe9</string>
-		<key>fixer_apisource</key>
+		<key>fixer_source_api</key>
 		<string></string>
-		<key>language</key>
-		<string>es_ES</string>
-		<key>last_update_check</key>
-		<string>1655368410</string>
-		<key>settings_migrated</key>
-		<string>true</string>
-		<key>time_format</key>
-		<string>["j F, Y, g:i:s a"]</string>
-		<key>time_zone</key>
-		<string>America/Mexico_City</string>
-		<key>vat_percentage</key>
-		<string>16%</string>
 	</dict>
 	<key>variablesdontexport</key>
 	<array>
-		<string>time_zone</string>
-		<string>fixer_apikey</string>
-		<string>settings_migrated</string>
-		<string>base_currency</string>
-		<string>language</string>
-		<string>time_format</string>
-		<string>coinmarket_apikey</string>
-		<string>last_update_check</string>
-		<string>fixer_apisource</string>
-		<string>vat_percentage</string>
+		<string>fixer_source_api</string>
 	</array>
 	<key>version</key>
-	<string>3.5.0</string>
+	<string>4.0.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
