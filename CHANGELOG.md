@@ -3,6 +3,8 @@
 ### v4.0.0
 
 - New: Now the workflow uses the new Alfred 5 Configuration window
+- New: Now you can convert from fiat currency to crypto currency
+- New: Now you can convert from crypto currency to fiat currency
 - New: Now you can use negative numbers for example `-25F to C`
 - New: Now you can use numbers starting with dot for example `.250km to meters`
 - New: Added new language: Swedish
@@ -10,22 +12,25 @@
 - New: Added new option to configure the number of decimals in currency conversions
 - New: Added new option to configure the number of decimals in cryptocurrency conversions
 - New: Added new option to configure the output format of numbers
+- New: Added keyword _clear to clear all workflow cache
 - Improved: Unit conversion works a lot better and the code was reduced a lot
 - Fixed: Time keyword not working with certain PHP versions
-- Removed: Auto updater was removed as Alfred will handle future updates
+- Fixed: Binary mode not working for data storage conversions
+- Removed: Auto updater was removed as Alfred 5 will handle future updates
+- Removed: The old key `ca` to configure the workflow is removed
 - Removed: Convertor library was removed
 - Many fixes and improvements to list them all.
   
 ### v3.5.0
 
-- Changed: Currency conversion is prioritized over cryptocurrencies, there`s thousands of useless cryptocurrencies and some use the same code, for example Bitish Pound and Crypto Good Boy Points both use the code GBP, now if you try to convert 100 GBP it will default to Bitish Pound, you can still configure it to use the crypto if you prefer it that way
+- Changed: Currency conversion is prioritized over cryptocurrencies, there`s thousands of useless cryptocurrencies and some use the same code, for example British Pound and Crypto Good Boy Points both use the code GBP, now if you try to convert 100 GBP it will default to British Pound, you can still configure it to use the crypto if you prefer it that way
 - Fixed: Crytocurrency to currency noy working correctly when the currency cache was expired
 
 ### 3.4.0
 
 - New: You can now provide a workflow variable to define the duration of the currencies cache
 - New: Support for more cryptocurrencies, up to 5,000
-- New: You can also difine custom cryptocurrencies
+- New: You can also define custom cryptocurrencies
 - Updated: Fixer.io API now uses API Layer, the workflow will check your API key to make sure the correct endpoint is used.
 - Improved: Now the workflow shows a message when it's updating currency and cryptocurrencies rates
 - Improved: Replaced file_get_contents with curl for some operations
@@ -39,7 +44,7 @@
 
 ### 3.2.0
 
-- New: Added Power units w, kw, ps, and hp. @wwkeyboard
+- New: Added Power units w, kw, ps, and hp.
 - New: Added knot
 - Improved: Fixer API error handling
 - Fixed: Time errors caused by workflow missing user configuration
