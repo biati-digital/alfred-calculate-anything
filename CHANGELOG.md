@@ -1,5 +1,13 @@
 # Changelog
 
+### v4.0.1
+
+- Improved: Workflow description now includes more examples
+- Fixed: Not able to convert to multiple default currencies if the first default currency is the same as the input currency
+- Fixed: Some users were not able to use currency conversion, depending on their PHP installation
+- Fixed: Time keyword not working in PHP 8.2+
+- Fixed: Time keyword not grabbing the new config value for Alfred 5
+
 ### v4.0.0
 
 - New: Now the workflow uses the new Alfred 5 Configuration window
