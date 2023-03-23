@@ -106,6 +106,7 @@ class Time extends CalculateAnything implements CalculatorInterface
 
 
         foreach ($this->display_formats as $format) {
+            $format = trim($format);
             $date = $instance->format($format);
             $items[] = [
                 'title' => $date,
@@ -298,7 +299,8 @@ class Time extends CalculateAnything implements CalculatorInterface
         try {
             $d = new Date($time, new DateTimeZone($this->timezone));
         } catch (\Throwable $th) {
-            throw $th;
+            print_r('Error parsing date: ');
+            print_r($th->getMessage());
         }
         return $d;
     }
