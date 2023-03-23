@@ -435,9 +435,14 @@ class CalculateAnything
             if (!empty($new_settings['pixels_base'])) {
                 $settings['base_pixels'] = $new_settings['pixels_base'];
             }
-            if (!empty($new_settings['date_format']) && $new_settings['date_format'] !== 'j F, Y, g:i:s a') {
-                $settings['time_format'] = str_replace(' ', '', $new_settings['time_format']);
-                $settings['time_format'] = explode(',', $settings['time_format']);
+            if (
+                !empty($new_settings['date_format']) && $new_settings['date_format'] !== 'j F, Y, g:i:s a' ||
+                empty($settings['time_format'])
+            ) {
+                $settings['time_format'] = $new_settings['date_format'];
+                if (is_string($settings['time_format'])) {
+                    $settings['time_format'] = explode('|', $new_settings['date_format']);
+                }
             }
             if (!empty($new_settings['number_output_format'])) {
                 $settings['number_output_format'] = $new_settings['number_output_format'];
@@ -654,6 +659,12 @@ class CalculateAnything
     /**
      * Do request
      * make a curl request
+     *
+     * @param string $to target url
+     * @param array  $headers
+     * @param string $method
+     *
+     * @return array|bool|string
      */
     public function doRequest($to, $headers = [], $method = 'GET')
     {
@@ -662,12 +673,22 @@ class CalculateAnything
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FAILONERROR, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
         $req = curl_exec($curl);
+
+        if (curl_errno($curl)) {
+            $error_msg = curl_error($curl);
+            print_r('CURL FAILED: request to ' . $to . ' failed, error was ' . $error_msg);
+            return false;
+        }
 
         curl_close($curl);
 
         if (empty($req)) {
+            print_r('CURL EMPTY RESPONSE: request to ' . $to . ' returned empty ');
             return false;
         }
 
