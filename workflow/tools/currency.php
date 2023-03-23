@@ -268,7 +268,10 @@ class Currency extends CalculateAnything implements CalculatorInterface
         }
 
         $data['converted'] = [];
-        if ($data['amount'] <= 0 || (!empty($data['to']['currency']) && $data['from'] == $data['to']['currency'][0])) {
+        if (
+            $data['amount'] <= 0 ||
+            (!empty($data['to']['currency']) && count($data['to']['currency']) === 1 && $data['from'] == $data['to']['currency'][0])
+        ) {
             $_to = $data['to']['currency'][0];
             $data['converted'][$_to . '_currency'] = [
                 'total' => ['value' => $data['amount'], 'formatted' => "{$data['amount']} $_to"],
