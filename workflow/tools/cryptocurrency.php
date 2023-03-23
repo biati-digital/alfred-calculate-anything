@@ -142,7 +142,10 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
         }
 
         $data['converted'] = [];
-        if ($data['amount'] <= 0 || (!empty($data['to']['crypto']) && $data['from'] === $data['to']['crypto'][0])) {
+        if (
+            $data['amount'] <= 0 ||
+            (!empty($data['to']['crypto']) && count($data['to']['crypto']) === 1 && $data['from'] === $data['to']['crypto'][0])
+        ) {
             $data['converted'][$data['to']] = [
                 'total' => ['value' => $data['amount'], 'formatted' => "{$data['amount']} {$data['to']}"],
                 'single' => ['value' => 1, 'formatted' => "1 {$data['from']} = 1 {$data['to']}"],
