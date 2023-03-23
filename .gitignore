@@ -90,3 +90,4 @@ assets/update.afphoto
 .idea/vcs.xml
 .idea/inspectionProfiles/Project_Default.xml
 *.lock
+tests.txt
