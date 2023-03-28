@@ -315,7 +315,28 @@ function cleanQuery($query)
 
     // Normalize UTF-8 to avoid non matching characters that should
     // be identical. (canonically composed vs precomposed characters)
-    $clean = normalizer_normalize($clean);
+    // Using normalizer_normalize if it exits in the PHP installation
+    if(function_exists('normalizer_normalize')) {
+        $clean = normalizer_normalize($clean);
+    } else {
+        // If normalizer isn't installed, 
+        // just convert the special characters in the -keys files
+        $normalized_chars = [
+            "a\xCC\x8A" => 'å',
+            "A\xCC\x8A" => 'Å',
+            "a\xCC\x88" => 'ä',
+            "A\xCC\x88" => 'Ä',
+            "o\xCC\x88" => 'ö',
+            "O\xCC\x88" => 'Ö',
+            "n\xCC\x83" => 'ñ',
+            "N\xCC\x83" => 'Ñ',
+            "o\xCC\x81" => 'ó',
+            "O\xCC\x81" => 'Ó',
+            "i\xCC\x81" => 'í',
+            "I\xCC\x81" => 'Í',
+        ];
+        $clean = strtr($clean, $normalized_chars);
+    }
 
     $clean = mb_strtolower($clean, 'UTF-8');
     return $clean;
