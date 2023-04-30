@@ -1,5 +1,9 @@
 # Changelog
 
+### v4.0.2
+
+- Fixed: Missing normalizer_normalize on certain PHP installations
+
 ### v4.0.1
 
 - Improved: Workflow description now includes more examples
