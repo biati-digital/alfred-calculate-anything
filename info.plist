@@ -101,19 +101,6 @@
 				<false/>
 			</dict>
 		</array>
-		<key>3A7C34F3-DA23-4945-9F94-3E186EE4559F</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>03F82D1C-9ACF-4789-91FD-9CCF291DEFFE</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>3D4DB816-B39C-482D-80EA-3F64F3DF1644</key>
 		<array>
 			<dict>
@@ -1097,57 +1084,6 @@ include_once "./process.php";</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttreatemptyqueryasnil</key>
-				<false/>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>4</integer>
-				<key>keyword</key>
-				<string>color</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string>Calculating Color...</string>
-				<key>script</key>
-				<string>$query = "{query}";
-$action = 'color';
-include_once "./process.php";</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Calculate Color in multiple color spaces</string>
-				<key>title</key>
-				<string>Calculate Color</string>
-				<key>type</key>
-				<integer>1</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>3A7C34F3-DA23-4945-9F94-3E186EE4559F</string>
-			<key>version</key>
-			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
@@ -1433,6 +1369,128 @@ There are several conversion workflows out there but I wanted a workflow that wo
 - **Translations** You can create your own translations to display results in your language
 - **Keywords** Extend the natural language support so you can type `100 dolares a pesos` and see the result of `100usd to mxn`
 
+## How to use
+You can simply open Alfred and start typing, here you can see some examples of what you can do with this workflow:
+
+#### Currency conversion
+
+- 100 us dollars in mexican pesos
+- 100 usd mxn
+- 100 euros to dollars
+- 100 euros in dollars
+- 100 euros as dollars
+- 100 canadian dollars in argentinian peso
+- 100usd yen
+- 100€ to $
+- 100 ¥ in €
+- 100¥ €
+- 100eur (if no target the currency will be converted to the base currencies that you configured)
+
+#### Cryptocurrency conversion
+
+- 2 bitcoins to dollars
+- 0.1 bitcoin in dollars
+- 5 bitcoins in ethereum
+- 1 ethereum to ¥
+- 10 ethereum in mxn
+- 1eth btc
+- 1btc (if no target currency is provided, the configured base currency will be used)
+
+#### Unit conversion
+
+- 100 kilometers to meters
+- 100 km in meters
+- 100 km m
+- 100km m
+
+- 100 miles as meters
+- 100miles in meters
+- 100 miles to m
+
+- 100 ounces to kilograms
+- 100oz to kg
+- 100oz = kg
+- 100oz kg
+
+- 10 years to months
+- 10years to seconds
+- 10 years hr
+- 1 year to sec
+- 1hr secods
+- 1hr s
+- 10 days hr
+- 10 días a horas (use your own language)
+
+
+#### Data storage conversion
+
+- 100 gigabytes in megabytes
+- 100 gigas in megas
+- 100 Mebibytes in Kibibytes
+- 100 gb to mb
+- 100gb to kb
+- 100gb mb
+- 400MiB in kib
+- 2tb gb
+- 1b kb
+
+
+#### Percentages conversion
+
+- 40 as a % of 50
+- 20 is what % of 50
+- 15% of 50
+- 120 + 30%
+- 120 plus 30%
+- 120 - 30%
+- 120 minus 30%
+- 30 % 40
+
+Translations and natural language can also be used
+
+- 120 más 30%
+- 120 menos 10%
+- 40 como % de 50
+
+
+#### PX, EM, REM, PT conersion
+
+- 12px
+- 12px to em
+- 2 rem
+- 2rem
+- 2rem to pt
+- 12px in em base 17px
+
+
+#### Time
+
+Given its less frequently used, time conversions require the use of the keyword `time`.
+
+converts the timestamp to a regular date
+- time 1577836800
+
+gives you the time from now plus 15 days
+- time +15 days
+- time now plus 3 days
+
+gives you the time from now plus 3 working days
+- time today + 3 workdays
+- time now + 3 workdays
+- time + 3 workdays
+
+number of days until specified date
+- time days until 31 december
+
+You can find more examples in the documentation, link at the bottom.
+
+
+#### Vat
+
+Given its less frequently used, time conversions require the use of the keyword `vat`.
+
+- vat of 400 (with a 16% VAT configured, a percentage you can configure)
+
 
 ## Documentation
 
@@ -1463,9 +1521,9 @@ If you need help please do not hesitate to open an issue filling all the questio
 		<key>03AE9542-EE54-423A-86E0-9B669EDE5A98</key>
 		<dict>
 			<key>xpos</key>
-			<real>285</real>
+			<real>290</real>
 			<key>ypos</key>
-			<real>1790</real>
+			<real>1680</real>
 		</dict>
 		<key>03F82D1C-9ACF-4789-91FD-9CCF291DEFFE</key>
 		<dict>
@@ -1477,16 +1535,16 @@ If you need help please do not hesitate to open an issue filling all the questio
 		<key>0A003B52-98B8-4E6C-927C-1A463F47C612</key>
 		<dict>
 			<key>xpos</key>
-			<real>285</real>
+			<real>290</real>
 			<key>ypos</key>
-			<real>1910</real>
+			<real>1800</real>
 		</dict>
 		<key>211A2F0B-BCFD-4FBD-B058-548162E358B4</key>
 		<dict>
 			<key>xpos</key>
-			<real>360</real>
+			<real>365</real>
 			<key>ypos</key>
-			<real>1880</real>
+			<real>1770</real>
 		</dict>
 		<key>2679D5D4-9D36-4AD4-A1EE-59EACA36C6E9</key>
 		<dict>
@@ -1502,19 +1560,12 @@ If you need help please do not hesitate to open an issue filling all the questio
 			<key>ypos</key>
 			<real>1095</real>
 		</dict>
-		<key>3A7C34F3-DA23-4945-9F94-3E186EE4559F</key>
+		<key>3D4DB816-B39C-482D-80EA-3F64F3DF1644</key>
 		<dict>
 			<key>xpos</key>
 			<real>80</real>
 			<key>ypos</key>
-			<real>1460</real>
-		</dict>
-		<key>3D4DB816-B39C-482D-80EA-3F64F3DF1644</key>
-		<dict>
-			<key>xpos</key>
-			<real>75</real>
-			<key>ypos</key>
-			<real>1880</real>
+			<real>1770</real>
 		</dict>
 		<key>65F736EC-3B8C-4B6D-BE2C-837A63AC34A3</key>
 		<dict>
@@ -1540,9 +1591,9 @@ If you need help please do not hesitate to open an issue filling all the questio
 		<key>73B44DBE-FC34-4F54-8A7D-A1EAA2A0EE58</key>
 		<dict>
 			<key>xpos</key>
-			<real>75</real>
+			<real>80</real>
 			<key>ypos</key>
-			<real>1585</real>
+			<real>1475</real>
 		</dict>
 		<key>810259C6-0B1F-4440-99F4-7821B5226D70</key>
 		<dict>
@@ -1582,9 +1633,9 @@ If you need help please do not hesitate to open an issue filling all the questio
 		<key>B65669C2-6057-4003-B79B-2AEFB92E07CE</key>
 		<dict>
 			<key>xpos</key>
-			<real>225</real>
+			<real>230</real>
 			<key>ypos</key>
-			<real>1790</real>
+			<real>1680</real>
 		</dict>
 		<key>BB2A4C00-3D9B-43BD-957F-AFF92B5A1DCB</key>
 		<dict>
@@ -1596,9 +1647,9 @@ If you need help please do not hesitate to open an issue filling all the questio
 		<key>BEA1F80D-6781-4CB6-AA39-92C8A5D8BD82</key>
 		<dict>
 			<key>xpos</key>
-			<real>445</real>
+			<real>450</real>
 			<key>ypos</key>
-			<real>1585</real>
+			<real>1475</real>
 		</dict>
 		<key>D037BED7-D145-4DEB-8419-84840F408A48</key>
 		<dict>
@@ -1612,30 +1663,30 @@ If you need help please do not hesitate to open an issue filling all the questio
 			<key>note</key>
 			<string>Clear Cache</string>
 			<key>xpos</key>
-			<real>270</real>
+			<real>275</real>
 			<key>ypos</key>
-			<real>1585</real>
+			<real>1475</real>
 		</dict>
 		<key>D29D156D-3EB3-4E6A-97D4-DE50834BBDAD</key>
 		<dict>
 			<key>xpos</key>
-			<real>75</real>
+			<real>80</real>
 			<key>ypos</key>
-			<real>1760</real>
+			<real>1650</real>
 		</dict>
 		<key>DAE2385A-3F7A-4CAE-8A23-EA406D2F5E6A</key>
 		<dict>
 			<key>xpos</key>
-			<real>360</real>
+			<real>365</real>
 			<key>ypos</key>
-			<real>1760</real>
+			<real>1650</real>
 		</dict>
 		<key>DEA519D6-6B0A-4B4A-9B56-917B28B78090</key>
 		<dict>
 			<key>xpos</key>
-			<real>225</real>
+			<real>230</real>
 			<key>ypos</key>
-			<real>1910</real>
+			<real>1800</real>
 		</dict>
 		<key>DEEA362A-4FDA-454E-9BC6-57B0F3C9FC10</key>
 		<dict>
@@ -3636,7 +3687,7 @@ If you need help please do not hesitate to open an issue filling all the questio
 				<true/>
 			</dict>
 			<key>description</key>
-			<string>Add date format so date is formatted the way you need for example: j F, Y, g:i:s a, You can add multiple formats separating them with comma</string>
+			<string>Add date format so date is formatted the way you need for example: j F, Y, g:i:s You can add multiple formats separating them with a pipe for example: j F, Y, g:i:s | Y F j</string>
 			<key>label</key>
 			<string>Add date format</string>
 			<key>type</key>
@@ -3685,17 +3736,10 @@ If you need help please do not hesitate to open an issue filling all the questio
 			<string>datastorage_force_binary</string>
 		</dict>
 	</array>
-	<key>variables</key>
-	<dict>
-		<key>fixer_source_api</key>
-		<string></string>
-	</dict>
 	<key>variablesdontexport</key>
-	<array>
-		<string>fixer_source_api</string>
-	</array>
+	<array/>
 	<key>version</key>
-	<string>4.0.0</string>
+	<string>4.0.2</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
