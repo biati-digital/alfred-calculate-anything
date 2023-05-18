@@ -160,6 +160,7 @@ return [
         'l'   => 'Litro',
         'ml'  => 'Mililitro',
         'm3'  => 'Metro Cubico',
+        'taza' => 'Taza',
         'pt'  => 'Punto Tipográfico',
         'gal' => 'Galón',
 

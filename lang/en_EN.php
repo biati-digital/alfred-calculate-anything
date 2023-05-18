@@ -162,8 +162,9 @@ return [
         'l'   => 'Litre',
         'ml'  => 'Mililitre',
         'm3'  => 'Cubic Meter',
+        'cup' => 'Cup',
         'pt'  => 'Pint',
-        'gal' => 'Galon',
+        'gal' => 'Gallon',
 
         'weight' => 'Weight',
         'kg' => 'Kilogram',

@@ -98,6 +98,7 @@ class Units extends CalculateAnything implements CalculatorInterface
                     'hl' => 100, //hectolitre
                     'kl' => 1000, //kilolitre
                     'm3' => 1000, //meters cubed - kilolitre
+                    'cup' => 0.236588, //cups
                     'pt' => 0.473176, //pint
                     'uspt' => 0.473176, //us pint
                     'ukpt' => 0.56826125, //pint

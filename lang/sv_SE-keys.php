@@ -65,6 +65,8 @@ return [
         '\"' => 'in',
         'tum' => 'in',
         'liter' => 'l',
+        'kopp' => 'cup',
+        'koppar' => 'cup',
         'pint' => 'pt',
         'us pints' => 'uspt',
         'us-pints' => 'uspt',
