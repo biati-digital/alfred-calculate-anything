@@ -7,10 +7,13 @@ assignees: ''
 
 ---
 
-If you have a problem with the workflow please answer the following questions.
+If you have a problem with the workflow please answer the following questions. Please note that the workflow is only compatible with Alfred 5.
 
 **Are you using the latest version of the workflow?**
 Before creating an issue make sure you are using the latest version, you can find the latest version in the [releases page](https://github.com/biati-digital/alfred-calculate-anything/releases)
+
+**Have you installed the workflow dependencies?**
+if dependencies are not automatically installed by Alfred you can install them directly from Alfred following this steps https://www.alfredapp.com/help/kb/dependencies/ or manually install PHP with brew `brew install php`
 
 **Describe the bug**
 A clear and concise description of what the bug is.
