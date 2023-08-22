@@ -173,7 +173,7 @@ class CalculateAnything
      */
     public function processVat()
     {
-        $query = preg_replace('/[^\\d.]+/', '', self::$_query);
+        $query = preg_replace('/[^\d\.,]+/', '', self::$_query);
         $vatCalculator = new Vat($query);
         $data = $vatCalculator->getVatOf($query);
         return $vatCalculator->output($data);
