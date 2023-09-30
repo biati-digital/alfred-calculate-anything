@@ -1,6 +1,6 @@
 # Calculate Anything
 
-Calculate Anything is a workflow for Alfred 4 and Alfred 5, that uses **natural language** and is able to calculate multiple things like currency, cryptocurrency, time, vat, px, em, rem, percentage, and more.
+Calculate Anything is a workflow for Alfred 5, that uses **natural language** and is able to calculate multiple things like currency, cryptocurrency, time, vat, px, em, rem, percentage, and more.
 
 <p align="center">
 <img src="https://i.ibb.co/LZnQcCL/calculate-anything-gh.jpg">
@@ -25,35 +25,13 @@ There are several conversion workflows out there but I wanted a workflow that wo
 - **Translations** You can create your own translations to display results in your language
 - **Keywords** Extend the natural language support so you can type `100 dolares a pesos` and see the result of `100usd to mxn`
 
-## Requirements for Mac OS Monterey Users and up
+## Installation
 
-Starting from Mac OS Monterey Apple removed PHP so you have to install it manually, that can easily be done with [Homebrew](https://brew.sh/), just open your terminal and paste the commands below:
-
-1.- Install Homebrew
-
-```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-2.- Install PHP
-
-```sh
-brew install php
-```
-
-That's it, you need to have the latest version of Alfred and will automatically find the PHP version that you install.
-
-Mac OS Big Sur users and below do not need to do anything as your Mac OS already includes PHP.
-
-## Download
-
-Make sure to download the latest released directly from the releases page. [Download here](https://github.com/biati-digital/alfred-calculate-anything/releases/).
+Install from the [workflow gallery](https://alfred.app/workflows/biatidigital/calculate-anything/) if dependencies are not automatically installed by Alfred you can install them directly from Alfred https://www.alfredapp.com/help/kb/dependencies/ or manually install PHP with brew `brew install php`.
 
 ## Configuration
 
-If you are using Alfred 4 please check the [README for Alfred 4](https://github.com/biati-digital/alfred-calculate-anything/blob/master/README-ALFRED4.md).
-
-If you are using Alfred 5 you can use the new workflow configuration panel.
+The workflow can be configured using the new workflow configuration panel included in ALfred 5.
 
 <p align="center">
 <img src="https://i.ibb.co/k65g7v7/config.webp">
