@@ -3,7 +3,6 @@
 namespace Workflow\Tools;
 
 use Workflow\CalculateAnything as CalculateAnything;
-use Workflow\Tools\Cryptocurrency;
 
 /**
  * Currency
@@ -480,10 +479,11 @@ class Currency extends CalculateAnything implements CalculatorInterface
         }
 
         if (isset($exchange['error'])) {
+            $error_message = !empty($exchange['error']['info']) ? $exchange['error']['info'] : $exchange['error'];
             return [
                 'total' => '',
                 'single' => '',
-                'error' => $exchange['error']['info'],
+                'error' => $error_message,
                 'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
             ];
         }
@@ -654,9 +654,16 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $cache_seconds = $this->rates_cache_seconds;
         $id = $configured_exchange['id'];
         $from = $configured_exchange['url'];
+        $api_key = $configured_exchange['apiKey'];
         $http_headers = $configured_exchange['headers'];
         $cache_path = \Alfred\getDataPath('cache');
         $dir = $cache_path . '/' . $id;
+
+        if (empty($api_key)) {
+            return [
+                'message' => $this->lang['nofixerapikey_title']
+            ];
+        }
 
         // Make sure the cache folder is created
         \Alfred\createDir($cache_path);
@@ -705,6 +712,12 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
         $rates = $this->doRequest($from, $http_headers);
 
+        if (!empty($rates['error'])) {
+            return [
+                'error' => $rates['error']
+            ];
+        }
+
         if (empty($rates) || !is_array($rates)) {
             return [
                 'error' => $this->lang['fetch_error'],
@@ -738,8 +751,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     private function getConfiguredExchangeData()
     {
-        $id = 'exchangeratehost';
-        $api_url = "https://api.exchangerate.host/latest";
+        $id = 'fixer';
+        $api_url = "https://api.apilayer.com/fixer/latest";
         $headers = [];
         $fixer_apikey = $this->getSetting('fixer_apikey');
 
@@ -789,7 +802,8 @@ class Currency extends CalculateAnything implements CalculatorInterface
         return [
             'id' => $id,
             'url' => $api_url,
-            'headers' => $headers
+            'headers' => $headers,
+            'apiKey' => $fixer_apikey
         ];
     }
 
