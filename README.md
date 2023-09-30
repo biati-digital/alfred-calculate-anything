@@ -31,13 +31,13 @@ Starting from Mac OS Monterey Apple removed PHP so you have to install it manual
 
 1.- Install Homebrew
 
-```
+```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 2.- Install PHP
 
-```
+```sh
 brew install php
 ```
 
@@ -63,7 +63,7 @@ If you are using Alfred 5 you can use the new workflow configuration panel.
 
 You can use natural language or a few characters -- that's all! For example:
 
-```
+```sql
 - 100 us dollars in mexican pesos
 - 100 canadian dollars in argentinian peso
 - 100 euros to dollars
@@ -82,6 +82,7 @@ You can use natural language or a few characters -- that's all! For example:
 You can set a base currencies so if you type for example **120 euros** it will be automatically converted to the currencies that you configured.
 
 All these examples just work. You can add spaces between the value and the currency or not.
+
 <p align="center">
 <img src="/assets/gifts/currency-v3.gif?raw=true">
 </p>
@@ -91,15 +92,15 @@ All these examples just work. You can add spaces between the value and the curre
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
 - **Return**
-Press Return to copy the value with format, for example 2,376.54
+   Press Return to copy the value with format, for example 2,376.54
 - **Command + Return**
-Press Command + Return to copy the value without formatting, for example 2376.54
+   Press Command + Return to copy the value without formatting, for example 2376.54
 - **Option + Return**
-Press Option + Return to copy the value of a single unit, for example 23.76
+   Press Option + Return to copy the value of a single unit, for example 23.76
 
-### Currency API Key (not required but will provide a lot more currencies)
+### Currency API Key
 
-By default the workflow will use exchangeratehost api to make the conversion. exchangeratehost only support 32 currencies; if you need support for additional currencies supported by Calculate Anything, you need to get a _free_ API key from [https://fixer.io](https://fixer.io) -- it takes less than a minute! You can configure the API key in the new workflow configuration window.
+You need to get a _free_ API key from [https://fixer.io](https://fixer.io) -- it takes less than a minute! You can configure the API key in the new workflow configuration window.
 
 ### Currency Symbols
 
@@ -151,7 +152,7 @@ TT$        | TTD            | Trinidad and Tobago dollar
 
 Calculate Anything can convert between 5,000 cryptocurrencies and you can define your own. Again, you can use natural language or simply pass the currency symbol.
 
-```
+```sql
 - 2 bitcoins to dollars
 - 0.1 bitcoin in dollars
 - 5 bitcoins in ethereum
@@ -170,11 +171,11 @@ Calculate Anything can convert between 5,000 cryptocurrencies and you can define
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
 - **Return**
-Press Return to copy the value with format, for example 2,376.54
+   Press Return to copy the value with format, for example 2,376.54
 - **Command + Return**
-Press Command + Return to copy the value without formatting, for example 2376.54
+   Press Command + Return to copy the value without formatting, for example 2376.54
 - **Option + Return**
-Press Option + Return to copy the value of a single unit, for example 23.76
+   Press Option + Return to copy the value of a single unit, for example 23.76
 
 ### Cryptocurrency Api Key
 
@@ -184,7 +185,7 @@ You need to get a free API key from [https://coinmarketcap.com/api/pricing/](htt
 
 You can write your query using natural language or just a few characters. Either way works!
 
-```
+```sql
 - 100 kilometers to meters
 - 100 km in meters
 - 100 km m
@@ -220,11 +221,11 @@ If you don't remember the unit abbreviation, simply type the name of the unit. F
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
 - **Return**
-Press Return to copy the value with format, for example 2,376.54
+   Press Return to copy the value with format, for example 2,376.54
 - **Command + Return**
-Press Command + Return to copy the value without formatting, for example 2376.54
+   Press Command + Return to copy the value without formatting, for example 2376.54
 - **Option + Return**
-Press Option + Return to copy the value of a single unit, for example 23.76
+   Press Option + Return to copy the value of a single unit, for example 23.76
 
 Here is a list of all available units and their names just to make this README even longer.
 
@@ -362,7 +363,7 @@ mev     | Mega Electron Volt
 
 You can write your query using natural language or just a few characters. Either way works!
 
-```
+```sql
 - 100 gigabytes in megabytes
 - 100 gigas in megas
 - 100 Mebibytes in Kibibytes
@@ -378,7 +379,7 @@ You can write your query using natural language or just a few characters. Either
 <img src="/assets/gifts/datastorage-v3.gif?raw=true">
 </p>
 
-Please note, this workflow follows the **IEC Standard (International Electrotechnical Commission)** as it had been adopted by the IEEE, EU, and NIST. That means that if you type `1MB in KB` you will get `1000 KB` but if you type `1MiB in KiB` you will get `1024 KB`, you can read more about it here [Multiple-byte_units](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
+Please note, this workflow follows the __IEC Standard (International Electrotechnical Commission)__ as it had been adopted by the IEEE, EU, and NIST. That means that if you type `1MB in KB` you will get `1000 KB` but if you type `1MiB in KiB` you will get `1024 KB`, you can read more about it here [Multiple-byte_units](https://en.wikipedia.org/wiki/Byte#Multiple-byte_units)
 
 Do you prefer **1 MB = 1024 KB**? No problem, you can configure it using the Configure Workflow window.
 
@@ -387,9 +388,9 @@ Do you prefer **1 MB = 1024 KB**? No problem, you can configure it using the Con
 When a result is displayed you can use action modifiers to copy the value in different formats:
 
 - **Return**
-Press Return to copy the value with format, for example 2,376.54
+   Press Return to copy the value with format, for example 2,376.54
 - **Command + Return**
-Press Command + Return to copy the value without formatting, for example 2376.54
+   Press Command + Return to copy the value without formatting, for example 2376.54
 
 #### Data Storage Available Units
 
@@ -418,7 +419,7 @@ YiB      | Yobibyte
 
 You can easily calculate percentages. For example:
 
-```
+```sh
 - 40 as a % of 50  // 40 is 80% of 50
 - 20 is what % of 50 // 20 is 40% of 50
 - 15% of 50 = 7.50  // 7.5 equals to 15% of 50
@@ -442,7 +443,7 @@ Translations and natural language can also be used
 
 Open Alfred, type `12px` and you'll see the value converted to em, rem and pt. It's that simple. Check the examples below.
 
-```
+```sql
 - 12px
 - 12px to em
 - 2 rem
@@ -457,7 +458,7 @@ Open Alfred, type `12px` and you'll see the value converted to em, rem and pt. I
 
 Given its less frequently used, time conversions require the use of the keyword **time**.
 
-```
+```sql
 # converts the timestamp to a regular date
 - time 1577836800
 
@@ -510,7 +511,6 @@ Given its less frequently used, time conversions require the use of the keyword 
 The following options are available.  Simply launch Alfred, type `ca` and select any of the options below. [View the configuration section for more info](#configuration).
 
 - **Set base timezone** Base time zone used to calculate dates in your time zone, search and select your zone from the list and press Return to save it.
-
 - **Add date format** Configure a new date format so the date is displayed the way you want, for example **j F, Y, g:i:s a** ([more information about available values for date](https://www.php.net/manual/en/function.date.php))
 
 ## VAT (Value Added Tax)
@@ -523,7 +523,7 @@ With this you can calculate the VAT for a given amount. Like time, VAT is also t
 
 Given the following query
 
-```
+```sh
 vat of 400 (with a 16% VAT configured, a percentage you can configure)
 ```
 
@@ -548,14 +548,14 @@ To create your own translation, just follow these steps:
 1. Copy and paste `/lang/en_EN.php` and `/lang/en_EN-keys.php` into the same folder
 2. Change the name of the pasted files to your country lang code, for example `ru_RU.php` and `ru_RU-keys.php`
 3. Open and translate `ru_RU.php`
-4. Open and modify `ru_RU-keys.php`. **Read more about this file in the section Keywords**.
+4. Open and modify `ru_RU-keys.php`. __Read more about this file in the section Keywords__.
 5. Share it with the world -- and me! (I welcome pull requests or links to services like pastebin.com)
 
 ## Keywords
 
 Keywords are words that can be used when writing a query in natural language. For example, by default, the keyword "ounces" will be converted to "oz", "kilometers" will be converted to "km" and "dollars" will be converted to "USD". Keywords allow the user to type in a more natural way and in their own language.
 
-```
+```rb
 'units' => [
     'hours' => 'hr',
     'hour' => 'hr',
@@ -590,7 +590,7 @@ If the word "equals" is not registered in the `stop_words` array then it won't b
 
 You can modify stop words in the same keys file, for example `/lang/en_EN-keys.php`.
 
-```
+```html
 'units' => [
     'hours' => 'hr',
     'hour' => 'hr',
