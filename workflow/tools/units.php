@@ -457,7 +457,6 @@ class Units extends CalculateAnything implements CalculatorInterface
     private function extractQueryData($query)
     {
         $matches = [];
-        $query = str_replace(',', '', $query);
         $stopwords = $this->getStopWordsString($this->stop_words);
 
         preg_match('/^([-\d+\.,\s]*) ?' . $this->match_units . ' ?' . $stopwords . '? ' . $this->match_units . '$/i', $query, $matches);
