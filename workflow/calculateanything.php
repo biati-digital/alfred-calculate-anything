@@ -173,7 +173,7 @@ class CalculateAnything
      */
     public function processVat()
     {
-        $query = preg_replace('/[^\\d.]+/', '', self::$_query);
+        $query = preg_replace('/[^\\d.,]+/', '', self::$_query);
         $vatCalculator = new Vat($query);
         $data = $vatCalculator->getVatOf($query);
         return $vatCalculator->output($data);
@@ -676,20 +676,23 @@ class CalculateAnything
         curl_setopt($curl, CURLOPT_FAILONERROR, true);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
         $req = curl_exec($curl);
 
         if (curl_errno($curl)) {
             $error_msg = curl_error($curl);
-            print_r('CURL FAILED: request to ' . $to . ' failed, error was ' . $error_msg);
-            return false;
+            // print_r('CURL FAILED: request to ' . $to . ' failed, error was ' . $error_msg);
+            $req = ['error' => $error_msg];
+            return $req;
         }
 
         curl_close($curl);
 
         if (empty($req)) {
-            print_r('CURL EMPTY RESPONSE: request to ' . $to . ' returned empty ');
-            return false;
+            // print_r('CURL EMPTY RESPONSE: request to ' . $to . ' returned empty ');
+            $req = ['error' => 'CURL EMPTY RESPONSE'];
+            return $req;
         }
 
         try {
