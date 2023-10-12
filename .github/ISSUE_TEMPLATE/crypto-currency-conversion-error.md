@@ -9,11 +9,14 @@ assignees: ''
 
 **Before you create an issue make sure to follow this steps so you can provide concise information**
 
-1.- **Did you configure your Fixer API key?**
+1.- **Did you configure your Coinmarket API key?**
 
 The workflow requires an API key for currency conversion, you need to configure it first. Please check the readme for more information.
 
-2.- **If you have added an API key but it's not working**
+2.- **Did you clear the workflow cache**
+In some cases you need to clear the cache, just open Alfred and type `_caclear`
+
+3.- **If you have added an API key but it's not working**
 
 If the workflow does not display rates then it's not able to get the currency data. You need to test that your API key is working and that you are able to connect to the service. To test your API key follow this steps:
 
@@ -21,9 +24,7 @@ If the workflow does not display rates then it's not able to get the currency da
 - Enter the following command, replace `APIKEY_HERE` with your own key and press enter.
 
 ```
-curl "https://api.apilayer.com/fixer/latest?base=USD" \
-     -H 'apikey: APIKEY_HERE' \
-     -H 'Content-Type: text/plain'
+curl "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=APIKEYHERE"
 ```
 - If your API key is woking and you are able to connect to the service you will see a lot of text, all currencies with their value. 
 
