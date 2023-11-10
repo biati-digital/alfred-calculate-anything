@@ -78,7 +78,7 @@ When a result is displayed you can use action modifiers to copy the value in dif
 
 ### Currency API Key
 
-You need to get a _free_ API key from [https://fixer.io](https://fixer.io) -- it takes less than a minute! You can configure the API key in the new workflow configuration window.
+You need to get a _free_ API key from [https://fixer.io](https://fixer.io) -- it takes less than a minute! You should add the API key as a new environment variable named `fixer_apikey` within the workflow: Alfred Preferences -> Workflows -> Prepare workflow configuration and variables -> Environment Variables.
 
 ### Currency Symbols
 
@@ -157,7 +157,7 @@ When a result is displayed you can use action modifiers to copy the value in dif
 
 ### Cryptocurrency Api Key
 
-You need to get a free API key from [https://coinmarketcap.com/api/pricing/](https://coinmarketcap.com/api/pricing/). This takes less than a minute.
+You need to get a free API key from [https://coinmarketcap.com/api/pricing/](https://coinmarketcap.com/api/pricing/). This takes less than a minute. You should add the API key as a new environment variable named `coinmarket_apikey` within the workflow: Alfred Preferences -> Workflows -> Prepare workflow configuration and variables -> Environment Variables.
 
 ## Units
 
