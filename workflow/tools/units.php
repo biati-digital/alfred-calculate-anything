@@ -103,7 +103,7 @@ class Units extends CalculateAnything implements CalculatorInterface
                     'ukpt' => 0.56826125, //pint
                     'gal' => 3.78541, //gallon
                     'usgal' => 3.78541, //us gallon
-                    'ukgal' => 4.405, //uk gallon
+                    'ukgal' => 4.54609, //uk gallon
                     'qt' => 0.946353, //quart
                     'usqt' => 0.946353, //us quart
                     'ukqt' => 1.1365225, //uk imperial quart
