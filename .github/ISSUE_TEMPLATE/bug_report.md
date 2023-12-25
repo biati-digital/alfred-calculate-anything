@@ -10,7 +10,7 @@ assignees: ''
 If you have a problem with the workflow please answer the following questions. Please note that the workflow is only compatible with Alfred 5.
 
 **is your problem related to the PHP binary, PHP Path, PHP installation, etc.?**
-The workflow does **NOT** handle anything related to the PHP binary, that's entirely Alfred, if you need help with this topic please use the [https://www.alfredforum.com/topic/13974-calculate-anything/#comments](Alfred forum) to get more help.
+The workflow does **NOT** handle anything related to the PHP binary, that's entirely Alfred, if you need help with this topic please use the [Alfred forum](https://www.alfredforum.com/topic/13974-calculate-anything/#comments) to get more help.
 
 **Are you using the latest version of the workflow?**
 Before creating an issue make sure you are using the latest version, you can find the latest version in the [releases page](https://github.com/biati-digital/alfred-calculate-anything/releases)
