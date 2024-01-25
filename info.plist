@@ -3561,7 +3561,7 @@ If you need help please do not hesitate to open an issue filling all the questio
 				<true/>
 			</dict>
 			<key>description</key>
-			<string>Not mandatory. By default you have access to 32 currencies, If you need access to more than 150 currencies you can add a free API key. It takes less than a minute to get the key from https://fixer.io.</string>
+			<string>Required for currency conversion. A free API key, covering up to 100 requests per month, can be acquired at https://fixer.io.</string>
 			<key>label</key>
 			<string>Fixer API</string>
 			<key>type</key>
