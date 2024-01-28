@@ -383,7 +383,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
             'valid' => false,
             'arg' => '',
         ];
-        if (isset($error['reload'])) {
+        if (!empty($error['reload'])) {
             $items['rerun'] = $error['reload'];
         }
         return $items;
