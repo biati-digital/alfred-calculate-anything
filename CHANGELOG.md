@@ -1,5 +1,9 @@
 # Changelog
 
+### v4.0.7
+
+- Fixed: Removed old file from process
+
 ### v4.0.6
 
 - Improved: Percentages matcher
