@@ -282,14 +282,20 @@ class Units extends CalculateAnything implements CalculatorInterface
             return false;
         }
 
+
+        list($res, $matches) = $this->splitQuery($this->query);
+        return $res;
+    }
+
+    public function splitQuery($query) {
         $query = $this->query;
         $units = $this->matchRegex();
         $stopwords = $this->getStopWordsString($this->stop_words);
         $this->match_units = $units;
-
-        return preg_match('/^([-\d+\.,\s]*) ?' . $units . ' ?' . $stopwords . '? ' . $units . '$/i', $query, $matches);
+        $matches = [];
+        $res = preg_match('/^([-\d+\.,\s]*) ?' . $units . ' ?' . $stopwords . '? ' . $units . '?$/i', $query, $matches);
+        return array($res, $matches);
     }
-
 
     /**
      * Process query
@@ -300,9 +306,26 @@ class Units extends CalculateAnything implements CalculatorInterface
     {
         $query = $this->query;
         $data = $this->extractQueryData($query);
-        $conversion = $this->convert($data);
 
-        return $this->output($conversion);
+        $targets = [$data['to']];
+
+        if ($data['from'] == $data['to']) {
+            $units = $this->units();
+            $fromType = $this->getUnitType($data['from']);
+            if (isset($units[$fromType]['units'])) {
+                $targets = array_keys($units[$fromType]['units']);
+            }
+        }
+
+        $res = [];
+        for ($i = 0; $i < count($targets); $i++) {
+            $data['to'] = $targets[$i];
+            $conversion = $this->convert($data);
+            $res = array_merge($res, $this->output($conversion));
+        }
+
+        return $res;
+
     }
 
     /**
@@ -456,10 +479,9 @@ class Units extends CalculateAnything implements CalculatorInterface
      */
     private function extractQueryData($query)
     {
-        $matches = [];
         $stopwords = $this->getStopWordsString($this->stop_words);
 
-        preg_match('/^([-\d+\.,\s]*) ?' . $this->match_units . ' ?' . $stopwords . '? ' . $this->match_units . '$/i', $query, $matches);
+        list($res, $matches) = $this->splitQuery($query);
 
         if (empty($matches)) {
             return false;
@@ -470,7 +492,7 @@ class Units extends CalculateAnything implements CalculatorInterface
         $from = $this->getCorrectunit(\Alfred\getArgument($matches, 2));
         $to = $this->getCorrectunit(\Alfred\getArgument($matches, $total_match - 1));
 
-        if (empty($from) || empty($to)) {
+        if (empty($from)) {
             return false;
         }
 
