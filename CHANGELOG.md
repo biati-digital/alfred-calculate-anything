@@ -1,5 +1,13 @@
 # Changelog
 
+### v4.0.3
+
+- Improved: Percentages matcher
+- Improved: Added RMB alias of CNY
+- Fixed: Updated currency conversion error output
+- Fixed: Updated cryptocurrency conversion error output
+- Fixed: Updated API Key description in config window
+  
 ### v4.0.2
 
 - Fixed: Missing normalizer_normalize on certain PHP installations
