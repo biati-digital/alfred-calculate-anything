@@ -316,10 +316,10 @@ function cleanQuery($query)
     // Normalize UTF-8 to avoid non matching characters that should
     // be identical. (canonically composed vs precomposed characters)
     // Using normalizer_normalize if it exits in the PHP installation
-    if(function_exists('normalizer_normalize')) {
+    if (function_exists('normalizer_normalize')) {
         $clean = normalizer_normalize($clean);
     } else {
-        // If normalizer isn't installed, 
+        // If normalizer isn't installed,
         // just convert the special characters in the -keys files
         $normalized_chars = [
             "a\xCC\x8A" => 'å',
@@ -575,7 +575,7 @@ function getTranslation($key = '', $lang = '')
     }
 
     // Return default lang if translation not found
-    if (!is_array($translations) || empty($translations)) {
+    if (empty($translations) || !is_array($translations)) {
         return getTranslation($key, $default_lang);
     }
 
