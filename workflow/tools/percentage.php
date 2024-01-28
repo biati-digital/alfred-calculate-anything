@@ -52,7 +52,8 @@ class Percentage extends CalculateAnything implements CalculatorInterface
             $query = str_replace($k, $value, trim($query));
         }
 
-        preg_match('/^([0-9,.\s]+)\s?' . $stopwords . '\s?(\d*\.?\d*%?)/i', $query, $matches);
+        // preg_match('/^([0-9,.\s]+)\s?' . $stopwords . '\s?(\d*\.?\d*%?)/i', $query, $matches);
+        preg_match('/^(\d*\.?\d*%?)\s?' . $stopwords . '\s?(\d*\.?\d*%?)/i', $query, $matches);
 
         if (empty($matches)) {
             return false;
