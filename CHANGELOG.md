@@ -1,12 +1,25 @@
 # Changelog
 
-### v4.0.3
+### v4.0.6
 
 - Improved: Percentages matcher
 - Improved: Added RMB alias of CNY
 - Fixed: Updated currency conversion error output
 - Fixed: Updated cryptocurrency conversion error output
 - Fixed: Updated API Key description in config window
+
+### v4.0.5
+
+- Fixed: rerun was returning false to Alfred and caused an issue in some cases
+
+### v4.0.4
+
+- Improved: Display error message if no API key is set
+- Improved: Minor bug fixes
+
+### v4.0.3
+
+- Improved: exchangeratehost now requires an API key so it has been removed in favor of Fixer.io, there's no point in maintaining two different services if both require user registration to get an API key
   
 ### v4.0.2
 
