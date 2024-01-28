@@ -280,6 +280,7 @@ return [
         'Z$' => 'ZWD',
         'dollar' => 'USD',
         'dollars' => 'USD',
+        'RMB' => 'CNY',
 
         'stop_words' => ['to', '=', 'in', 'as'],
     ],
