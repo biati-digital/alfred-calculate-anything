@@ -46,7 +46,7 @@ switch ($action) {
         $processed = $calculate->processQuery();
 }
 
-if (isset($processed['rerun'])) {
+if (!empty($processed['rerun'])) {
     $alfred['rerun'] = $processed['rerun'];
     unset($processed['rerun']);
 
