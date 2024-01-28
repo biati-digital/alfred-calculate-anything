@@ -3739,7 +3739,7 @@ If you need help please do not hesitate to open an issue filling all the questio
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>4.0.6</string>
+	<string>4.0.7</string>
 	<key>webaddress</key>
 	<string>https://github.com/biati-digital/alfred-calculate-anything</string>
 </dict>
