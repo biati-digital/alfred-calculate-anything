@@ -91,3 +91,4 @@ assets/update.afphoto
 .idea/inspectionProfiles/Project_Default.xml
 *.lock
 tests.txt
+.ddev/config.yaml
