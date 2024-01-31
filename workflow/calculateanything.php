@@ -95,6 +95,12 @@ class CalculateAnything
         // the passed query must have at least 3 characters
         // being the first one a number
         if ($lenght < 3 || ($query[0] !== '-' && !is_numeric($query[0])) || ($query[0] === '-' && !is_numeric($query[1]))) {
+            self::$currencyCalculator = new Currency($query);
+            $currency = self::$currencyCalculator;
+            self::$cryptocurrencyCalculator = new Cryptocurrency($query);
+            if($currency->shouldProcess($lenght)){
+                return $currency->processQuery();
+            }
             return false;
         }
 

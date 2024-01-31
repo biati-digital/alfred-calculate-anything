@@ -248,7 +248,7 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $currencies = $this->matchRegex();
         $stopwords = $this->getStopWordsString($this->stop_words);
 
-        return preg_match('/^([-\d+\.,\s]*) ?' . $currencies . ' ?' . $stopwords . '?/i', $query, $matches);
+        return preg_match('/^' . $currencies . '? ?' . '([-\d+\.,\s]*) ?' . $currencies . '? ?' . $stopwords . '?/i', $query, $matches);
     }
 
 
@@ -541,13 +541,14 @@ class Currency extends CalculateAnything implements CalculatorInterface
         $to = '';
         $default_currency = $this->getBaseCurrency();
         $stopwords = $this->getStopWordsString($this->stop_words, ' %s ');
+        $currencies = $this->matchRegex();
 
-        preg_match('/^([0-9,.\s]+)[^\d]/i', $query, $amount_match);
+        preg_match('/^' . $currencies . '? ?' . '([0-9,.\s]+)/i', $query, $amount_match);
         if (empty($amount_match)) {
             return false;
         }
 
-        $amount = \Alfred\getArgument($amount_match, 1);
+        $amount = \Alfred\getArgument($amount_match, count($amount_match) - 1);
         $amount = trim($amount);
         $string = str_replace($amount, '', $query);
         $string = trim($string);
