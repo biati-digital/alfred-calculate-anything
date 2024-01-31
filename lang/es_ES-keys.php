@@ -51,6 +51,8 @@ return [
         'pulgada' => 'in',
         'litros' => 'l',
         'litro' => 'l',
+        'taza' => 'cup',
+        'tazas' => 'cup',
         'pintas' => 'pt',
         'pinta' => 'pt',
         'mililitros' => 'ml',

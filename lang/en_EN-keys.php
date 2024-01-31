@@ -75,6 +75,8 @@ return [
         'inch' => 'in',
         'liters' => 'l',
         'liter' => 'l',
+        'cups' => 'cup',
+        'cup' => 'cup',
         'pints' => 'pt',
         'pint' => 'pt',
         'us pints' => 'uspt',

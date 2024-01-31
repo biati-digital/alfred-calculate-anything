@@ -162,6 +162,7 @@ return [
         'l'   => 'Liter',
         'ml'  => 'Milliliter',
         'm3'  => 'Kubikmeter',
+        'kopp' => 'Kopp',
         'pt'  => 'Pint',
         'gal' => 'Galon',
 
