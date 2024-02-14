@@ -31,8 +31,7 @@ class CalculateAnything
         'language',
         'base_currency',
         'coinmarket_apikey',
-        'fixer_apikey',
-        'fixer_apisource',
+        'openexchangerate_apikey',
         'time_format',
         'time_zone',
         'vat_percentage',
@@ -54,7 +53,7 @@ class CalculateAnything
         'number_output_format',
         'timezone',
         'base_currencies',
-        'apikey_fixer',
+        'apikey_openexchangerate',
         'apikey_coinmarket',
         'currency_decimals',
         'crypto_decimals',
@@ -420,8 +419,8 @@ class CalculateAnything
                 $settings['base_currency'] = str_replace(' ', '', $new_settings['base_currencies']);
                 $settings['base_currency'] = explode(',', $settings['base_currency']);
             }
-            if (!empty($new_settings['apikey_fixer'])) {
-                $settings['fixer_apikey'] = $new_settings['apikey_fixer'];
+            if (!empty($new_settings['apikey_openexchangerate'])) {
+                $settings['openexchangerate_apikey'] = $new_settings['apikey_openexchangerate'];
             }
             if (!empty($new_settings['apikey_coinmarket'])) {
                 $settings['coinmarket_apikey'] = $new_settings['apikey_coinmarket'];

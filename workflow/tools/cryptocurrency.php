@@ -339,7 +339,7 @@ class Cryptocurrency extends CalculateAnything implements CalculatorInterface
 
 
     /**
-     * Fixer conversion
+     * Open Exchange Rates conversion
      *
      * @param int $amount
      * @param string $from

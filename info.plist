@@ -402,7 +402,7 @@ include_once "./process.php";</string>
 				<key>script</key>
 				<string>$query = "{query}";
 if (is_numeric(mb_substr($query, 0, 1))) {
-	$query = "0.{query}";	
+	$query = "0.{query}";
 	include_once "./process.php";
 }</string>
 				<key>scriptargtype</key>
@@ -455,7 +455,7 @@ if (is_numeric(mb_substr($query, 0, 1))) {
 				<key>script</key>
 				<string>$query = "{query}";
 if (is_numeric(mb_substr($query, 0, 1))) {
-	$query = "-{query}";	
+	$query = "-{query}";
 	include_once "./process.php";
 }</string>
 				<key>scriptargtype</key>
@@ -3561,13 +3561,13 @@ If you need help please do not hesitate to open an issue filling all the questio
 				<true/>
 			</dict>
 			<key>description</key>
-			<string>Required for currency conversion. A free API key, covering up to 100 requests per month, can be acquired at https://fixer.io.</string>
+			<string>Required for currency conversion. A free API key, covering up to 1.000 requests per month, can be acquired at https://openexchangerates.org/signup/free.</string>
 			<key>label</key>
-			<string>Fixer API</string>
+			<string>Open Exchange Rates API</string>
 			<key>type</key>
 			<string>textfield</string>
 			<key>variable</key>
-			<string>apikey_fixer</string>
+			<string>apikey_openexchangerates</string>
 		</dict>
 		<dict>
 			<key>config</key>

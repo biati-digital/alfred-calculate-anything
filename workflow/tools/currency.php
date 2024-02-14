@@ -479,33 +479,11 @@ class Currency extends CalculateAnything implements CalculatorInterface
         }
 
         if (isset($exchange['error'])) {
-            $error_message = !empty($exchange['error']['info']) ? $exchange['error']['info'] : $exchange['error'];
-            return [
-                'total' => '',
-                'single' => '',
-                'error' => $error_message,
-                'reload' => isset($exchange['reload']) ? $exchange['reload'] : false,
-            ];
-        }
-
-        if (
-            isset($exchange['message']) &&
-            (str_contains($exchange['message'], 'Invalid') || str_contains($exchange['message'], 'API key'))
-        ) {
             return [
                 'total' => '',
                 'single' => '',
                 'error' => $exchange['message'],
-                'reload' => false
-            ];
-        }
-
-        if (isset($exchange['reload'])) {
-            return [
-                'total' => '',
-                'single' => '',
-                'error' => $exchange['message'],
-                'reload' => $exchange['reload'],
+                'reload' => false,
             ];
         }
 
@@ -637,7 +615,6 @@ class Currency extends CalculateAnything implements CalculatorInterface
      *
      * it should return an array in the following format
      * [
-     *     [success] => 1
      *     [base] => EUR
      *     [rates] => [
      *        [AED] => 3.94891
@@ -650,18 +627,16 @@ class Currency extends CalculateAnything implements CalculatorInterface
      */
     private function getRates()
     {
-        $configured_exchange = $this->getConfiguredExchangeData();
         $cache_seconds = $this->rates_cache_seconds;
-        $id = $configured_exchange['id'];
-        $from = $configured_exchange['url'];
-        $api_key = $configured_exchange['apiKey'];
-        $http_headers = $configured_exchange['headers'];
+        $id = 'openexchangerates';
+        $api_key = $this->getSetting('openexchangerate_apikey');
+        $from = "https://openexchangerates.org/api/latest.json?app_id=$api_key";
         $cache_path = \Alfred\getDataPath('cache');
         $dir = $cache_path . '/' . $id;
 
         if (empty($api_key)) {
             return [
-                'message' => $this->lang['nofixerapikey_title']
+                'message' => $this->lang['noopenexchangerateapikey_title']
             ];
         }
 
@@ -675,18 +650,14 @@ class Currency extends CalculateAnything implements CalculatorInterface
             $rates = file_get_contents($rates_file);
             if (!empty($rates)) {
                 $rates = json_decode($rates, true);
-                $updated = isset($rates['last_updated']) ? $rates['last_updated'] : null;
-
-                if (is_null($updated)) {
-                    $updated = isset($rates['timestamp']) ? $rates['timestamp'] : date(strtotime('today - 3 days'));
-                }
+                $updated = isset($rates['timestamp']) ? $rates['timestamp'] : date(strtotime('today - 3 days'));
 
                 $time = time() - $updated;
 
                 // Only return cached rates if cache
                 // has not expired otherwise continue
                 // to fetch the new rates
-                if ($rates['success'] && $time < $cache_seconds) {
+                if (!$rates['error'] && $time < $cache_seconds) {
                     self::$rates = $rates;
                     return $rates;
                 }
@@ -706,15 +677,13 @@ class Currency extends CalculateAnything implements CalculatorInterface
             ];
         }
 
-        if (empty($http_headers)) {
-            $http_headers = ['Accepts: application/json'];
-        }
+        $http_headers = ['Accepts: application/json'];
 
         $rates = $this->doRequest($from, $http_headers);
 
-        if (!empty($rates['error'])) {
+        if (isset($rates['error'])) {
             return [
-                'error' => $rates['error']
+                'error' => $rates['message']
             ];
         }
 
@@ -727,84 +696,11 @@ class Currency extends CalculateAnything implements CalculatorInterface
 
         $rates['last_updated'] = time();
 
-        if (isset($rates['success']) && $rates['success']) {
-            file_put_contents($rates_file, json_encode($rates));
-        }
+        file_put_contents($rates_file, json_encode($rates));
 
         self::$rates = $rates;
 
         return $rates;
-    }
-
-
-    /**
-     * The entire pourpose of this method
-     * is to get the correct API endpoint
-     * it requires a big ass method
-     * because fixer changed it's endpoint a few months ago
-     * we need to verify if the user API is from
-     * the previous endpoint or the new one
-     * and store it in a workflow variable
-     * once the old endpoint stops working completely
-     * we can remove this method and just add
-     * the urls directly in the getRates method
-     */
-    private function getConfiguredExchangeData()
-    {
-        $id = 'fixer';
-        $api_url = "https://api.apilayer.com/fixer/latest";
-        $headers = [];
-        $fixer_apikey = $this->getSetting('fixer_apikey');
-
-        if (!empty($fixer_apikey)) {
-            $id = 'fixer';
-            $apiSource = \Alfred\getVariable('fixer_source_api', '');
-            $old_api = "http://data.fixer.io/api/latest?access_key={$fixer_apikey}&format=1";
-            $new_url = 'https://api.apilayer.com/fixer/latest';
-            $new_headers = [
-                "Content-Type: text/plain",
-                "apikey: {$fixer_apikey}",
-            ];
-
-            // Fixer moved it's API to API layer
-            // old API keys will not work with API Layer and new API Keys
-            // will not work with the old API URL we need to validate
-            // the API key and save the correct source to avoid duplicated
-            // API calls, eventually the old API will stop working
-            // make request to check what's the correct endpoint
-            if (empty($apiSource)) {
-                $req = $this->doRequest($old_api);
-
-                if ($req && !empty($req['success'])) {
-                    $apiSource = 'fixer_io';
-                } else {
-                    // If the API key does not work with the deprecated url, try with the new one
-                    $req = $this->doRequest($new_url, $new_headers);
-                    if ($req && !empty($req['success'])) {
-                        $apiSource = 'fixer_apilayer';
-                    }
-                }
-
-                if (!empty($apiSource)) {
-                    \Alfred\setVariable('fixer_source_api', $apiSource, false);
-                }
-            }
-
-            if ($apiSource === 'fixer_io') {
-                $api_url = $old_api;
-            }
-            if ($apiSource === 'fixer_apilayer') {
-                $api_url = $new_url;
-                $headers = $new_headers;
-            }
-        }
-
-        return [
-            'id' => $id,
-            'url' => $api_url,
-            'headers' => $headers,
-            'apiKey' => $fixer_apikey
-        ];
     }
 
 
