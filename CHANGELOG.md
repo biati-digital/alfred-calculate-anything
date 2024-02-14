@@ -1,5 +1,9 @@
 # Changelog
 
+### NEXT
+
+- New: Use OpenExchangeRates to convert currencies. This replaces Fixer.io.
+
 ### v4.0.7
 
 - Fixed: Removed old file from process
@@ -24,7 +28,7 @@
 ### v4.0.3
 
 - Improved: exchangeratehost now requires an API key so it has been removed in favor of Fixer.io, there's no point in maintaining two different services if both require user registration to get an API key
-  
+
 ### v4.0.2
 
 - Fixed: Missing normalizer_normalize on certain PHP installations
@@ -57,7 +61,7 @@
 - Removed: The old key `ca` to configure the workflow is removed
 - Removed: Convertor library was removed
 - Many fixes and improvements to list them all.
-  
+
 ### v3.5.0
 
 - Changed: Currency conversion is prioritized over cryptocurrencies, there`s thousands of useless cryptocurrencies and some use the same code, for example British Pound and Crypto Good Boy Points both use the code GBP, now if you try to convert 100 GBP it will default to British Pound, you can still configure it to use the crypto if you prefer it that way

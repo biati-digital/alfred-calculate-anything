@@ -78,7 +78,7 @@ When a result is displayed you can use action modifiers to copy the value in dif
 
 ### Currency API Key
 
-You need to get a _free_ API key from [https://fixer.io](https://fixer.io) -- it takes less than a minute! You can configure the API key in the new workflow configuration window.
+You need to get a _free_ API key from [https://openexchangerates.org](https://openexchangerates.org/signup/free) -- it takes less than a minute! You can configure the API key in the new workflow configuration window.
 
 ### Currency Symbols
 

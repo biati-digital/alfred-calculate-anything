@@ -10,8 +10,8 @@ This is a list of Environment Variables that you can use to configure the workfl
 
 - `language` the value can be `en_EN`, `es_ES` or `sv_SE`
 - `base_currency` the value can be `MXN` or multiple currencies separated by comma `MXN, EUR`
-- `fixer_apikey` Enter your Fixer API Key
-- `coinmarket_apikey` Enter your Fixer API Key
+- `openexcahgenrates_apikey` Enter your Open Exchange Rates API Key
+- `coinmarket_apikey` Enter your CoinMarket API Key
 - `time_format` the value can be `["j F, Y, g:i:s a"]`
 - `time_zone` for example `America/Mexico_City`
 - `vat_percentage` for example `16%`
